@@ -11,7 +11,21 @@
             </a>
             <div class="flex items-baseline space-x-2">
                 <x-navs.link route="#">{{ __('Tourneys') }}</x-navs.link>
-                <x-navs.link route="#">{{ __('Game Server') }}</x-navs.link>
+                <x-dropdown>
+                    <x-slot name="trigger">
+                        <button
+                            class="hover:bg-gray-700 hover:text-blue-100 px-3 py-2 rounded-md font-medium {{ substr(Route::currentRouteName(), 0, 6) == 'server' ? 'bg-gray-900 text-white' : 'text-blue-200' }}"
+                        >
+                            {{ __('Game Server') }}
+                        </button>
+                    </x-slot>
+                    <x-dropdown-link href="#">{{ __('Monitor') }}</x-dropdown-link>
+                    <div class="border-t border-gray-500"></div>
+                    <x-dropdown-link
+                        href="#">{{ __('Best Performers') }}</x-dropdown-link>
+                    <x-dropdown-link
+                        href="#">{{ __('Ratings') }}</x-dropdown-link>
+                </x-dropdown>
             </div>
         </div> {{-- End of the left part --}}
 
