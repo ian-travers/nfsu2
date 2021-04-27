@@ -1,9 +1,20 @@
 {
     "Best Performers": "Звезды треков",
+    "Check back later": "Заходи попозже",
     "Game Server": "Игровой сервер",
+    "In races": "в гонке",
     "Login": "Вход",
-    "Monitor": "Мониторинг",
+    "Monitor": "Монитор",
+    "Off": "выкл.",
+    "On": "вкл.",
+    "Online": "онлайн",
+    "Online since": "онлайн с",
+    "Players": "Игроки",
     "Ratings": "Рейтинги",
     "Register": "Регистрация",
+    "Rooms guard": "Запрет на комнаты",
+    "Server is offline": "Сервер выключен",
+    "Server monitor": "Монитор игрового сервера",
+    "TJ guard": "Запрет на TJ чит",
     "Tourneys": "Турниры"
 }
