@@ -30,6 +30,8 @@
             <x-navs.link route="login">{{ __('Login') }}</x-navs.link>
             <x-navs.link route="register">{{ __('Register') }}</x-navs.link>
         @endguest
-        <x-language-switcher></x-language-switcher>
+        <div class="ml-3">
+            <x-language-switcher></x-language-switcher>
+        </div>
     </div> {{-- End of the right part --}}
 </div>
