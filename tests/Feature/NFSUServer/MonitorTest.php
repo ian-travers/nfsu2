@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Server;
+namespace Tests\Feature\NFSUServer;
 
 use App\Models\NFSUServer\RealServer;
 use Tests\TestCase;
