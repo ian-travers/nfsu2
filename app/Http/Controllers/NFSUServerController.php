@@ -19,9 +19,11 @@ class NFSUServerController extends Controller
         ]);
     }
 
-    /**
-     * @throws \Exception
-     */
+    public function bestPerformersRedirect()
+    {
+        return redirect()->route('server.best-performers', ['circuit', '1001']);
+    }
+
     public function bestPerformers(string $type, string $track)
     {
         if (!in_array($type, $this->types)) {

@@ -40,8 +40,8 @@
             <div class="text-sm font-semibold text-gray-400 tracking-widest uppercase text-center">
                 {{ __('Game Server') }}
             </div>
-            <x-navs.mobile-link route="#">{{ __('Monitor') }}</x-navs.mobile-link>
-            <x-navs.mobile-link route="#">{{ __('Best Performers') }}</x-navs.mobile-link>
+            <x-navs.mobile-link route="server.monitor">{{ __('Monitor') }}</x-navs.mobile-link>
+            <x-navs.mobile-link route="server.bestPerformersRedirect">{{ __('Best Performers') }}</x-navs.mobile-link>
             <x-navs.mobile-link route="#">{{ __('Ratings') }}</x-navs.mobile-link>
 
         </div>

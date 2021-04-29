@@ -13,6 +13,7 @@ Route::group(['middleware' => 'language'], function () {
         'as' => 'server.',
     ], function () {
         Route::get('monitor', [NFSUServerController::class, 'monitor'])->name('monitor');
+        Route::get('best-performers', [NFSUServerController::class, 'bestPerformersRedirect'])->name('bestPerformersRedirect');
         Route::get('best-performers/{type}/{track}', [NFSUServerController::class, 'bestPerformers'])->name('best-performers');
     });
 });
