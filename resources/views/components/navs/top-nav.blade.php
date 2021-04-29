@@ -1,6 +1,5 @@
 <div class="hidden md:flex items-center justify-between h-16 flex-1 px-2 sm:px-4 md:px-6">
     {{-- Left part of a menu --}}
-
     <div class="flex items-center space-x-2">
         {{-- Logo--}}
         <a href="{{ route('home') }}">
@@ -20,7 +19,7 @@
             <x-dropdown-link
                 href="{{ route('server.best-performers', ['circuit', '1001']) }}">{{ __('Best Performers') }}</x-dropdown-link>
             <x-dropdown-link
-                href="#">{{ __('Ratings') }}</x-dropdown-link>
+                href="{{ route('server.ratings', 'overall') }}">{{ __('Ratings') }}</x-dropdown-link>
         </x-dropdown>
     </div> {{-- End of the left part --}}
 

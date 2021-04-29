@@ -248,6 +248,7 @@ class BestPerformersTest extends TestCase
             ->assertSee('forward');
     }
 
+
     /** @test */
     function it_shows_the_drift_track_1()
     {

@@ -8,8 +8,7 @@ use Illuminate\Support\Collection;
 class BestPerformers extends SpecificGameData
 {
     protected string $trackId;
-    public string $filename;
-    protected Collection $ratingList;
+    protected string $filename;
 
     public function __construct(string $path, string $trackId)
     {

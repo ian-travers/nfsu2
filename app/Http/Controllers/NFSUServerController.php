@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\NFSUServer\BestPerformers;
+use App\Models\NFSUServer\Ratings;
 use App\Models\NFSUServer\RealServer;
 use App\Models\NFSUServer\SpecificGameData;
 use DomainException;
@@ -60,5 +61,50 @@ class NFSUServerController extends Controller
             'rating' => $bp->rating(),
             'title' => __('Best Performers') . ' | ' . $track,
         ]);
+    }
+
+    public function ratingsRedirect()
+    {
+        return redirect()->route('server.ratings', 'overall');
+    }
+
+    public function ratings(string $type)
+    {
+        try {
+            $ratings = new Ratings(config('nfsu-server.path') . '/stat.dat');
+        } catch (DomainException $e) {
+            return back()->with('status', [
+                'type' => 'error',
+                'message' => __('Can not connect to the NFSU server live data.')
+            ]);
+        }
+
+        switch ($type) {
+            case 'overall':
+                $ranking = $ratings->overall();
+                break;
+            case '$this->circuit()':
+                $ranking = $ratings->circuit();
+                break;
+            case 'sprint':
+                $ranking = $ratings->sprint();
+                break;
+            case 'drag':
+                $ranking = $ratings->drag();
+                break;
+            case 'drift':
+                $ranking = $ratings->drift();
+                break;
+            default:
+                return back()->with('status', [
+                    'type' => 'error',
+                    'message' => __('Invalid ranking type.')
+                ]);
+        }
+
+        $type = ucfirst($type);
+        $title = __('Ranking') . ' | ' . __($type);
+
+        return view('frontend.server.ratings', compact('ranking', 'type', 'title',));
     }
 }
