@@ -83,7 +83,7 @@ class NFSUServerController extends Controller
             case 'overall':
                 $ranking = $ratings->overall();
                 break;
-            case '$this->circuit()':
+            case 'circuit':
                 $ranking = $ratings->circuit();
                 break;
             case 'sprint':

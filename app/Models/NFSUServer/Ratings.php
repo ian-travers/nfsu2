@@ -71,35 +71,30 @@ class Ratings
 
     public function overall(): Collection
     {
-        return $this->getAll()->take(self::LIMIT);
+        return $this->getData()->take(self::LIMIT);
     }
 
     public function circuit(): Collection
     {
-        return $this->getAll('circuit')->take(self::LIMIT);
+        return $this->getData('circuit')->take(self::LIMIT);
     }
 
     public function sprint(): Collection
     {
-        return $this->getAll('sprint')->take(self::LIMIT);
+        return $this->getData('sprint')->take(self::LIMIT);
     }
 
     public function drag(): Collection
     {
-        return $this->getAll('drag')->take(self::LIMIT);
+        return $this->getData('drag')->take(self::LIMIT);
     }
 
     public function drift(): Collection
     {
-        return $this->getAll('drift')->take(self::LIMIT);
+        return $this->getData('drift')->take(self::LIMIT);
     }
 
-    public function getAll(string $type = 'overall'): Collection
-    {
-        return $this->getData($type);
-    }
-
-    protected function getData(string $type)
+    protected function getData(string $type = 'overall'): Collection
     {
         $rawData = [];
 
