@@ -42,16 +42,19 @@
             </nav>
             {{-- search --}}
             <div class="mt-2 sm:mt-0">
-                Search section
+                @livewire('search-server-player')
             </div>
         </div>
+
+        @livewire('search-result')
+
         {{-- Rating table --}}
         <h2 class="text-3xl mt-4 text-center tracking-wid font-black">{{ __($type) }}</h2>
         <div class="mt-2 sm:mt-4">
             <table class="border border-blue-400 divide-y divide-blue-200 w-full">
                 <thead>
                 <tr class="text-center divide-x divide-blue-400">
-                    <th class="py-2 px-4 w-1/12">{{ __('Rank') }}</th>
+                    <th class="py-2 px-4 w-1/12">{{ __('Rating') }}</th>
                     <th class="py-2 px-4">{{ __('Player') }}</th>
                     <th class="py-2 px-4 w-1/3 md:w-1/5 xl:w-1/6">REP</th>
                     <th class="py-2 px-4 hidden sm:table-cell w-1/12">{{ __('Wins') }}</th>

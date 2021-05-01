@@ -55,8 +55,6 @@ class Ratings
     const OFFSET_DRAG = 104;
     const OFFSET_DRIFT = 132;
 
-    const LIMIT = 299;
-
     protected string $filename;
 
     /**
@@ -71,27 +69,27 @@ class Ratings
 
     public function overall(): Collection
     {
-        return $this->getData()->take(self::LIMIT);
+        return $this->getData();
     }
 
     public function circuit(): Collection
     {
-        return $this->getData('circuit')->take(self::LIMIT);
+        return $this->getData('circuit');
     }
 
     public function sprint(): Collection
     {
-        return $this->getData('sprint')->take(self::LIMIT);
+        return $this->getData('sprint');
     }
 
     public function drag(): Collection
     {
-        return $this->getData('drag')->take(self::LIMIT);
+        return $this->getData('drag');
     }
 
     public function drift(): Collection
     {
-        return $this->getData('drift')->take(self::LIMIT);
+        return $this->getData('drift');
     }
 
     protected function getData(string $type = 'overall'): Collection

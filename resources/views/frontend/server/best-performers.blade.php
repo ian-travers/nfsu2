@@ -36,7 +36,7 @@
                 <table class="border border-blue-400 divide-y divide-blue-200 w-full">
                     <thead>
                     <tr class="text-center divide-x divide-blue-400">
-                        <th class="py-2 px-4 w-1/12">{{ __('Rank') }}</th>
+                        <th class="py-2 px-4 w-1/12">{{ __('Rating') }}</th>
                         <th class="py-2 px-4">{{ __('Player') }}</th>
                         <th class="py-2 px-4 w-1/5">{{ $type == 'Drift' ? __('Score') : __('Time') }}</th>
                         <th class="py-2 px-4 w-1/5">{{ __('Car') }}</th>
