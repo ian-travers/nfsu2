@@ -67,7 +67,7 @@
                 </thead>
                 <tbody class="divide-y divide-blue-400">
                 @foreach($ranking as $player)
-                    <tr class="divide-x divide-blue-400">
+                    <tr class="divide-x divide-blue-400 transition-colors duration-300 hover:bg-blue-100 hover:bg-opacity-20">
                         <td class="py-1 px-3 text-center">
                             {{ $ranking->firstItem() + $loop->index }}
                         </td>
