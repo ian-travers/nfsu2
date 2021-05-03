@@ -49,11 +49,15 @@ class Ratings
      * int OppsRating_Drift;
      * }
      */
+
     const OFFSET_OVERALL = 20;
     const OFFSET_CIRCUIT = 48;
     const OFFSET_SPRINT = 76;
     const OFFSET_DRAG = 104;
     const OFFSET_DRIFT = 132;
+
+    const RATINGS_LIMIT = 100;
+    const PAGINATION_PER_PAGE = 20;
 
     protected string $filename;
 

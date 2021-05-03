@@ -81,19 +81,19 @@ class NFSUServerController extends Controller
 
         switch ($type) {
             case 'overall':
-                $ranking = $ratings->overall();
+                $ranking = $ratings->overall()->take(Ratings::RATINGS_LIMIT)->paginate(Ratings::PAGINATION_PER_PAGE);
                 break;
             case 'circuit':
-                $ranking = $ratings->circuit();
+                $ranking = $ratings->circuit()->take(Ratings::RATINGS_LIMIT)->paginate(Ratings::PAGINATION_PER_PAGE);
                 break;
             case 'sprint':
-                $ranking = $ratings->sprint();
+                $ranking = $ratings->sprint()->take(Ratings::RATINGS_LIMIT)->paginate(Ratings::PAGINATION_PER_PAGE);
                 break;
             case 'drag':
-                $ranking = $ratings->drag();
+                $ranking = $ratings->drag()->take(Ratings::RATINGS_LIMIT)->paginate(Ratings::PAGINATION_PER_PAGE);
                 break;
             case 'drift':
-                $ranking = $ratings->drift();
+                $ranking = $ratings->drift()->take(Ratings::RATINGS_LIMIT)->paginate(Ratings::PAGINATION_PER_PAGE);
                 break;
             default:
                 return back()->with('status', [

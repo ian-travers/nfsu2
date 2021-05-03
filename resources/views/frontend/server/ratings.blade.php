@@ -50,7 +50,7 @@
 
         {{-- Rating table --}}
         <h2 class="text-3xl mt-4 text-center tracking-wid font-black">{{ __($type) }}</h2>
-        <div class="mt-2 sm:mt-4">
+        <div class="my-2 sm:my-6">
             <table class="border border-blue-400 divide-y divide-blue-200 w-full">
                 <thead>
                 <tr class="text-center divide-x divide-blue-400">
@@ -68,7 +68,9 @@
                 <tbody class="divide-y divide-blue-400">
                 @foreach($ranking as $player)
                     <tr class="divide-x divide-blue-400">
-                        <td class="py-1 px-3 text-center">{{ $loop->index + 1 }}</td>
+                        <td class="py-1 px-3 text-center">
+                            {{ $ranking->firstItem() + $loop->index }}
+                        </td>
                         <td class="py-1 px-3">{{ $player['name'] }}</td>
                         <td class="py-1 px-3 text-right">{{ number_format($player['REP'], 0, '', ' ') }}</td>
                         <td class="py-1 px-3 hidden sm:table-cell text-right">{{ number_format($player['wins'], 0, '', ' ') }}</td>
@@ -81,6 +83,10 @@
                 @endforeach
                 </tbody>
             </table>
+            {{-- pagination--}}
+            <div class="mt-2 sm:mt-6">
+                {{ $ranking->onEachSide(2)->links('components.pagination') }}
+            </div>
         </div>
     </div>
 </x-layouts.front>
