@@ -28,7 +28,7 @@ class NFSUServerController extends Controller
     public function bestPerformers(string $type, string $track)
     {
         if (!in_array($type, $this->types)) {
-            return back()->with('status', [
+            return back()->with('flash', [
                 'type' => 'error',
                 'message' => __('Invalid track mode.'),
             ]);
@@ -37,7 +37,7 @@ class NFSUServerController extends Controller
         $sgd = new SpecificGameData();
 
         if (!$sgd->isTrackTypeValid($track, $type)) {
-            return back()->with('status', [
+            return back()->with('flash', [
                 'type' => 'warning',
                 'message' => __('Incorrect combination of race mode and track.'),
             ]);
@@ -73,7 +73,7 @@ class NFSUServerController extends Controller
         try {
             $ratings = new Ratings(config('nfsu-server.path') . '/stat.dat');
         } catch (DomainException $e) {
-            return back()->with('status', [
+            return back()->with('flash', [
                 'type' => 'error',
                 'message' => __('Can not connect to the NFSU server live data.')
             ]);
@@ -96,7 +96,7 @@ class NFSUServerController extends Controller
                 $ranking = $ratings->drift()->take(Ratings::RATINGS_LIMIT)->paginate(Ratings::PAGINATION_PER_PAGE);
                 break;
             default:
-                return back()->with('status', [
+                return back()->with('flash', [
                     'type' => 'error',
                     'message' => __('Invalid ranking type.')
                 ]);

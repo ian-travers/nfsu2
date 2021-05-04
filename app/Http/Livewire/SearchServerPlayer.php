@@ -15,9 +15,20 @@ class SearchServerPlayer extends Component
 
     public function search()
     {
-        $playerInfo = (new PlayerInfo($this->player))->statistics();
+        if (strlen($this->player) > 2) {
+            $playerInfo = (new PlayerInfo($this->player))->statistics();
 
-        $this->emitTo('search-result', 'found', $playerInfo, $this->player);
+            if (empty($playerInfo)) {
+                session()->flash('flash', [
+                    'type' => 'warning',
+                    'message' => __('There is no information about ":name".', ['name' => $this->player]),
+                ]);
+
+                return redirect()->route('server.ratings', 'overall');
+            }
+
+            $this->emitTo('search-result', 'found', $playerInfo, $this->player);
+        }
     }
 
     public function render()
