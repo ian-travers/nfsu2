@@ -106,64 +106,34 @@ class Ratings
 
         return collect($rawData)
             ->map(function ($record) use ($type) {
-                $name = substr(substr($record, 0, 16), 0, strpos(substr($record, 0, 16), "\x0"));
-
                 switch ($type) {
                     case 'circuit':
-                        $wins = $this->getDecValue($record, self::OFFSET_CIRCUIT);
-                        $loses = $this->getDecValue($record, self::OFFSET_CIRCUIT + 4);
-                        $disconnects = $this->getDecValue($record, self::OFFSET_CIRCUIT + 8);
-                        $REP = $this->getDecValue($record, self::OFFSET_CIRCUIT + 12);
-                        $avgOppREP = $this->getDecValue($record, self::OFFSET_CIRCUIT + 16);
-                        $avgOppRating = $this->getDecValue($record, self::OFFSET_CIRCUIT + 20);
+                        $data = unpack('iwins/iloses/idisconnects/iREP/iavgOppREP/iavgOppRating', $record, static::OFFSET_CIRCUIT);
                         break;
                     case 'sprint':
-                        $wins = $this->getDecValue($record, self::OFFSET_SPRINT);
-                        $loses = $this->getDecValue($record, self::OFFSET_SPRINT + 4);
-                        $disconnects = $this->getDecValue($record, self::OFFSET_SPRINT + 8);
-                        $REP = $this->getDecValue($record, self::OFFSET_SPRINT + 12);
-                        $avgOppREP = $this->getDecValue($record, self::OFFSET_SPRINT + 16);
-                        $avgOppRating = $this->getDecValue($record, self::OFFSET_SPRINT + 20);
+                        $data = unpack('iwins/iloses/idisconnects/iREP/iavgOppREP/iavgOppRating', $record, static::OFFSET_SPRINT);
                         break;
                     case 'drag':
-                        $wins = $this->getDecValue($record, self::OFFSET_DRAG);
-                        $loses = $this->getDecValue($record, self::OFFSET_DRAG + 4);
-                        $disconnects = $this->getDecValue($record, self::OFFSET_DRAG + 8);
-                        $REP = $this->getDecValue($record, self::OFFSET_DRAG + 12);
-                        $avgOppREP = $this->getDecValue($record, self::OFFSET_DRAG + 16);
-                        $avgOppRating = $this->getDecValue($record, self::OFFSET_DRAG + 20);
+                        $data = unpack('iwins/iloses/idisconnects/iREP/iavgOppREP/iavgOppRating', $record, static::OFFSET_DRAG);
                         break;
                     case 'drift':
-                        $wins = $this->getDecValue($record, self::OFFSET_DRIFT);
-                        $loses = $this->getDecValue($record, self::OFFSET_DRIFT + 4);
-                        $disconnects = $this->getDecValue($record, self::OFFSET_DRIFT + 8);
-                        $REP = $this->getDecValue($record, self::OFFSET_DRIFT + 12);
-                        $avgOppREP = $this->getDecValue($record, self::OFFSET_DRIFT + 16);
-                        $avgOppRating = $this->getDecValue($record, self::OFFSET_DRIFT + 20);
+                        $data = unpack('iwins/iloses/idisconnects/iREP/iavgOppREP/iavgOppRating', $record, static::OFFSET_DRIFT);
                         break;
                     default:
-                        $wins = $this->getDecValue($record, self::OFFSET_OVERALL);
-                        $loses = $this->getDecValue($record, self::OFFSET_OVERALL + 4);
-                        $disconnects = $this->getDecValue($record, self::OFFSET_OVERALL + 8);
-                        $REP = $this->getDecValue($record, self::OFFSET_OVERALL + 12);
-                        $avgOppREP = $this->getDecValue($record, self::OFFSET_OVERALL + 16);
-                        $avgOppRating = $this->getDecValue($record, self::OFFSET_OVERALL + 20);
+                        $data = unpack('iwins/iloses/idisconnects/iREP/iavgOppREP/iavgOppRating', $record, static::OFFSET_OVERALL);
                         break;
                 }
 
-                $winsPercent = ($wins + $loses + $disconnects) == 0
-                    ? '0%'
-                    : round($wins / ($wins + $loses + $disconnects) * 100) . '%';
-                $disconnectsPercent = ($wins + $loses + $disconnects) == 0
-                    ? '0%'
-                    : round($disconnects / ($wins + $loses + $disconnects) * 100) . '%';
+                $data['name'] = substr(substr($record, 0, 16), 0, strpos(substr($record, 0, 16), "\x0"));
 
-                return compact('name', 'wins', 'loses', 'disconnects', 'REP', 'avgOppREP', 'avgOppRating', 'winsPercent', 'disconnectsPercent');
+                $data['winsPercent'] = ($data['wins'] + $data['loses'] + $data['disconnects']) == 0
+                    ? '0%'
+                    : round($data['wins'] / ($data['wins'] + $data['loses'] + $data['disconnects']) * 100) . '%';
+                $data['disconnectsPercent'] = ($data['wins'] + $data['loses'] + $data['disconnects']) == 0
+                    ? '0%'
+                    : round($data['disconnects'] / ($data['wins'] + $data['loses'] + $data['disconnects']) * 100) . '%';
+
+                return $data;
             })->sortByDesc('REP');
-    }
-
-    private function getDecValue(string $str, int $offset)
-    {
-        return hexdec(Helper::str2Hex(substr($str, $offset, 4)));
     }
 }

@@ -42,12 +42,15 @@ class BestPerformers extends SpecificGameData
         $rating = collect($rawArray)
             ->map(function ($record) {
                 $name = substr(substr($record, 0, 16), 0, strpos(substr($record, 0, 16), "\x0"));
-                $score = hexdec(Helper::str2Hex(substr($record, 16, 4)));
-                $resultForHumans = $this->isDrift() ? number_format($score, 0, '', ' ') : $this->toMinSec($score);
-                $car = $this->cars[hexdec(Helper::str2Hex(substr($record, 20, 4)))];
-                $direction = $this->directions[hexdec(Helper::str2Hex(substr($record, 24, 4)))];
 
-                return compact('name', 'score', 'resultForHumans', 'car', 'direction');
+                $data = unpack('iscore/icar/idirection', substr($record, 16));
+
+                $data['name'] = $name;
+                $data['car'] = $this->cars[$data['car']];
+                $data['resultForHumans'] = $this->isDrift() ? number_format($data['score'], 0, '', ' ') : $this->toMinSec($data['score']);
+                $data['direction'] = $this->directions[$data['direction']];
+
+                return $data;
             });
 
         return $this->isDrift()
