@@ -103,7 +103,7 @@ class NFSUServerController extends Controller
         }
 
         $type = ucfirst($type);
-        $title = __('Ranking') . ' | ' . __($type);
+        $title = __('Rating') . ' | ' . __($type);
 
         return view('frontend.server.ratings', compact('ranking', 'type', 'title',));
     }
