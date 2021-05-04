@@ -17,14 +17,8 @@
                 </svg>
             </div>
         </div>
-        @empty($playerInfo)
-            <div class="mt-3">
-                {!! __('There is no information about player with username <strong>:name</strong>', ['name' => $playerName]) !!}
-            </div>
-        @else
-            <div
-                class="text-center text-3xl font-light tracking-widest mb-3"
-            >
+        @if($playerInfo)
+            <div class="text-center text-3xl font-light tracking-widest mb-3">
                 {{ $playerName }}
             </div>
             <table class="border border-blue-400 divide-y divide-blue-200 w-full mb-3">
@@ -113,7 +107,7 @@
                 </tr>
                 </tbody>
             </table>
-        @endempty
+        @endif
     </div>
 </div>
 

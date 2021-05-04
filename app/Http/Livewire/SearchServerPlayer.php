@@ -21,7 +21,7 @@ class SearchServerPlayer extends Component
             if (empty($playerInfo)) {
                 session()->flash('flash', [
                     'type' => 'warning',
-                    'message' => __('There is no information about ":name".', ['name' => $this->player]),
+                    'message' => __("There is no information about player with username ':name'", ['name' => $this->player]),
                 ]);
 
                 return redirect()->route('server.ratings', 'overall');
