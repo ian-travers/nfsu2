@@ -10,11 +10,12 @@ class BestPerformers extends SpecificGameData
     protected string $trackId;
     protected string $filename;
 
+    /**
+     * @throws DomainException|\Throwable
+     */
     public function __construct(string $path, string $trackId)
     {
-        if (!array_key_exists($trackId, $this->tracks())) {
-            throw new DomainException('Unknown track');
-        }
+        throw_unless(array_key_exists($trackId, $this->tracks()), new DomainException(__('Unknown track')));
 
         $this->trackId = $trackId;
         $this->filename = "{$path}/s{$trackId}.dat";

@@ -68,7 +68,7 @@ class Ratings
     {
         $this->filename = $filename;
 
-        throw_if(!file_exists($this->filename), DomainException::class);
+        throw_unless(file_exists($this->filename), new DomainException(__('Can not connect to the NFSU server live data.')));
     }
 
     public function overall(): Collection

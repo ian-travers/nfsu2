@@ -75,7 +75,7 @@ class NFSUServerController extends Controller
         } catch (DomainException $e) {
             return back()->with('flash', [
                 'type' => 'error',
-                'message' => __('Can not connect to the NFSU server live data.')
+                'message' => $e->getMessage()
             ]);
         }
 
