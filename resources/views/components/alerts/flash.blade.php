@@ -8,7 +8,11 @@
     ]
 ])
 
-<div class="alert-flash fixed bottom-0 right-0 m-8 w-5/6 md:w-full max-w-sm z-10">
+<div
+    x-data="{ timeout: null }"
+    x-init="timeout = setTimeout(() => { document.querySelector('div input#alertflash').checked = true; }, 4600);"
+    class="alert-flash fixed bottom-0 right-0 m-8 w-5/6 md:w-full max-w-sm z-10"
+>
     <input type="checkbox" class="hidden" id="alertflash">
 
     <label {{ $attributes->merge(['class' => "{$colors[$type]} close cursor-pointer flex items-start justify-between w-full p-2 h-24 rounded shadow-lg text-white"]) }} title="{{ __('Close') }}" for="alertflash">
