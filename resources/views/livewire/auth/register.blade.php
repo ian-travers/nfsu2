@@ -41,6 +41,24 @@
 
                 @error('username')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
+
+            <div class="mt-4">
+                <x-form.label for="country" value="{{ __('Country') }}"/>
+                <select
+                    wire:model="country"
+                    id="country"
+                    name="country"
+                    class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md f16"
+                >
+                    <option>{{ __('Select country ...') }}</option>
+                    @foreach($countries as $code => $name)
+                        <option value="{{ $code }}">{{ $name }}</option>
+                    @endforeach
+                </select>
+
+                @error('country')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+            </div>
+
             <div class="relative">
                 <x-form.label for="email" value="Email"/>
                 <x-form.input

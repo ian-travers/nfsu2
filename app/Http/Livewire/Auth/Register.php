@@ -2,20 +2,30 @@
 
 namespace App\Http\Livewire\Auth;
 
+use App\Models\CountriesList;
 use App\Models\User;
 use Livewire\Component;
 
 class Register extends Component
 {
     public string $username = '';
+    public string $country = '';
     public string $email = '';
     public string $password = '';
 
+    public array $countries;
+
     protected array $rules = [
         'username' => 'required|min:3|max:15|regex:/^[A-Za-z0-9_]+$/|unique:users',
+        'country' => 'required|string|size:2|regex:/^[A-Z]+$/',
         'email' => 'required|email:filter|unique:users',
         'password' => 'required|min:8|regex:/^\S*$/u',
     ];
+
+    public function mount()
+    {
+        $this->countries = CountriesList::all(app()->getLocale());
+    }
 
     public function submit()
     {
@@ -24,6 +34,7 @@ class Register extends Component
         /** @var User $user */
         $user = User::create([
             'username' => $this->username,
+            'country' => $this->country,
             'email' => $this->email,
             'password' => bcrypt($this->password),
         ]);

@@ -12,16 +12,10 @@ class RegisterTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function register_page_contains_necessary_livewire_component()
-    {
-        $this->get('/register')
-            ->assertSeeLivewire('auth.register');
-    }
-
-    /** @test */
     function it_requires_a_username()
     {
         Livewire::test(Register::class)
+            ->set('country', 'BY')
             ->set('email', 'john@example.com')
             ->set('password', 'password')
             ->call('submit')
@@ -35,8 +29,6 @@ class RegisterTest extends TestCase
     {
         Livewire::test(Register::class)
             ->set('username', 'Jo')
-            ->set('email', 'john@example.com')
-            ->set('password', 'password')
             ->call('submit')
             ->assertHasErrors(['username' => 'min']);
 
@@ -48,8 +40,6 @@ class RegisterTest extends TestCase
     {
         Livewire::test(Register::class)
             ->set('username', '1234567890123456')
-            ->set('email', 'john@example.com')
-            ->set('password', 'password')
             ->call('submit')
             ->assertHasErrors(['username' => 'max']);
 
@@ -61,8 +51,6 @@ class RegisterTest extends TestCase
     {
         Livewire::test(Register::class)
             ->set('username', 'John Doe')
-            ->set('email', 'john@example.com')
-            ->set('password', 'password')
             ->call('submit')
             ->assertHasErrors(['username' => 'regex']);
 
@@ -74,6 +62,7 @@ class RegisterTest extends TestCase
     {
         Livewire::test(Register::class)
             ->set('username', 'john')
+            ->set('country', 'BY')
             ->set('password', 'password')
             ->call('submit')
             ->assertHasErrors(['email' => 'required']);
@@ -85,9 +74,7 @@ class RegisterTest extends TestCase
     function an_email_must_be_valid()
     {
         Livewire::test(Register::class)
-            ->set('username', 'JohnDoe')
             ->set('email', 'john@example')
-            ->set('password', 'password')
             ->call('submit')
             ->assertHasErrors(['email' => 'email']);
 
@@ -99,6 +86,7 @@ class RegisterTest extends TestCase
     {
         Livewire::test(Register::class)
             ->set('username', 'John')
+            ->set('country', 'BY')
             ->set('email', 'john@example.com')
             ->call('submit')
             ->assertHasErrors(['password' => 'required']);
@@ -110,11 +98,50 @@ class RegisterTest extends TestCase
     function a_password_must_be_at_least_8_characters()
     {
         Livewire::test(Register::class)
-            ->set('username', 'John')
-            ->set('email', 'john@example.com')
             ->set('password', '1234567')
             ->call('submit')
             ->assertHasErrors(['password' => 'min']);
+
+        $this->assertDatabaseCount('users', 0);
+    }
+
+    /** @test */
+    function it_requires_a_country()
+    {
+        Livewire::test(Register::class)
+            ->set('username', 'John')
+            ->set('email', 'john@example.com')
+            ->set('password', '12345678')
+            ->call('submit')
+            ->assertHasErrors(['country' => 'required']);
+
+        $this->assertDatabaseCount('users', 0);
+    }
+
+    /** @test */
+    function country_must_be_2_characters()
+    {
+        Livewire::test(Register::class)
+            ->set('username', 'John')
+            ->set('country', 'ABC')
+            ->set('email', 'john@example.com')
+            ->set('password', '12345678')
+            ->call('submit')
+            ->assertHasErrors(['country' => 'size']);
+
+        $this->assertDatabaseCount('users', 0);
+    }
+
+    /** @test */
+    function country_must_be_uppercase()
+    {
+        Livewire::test(Register::class)
+            ->set('username', 'John')
+            ->set('country', 'by')
+            ->set('email', 'john@example.com')
+            ->set('password', '12345678')
+            ->call('submit')
+            ->assertHasErrors(['country' => 'regex']);
 
         $this->assertDatabaseCount('users', 0);
     }
@@ -124,6 +151,7 @@ class RegisterTest extends TestCase
     {
         Livewire::test(Register::class)
             ->set('username', 'John')
+            ->set('country', 'BY')
             ->set('email', 'john@example.com')
             ->set('password', '12345678')
             ->call('submit');
