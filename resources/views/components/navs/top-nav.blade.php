@@ -26,7 +26,7 @@
     {{-- Right part of a menu --}}
     <div class="flex items-center">
         @guest
-            <x-navs.link route="login">{{ __('Login') }}</x-navs.link>
+            <x-navs.link route="#">{{ __('Login') }}</x-navs.link>
             <x-navs.link route="register">{{ __('Register') }}</x-navs.link>
         @endguest
         <div class="ml-3">

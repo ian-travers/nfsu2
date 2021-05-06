@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\NFSUServerController;
+use App\Http\Livewire\Auth\Register;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'language'], function () {
@@ -18,5 +19,12 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('ratings', [NFSUServerController::class, 'ratingsRedirect'])->name('ratings-redirect');
         Route::get('ratings/{type}', [NFSUServerController::class, 'ratings'])->name('ratings');
     });
+
+    Route::get('register', Register::class)
+        ->middleware('guest')
+        ->name('register');
+
+    // Dummy route
+    Route::get('#', fn() => view('welcome'))->name('#');
 });
 
