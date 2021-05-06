@@ -12,7 +12,8 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "livewire/livewire": "^2.4"
+        "livewire/livewire": "^2.4",
+        "lukeraymonddowning/honey": "^0.3.2"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.10",

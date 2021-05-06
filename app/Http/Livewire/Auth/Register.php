@@ -5,9 +5,12 @@ namespace App\Http\Livewire\Auth;
 use App\Models\CountriesList;
 use App\Models\User;
 use Livewire\Component;
+use Lukeraymonddowning\Honey\Traits\WithRecaptcha;
 
 class Register extends Component
 {
+    use WithRecaptcha;
+
     public string $username = '';
     public string $country = '';
     public string $email = '';
