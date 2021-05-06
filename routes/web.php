@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\NFSUServerController;
+use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Register;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,9 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('register', Register::class)
         ->middleware('guest')
         ->name('register');
+    Route::get('/login', Login::class)
+        ->middleware(['guest'])
+        ->name('login');
 
     // Dummy route
     Route::get('#', fn() => view('welcome'))->name('#');

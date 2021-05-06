@@ -47,7 +47,7 @@
         </div>
         <div class="px-2 py-3 space-y-1 border-t border-gray-700">
             @guest
-                <x-navs.mobile-link route="#">{{ __('Login') }}</x-navs.mobile-link>
+                <x-navs.mobile-link route="login">{{ __('Login') }}</x-navs.mobile-link>
                 <x-navs.mobile-link route="register">{{ __('Register') }}</x-navs.mobile-link>
             @endguest
         </div>

@@ -54,9 +54,7 @@ class Register extends Component
 
     public function render()
     {
-        return view('livewire.auth.register', [
-            'locale' => app()->getLocale(),
-        ])
+        return view('livewire.auth.register')
             ->layout('components.layouts.front', [
                 'title' => __('Register')
             ]);
