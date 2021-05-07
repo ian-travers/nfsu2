@@ -19,13 +19,13 @@
     </div>
 
     <div
-        class="bg-gray-50 text-gray-900 md:max-w-screen-sm mx-6 md:mx-auto rounded-md md:rounded-lg p-6"
+        class="bg-gray-50 text-gray-900 md:max-w-screen-sm mx-6 md:mx-auto rounded-md md:rounded-lg p-6 mb-12"
     >
         <p class="text-sm text-gray-400 text-center tracking-widest">{{ __('Register NFSU Cup') }}</p>
         <p class="text-3xl text-center my-1">{{ __('Create your account') }}</p>
 
         {{-- Register form--}}
-        <div class="my-2 md:my-6 space-y-3 md:space-y-6">
+        <div class="space-y-3 md:space-y-6">
             <div class="relative">
                 <x-form.label for="username" value="{{ __('Username') }}"/>
                 <x-form.input
