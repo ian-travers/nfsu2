@@ -4,6 +4,8 @@ return [
     'directories'=> [
         'app',
         'resources',
+        'vendor/laravel/framework/src/Illuminate/Auth/Notifications',
+        'vendor/laravel/framework/src/Illuminate/Notifications/resources/views',
     ],
 
     // File Patterns to search for.
@@ -21,14 +23,15 @@ return [
         '__',
         '_t',
         '@lang',
+        'Lang::get',
     ],
 
-    // Indicates whether you need to sort the translations alphabetically 
+    // Indicates whether you need to sort the translations alphabetically
     // by original strings (keys).
     // It helps navigate a translation file and detect possible duplicates.
     'sort-keys' => true,
 
     // Indicates whether keys from the persistent-strings file should be also added
     // to translation files automatically on export if they don't yet exist there.
-    'add-persistent-strings-to-translations' => false,
+    'add-persistent-strings-to-translations' => true,
 ];

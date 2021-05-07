@@ -1,0 +1,7 @@
+version: '3'
+services:
+  mailer:
+    image: mailhog/mailhog
+    ports:
+      - "8082:8025"
+      - "1025:1025"
