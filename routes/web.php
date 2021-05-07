@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\NFSUServerController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Register;
@@ -27,6 +28,10 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('/login', Login::class)
         ->middleware(['guest'])
         ->name('login');
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+        ->middleware(['auth'])
+        ->name('logout');
+
 
     // Dummy route
     Route::get('#', fn() => view('welcome'))->name('#');

@@ -25,6 +25,29 @@
 
     {{-- Right part of a menu --}}
     <div class="flex items-center">
+        {{-- Authenticated user menu --}}
+        @auth
+            <x-dropdown>
+                <x-slot name="trigger">
+                    <button
+                        class="hover:bg-gray-700 hover:text-blue-100 px-3 py-2 rounded-md font-medium {{ substr(Route::currentRouteName(), 0, 6) == 'user' ? 'bg-gray-900 text-white' : 'text-blue-200' }}"
+                    >
+                        {{ auth()->user()->username }}
+                    </button>
+                </x-slot>
+                <x-dropdown-link href="{{ route('server.monitor') }}">{{ __('Monitor') }}</x-dropdown-link>
+                <div class="border-t border-gray-500"></div>
+                <form method="post" id="logout-form" action="{{ route('logout') }}">
+                    @csrf
+                    <x-dropdown-link
+                        href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.querySelector('#logout-form').submit();"
+                    >
+                        {{ __('Logout') }}
+                    </x-dropdown-link>
+                </form>
+            </x-dropdown>
+        @endauth
         @guest
             <x-navs.link route="login">{{ __('Login') }}</x-navs.link>
             <x-navs.link route="register">{{ __('Register') }}</x-navs.link>

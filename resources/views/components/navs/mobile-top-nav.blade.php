@@ -25,7 +25,7 @@
                           d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button> {{-- End menu toggle button --}}
-            <x-language-switcher></x-language-switcher>
+            <x-language-switcher class="ml-3"></x-language-switcher>
         </div>
 
     </div>
@@ -46,6 +46,17 @@
 
         </div>
         <div class="px-2 py-3 space-y-1 border-t border-gray-700">
+            @auth
+                <form method="post" id="logout-form" action="{{ route('logout') }}">
+                    @csrf
+                    <x-navs.mobile-link
+                        route="logout"
+                        onclick="event.preventDefault(); document.querySelector('#logout-form').submit();"
+                    >
+                        {{ __('Logout') }}
+                    </x-navs.mobile-link>
+                </form>
+            @endauth
             @guest
                 <x-navs.mobile-link route="login">{{ __('Login') }}</x-navs.mobile-link>
                 <x-navs.mobile-link route="register">{{ __('Register') }}</x-navs.mobile-link>
