@@ -35,7 +35,7 @@
                         {{ auth()->user()->username }}
                     </button>
                 </x-slot>
-                <x-dropdown-link href="{{ route('server.monitor') }}">{{ __('Monitor') }}</x-dropdown-link>
+                <x-dropdown-link href="{{ route('settings.profile') }}">{{ __('Settings') }}</x-dropdown-link>
                 <div class="border-t border-gray-500"></div>
                 <form method="post" id="logout-form" action="{{ route('logout') }}">
                     @csrf
