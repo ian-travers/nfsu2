@@ -1,5 +1,6 @@
 {
     "(Creator of NFSU Cup)": "(Разработчик NFSU Cup)",
+    "Account settings": "Настройки аккаунта",
     "Already registered?": "Уже зарегистрирован?",
     "Avg.Opps.Rank": "Ср. Рейт соп.",
     "Avg.Opps.REP": "Ср. REP соп.",
@@ -23,6 +24,7 @@
     "Forgot your password? No problem. Just let me know your email address and I will email you a password reset link that will allow you to choose a new one.": "Не можешь вспомнить пароль? Нет проблем. Просто напиши адрес email, который был при регистрации, и я вышлю на него ссылку для смены пароля.",
     "Game Server": "Игровой сервер",
     "Go to page :page": "Перейти на страницу :page",
+    "Go to your public profile": "Твой публичный профиль",
     "Hello!": "Привет!",
     "I'm sorry, but if you not a fan of Need for Speed Underground,": "Я прошу прощения, но если ты на фанат Need for Speed Underground,",
     "If you did not create an account, no further action is required.": "Если вы не создавали учетную запись, то никаких дополнительных действий не требуется. Игнорируйте это письмо или удалите его.",
@@ -50,6 +52,7 @@
     "Player name...": "имя игрока...",
     "Players": "Игроки",
     "Please click the button below to verify your email address.": "Кликните на кнопку ниже, чтобы подтвердить ваш адрес email.",
+    "Profile": "Профиль",
     "Rating": "Рейтинг",
     "Ratings": "Рейтинги",
     "Regards": "С наилучшими пожеланиями",
@@ -62,6 +65,8 @@
     "Restore access to NFSU Cup": "Восстановление доступа к NFSU Cup",
     "results": "элементов",
     "Rooms guard": "Запрет на комнаты",
+    "Save": "Сохранить",
+    "Saved.": "Сохранено.",
     "Score": "Очки",
     "Select country ...": "Select country ...",
     "Server is offline": "Сервер выключен",
@@ -87,5 +92,7 @@
     "Wins": "Победы",
     "Wins %": "Победы %",
     "You are receiving this email because we received a password reset request for your account.": "Вы получили это письмо, потому что был получен запрос на восстановление пароля для вашей учетной записи.",
-    "Your account has been created. Welcome to NFSU Cup.": "Твой аккаунт был создан успешно. Добро пожаловать на NFSU Cup."
+    "You must be logged in.": "Ты должен войти в аккаунт.",
+    "Your account has been created. Welcome to NFSU Cup.": "Твой аккаунт был создан успешно. Добро пожаловать на NFSU Cup.",
+    "Your personal account": "Твой персональный аккаутн"
 }

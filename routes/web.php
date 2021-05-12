@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\NFSUServerController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Register;
+use App\Http\Livewire\User\Profile;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'language'], function () {
@@ -48,6 +49,15 @@ Route::group(['middleware' => 'language'], function () {
             ->name('.reset');
         Route::post('/reset-password', [NewPasswordController::class, 'store'])
             ->name('.update');
+    });
+
+    // User settings
+    Route::group([
+        'middleware' => ['auth'],
+        'prefix' => '/settings',
+        'as' => 'settings'
+    ], function () {
+        Route::get('/profile', Profile::class)->name('.profile');
     });
 
 
