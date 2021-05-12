@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Database\Factories\UserFactory;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * App\Models\User
@@ -15,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
  * @property int $id
  * @property string $username
  * @property string $country
+ * @property string|null $avatar
  * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
@@ -24,10 +24,11 @@ use Illuminate\Notifications\Notifiable;
  * @property string $locale
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
- * @method static UserFactory factory(...$parameters)
+ * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
  * @method static Builder|User query()
+ * @method static Builder|User whereAvatar($value)
  * @method static Builder|User whereCountry($value)
  * @method static Builder|User whereCreatedAt($value)
  * @method static Builder|User whereEmail($value)
@@ -44,11 +45,25 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = ['username', 'country', 'email', 'password'];
+    protected $fillable = ['username', 'country', 'avatar', 'email', 'password'];
 
     protected $hidden = ['password', 'remember_token'];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function hasAvatar(): bool
+    {
+        return (bool)$this->avatar;
+    }
+
+    public function removeAvatarFile(): bool
+    {
+        if (!$this->hasAvatar()) {
+            return false;
+        }
+
+        return Storage::disk('public')->delete($this->avatar);
+    }
 }

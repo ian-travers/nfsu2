@@ -4,13 +4,21 @@ namespace App\Http\Livewire\User;
 
 use App\Models\CountriesList;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Profile extends Component
 {
+    use WithFileUploads;
+
     public string $username = '';
     public string $email = '';
     public string $country = '';
+    public $avatar;
+
+    public bool $hasAvatar = false;
+    public string $avatarPath = '';
 
     public array $countries = [];
 
@@ -20,6 +28,7 @@ class Profile extends Component
             'username' => 'required|min:3|max:15|regex:/^[A-Za-z0-9_]+$/|unique:users,username,' . auth()->id(),
             'email' => 'required|email:filter|unique:users,email,' . auth()->id(),
             'country' => 'required|max:2|regex:/^[A-Z]{2}$/',
+            'avatar' => 'nullable|image|max:2048',
         ];
     }
 
@@ -35,6 +44,8 @@ class Profile extends Component
         $this->username = $user->username;
         $this->email = $user->email;
         $this->country = $user->country;
+        $this->hasAvatar = $user->hasAvatar();
+        $this->avatarPath = Storage::url($user->avatar);
 
         $this->countries = CountriesList::all($user->locale);
     }
@@ -44,7 +55,15 @@ class Profile extends Component
         /** @var User $user */
         $user = auth()->user();
 
-        $user->update($this->validate());
+        $formData = $this->validate();
+
+        if ($this->avatar) {
+            $filePath = $this->avatar->store('avatars', 'public');
+            $formData['avatar'] = $filePath;
+        }
+
+        $user->removeAvatarFile();
+        $user->update($formData);
 
         session()->flash('status', [
             'type' => 'success',

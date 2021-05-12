@@ -35,10 +35,29 @@
 
             <div class="">
                 <x-form.label for="country" value="{{ __('Country') }}"/>
-                <x-form.country-selector :countries="$countries" />
+                <x-form.country-selector :countries="$countries"/>
                 @error('country')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
         </div>
+        {{-- Avatar--}}
+        <div>
+            <x-form.label for="avatar" value="{{ __('Avatar') }}"/>
+            <div class="flex justify-center">
+                @if($avatar)
+                    <img src="{{ $avatar->temporaryUrl() }}" class="max-w-full" alt="avatar">
+                @elseif($hasAvatar)
+                    <img src="{{ $avatarPath }}" class="max-w-full" alt="avatar">
+                @endif
+            </div>
+            <div class="mt-4">
+                <x-form.input
+                    wire:model="avatar"
+                    class="block mt-1 w-full"
+                    type="file"
+                    name="avatar"
+                />
+            </div>
+        </div> {{-- End Avatar --}}
     </div>
 
     <div class="mt-4 flex justify-end px-4 py-2">
