@@ -64,7 +64,7 @@ class Profile extends Component
             $this->avatarPath = $filePath;
             $user->removeAvatarFile(); // remove previous
         } else {
-            unset($formData['avatar']); // prevent removing old avatar when the one is not set
+            unset($formData['avatar']); // prevent to remove old avatar when the new one is not set
         }
 
         $user->update($formData);
