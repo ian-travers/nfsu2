@@ -85,6 +85,11 @@ class Profile extends Component
 
         $this->avatarPath = '';
         $this->hasAvatar = false;
+
+        session()->flash('status', [
+            'type' => 'success',
+            'message' => __('Removed.'),
+        ]);
     }
 
     public function updatedUsername()
@@ -102,14 +107,6 @@ class Profile extends Component
         $this->country = $this->country == 'undefined' ? '' : $this->country;
 
         $this->validateOnly('country');
-    }
-
-    public function saved()
-    {
-        session()->flash('status', [
-            'type' => 'success',
-            'message' => __('Saved.'),
-        ]);
     }
 
     public function render()

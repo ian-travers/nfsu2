@@ -44,11 +44,16 @@
             <x-form.label for="avatar" value="{{ __('Avatar') }}"/>
             <div class="flex justify-center">
                 @if($avatar)
-                    <img src="{{ $avatar->temporaryUrl() }}" class="max-w-full" alt="avatar">
+                    <img src="{{ $avatar->temporaryUrl() }}" class="w-full" alt="avatar">
                 @elseif($hasAvatar)
-                    <img src="{{ $avatarPath }}" class="max-w-full" alt="avatar">
+                    <img src="{{ $avatarPath }}" class="w-full" alt="avatar">
                 @endif
             </div>
+
+            @if(!$hasAvatar)
+                <div class="mt-3 text-center">{{ __('Your profile has no an avatar') }}</div>
+            @endif
+
             <div class="mt-4 text-center">
                 <input
                     wire:model="avatar"
