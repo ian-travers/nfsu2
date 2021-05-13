@@ -48,11 +48,11 @@
         <div class="px-2 py-3 space-y-1 border-t border-gray-700">
             <x-navs.mobile-link route="settings.profile">{{ __('Settings') }}</x-navs.mobile-link>
             @auth
-                <form method="post" id="logout-form" action="{{ route('logout') }}">
+                <form method="post" id="logout-form-mobile" action="{{ route('logout') }}">
                     @csrf
                     <x-navs.mobile-link
                         route="logout"
-                        onclick="event.preventDefault(); document.querySelector('#logout-form').submit();"
+                        onclick="event.preventDefault(); document.querySelector('#logout-form-mobile').submit();"
                     >
                         {{ __('Logout') }}
                     </x-navs.mobile-link>
