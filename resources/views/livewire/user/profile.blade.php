@@ -49,13 +49,20 @@
                     <img src="{{ $avatarPath }}" class="max-w-full" alt="avatar">
                 @endif
             </div>
-            <div class="mt-4">
-                <x-form.input
+            <div class="mt-4 text-center">
+                <input
                     wire:model="avatar"
-                    class="block mt-1 w-full"
+                    id="file"
+                    class="inputfile"
                     type="file"
                     name="avatar"
                 />
+                <label
+                    for="file"
+                    class="items-center px-4 py-2 bg-blue-500 rounded-md font-semibold text-sm text-white tracking-widest hover:bg-blue-700 focus:bg-blue-700 transition ease-in-out duration-150"
+                >
+                    {{ __('Upload new avatar') }}
+                </label>
             </div>
         </div> {{-- End Avatar --}}
     </div>
