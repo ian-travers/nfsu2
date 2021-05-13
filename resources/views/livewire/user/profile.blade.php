@@ -41,7 +41,7 @@
         </div>
         {{-- Avatar--}}
         <div>
-            <x-form.label for="avatar" value="{{ __('Avatar') }}"/>
+            <x-form.label for="avatar" class="text-center" value="{{ __('Avatar') }}"/>
             <div class="flex justify-center">
                 @if($avatar)
                     <img src="{{ $avatar->temporaryUrl() }}" class="w-full" alt="avatar">
@@ -51,10 +51,19 @@
             </div>
 
             @if(!$hasAvatar)
-                <div class="mt-3 text-center">{{ __('Your profile has no an avatar') }}</div>
+                <div class="mt-3 text-center">
+                    <p class="text-yellow-700">{{ __('Your profile has no an avatar') }}</p>
+                </div>
             @endif
 
-            <div class="mt-4 text-center">
+            <div
+                class="mt-4 text-center"
+                x-data="{ isUploading: false, isUploaded: false, progress: 0 }"
+                x-on:livewire-upload-start="isUploading = true; isUploaded = false"
+                x-on:livewire-upload-finish="isUploading = false; isUploaded = true"
+                x-on:livewire-upload-error="isUploading = false; isUploaded = false"
+                x-on:livewire-upload-progress="progress = $event.detail.progress"
+            >
                 <input
                     wire:model="avatar"
                     id="file"
@@ -68,6 +77,13 @@
                 >
                     {{ __('Upload new avatar') }}
                 </label>
+                <!-- Progress Bar -->
+                <div x-show="isUploading">
+                    <progress class="w-full h-0.5" max="100" x-bind:value="progress"></progress>
+                </div>
+                <div x-show="isUploaded" class="mt-4" >
+                    <p class="text-sm text-gray-500">{{ __("Don't forget to save your profile when the new avatar has been uploaded") }}</p>
+                </div>
             </div>
 
             @if($hasAvatar)

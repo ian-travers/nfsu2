@@ -17,6 +17,14 @@
     cursor: pointer;
 }
 
+/* Progress bar colors */
+progress::-webkit-progress-bar {
+    background-color: #fafafa;
+}
+progress::-webkit-progress-value {
+    background-color: #003548;
+}
+
 /* Flash open/load animation */
 .alert-flash {
     -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
