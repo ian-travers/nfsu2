@@ -42,7 +42,7 @@
         {{-- Avatar--}}
         <div>
             <x-form.label for="avatar" class="text-center" value="{{ __('Avatar') }}"/>
-            <div class="flex justify-center">
+            <div class="flex justify-center mt-4">
                 @if($avatar)
                     <img src="{{ $avatar->temporaryUrl() }}" class="w-full" alt="avatar">
                 @elseif($hasAvatar)
