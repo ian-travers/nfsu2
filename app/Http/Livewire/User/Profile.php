@@ -62,9 +62,11 @@ class Profile extends Component
             $formData['avatar'] = $filePath;
             $this->hasAvatar = true;
             $this->avatarPath = $filePath;
+            $user->removeAvatarFile(); // remove previous
+        } else {
+            unset($formData['avatar']); // prevent removing old avatar when the one is not set
         }
 
-        $user->removeAvatarFile();
         $user->update($formData);
 
         session()->flash('status', [
@@ -85,6 +87,7 @@ class Profile extends Component
 
         $this->avatarPath = '';
         $this->hasAvatar = false;
+        $this->avatar = null;
 
         session()->flash('status', [
             'type' => 'success',
