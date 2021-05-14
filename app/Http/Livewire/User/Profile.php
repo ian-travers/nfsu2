@@ -69,6 +69,8 @@ class Profile extends Component
 
         $user->update($formData);
 
+        $this->emitTo('user.avatar', 'avatarChanged');
+
         session()->flash('status', [
             'type' => 'success',
             'message' => __('Saved.'),
@@ -88,6 +90,8 @@ class Profile extends Component
         $this->avatarPath = '';
         $this->hasAvatar = false;
         $this->avatar = null;
+
+        $this->emitTo('user.avatar', 'avatarChanged');
 
         session()->flash('status', [
             'type' => 'success',
