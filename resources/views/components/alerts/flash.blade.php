@@ -15,7 +15,7 @@
 >
     <input type="checkbox" class="hidden" id="alertflash">
 
-    <label {{ $attributes->merge(['class' => "{$colors[$type]} close cursor-pointer flex items-start justify-between w-full p-2 h-24 rounded shadow-lg text-white"]) }} title="{{ __('Close') }}" for="alertflash">
+    <label {{ $attributes->merge(['class' => "{$colors[$type]} cursor-pointer flex items-start justify-between w-full p-2 h-24 rounded shadow-lg text-white"]) }} title="{{ __('Close') }}" for="alertflash">
 
         {{ $slot }}
 
