@@ -1,7 +1,4 @@
 <div class="bg-white rounded-md sm:rounded-lg text-gray-900 px-4 py-2 sm:py-6 mx-4">
-    @if ($alert = session('status'))
-        <x-alerts.flash type="{{ $alert['type'] }}">{{ $alert['message'] }}</x-alerts.flash>
-    @endif
     <div class="grid grid-cols-3 gap-x-4">
         <div class="space-y-4 col-span-2">
             <div class="">

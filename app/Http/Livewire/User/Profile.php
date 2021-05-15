@@ -93,7 +93,7 @@ class Profile extends Component
 
         $this->emitTo('user.avatar', 'avatarChanged');
 
-        session()->flash('status', [
+        session()->flash('flash', [
             'type' => 'success',
             'message' => __('Removed.'),
         ]);
