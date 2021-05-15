@@ -9,6 +9,13 @@
         >
             {{ __('Profile') }}
         </x-user-settings.nav-item>
+
+        <x-user-settings.nav-item
+            href="{{ route('settings.account') }}"
+            :active="request()->is('settings/account')"
+        >
+            {{ __('Account') }}
+        </x-user-settings.nav-item>
     </nav>
 </div>
 

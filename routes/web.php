@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\NFSUServerController;
+use App\Http\Controllers\User\AccountController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\User\Profile;
@@ -58,6 +59,7 @@ Route::group(['middleware' => 'language'], function () {
         'as' => 'settings'
     ], function () {
         Route::get('/profile', Profile::class)->name('.profile');
+        Route::get('/account', [AccountController::class, 'show'])->name('.account');
     });
 
 

@@ -24,5 +24,6 @@
 
 @livewireScripts
 <script src="{{ mix('js/app.js', 'build') }}"></script>
+@stack('scripts')
 </body>
 </html>
