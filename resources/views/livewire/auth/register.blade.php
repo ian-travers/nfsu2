@@ -85,12 +85,12 @@
                     {{ __('Already registered?') }}
                 </a>
 
-                <x-form.button
+                <x-form.primary-button
                     class="ml-8 text-center"
                     wire:click="submit"
                 >
                     {{ __('Register') }}
-                </x-form.button>
+                </x-form.primary-button>
             </div>
             <x-honey-recaptcha/>
         </div>{{-- End of Register form--}}

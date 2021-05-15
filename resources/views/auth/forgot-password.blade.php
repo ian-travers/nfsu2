@@ -17,9 +17,9 @@
             />
             @error('email')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             <div class="flex justify-end mt-4">
-                <x-form.button type="submit">
+                <x-form.primary-button type="submit">
                     {{ __('Email password reset link') }}
-                </x-form.button>
+                </x-form.primary-button>
             </div>
         </form>
     </div>

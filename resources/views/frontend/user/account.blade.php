@@ -7,12 +7,12 @@
                 </div>
                 <div class="px-4 py-2">
                     <p class="my-3">{{ __('Click the button below for changing password.') }}</p>
-                    <x-form.button
+                    <x-form.primary-button
                         type="button"
                         data-target="changePassword"
                         class="modal-open">
                         {{ __('Change password') }}...
-                    </x-form.button>
+                    </x-form.primary-button>
                 </div>
             </div>
 
@@ -22,12 +22,12 @@
                 </div>
                 <div class="px-4 py-2">
                     <p class="my-3">{{ __('Once you delete your account, there is no going back. Please be certain.') }}</p>
-                    <x-form.button
+                    <x-form.danger-button
                         type="button"
                         data-target="deleteAccount"
                         class="modal-open">
                         {{ __('Delete your account') }}...
-                    </x-form.button>
+                    </x-form.danger-button>
                 </div>
             </div>
         </div>

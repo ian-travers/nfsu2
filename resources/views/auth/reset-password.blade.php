@@ -22,9 +22,9 @@
             </div>
 
             <div class="flex justify-end mt-4">
-                <x-form.button type="submit">
+                <x-form.primary-button type="submit">
                     {{ __('Reset Password') }}
-                </x-form.button>
+                </x-form.primary-button>
             </div>
         </form>
     </div>

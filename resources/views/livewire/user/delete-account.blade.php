@@ -46,16 +46,13 @@
     @error('phrase')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
 
     <div class="flex justify-end mt-4 space-x-2">
-        <button
-            class="modal-close border hover:border-gray-500 px-4 bg-gray-100 rounded-lg text-white hover:bg-gray-200 text-gray-900"
-        >
+        <x-form.secondary-button>
             {{ __('Cancel') }}
-        </button>
-        <button
+        </x-form.secondary-button>
+        <x-form.danger-button
             wire:click="submit"
-            type="button"
-            class="hover:border-red-500 px-4 bg-red-600 rounded-lg text-white hover:bg-red-500 text-white font-semibold focus:border-red-600">
+        >
             {{ __('Delete this account') }}
-        </button>
+        </x-form.danger-button>
     </div>
 </div>

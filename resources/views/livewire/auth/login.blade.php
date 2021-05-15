@@ -92,12 +92,12 @@
                 {{ __('Forgot your password?') }}
             </a>
 
-            <x-form.button
+            <x-form.primary-button
                 wire:click="submit"
                 class="ml-4"
             >
                 {{ __('Login') }}
-            </x-form.button>
+            </x-form.primary-button>
         </div>
         <x-honey-recaptcha/>
     </div>{{-- End of Login form --}}

@@ -99,10 +99,10 @@
     </div>
 
     <div class="mt-4 flex justify-end px-4 py-2">
-        <x-form.button
+        <x-form.primary-button
             wire:click="submit"
         >
             {{ __('Save') }}
-        </x-form.button>
+        </x-form.primary-button>
     </div>
 </div>
