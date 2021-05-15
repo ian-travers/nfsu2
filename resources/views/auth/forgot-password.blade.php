@@ -16,12 +16,20 @@
                 autofocus required autocomplete="email"
             />
             @error('email')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
-            <div class="flex justify-end mt-4">
-                <x-form.primary-button type="submit">
+            <div class="flex items-center justify-end mt-4">
+                <a
+                    class="underline text-sm text-gray-600 hover:text-gray-900"
+                    href="{{ route('login') }}"
+                >
+                    {{ __('Or Login?') }}
+                </a>
+                <x-form.primary-button
+                    type="submit"
+                    class="ml-4"
+                >
                     {{ __('Email password reset link') }}
                 </x-form.primary-button>
             </div>
         </form>
     </div>
 </x-layouts.front>
-
