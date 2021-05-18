@@ -28,7 +28,7 @@ class ChangePassword extends Component
             'message' => __('Your password has been changed.'),
         ]);
 
-        $this->dispatchBrowserEvent('modalSubmitted');
+        return redirect()->route('settings.account');
     }
 
     public function render()

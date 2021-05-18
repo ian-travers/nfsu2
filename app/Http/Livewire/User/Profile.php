@@ -71,10 +71,12 @@ class Profile extends Component
 
         $this->emitTo('user.avatar', 'avatarChanged');
 
-        session()->flash('status', [
+        session()->flash('flash', [
             'type' => 'success',
             'message' => __('Saved.'),
         ]);
+
+        return redirect()->route('settings.profile');
     }
 
     public function removeAvatar()
@@ -97,6 +99,8 @@ class Profile extends Component
             'type' => 'success',
             'message' => __('Removed.'),
         ]);
+
+        return redirect()->route('settings.profile');
     }
 
     public function updatedUsername()

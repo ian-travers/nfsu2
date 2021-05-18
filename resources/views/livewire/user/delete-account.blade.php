@@ -46,7 +46,7 @@
     @error('phrase')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
 
     <div class="flex justify-end mt-4 space-x-2">
-        <x-form.secondary-button>
+        <x-form.secondary-button onclick="toggleModal()">
             {{ __('Cancel') }}
         </x-form.secondary-button>
         <x-form.danger-button
