@@ -34,7 +34,7 @@
 
         <!--Modal change password -->
         <x-modal id="changePassword" title="{{ __('Changing password') }}">
-            {{--        @livewire('user.change-password-form')--}}
+            @livewire('user.change-password')
         </x-modal>
         <!--Modal delete account -->
         <x-modal id="deleteAccount" title="{{ __('Deleting account') }}">
