@@ -33,8 +33,8 @@ progress::-webkit-progress-value {
 
 /* Flash close animation */
 .alert-flash input:checked ~ * {
-    -webkit-animation: fade-out-bottom 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-    animation: fade-out-bottom 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    -webkit-animation: fade-out-right 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: fade-out-right 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 /* -------------------------------------------------------------
@@ -67,28 +67,28 @@ progress::-webkit-progress-value {
     }
 }
 
-@-webkit-keyframes fade-out-bottom {
+@-webkit-keyframes fade-out-right {
     0% {
-        -webkit-transform: translateY(0) translateX(0);
-        transform: translateY(0) translateX(0);
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
         opacity: 1
     }
     100% {
-        -webkit-transform: translateY(250px) translateX(550px);
-        transform: translateY(250px) translateX(550px);
+        -webkit-transform: translateX(1000px);
+        transform: translateX(1000px);
         opacity: 0
     }
 }
 
 @keyframes fade-out-bottom {
     0% {
-        -webkit-transform: translateY(0) translateX(0);
-        transform: translateY(0) translateX(0);
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
         opacity: 1
     }
     100% {
-        -webkit-transform: translateY(250px) translateX(550px);
-        transform: translateY(250px) translateX(550px);
+        -webkit-transform: translateX(1000px);
+        transform: translateX(1000px);
         opacity: 0
     }
 }
