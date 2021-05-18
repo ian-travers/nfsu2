@@ -23,12 +23,8 @@ class ChangePassword extends Component
 
         $user->forceFill(['password' => bcrypt($this->password)])->save();
 
-        session()->flash('flash', [
-            'type' => 'success',
-            'message' => __('Your password has been changed.'),
-        ]);
-
-        return redirect()->route('settings.account');
+        $this->emitTo('generic-alert', 'passwordChanged');
+        $this->dispatchBrowserEvent('modalSubmitted');
     }
 
     public function render()

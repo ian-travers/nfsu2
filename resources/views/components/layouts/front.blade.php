@@ -14,10 +14,7 @@
     </nav>
 </header>
 <main class="flex-grow bg-nfsu-map bg-no-repeat bg-cover bg-fixed text-blue-300">
-
-    @if ($alert = session('flash'))
-        <x-alerts.flash type="{{ $alert['type'] }}">{{ $alert['message'] }}</x-alerts.flash>
-    @endif
+    @livewire('generic-alert')
 
     {{ $slot }}
 </main>
