@@ -23,8 +23,8 @@ class CreateTeamController extends Controller
         request()['captain_id'] = $user->id;
 
         $data = $this->validate(request(), [
-            'clan' => 'required|string|max:12',
-            'name' => 'required|string|max:255',
+            'clan' => 'required|string|min:2|max:12',
+            'name' => 'required|string|min:6|max:60',
             'password' => 'required|string|min:4|max:16',
             'captain_id' => 'required|integer',
         ]);

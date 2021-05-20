@@ -20,7 +20,11 @@
                             autofocus required
                             autocomplete="clan"
                         />
-                        @error('clan')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+                        @error('clan')
+                            <p class="text-red-500 mt-1 text-xs">{{ $message }}</p>
+                        @else
+                            <p class="text-gray-500 mt-1 text-xs">{{ __('Example: RR') }}</p>
+                        @enderror
                     </div>
 
                     <div>
@@ -34,7 +38,11 @@
                             required
                             autocomplete="name"
                         />
-                        @error('name')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+                        @error('name')
+                            <p class="text-red-500 mt-1 text-xs">{{ $message }}</p>
+                        @else
+                            <p class="text-gray-500 mt-1 text-xs">{{ __('Example: Race Planet Racers') }}</p>
+                        @enderror
                     </div>
 
                     <div>
@@ -48,9 +56,20 @@
                             required
                             autocomplete="password"
                         />
-                        @error('password')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+                        @error('password')
+                            <p class="text-red-500 mt-1 text-xs">{{ $message }}</p>
+                        @else
+                            <p class="text-gray-500 mt-1 text-xs">{{ __('4-16 characters') }}</p>
+                        @enderror
                     </div>
-                    <div>
+                    <div class="flex items-center justify-end space-x-4">
+                        <a
+                            class="underline text-sm text-gray-600 hover:text-gray-900"
+                            href="{{ route('settings.team.index') }}"
+                        >
+                            {{ __('Cancel') }}
+                        </a>
+
                         <x-form.primary-button
                             type="submit"
                         >
