@@ -29,7 +29,9 @@ class CreateTeamController extends Controller
             'captain_id' => 'required|integer',
         ]);
 
-        $user->createTeam($data);
+        $team = $user->createTeam($data);
+        $team->saveOrFail();
+        $user->joinTeam($team);
 
         return redirect()->route('settings.team.index')->with('flash', [
             'type' => 'success',

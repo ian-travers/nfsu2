@@ -13,6 +13,7 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('country', 2);
             $table->string('avatar')->nullable();
+            $table->foreignId('team_id')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
  * @property string $username
  * @property string $country
  * @property string|null $avatar
+ * @property int|null $team_id
  * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
@@ -37,6 +38,7 @@ use Illuminate\Support\Facades\Storage;
  * @method static Builder|User whereLocale($value)
  * @method static Builder|User wherePassword($value)
  * @method static Builder|User whereRememberToken($value)
+ * @method static Builder|User whereTeamId($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereUsername($value)
  * @mixin \Eloquent
@@ -45,7 +47,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = ['username', 'country', 'avatar', 'email', 'password'];
+    protected $fillable = ['username', 'country', 'avatar', 'email', 'password', 'team_id'];
 
     protected $hidden = ['password', 'remember_token'];
 
@@ -67,8 +69,29 @@ class User extends Authenticatable
         return Storage::disk('public')->delete($this->avatar);
     }
 
-    public function createTeam(array $data)
+    public function createTeam(array $data): Team
     {
-        Team::create($data);
+        return Team::make($data);
+    }
+
+    public function joinTeam(Team $team): void
+    {
+        $this->update(['team_id' => $team->id]);
+    }
+
+    public function isTeamMember(): bool
+    {
+        return isset($this->team_id);
+    }
+
+    public function isTeamCaptain(): bool
+    {
+        if(!$this->isTeamMember()) {
+            return false;
+        }
+
+        $team = Team::findOrFail($this->id);
+
+        return $this->id === $team->captain->id;
     }
 }

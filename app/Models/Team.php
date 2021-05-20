@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $password
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $captain
  * @method static \Database\Factories\TeamFactory factory(...$parameters)
  * @method static Builder|Team newModelQuery()
  * @method static Builder|Team newQuery()
@@ -34,4 +35,9 @@ class Team extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function captain()
+    {
+        return $this->belongsTo(User::class, 'captain_id');
+    }
 }

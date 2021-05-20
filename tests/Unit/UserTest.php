@@ -2,11 +2,15 @@
 
 namespace Tests\Unit;
 
+use App\Models\Team;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     function it_may_have_an_avatar()
     {
@@ -16,5 +20,39 @@ class UserTest extends TestCase
         ]);
 
         $this->assertTrue($user->hasAvatar());
+    }
+
+    /** @test */
+    function it_detects_team_membership()
+    {
+        /** @var \App\Models\User $user */
+        $user = User::factory()->create();
+
+        $this->assertFalse($user->isTeamMember());
+
+        /** @var \App\Models\Team $team */
+        $team = Team::factory()->create();
+
+        $user->joinTeam($team);
+
+        $this->assertTrue($user->isTeamMember());
+    }
+
+    /** @test */
+    function it_detects_team_captainship()
+    {
+        /** @var \App\Models\User $user */
+        $user = User::factory()->create();
+
+        $team = $user->createTeam([
+            'clan' => 'RR',
+            'name' => 'Race Planet Racers',
+            'password' => 'password',
+            'captain_id' => $user->id,
+        ]);
+        $team->save();
+        $user->joinTeam($team);
+
+        $this->assertTrue($user->isTeamCaptain());
     }
 }
