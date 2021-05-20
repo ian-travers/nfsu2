@@ -34,6 +34,8 @@ class Team extends Model
 {
     use HasFactory;
 
+    protected $hidden = ['password'];
+
     protected $guarded = [];
 
     public function captain()

@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\NFSUServerController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\Team\CreateTeamController;
+use App\Http\Controllers\User\Team\JoinTeamController;
 use App\Http\Controllers\User\Team\ManageTeamController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Register;
@@ -70,6 +71,14 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('', [ManageTeamController::class, 'index'])->name('.index');
             Route::get('create', [CreateTeamController::class, 'create'])->name('.create');
             Route::post('', [CreateTeamController::class, 'store'])->name('.store');
+
+            Route::group([
+                'prefix' => 'join',
+                'as' => '.join',
+            ], function () {
+                Route::get('', [JoinTeamController::class, 'join'])->name('.join');
+                Route::post('', [JoinTeamController::class, 'store'])->name('.store');
+            });
         });
     });
 

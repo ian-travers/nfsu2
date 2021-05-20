@@ -12,7 +12,6 @@ class CreateTest extends TestCase
     /** @test */
     function user_without_a_team_can_create_a_team()
     {
-        $this->withoutExceptionHandling();
         $this->signIn();
 
         $this->post('settings/team', [
