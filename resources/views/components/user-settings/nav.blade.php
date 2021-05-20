@@ -16,6 +16,13 @@
         >
             {{ __('Account') }}
         </x-user-settings.nav-item>
+
+        <x-user-settings.nav-item
+            href="{{ route('settings.team.index') }}"
+            :active="request()->is('settings/team') || request()->is('settings/team/create')"
+        >
+            {{ __('Team') }}
+        </x-user-settings.nav-item>
     </nav>
 </div>
 
