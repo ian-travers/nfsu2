@@ -5,6 +5,8 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\NFSUServerController;
 use App\Http\Controllers\User\AccountController;
+use App\Http\Controllers\User\Team\CreateTeamController;
+use App\Http\Controllers\User\Team\ManageTeamController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\User\Profile;
@@ -60,6 +62,15 @@ Route::group(['middleware' => 'language'], function () {
     ], function () {
         Route::get('/profile', Profile::class)->name('.profile');
         Route::get('/account', [AccountController::class, 'show'])->name('.account');
+
+        Route::group([
+            'prefix' => '/team',
+            'as' => '.team'
+        ], function () {
+            Route::get('', [ManageTeamController::class, 'index'])->name('.index');
+            Route::get('create', [CreateTeamController::class, 'create'])->name('.create');
+            Route::post('', [CreateTeamController::class, 'store'])->name('.store');
+        });
     });
 
 

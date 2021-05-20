@@ -66,4 +66,9 @@ class User extends Authenticatable
 
         return Storage::disk('public')->delete($this->avatar);
     }
+
+    public function createTeam(array $data)
+    {
+        Team::create($data);
+    }
 }
