@@ -10,7 +10,7 @@
                 <form action="{{ route('settings.team.join.store') }}" method="post" class="space-y-3 px-4 py-3">
                     @csrf
                     <div>
-                        <x-form.label for="team_id" value="{{ __('Clan > Name') }}"/>
+                        <x-form.label for="team_id" value="{!! __('Clan > Name') !!}"/>
                         <select
                             id="team_id"
                             name="team_id"
