@@ -42,12 +42,30 @@
                                 <thead>
                                 <tr class="text-center divide-x divide-gray-200">
                                     <th class="py-2 px-4">{{ __('Username') }}</th>
+                                    @if($user->isTeamCaptain())
+                                        <th class="py-2 px-4">{{ __('Actions') }}</th>
+                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200">
                                 @foreach($team->racers as $racer)
                                     <tr class="divide-x divide-gray-200 {{ $racer->isTeamCaptain() ? 'bg-blue-50' : '' }}">
                                         <td class="py-1 px-3">{{ $racer->username }}</td>
+                                        @if($user->isTeamCaptain())
+                                            <td class="py-1 px-3">
+                                                <form action="{{ route('settings.team.members.remove', $racer) }}"
+                                                      method="post">
+                                                    @csrf
+                                                    <x-form.danger-button
+                                                        type="submit"
+                                                        onclick="return confirm('Are you sure?')"
+                                                        :disabled="$racer->isTeamCaptain()"
+                                                    >
+                                                        {{ __('Kick out') }}
+                                                    </x-form.danger-button>
+                                                </form>
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>

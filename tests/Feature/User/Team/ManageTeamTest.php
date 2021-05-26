@@ -39,12 +39,12 @@ class ManageTeamTest extends TestCase
     {
         $team = Team::factory()->create();
 
-        /** @var User $user */
-        $user = User::factory()->create();
+        /** @var User $member */
+        $member = User::factory()->create();
 
-        $this->signIn($user);
+        $this->signIn($member);
 
-        $user->joinTeam($team);
+        $member->joinTeam($team);
 
         $this->get('settings/team/edit')
             ->assertRedirect('settings/team')
@@ -57,16 +57,16 @@ class ManageTeamTest extends TestCase
     /** @test */
     function team_captain_can_update_own_team()
     {
-        /** @var User $user */
-        $user = User::factory()->create();
+        /** @var User $captain */
+        $captain = User::factory()->create();
 
-        $this->signIn($user);
+        $this->signIn($captain);
 
-        $user->createTeam([
+        $captain->createTeam([
             'clan' => 'TT',
             'name' => 'Test Team',
             'password' => 'password',
-            'captain_id' => $user->id,
+            'captain_id' => $captain->id,
         ]);
 
         $data = [
@@ -78,5 +78,88 @@ class ManageTeamTest extends TestCase
         $this->patch('settings/team', $data);
 
         $this->assertDatabaseHas('teams', $data);
+    }
+
+    /** @test */
+    function team_captain_may_kick_out_a_member_from_own_team()
+    {
+        /** @var User $captain */
+        $captain = User::factory()->create();
+
+        $this->signIn($captain);
+
+        $captain->createTeam([
+            'clan' => 'TT',
+            'name' => 'Test Team',
+            'password' => 'password',
+            'captain_id' => $captain->id,
+        ]);
+
+
+        $team = Team::find($captain->team_id);
+
+        /** @var User $member */
+        $member = User::factory()->create();
+        $member->joinTeam($team);
+
+        $this->assertEquals(2, $team->racers()->count());
+
+        $this->post("settings/team/members/remove/{$member->id}");
+
+        $this->assertEquals(1, $team->racers()->count());
+    }
+
+    /** @test */
+    function team_captain_cannot_kick_out_himself()
+    {
+        /** @var User $captain */
+        $captain = User::factory()->create();
+
+        $this->signIn($captain);
+
+        $captain->createTeam([
+            'clan' => 'TT',
+            'name' => 'Test Team',
+            'password' => 'password',
+            'captain_id' => $captain->id,
+        ]);
+
+        $this->post("settings/team/members/remove/{$captain->id}")
+            ->assertSessionHas('flash', [
+                'type' => 'warning',
+                'message' => 'Impossible to remove team captain.'
+            ]);
+
+        $this->assertCount(1, Team::find($captain->team_id)->racers);
+    }
+
+    /** @test */
+    function team_captain_cannot_kick_out_a_member_of_another_team()
+    {
+        $this->withoutExceptionHandling();
+        /** @var User $captain */
+        $captain = User::factory()->create();
+
+        $this->signIn($captain);
+
+        $captain->createTeam([
+            'clan' => 'TT',
+            'name' => 'Test Team',
+            'password' => 'password',
+            'captain_id' => $captain->id,
+        ]);
+
+        /** @var User $anotherMember */
+        $anotherMember = User::factory()->create([
+            'team_id' => Team::factory()->create(),
+        ]);
+
+        $this->post("settings/team/members/remove/{$anotherMember->id}")
+            ->assertSessionHas('flash', [
+                'type' => 'warning',
+                'message' => 'It is impossible to delete a member of another team.'
+            ]);
+
+        $this->assertCount(1, Team::find($captain->team_id)->racers);
     }
 }

@@ -83,6 +83,13 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('', [JoinTeamController::class, 'store'])->name('.store');
                 Route::delete('', [JoinTeamController::class, 'leave'])->name('.leave');
             });
+
+            Route::group([
+                'prefix' => 'members',
+                'as' => '.members',
+            ], function () {
+                Route::post('remove/{user}', [ManageTeamController::class, 'removeMember'])->name('.remove');
+            });
         });
     });
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DomainException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -48,5 +49,16 @@ class Team extends Model
     public function racers()
     {
         return $this->hasMany(User::class);
+    }
+
+    /**
+     * @throws \Throwable
+     */
+    public function removeMember(User $user)
+    {
+        throw_if($user->isTeamCaptain(), new DomainException(__('Impossible to remove team captain.')));
+        throw_unless($user->team_id == $this->id, new DomainException(__('It is impossible to delete a member of another team.')));
+
+        $user->update(['team_id' => null]);
     }
 }
