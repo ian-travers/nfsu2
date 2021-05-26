@@ -10,6 +10,16 @@ class CreateTeamController extends Controller
 {
     public function create()
     {
+        /** @var User $user */
+        $user = auth()->user();
+
+        if ($user->isTeamMember()) {
+            return redirect()->route('settings.team.index')->with('flash', [
+                'type' => 'warning',
+                'message' => __('You need to leave the current team.'),
+            ]);
+        }
+
         return view('frontend.user.team.create', [
             'user' => auth()->user(),
             'title' => __('Create team'),
