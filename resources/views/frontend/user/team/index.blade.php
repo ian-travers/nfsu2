@@ -6,39 +6,52 @@
                 <div class="bg-blue-100 px-4 py-2">
                     <h3 class="text-2xl sm:text-3xl">{{ __('Your team') }}</h3>
                 </div>
-                @if($user->isTeamCaptain())
-                    <div class="my-3 mx-4 space-y-3">
-                        <div class="flex items-baseline">
-                            <span class="inline-flex items-center px-3 py-0.5 rounded text-3xl bg-gray-600 text-green-400">
+                @if($user->isTeamMember())
+                    <div class="my-3 mx-4 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-baseline">
+                            <span
+                                class="inline-flex items-center px-3 py-0.5 rounded text-3xl bg-gray-600 text-green-400">
                                 {{ $team->clan }}
                             </span>
-                            <span class="text-xl text-gray-500 ml-4">{{ $team->name }}</span>
+                                <span class="text-xl text-gray-500 ml-4">{{ $team->name }}</span>
+                            </div>
+                            <div>
+                                @if($user->isTeamCaptain())
+                                    <div>
+                                        <a href="{{ route('settings.team.edit') }}">
+                                            <x-form.primary-button>{{ __('Edit team') }}</x-form.primary-button>
+                                        </a>
+                                    </div>
+                                @else
+                                    <form action="{{ route('settings.team.join.leave') }}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <x-form.warning-button
+                                            type="submit"
+                                            onclick="return confirm('Leaving the team now?')"
+                                        >
+                                            {{ __('Leave team') }}
+                                        </x-form.warning-button>
+                                    </form>
+                                @endif
+                            </div>
                         </div>
                         <div>
-                            <a href="{{ route('settings.team.edit') }}">
-                                <x-form.primary-button>{{ __('Edit team') }}</x-form.primary-button>
-                            </a>
-                        </div>
-                    </div>
-                @elseif($user->isTeamMember())
-                    <div class="my-3 mx-4 space-y-3">
-                        <div class="flex items-baseline">
-                            <span class="inline-flex items-center px-3 py-0.5 rounded text-3xl bg-gray-600 text-green-400">
-                                {{ $team->clan }}
-                            </span>
-                            <span class="text-xl text-gray-500 ml-4">{{ $team->name }}</span>
-                        </div>
-                        <div>
-                            <form action="{{ route('settings.team.join.leave') }}" method="post">
-                                @csrf
-                                @method('delete')
-                                <x-form.warning-button
-                                    type="submit"
-                                    onclick="return confirm('Leaving the team now?')"
-                                >
-                                    {{ __('Leave team') }}
-                                </x-form.warning-button>
-                            </form>
+                            <table class="border border-gray200 divide-y divide-200-200 rounded w-full">
+                                <thead>
+                                <tr class="text-center divide-x divide-gray-200">
+                                    <th class="py-2 px-4">{{ __('Username') }}</th>
+                                </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                @foreach($team->racers as $racer)
+                                    <tr class="divide-x divide-gray-200 {{ $racer->isTeamCaptain() ? 'bg-blue-50' : '' }}">
+                                        <td class="py-1 px-3">{{ $racer->username }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 @else

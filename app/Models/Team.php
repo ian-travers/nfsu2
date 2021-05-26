@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $captain
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $racers
+ * @property-read int|null $racers_count
  * @method static \Database\Factories\TeamFactory factory(...$parameters)
  * @method static Builder|Team newModelQuery()
  * @method static Builder|Team newQuery()
@@ -41,5 +43,10 @@ class Team extends Model
     public function captain()
     {
         return $this->belongsTo(User::class, 'captain_id');
+    }
+
+    public function racers()
+    {
+        return $this->hasMany(User::class);
     }
 }
