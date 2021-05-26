@@ -50,4 +50,19 @@ class JoinTeamController extends Controller
             'message' => __('You joined the team.')
         ]);
     }
+
+    public function leave()
+    {
+        /** @var User $user */
+        $user = auth()->user();
+
+        if ($user->isTeamMember()) {
+            $user->leaveTeam();
+
+            return redirect()->route('settings.team.index')->with('flash', [
+                'type' => 'success',
+                'message' => 'You left the team.',
+            ]);
+        }
+    }
 }

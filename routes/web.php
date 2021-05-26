@@ -81,6 +81,7 @@ Route::group(['middleware' => 'language'], function () {
             ], function () {
                 Route::get('', [JoinTeamController::class, 'join'])->name('.join');
                 Route::post('', [JoinTeamController::class, 'store'])->name('.store');
+                Route::delete('', [JoinTeamController::class, 'leave'])->name('.leave');
             });
         });
     });

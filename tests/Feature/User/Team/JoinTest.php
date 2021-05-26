@@ -32,7 +32,7 @@ class JoinTest extends TestCase
     }
 
     /** @test */
-    function user_from_a_team_cannot_join_to_another_team()
+    function team_member_cannot_join_to_another_team()
     {
         /** @var User $user */
         $user = User::factory()->create([
@@ -56,5 +56,26 @@ class JoinTest extends TestCase
             ]);
 
         $this->assertNotEquals($team->id, $user->team_id);
+    }
+
+    /** @test */
+    function team_member_can_leave_the_team()
+    {
+        $this->signIn();
+
+        /** @var \App\Models\Team $team */
+        $team = Team::factory()->create();
+
+        /** @var \App\Models\User $user */
+        $user = auth()->user();
+
+        $user->joinTeam($team);
+
+        $this->assertTrue($user->isTeamMember());
+
+        $this->delete('settings/team/join')
+            ->assertRedirect('settings/team');
+
+        $this->assertFalse($user->isTeamMember());
     }
 }

@@ -81,6 +81,11 @@ class User extends Authenticatable
         $this->update(['team_id' => $team->id]);
     }
 
+    public function leaveTeam(): void
+    {
+        $this->update(['team_id' => null]);
+    }
+
     public function isTeamMember(): bool
     {
         return isset($this->team_id);
