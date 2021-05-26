@@ -69,9 +69,11 @@ class User extends Authenticatable
         return Storage::disk('public')->delete($this->avatar);
     }
 
-    public function createTeam(array $data): Team
+    public function createTeam(array $data): void
     {
-        return Team::make($data);
+        $team = Team::create($data);
+
+        $this->joinTeam($team);
     }
 
     public function joinTeam(Team $team): void
@@ -90,7 +92,7 @@ class User extends Authenticatable
             return false;
         }
 
-        $team = Team::findOrFail($this->id);
+        $team = Team::findOrFail($this->team_id);
 
         return $this->id === $team->captain->id;
     }

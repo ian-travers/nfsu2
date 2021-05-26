@@ -44,14 +44,12 @@ class UserTest extends TestCase
         /** @var \App\Models\User $user */
         $user = User::factory()->create();
 
-        $team = $user->createTeam([
+        $user->createTeam([
             'clan' => 'RR',
             'name' => 'Race Planet Racers',
             'password' => 'password',
             'captain_id' => $user->id,
         ]);
-        $team->save();
-        $user->joinTeam($team);
 
         $this->assertTrue($user->isTeamCaptain());
     }

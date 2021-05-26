@@ -3,7 +3,11 @@
     <div class="overflow-hidden rounded sm:rounded-md text-gray-900">
         <div class="px-4 py-5 bg-white">
             @if($user->isTeamCaptain())
-                Manage Team
+                <a href="{{ route('settings.team.edit') }}">
+                    <p>{{ $team->name }}</p>
+                    <p class="text-sm text-gray-500">{{ $team->clan }}</p>
+                    <x-form.primary-button>{{ __('Edit team') }}</x-form.primary-button>
+                </a>
             @elseif($user->isTeamMember())
                 See Team
             @else
