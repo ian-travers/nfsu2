@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\Team;
 
 use App\Http\Controllers\Controller;
+use App\Models\Team;
 use App\Models\User;
 
 class CreateTeamController extends Controller
@@ -12,6 +13,7 @@ class CreateTeamController extends Controller
         return view('frontend.user.team.create', [
             'user' => auth()->user(),
             'title' => __('Create team'),
+            'team' => new Team(),
         ]);
     }
 
