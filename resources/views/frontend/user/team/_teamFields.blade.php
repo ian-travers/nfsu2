@@ -24,7 +24,7 @@
         class="block w-full mt-1"
         type="text"
         name="name"
-        maxlength="12"
+        maxlength="60"
         value="{{ $team->name, old('name') }}"
         required
         autocomplete="name"
@@ -43,7 +43,7 @@
         class="block w-full mt-1"
         type="text"
         name="password"
-        maxlength="12"
+        maxlength="16"
         value="{{ $team->password, old('password') }}"
         required
         autocomplete="password"

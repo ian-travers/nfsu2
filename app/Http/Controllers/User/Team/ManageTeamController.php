@@ -33,7 +33,7 @@ class ManageTeamController extends Controller
 
         return redirect()->route('settings.team.index')->with('flash', [
             'type' => 'success',
-            'message' => 'Player has been removed from the team.',
+            'message' => __('Player has been removed from the team.'),
         ]);
     }
 
@@ -52,7 +52,28 @@ class ManageTeamController extends Controller
 
         return redirect()->route('settings.team.index')->with('flash', [
             'type' => 'success',
-            'message' => 'Captainship has been transferred.',
+            'message' => __('Captainship has been transferred.'),
+        ]);
+    }
+
+    public function dismiss()
+    {
+        /** @var Team $team */
+        $team = Team::find(auth()->user()->team_id);
+
+        try {
+            $team->dismiss();
+        } catch (DomainException $e) {
+            return redirect()->route('settings.team.index')->with('flash', [
+                'type' => 'warning',
+                'message' => $e->getMessage(),
+            ]);
+        }
+
+
+        return redirect()->route('settings.team.index')->with('flash', [
+            'type' => 'success',
+            'message' => __('The team has been dismissed.'),
         ]);
     }
 }

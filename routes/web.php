@@ -74,6 +74,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('', [CreateTeamController::class, 'store'])->name('.store');
             Route::get('edit', [EditTeamController::class, 'edit'])->name('.edit');
             Route::patch('', [EditTeamController::class, 'update'])->name('.update');
+            Route::delete('', [ManageTeamController::class, 'dismiss'])->name('.dismiss');
 
             Route::group([
                 'prefix' => 'join',

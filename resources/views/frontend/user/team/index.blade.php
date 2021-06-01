@@ -22,6 +22,16 @@
                                         <a href="{{ route('settings.team.edit') }}">
                                             <x-form.primary-button>{{ __('Edit team') }}</x-form.primary-button>
                                         </a>
+                                        <form action="{{ route('settings.team.dismiss') }}" method="post" class="inline-block">
+                                            @csrf
+                                            @method('delete')
+                                            <x-form.danger-button
+                                                type="submit"
+                                                onclick="return confirm('Dismiss the team now?')"
+                                            >
+                                                {{ __('Dismiss team') }}
+                                            </x-form.danger-button>
+                                        </form>
                                     </div>
                                 @else
                                     <form action="{{ route('settings.team.join.leave') }}" method="post">
