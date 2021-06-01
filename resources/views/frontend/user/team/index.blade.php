@@ -52,9 +52,9 @@
                                     <tr class="divide-x divide-gray-200 {{ $racer->isTeamCaptain() ? 'bg-blue-50' : '' }}">
                                         <td class="py-1 px-3">{{ $racer->username }}</td>
                                         @if($user->isTeamCaptain())
-                                            <td class="py-1 px-3">
+                                            <td class="py-1 px-3 space-x-2 text-center">
                                                 <form action="{{ route('settings.team.members.remove', $racer) }}"
-                                                      method="post">
+                                                      method="post" class="inline-block">
                                                     @csrf
                                                     <x-form.danger-button
                                                         type="submit"
@@ -63,6 +63,18 @@
                                                     >
                                                         {{ __('Kick out') }}
                                                     </x-form.danger-button>
+                                                </form>
+
+                                                <form action="{{ route('settings.team.members.transfer', $racer) }}"
+                                                      method="post" class="inline-block">
+                                                    @csrf
+                                                    <x-form.primary-button
+                                                        type="submit"
+                                                        onclick="return confirm('Are you sure?')"
+                                                        :disabled="$racer->isTeamCaptain()"
+                                                    >
+                                                        {{ __('Make captain') }}
+                                                    </x-form.primary-button>
                                                 </form>
                                             </td>
                                         @endif

@@ -89,6 +89,7 @@ Route::group(['middleware' => 'language'], function () {
                 'as' => '.members',
             ], function () {
                 Route::post('remove/{user}', [ManageTeamController::class, 'removeMember'])->name('.remove');
+                Route::post('transfer/{user}', [ManageTeamController::class, 'transferCaptainship'])->name('.transfer');
             });
         });
     });

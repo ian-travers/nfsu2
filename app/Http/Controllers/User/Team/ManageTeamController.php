@@ -36,4 +36,23 @@ class ManageTeamController extends Controller
             'message' => 'Player has been removed from the team.',
         ]);
     }
+
+    public function transferCaptainship(User $user)
+    {
+        $team = Team::find(auth()->user()->team_id);
+
+        try {
+            $team->transferCaptainship($user);
+        } catch (DomainException $e) {
+            return redirect()->route('settings.team.index')->with('flash', [
+                'type' => 'warning',
+                'message' => $e->getMessage(),
+            ]);
+        }
+
+        return redirect()->route('settings.team.index')->with('flash', [
+            'type' => 'success',
+            'message' => 'Captainship has been transferred.',
+        ]);
+    }
 }

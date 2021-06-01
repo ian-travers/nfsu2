@@ -61,4 +61,12 @@ class Team extends Model
 
         $user->update(['team_id' => null]);
     }
+
+    public function transferCaptainship(User $user)
+    {
+        throw_if($user->isTeamCaptain(), new DomainException(__('Impossible to transfer to yourself.')));
+        throw_unless($user->team_id == $this->id, new DomainException(__('It is impossible to transfer captainship to a member of another team.')));
+
+        $this->update(['captain_id' => $user->id]);
+    }
 }
