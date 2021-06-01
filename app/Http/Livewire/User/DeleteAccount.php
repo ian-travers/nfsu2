@@ -33,6 +33,15 @@ class DeleteAccount extends Component
         /** @var User $user */
         $user = auth()->user();
 
+        if ($user->isTeamCaptain()) {
+            session()->flash('flash', [
+                'type' => 'error',
+                'message' => __('You have to transfer captainship or delete your team first.'),
+            ]);
+
+            return redirect()->route('settings.account');
+        }
+
         $user->removeAvatarFile();
         $user->delete();
 
