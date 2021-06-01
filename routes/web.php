@@ -34,10 +34,10 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('register', Register::class)
         ->middleware('guest')
         ->name('register');
-    Route::get('/login', Login::class)
+    Route::get('login', Login::class)
         ->middleware(['guest'])
         ->name('login');
-    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->middleware(['auth'])
         ->name('logout');
 
@@ -46,24 +46,24 @@ Route::group(['middleware' => 'language'], function () {
         'middleware' => 'guest',
         'as' => 'password'
     ], function () {
-        Route::get('/forgot-password', [PasswordResetController::class, 'create'])
+        Route::get('forgot-password', [PasswordResetController::class, 'create'])
             ->name('.request');
-        Route::post('/forgot-password', [PasswordResetController::class, 'store'])
+        Route::post('forgot-password', [PasswordResetController::class, 'store'])
             ->name('.email');
-        Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
+        Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
             ->name('.reset');
-        Route::post('/reset-password', [NewPasswordController::class, 'store'])
+        Route::post('reset-password', [NewPasswordController::class, 'store'])
             ->name('.update');
     });
 
     // User settings
     Route::group([
         'middleware' => ['auth'],
-        'prefix' => '/settings',
+        'prefix' => 'settings',
         'as' => 'settings'
     ], function () {
-        Route::get('/profile', Profile::class)->name('.profile');
-        Route::get('/account', [AccountController::class, 'show'])->name('.account');
+        Route::get('profile', Profile::class)->name('.profile');
+        Route::get('account', [AccountController::class, 'show'])->name('.account');
 
         Route::group([
             'prefix' => '/team',
