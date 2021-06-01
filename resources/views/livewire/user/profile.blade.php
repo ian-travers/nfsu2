@@ -86,7 +86,7 @@
             @if($hasAvatar)
                 <div class="mt-4 text-center">
                     <button
-                        onclick="confirm('Are you sure you want to remove an avatar?') || event.stopImmediatePropagation()"
+                        onclick="confirm(__('Are you sure you want to remove an avatar?')) || event.stopImmediatePropagation()"
                         wire:click="removeAvatar"
                         type="button"
                         class="items-center px-4 py-2 bg-yellow-300 rounded-md font-semibold text-sm tracking-widest hover:bg-yellow-400 focus:bg-yellow-400 disabled:opacity-25 transition ease-in-out duration-150"

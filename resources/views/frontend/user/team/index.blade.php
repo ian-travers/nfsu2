@@ -27,7 +27,7 @@
                                             @method('delete')
                                             <x-form.danger-button
                                                 type="submit"
-                                                onclick="return confirm('Dismiss the team now?')"
+                                                onclick="return confirm(__('Dismiss the team now?'))"
                                             >
                                                 {{ __('Dismiss team') }}
                                             </x-form.danger-button>
@@ -39,7 +39,7 @@
                                         @method('delete')
                                         <x-form.warning-button
                                             type="submit"
-                                            onclick="return confirm('Leaving the team now?')"
+                                            onclick="return confirm(__('Leaving the team now?'))"
                                         >
                                             {{ __('Leave team') }}
                                         </x-form.warning-button>
@@ -68,7 +68,7 @@
                                                     @csrf
                                                     <x-form.danger-button
                                                         type="submit"
-                                                        onclick="return confirm('Are you sure?')"
+                                                        onclick="return confirm(__('Confirm kicking out the racer?'))"
                                                         :disabled="$racer->isTeamCaptain()"
                                                     >
                                                         {{ __('Kick out') }}
@@ -80,7 +80,7 @@
                                                     @csrf
                                                     <x-form.primary-button
                                                         type="submit"
-                                                        onclick="return confirm('Are you sure?')"
+                                                        onclick="return confirm(__('You can no longer manage the team! Confirm transferring?'))"
                                                         :disabled="$racer->isTeamCaptain()"
                                                     >
                                                         {{ __('Make captain') }}

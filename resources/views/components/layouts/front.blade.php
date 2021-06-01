@@ -19,6 +19,10 @@
     {{ $slot }}
 </main>
 
+<script>
+    window._locale = '{{ app()->getLocale() }}';
+    window._translations = {!! cache('translations') !!};
+</script>
 @livewireScripts
 <script src="{{ mix('js/app.js', 'build') }}"></script>
 @stack('scripts')
