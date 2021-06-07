@@ -18,7 +18,6 @@ class LoginTest extends TestCase
         $user = $this->CreateUser();
 
         $this->get('/login')
-            ->assertDontSee('These credentials do not match our records')
             ->assertSeeLivewire('auth.login');
 
 

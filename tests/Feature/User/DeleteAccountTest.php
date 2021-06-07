@@ -15,24 +15,23 @@ class DeleteAccountTest extends TestCase
     /** @test */
     function user_can_delete_own_account()
     {
-        $this->signIn();
+        /** @var User $user */
+        $user = User::factory()->create();
 
-        $this->assertDatabaseCount('users', 1);
+        $this->signIn($user);
 
         Livewire::test(DeleteAccount::class)
-            ->set('email', auth()->user()->email)
+            ->set('email', $user->email)
             ->set('phrase', 'delete my account right now')
             ->call('submit');
 
-        $this->assertDatabaseCount('users', 0);
+        $this->assertSoftDeleted($user);
     }
 
     /** @test */
     function user_must_provide_his_email()
     {
         $this->signIn();
-
-        $this->assertDatabaseCount('users', 1);
 
         Livewire::test(DeleteAccount::class)
             ->set('email', 'fake@mail.com')
@@ -41,14 +40,13 @@ class DeleteAccountTest extends TestCase
             ->assertHasErrors('email');
 
         $this->assertDatabaseCount('users', 1);
+        $this->assertFalse((auth()->user())->trashed());
     }
 
     /** @test */
     function user_must_provide_valid_verify_phrase()
     {
         $this->signIn();
-
-        $this->assertDatabaseCount('users', 1);
 
         Livewire::test(DeleteAccount::class)
             ->set('email', auth()->user()->email)
@@ -57,6 +55,7 @@ class DeleteAccountTest extends TestCase
             ->assertHasErrors('phrase');
 
         $this->assertDatabaseCount('users', 1);
+        $this->assertFalse((auth()->user())->trashed());
     }
 
     /** @test */
@@ -84,5 +83,6 @@ class DeleteAccountTest extends TestCase
             ])
             ->assertRedirect('settings/account');
 
+        $this->assertFalse($captain->fresh()->trashed());
     }
 }
