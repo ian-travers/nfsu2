@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Storage;
  * @property string|null $avatar
  * @property int|null $team_id
  * @property string $email
+ * @property string $role
+ * @property bool $is_admin
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
@@ -39,9 +41,11 @@ use Illuminate\Support\Facades\Storage;
  * @method static Builder|User whereEmail($value)
  * @method static Builder|User whereEmailVerifiedAt($value)
  * @method static Builder|User whereId($value)
+ * @method static Builder|User whereIsAdmin($value)
  * @method static Builder|User whereLocale($value)
  * @method static Builder|User wherePassword($value)
  * @method static Builder|User whereRememberToken($value)
+ * @method static Builder|User whereRole($value)
  * @method static Builder|User whereTeamId($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereUsername($value)
@@ -53,12 +57,17 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, SoftDeletes;
 
-    protected $fillable = ['username', 'country', 'avatar', 'email', 'password', 'team_id'];
+    public const ROLE_USER = 'user';
+    public const ROLE_RACER = 'racer';
+    public const ROLE_SUPERVISOR = 'supervisor';
+
+    protected $fillable = ['username', 'country', 'avatar', 'email', 'password', 'team_id', 'role', 'is_admin'];
 
     protected $hidden = ['password', 'remember_token'];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean',
     ];
 
     public function hasAvatar(): bool
@@ -106,5 +115,57 @@ class User extends Authenticatable
         $team = Team::findOrFail($this->team_id);
 
         return $this->id === $team->captain->id;
+    }
+
+    public static function rolesList(): array
+    {
+        return [
+            self::ROLE_USER => __('user'),
+            self::ROLE_RACER => __('racer'),
+            self::ROLE_SUPERVISOR => __('supervisor'),
+        ];
+    }
+
+    public function getRole(): string
+    {
+        return self::rolesList()[$this->role];
+    }
+
+    /**
+     * @param $role
+     * @throws \Throwable
+     */
+    public function changeRole($role): void
+    {
+        throw_unless(array_key_exists($role, self::rolesList()), new \InvalidArgumentException(__('Unknown role :role', ['role' => $role])));
+
+        throw_if($this->role === $role, new \DomainException(__('This role has already been assigned')));
+
+        $this->update(['role' => $role]);
+    }
+
+    public function isUser(): bool
+    {
+        return $this->role == self::ROLE_USER;
+    }
+
+    public function isRacer(): bool
+    {
+        return $this->role == self::ROLE_RACER;
+    }
+
+    public function isSupervisor(): bool
+    {
+        return $this->role == self::ROLE_SUPERVISOR;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->is_admin;
+    }
+
+    public function setAdminRights(): void
+    {
+        $this->update(['is_admin' => true]);
     }
 }

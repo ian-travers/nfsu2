@@ -15,6 +15,8 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->foreignId('team_id')->nullable();
             $table->string('email')->unique();
+            $table->string('role', 32)->default('user');
+            $table->boolean('is_admin')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
