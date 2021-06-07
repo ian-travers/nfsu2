@@ -8,6 +8,6 @@ class DashboardController extends Controller
 {
     public function show()
     {
-        return 'Hello Dashboard';
+        return view('backend.dashboard', ['title' => __('Dashboard')]);
     }
 }

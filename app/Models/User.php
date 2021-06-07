@@ -137,9 +137,9 @@ class User extends Authenticatable
      */
     public function changeRole($role): void
     {
-        throw_unless(array_key_exists($role, self::rolesList()), new \InvalidArgumentException(__('Unknown role :role', ['role' => $role])));
+        throw_unless(array_key_exists($role, self::rolesList()), new \InvalidArgumentException(__('Unknown role :role.', ['role' => $role])));
 
-        throw_if($this->role === $role, new \DomainException(__('This role has already been assigned')));
+        throw_if($this->role === $role, new \DomainException(__('This role has already been assigned.')));
 
         $this->update(['role' => $role]);
     }

@@ -37,14 +37,19 @@
     >
         <div class="px-2 py-3 ">
             <x-navs.mobile-link route="#">{{ __('Tourneys') }}</x-navs.mobile-link>
+
             <div class="text-sm font-semibold text-gray-400 tracking-widest uppercase text-center">
                 {{ __('Game Server') }}
             </div>
             <x-navs.mobile-link route="server.monitor">{{ __('Monitor') }}</x-navs.mobile-link>
             <x-navs.mobile-link route="server.best-performers-redirect">{{ __('Best Performers') }}</x-navs.mobile-link>
             <x-navs.mobile-link route="server.ratings-redirect">{{ __('Ratings') }}</x-navs.mobile-link>
-
         </div>
+
+        <div class="py-3 border-t border-gray-700">
+            <x-navs.mobile-link route="adm.dashboard">{{ __('Manage Site') }}</x-navs.mobile-link>
+        </div>
+
         <div class="pt-4 pb-3 border-t border-gray-700">
             @auth
                 <div class="flex items-center px-5">
