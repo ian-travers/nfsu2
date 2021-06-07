@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\NFSUServerController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\Team\CreateTeamController;
@@ -95,6 +96,15 @@ Route::group(['middleware' => 'language'], function () {
         });
     });
 
+    // Backend
+    Route::group([
+        'middleware' => ['auth', 'admin'],
+        'prefix' => 'adm',
+        'namespace' => 'Backend',
+        'as' => 'adm'
+    ], function () {
+        Route::get('', [DashboardController::class, 'show'])->name('.dashboard');
+    });
 
     // Dummy route
     Route::get('#', fn() => view('welcome'))->name('#');
