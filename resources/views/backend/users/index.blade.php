@@ -1,3 +1,3 @@
 <x-layouts.back title="{{ $title }}">
-    Dashboard Info Goes Here
+    Users Index Goes Here
 </x-layouts.back>

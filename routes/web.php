@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\NFSUServerController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\Team\CreateTeamController;
@@ -104,6 +105,14 @@ Route::group(['middleware' => 'language'], function () {
         'as' => 'adm'
     ], function () {
         Route::get('', [DashboardController::class, 'show'])->name('.dashboard');
+
+        // Users
+        Route::group([
+            'prefix' => 'users',
+            'as' => '.users',
+        ], function () {
+            Route::get('', [UsersController::class, 'index'])->name('.index');
+        });
     });
 
     // Dummy route
