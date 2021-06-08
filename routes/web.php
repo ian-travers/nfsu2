@@ -112,6 +112,7 @@ Route::group(['middleware' => 'language'], function () {
             'as' => '.users',
         ], function () {
             Route::get('', [UsersController::class, 'index'])->name('.index');
+            Route::get('create', [UsersController::class, 'create'])->name('.create');
         });
     });
 
