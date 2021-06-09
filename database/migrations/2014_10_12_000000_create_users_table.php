@@ -10,7 +10,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
+            $table->string('username', 15)->unique();
             $table->string('country', 2);
             $table->string('avatar')->nullable();
             $table->foreignId('team_id')->nullable();

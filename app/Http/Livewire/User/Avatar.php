@@ -2,11 +2,13 @@
 
 namespace App\Http\Livewire\User;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 class Avatar extends Component
 {
+    public User $user;
     public string $avatarPath = '';
     public bool $hasAvatar = false;
 
@@ -15,7 +17,7 @@ class Avatar extends Component
     public function mount()
     {
         /** @var \App\Models\User $user */
-        $user = auth()->user();
+        $user = $this->user ?? auth()->user();
 
         $this->hasAvatar = $user->hasAvatar();
         $this->avatarPath = Storage::url($user->avatar);

@@ -81,11 +81,15 @@ class User extends Authenticatable
             return false;
         }
 
-        return Storage::disk('public')->delete($this->avatar);
+        Storage::disk('public')->delete($this->avatar);
+
+        return $this->update(['avatar' => null]);
     }
 
     public function createTeam(array $data): void
     {
+        $data['captain_id'] = $this->id;
+
         $team = Team::create($data);
 
         $this->joinTeam($team);

@@ -113,6 +113,12 @@ Route::group(['middleware' => 'language'], function () {
         ], function () {
             Route::get('', [UsersController::class, 'index'])->name('.index');
             Route::get('create', [UsersController::class, 'create'])->name('.create');
+            Route::post('', [UsersController::class, 'store'])->name('.store');
+            Route::get('edit/{user}', [UsersController::class, 'edit'])->name('.edit');
+            Route::patch('{user}', [UsersController::class, 'update'])->name('.update');
+            Route::put('trash/{user}', [UsersController::class, 'trash'])->name('.trash');
+            Route::put('restore/{id}', [UsersController::class, 'restore'])->name('.restore');
+            Route::put('delete/{id}', [UsersController::class, 'remove'])->name('.delete');
         });
     });
 
