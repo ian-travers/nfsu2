@@ -131,4 +131,20 @@ class UsersController extends Controller
             'message' => 'User has been removed.',
         ]);
     }
+
+    public function changePassword()
+    {
+        $user = User::withTrashed()->findOrFail(request('id'));
+
+        $formData = request()->validate([
+            'password' => 'required|min:8|regex:/^\S*$/u',
+        ]);
+
+        $user->changePassword($formData['password']);
+
+        return redirect()->route('adm.users.index')->with('flash', [
+            'type' => 'success',
+            'message' => 'Password has been changed.',
+        ]);
+    }
 }

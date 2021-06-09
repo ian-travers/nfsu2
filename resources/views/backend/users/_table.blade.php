@@ -28,6 +28,9 @@
                             {{ __('Admin') }}
                         </th>
                         <th scope="col" class="relative px-6 py-3">
+                            <span class="sr-only">Change Password</span>
+                        </th>
+                        <th scope="col" class="relative px-6 py-3">
                             <span class="sr-only">Actions</span>
                         </th>
                     </tr>
@@ -67,6 +70,17 @@
                                               clip-rule="evenodd"/>
                                     </svg>
                                 @endif
+                            </td>
+                            <td class="px-6 py-4">
+                                <x-form.secondary-button
+                                    type="button"
+                                    data-target="changePassword"
+                                    class="modal-open"
+                                    data-user-id="{{ $user->id }}"
+                                    data-user-username="{{ $user->username }}"
+                                >
+                                    {{ __('Change password') }}...
+                                </x-form.secondary-button>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 @if($user->trashed())
@@ -120,4 +134,3 @@
         </div>
     </div>
 </div>
-

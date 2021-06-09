@@ -119,10 +119,10 @@ Route::group(['middleware' => 'language'], function () {
             Route::put('trash/{user}', [UsersController::class, 'trash'])->name('.trash');
             Route::put('restore/{id}', [UsersController::class, 'restore'])->name('.restore');
             Route::put('delete/{id}', [UsersController::class, 'remove'])->name('.delete');
+            Route::post('change-password', [UsersController::class, 'changePassword'])->name('.change-password');
         });
     });
 
     // Dummy route
     Route::get('#', fn() => view('welcome'))->name('#');
 });
-

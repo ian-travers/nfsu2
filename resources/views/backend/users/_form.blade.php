@@ -42,7 +42,7 @@
 </div>
 
 <div class="mt-4">
-    <x-form.label for="role" value="Role"/>
+    <x-form.label for="role" value="{{ __('Role') }}"/>
     <select
         id="role"
         name="role"
@@ -68,4 +68,3 @@
         @error('password')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
     </div>
 @endunless
-

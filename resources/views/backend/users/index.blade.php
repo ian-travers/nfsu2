@@ -9,4 +9,7 @@
     <div class="mt-4">
         @include('backend.users._table')
     </div>
+
+    <!--Modal change password -->
+    @include('backend.users._modalChangePassword')
 </x-layouts.back>

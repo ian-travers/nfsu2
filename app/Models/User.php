@@ -172,4 +172,9 @@ class User extends Authenticatable
     {
         $this->update(['is_admin' => true]);
     }
+
+    public function changePassword(string $password): void
+    {
+        $this->update(['password' => bcrypt($password)]);
+    }
 }
