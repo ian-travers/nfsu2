@@ -19,7 +19,7 @@
 
         <x-user-settings.nav-item
             href="{{ route('settings.team.index') }}"
-            :active="request()->is('settings/team') || request()->is('settings/team/create')"
+            :active="request()->is('settings/team') || request()->is('settings/team/create') || request()->is('settings/team/join')"
         >
             {{ __('Team') }}
         </x-user-settings.nav-item>
