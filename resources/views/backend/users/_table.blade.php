@@ -17,6 +17,10 @@
                         </th>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {{ __('Flag') }}
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             {{ __('Status') }}
                         </th>
                         <th scope="col"
@@ -57,6 +61,11 @@
                                 {{ $user->country }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="f32">
+                                    <span class="flag {{ strtolower($user->country) }}"></span>
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
                                 @include('components.status-badge', ['active' => !$user->trashed()])
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -84,8 +93,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 @if($user->trashed())
-                                    <form action="{{ route('adm.users.restore', $user->id) }}" method="post"
-                                          class="inline">
+                                    <form action="{{ route('adm.users.restore', $user->id) }}" method="post">
                                         @csrf
                                         @method('put')
                                         <button
@@ -96,8 +104,7 @@
                                             {{ __('Restore') }}
                                         </button>
                                     </form>
-                                    <form action="{{ route('adm.users.delete', $user->id) }}" method="post"
-                                          class="inline">
+                                    <form action="{{ route('adm.users.delete', $user->id) }}" method="post">
                                         @csrf
                                         @method('put')
                                         <button
@@ -112,7 +119,7 @@
                                     >
                                         {{ __('Edit') }}
                                     </a>
-                                    <form action="{{ route('adm.users.trash', $user) }}" method="post" class="inline">
+                                    <form action="{{ route('adm.users.trash', $user) }}" method="post">
                                         @csrf
                                         @method('put')
                                         <button
