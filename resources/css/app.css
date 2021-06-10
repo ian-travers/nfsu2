@@ -1,6 +1,4 @@
-/* World flags sprite */
-@import '~world-flags-sprite/stylesheets/flags32.css';
-
+@import 'freakflags.css';
 
 @tailwind base;
 @tailwind components;

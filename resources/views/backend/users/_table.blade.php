@@ -61,9 +61,7 @@
                                 {{ $user->country }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="f32">
-                                    <span class="flag {{ strtolower($user->country) }}"></span>
-                                </span>
+                                <span class="fflag ff-lg fflag-{{ $user->country }}"></span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @include('components.status-badge', ['active' => !$user->trashed()])
