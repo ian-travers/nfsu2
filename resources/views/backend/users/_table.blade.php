@@ -29,6 +29,11 @@
                         </th>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {{ __('Team captain') }}
+                        </th>
+
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             {{ __('Admin') }}
                         </th>
                         <th scope="col" class="relative px-6 py-3">
@@ -70,13 +75,27 @@
                                 {{ $user->getRole() }}
                             </td>
                             <td class="px-6 py-4 text-gray-500">
+                                <span class="flex justify-center">
+                                    @if($user->isTeamCaptain())
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                  clip-rule="evenodd"/>
+                                        </svg>
+                                    @endif
+                                </span>
+
+                            </td>
+                            <td class="px-6 py-4 text-gray-500">
+                                <span class="flex justify-center">
                                 @if($user->isAdmin())
-                                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd"
                                               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                               clip-rule="evenodd"/>
                                     </svg>
-                                @endif
+                                    @endif
+                                </span>
                             </td>
                             <td class="px-6 py-4">
                                 <x-form.secondary-button
