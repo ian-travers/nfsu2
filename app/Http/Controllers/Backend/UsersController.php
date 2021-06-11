@@ -78,6 +78,13 @@ class UsersController extends Controller
 
     public function trash(User $user)
     {
+        if ($user->isAdmin()) {
+            return redirect()->route('adm.users.index')->with('flash', [
+                'type' => 'warning',
+                'message' => __('The admin cannot be trashed.'),
+            ]);
+        }
+
         if ($user->isTeamCaptain()) {
             return redirect()->route('adm.users.index')->with('flash', [
                 'type' => 'warning',

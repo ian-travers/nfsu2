@@ -50,4 +50,21 @@ class TrashTest extends TestCase
 
         $this->assertFalse($user->refresh()->trashed());
     }
+
+    /** @test */
+    function admin_cannot_trash_admin()
+    {
+        /** @var User $admin */
+        $admin = User::factory()->admin()->create();
+
+        $this->signIn($admin);
+
+        $this->put("/adm/users/trash/{$admin->id}", ['user' => $admin])
+            ->assertSessionHas('flash', [
+                'type' => 'warning',
+                'message' => 'The admin cannot be trashed.',
+            ]);
+
+        $this->assertFalse($admin->refresh()->trashed());
+    }
 }
