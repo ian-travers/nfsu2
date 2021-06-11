@@ -72,7 +72,7 @@ class UsersController extends Controller
 
         return redirect()->route('adm.users.index')->with('flash', [
             'type' => 'success',
-            'message' => 'User has been updated.',
+            'message' => __('User has been updated.'),
         ]);
     }
 
@@ -81,7 +81,7 @@ class UsersController extends Controller
         if ($user->isTeamCaptain()) {
             return redirect()->route('adm.users.index')->with('flash', [
                 'type' => 'warning',
-                'message' => 'The team captain cannot be trashed. Handle with the team first.',
+                'message' => __('The team captain cannot be trashed. Handle with the team first.'),
             ]);
         }
 
@@ -90,7 +90,7 @@ class UsersController extends Controller
 
         return redirect()->route('adm.users.index')->with('flash', [
             'type' => 'success',
-            'message' => 'User has been trashed.',
+            'message' => __('User has been trashed.'),
         ]);
     }
 
@@ -101,7 +101,7 @@ class UsersController extends Controller
         if (!$user->trashed()) {
             return redirect()->back()->with('flash', [
                 'type' => 'error',
-                'message' => 'User is not trashed.',
+                'message' => __('User is not trashed.'),
             ]);
         }
 
@@ -109,7 +109,7 @@ class UsersController extends Controller
 
         return redirect()->route('adm.users.index')->with('flash', [
             'type' => 'success',
-            'message' => 'User has been restored.',
+            'message' => __('User has been restored.'),
         ]);
     }
 
@@ -120,7 +120,7 @@ class UsersController extends Controller
         if (!$user->trashed()) {
             return redirect()->back()->with('flash', [
                 'type' => 'error',
-                'message' => 'You must trash first.',
+                'message' => __('You must trash first.'),
             ]);
         }
 
@@ -128,7 +128,7 @@ class UsersController extends Controller
 
         return redirect()->route('adm.users.index')->with('flash', [
             'type' => 'success',
-            'message' => 'User has been removed.',
+            'message' => __('User has been removed.'),
         ]);
     }
 
@@ -144,7 +144,7 @@ class UsersController extends Controller
 
         return redirect()->route('adm.users.index')->with('flash', [
             'type' => 'success',
-            'message' => 'Password has been changed.',
+            'message' => __('Password has been changed.'),
         ]);
     }
 }
