@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\Quiz\AnswersController;
+use App\Http\Controllers\Backend\Quiz\QuestionsController;
 use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\NFSUServerController;
 use App\Http\Controllers\User\AccountController;
@@ -120,6 +122,31 @@ Route::group(['middleware' => 'language'], function () {
             Route::put('restore/{id}', [UsersController::class, 'restore'])->name('.restore');
             Route::put('delete/{id}', [UsersController::class, 'remove'])->name('.delete');
             Route::post('change-password', [UsersController::class, 'changePassword'])->name('.change-password');
+        });
+
+        // Quiz
+        Route::group([
+            'prefix' => 'quiz',
+            'as' => '.quiz',
+        ], function () {
+            Route::get('', [QuestionsController::class, 'index'])->name('.question.index');
+            Route::get('create', [QuestionsController::class, 'create'])->name('.question.create');
+            Route::post('', [QuestionsController::class, 'store'])->name('.question.store');
+            Route::get('edit/{question}', [QuestionsController::class, 'edit'])->name('.question.edit');
+            Route::patch('{question}', [QuestionsController::class, 'update'])->name('.question.update');
+            Route::delete('{question}', [QuestionsController::class, 'remove'])->name('.question.delete');
+            Route::get('{question}', [QuestionsController::class, 'show'])->name('.question.show');
+
+            Route::group([
+                'prefix' => '{question}/answers',
+                'as' => '.answers',
+            ], function () {
+                Route::get('create', [AnswersController::class, 'create'])->name('.create');
+                Route::post('', [AnswersController::class, 'store'])->name('.store');
+                Route::get('edit/{answer}', [AnswersController::class, 'edit'])->name('.edit');
+                Route::patch('{answer}', [AnswersController::class, 'update'])->name('.update');
+                Route::delete('{answer}', [AnswersController::class, 'remove'])->name('.delete');
+            });
         });
     });
 

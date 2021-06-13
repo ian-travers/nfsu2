@@ -11,4 +11,10 @@
     >
         {{ __('Users') }}
     </x-navs.backend-link>
+    <x-navs.backend-link
+        href="{{ route('adm.quiz.question.index') }}"
+        :active="$controller == 'QuestionsController' || $controller == 'AnswersController'"
+    >
+        {{ __('Quiz') }}
+    </x-navs.backend-link>
 </nav>
