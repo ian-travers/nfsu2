@@ -39,6 +39,13 @@ class AnswersController extends Controller
 
     public function update(Question $question, Answer $answer)
     {
+        if (!$answer->question->is($question)) {
+            return redirect()->route('adm.quiz.question.show', $question)->with('flash', [
+                'type' => 'error',
+                'message' => __('This answer cannot be updated. It is related to another question.'),
+            ]);
+        }
+
         $answer->update($this->validateRequest());
 
         return redirect()->route('adm.quiz.question.show', $question)->with('flash', [
@@ -49,6 +56,13 @@ class AnswersController extends Controller
 
     public function remove(Question $question, Answer $answer)
     {
+        if (!$answer->question->is($question)) {
+            return redirect()->route('adm.quiz.question.show', $question)->with('flash', [
+                'type' => 'error',
+                'message' => __('This answer cannot be deleted. It is related to another question.'),
+            ]);
+        }
+
         $answer->delete();
 
         return redirect()->route('adm.quiz.question.show', $question)->with('flash', [

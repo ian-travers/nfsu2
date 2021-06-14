@@ -45,11 +45,6 @@ class Question extends Model
         $this->answers()->create($attributes);
     }
 
-    public function editAnswer(array $attributes): void
-    {
-        $this->answers()->create($attributes);
-    }
-
     public function getQuestionAttribute()
     {
         return $this->getNativeAttributeValue('question');
