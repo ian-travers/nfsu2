@@ -49,7 +49,7 @@
         @livewire('search-result')
 
         {{-- Rating table --}}
-        <h2 class="text-3xl mt-4 text-center tracking-wid font-black">{{ __($type) }}</h2>
+        <h2 class="text-3xl mt-4 text-center tracking-wider font-medium">{{ __($type) }}</h2>
         <div class="my-2 sm:my-6">
             <table class="border border-blue-400 divide-y divide-blue-200 w-full">
                 <thead>

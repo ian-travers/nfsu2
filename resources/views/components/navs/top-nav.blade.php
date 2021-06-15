@@ -43,6 +43,9 @@
 
                     </button>
                 </x-slot>
+                @if(auth()->user()->isUser())
+                    <x-dropdown-link href="{{ route('tests.racer.show') }}">{{ __('Racer test') }}</x-dropdown-link>
+                @endif
                 <x-dropdown-link href="{{ route('settings.profile') }}">{{ __('Settings') }}</x-dropdown-link>
                 <div class="border-t border-gray-500"></div>
                 <form method="post" id="logout-form" action="{{ route('logout') }}">

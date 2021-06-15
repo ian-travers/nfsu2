@@ -70,6 +70,9 @@
                     </button>
                 </div>
                 <div class="mt-3 px-2 space-y-1">
+                    @if(auth()->user()->isUser())
+                        <x-navs.mobile-link route="tests.racer.show">{{ __('Racer test') }}</x-navs.mobile-link>
+                    @endif
                     <x-navs.mobile-link route="settings.profile">{{ __('Settings') }}</x-navs.mobile-link>
                     <form method="post" id="logout-form-mobile" action="{{ route('logout') }}">
                         @csrf

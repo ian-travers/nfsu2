@@ -177,4 +177,9 @@ class User extends Authenticatable
     {
         $this->update(['password' => bcrypt($password)]);
     }
+
+    public static function setRacer(self $user)
+    {
+        $user->update(['role' => self::ROLE_RACER]);
+    }
 }

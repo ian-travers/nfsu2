@@ -29,7 +29,7 @@
             @endforeach
         </nav>{{-- End Nav --}}
 
-        <h2 class="mt-4 text-3xl text-center tracking-wide">{{ $track }}</h2>
+        <h2 class="mt-4 text-3xl text-center tracking-wider font-medium">{{ $track }}</h2>
 
         @if($rating->count())
             <div class="mt-2 sm:mt-4">

@@ -297,7 +297,7 @@ class QuizSeeder extends Seeder
 
         // 14
         $question = Question::create([
-            'question_en' => 'f I was first all the race, but right before finish line some bad guy on purpose crash me into the tree, what should I do?',
+            'question_en' => 'I was first all the race, but right before finish line some bad guy on purpose crash me into the tree, what should I do?',
             'question_ru' => 'Я шел весь заезд на первом месте, как перед самым финишем, кто-то ударил меня и я угодил в отбойник (стену и т.п.). Что я могу сделать в такой ситуации?',
             'correct_answer' => '3',
         ]);

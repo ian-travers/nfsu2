@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\Quiz\AnswersController;
 use App\Http\Controllers\Backend\Quiz\QuestionsController;
 use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\NFSUServerController;
+use App\Http\Controllers\Tests\RacerController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\Team\CreateTeamController;
 use App\Http\Controllers\User\Team\EditTeamController;
@@ -22,6 +23,15 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('/', function () {
         return view('welcome');
     })->name('home');
+
+    Route::group([
+        'middleware' => 'auth',
+        'prefix' => 'tests',
+        'as' => 'tests',
+    ], function () {
+        Route::get('racer', [RacerController::class, 'show'])->name('.racer.show');
+        Route::post('racer', [RacerController::class, 'check'])->name('.racer.check');
+    });
 
     Route::group([
         'prefix' => 'server',

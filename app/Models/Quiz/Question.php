@@ -35,6 +35,11 @@ class Question extends Model
 
     protected $guarded = [];
 
+    public static function getRacerTestQuestions()
+    {
+        return self::get()->shuffle()->take(config('tests.racer.questions_count'));
+    }
+
     public function answers()
     {
         return $this->hasMany(Answer::class, 'quiz_question_id');
@@ -43,6 +48,11 @@ class Question extends Model
     public function addAnswer(array $attributes): void
     {
         $this->answers()->create($attributes);
+    }
+
+    public function isCorrectAnswer(string $index): bool
+    {
+        return $this->correct_answer == $index;
     }
 
     public function getQuestionAttribute()
