@@ -1,13 +1,13 @@
 <div>
     @if($hasAvatar)
         <img
-            class="h-10 w-10 rounded-full"
+            class="h-{{ $size }} w-{{ $size }} rounded-full"
             src="{{ $avatarPath }}"
             alt="avatar"
         >
     @else
         <span
-            class="inline-block h-10 w-10 rounded-full overflow-hidden bg-gray-100"
+            class="inline-block h-{{ $size }} w-{{ $size }} rounded-full overflow-hidden bg-gray-100"
         >
             <svg
                 class="h-full w-full text-gray-300"

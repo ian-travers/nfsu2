@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\Quiz\AnswersController;
 use App\Http\Controllers\Backend\Quiz\QuestionsController;
 use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\NFSUServerController;
+use App\Http\Controllers\PublicProfileController;
 use App\Http\Controllers\Tests\RacerController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\Team\CreateTeamController;
@@ -32,6 +33,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('racer', [RacerController::class, 'show'])->name('.racer.show');
         Route::post('racer', [RacerController::class, 'check'])->name('.racer.check');
     });
+
+    Route::get('players/{user:username}', [PublicProfileController::class, 'show'])->name('public-profile');
 
     Route::group([
         'prefix' => 'server',

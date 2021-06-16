@@ -39,7 +39,7 @@
                     >
                         <span class="sr-only">Open user menu</span>
 
-                        @livewire('user.avatar')
+                        @livewire('user.avatar', ['size' => 10])
 
                     </button>
                 </x-slot>

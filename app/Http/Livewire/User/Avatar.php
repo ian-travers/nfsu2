@@ -9,6 +9,7 @@ use Livewire\Component;
 class Avatar extends Component
 {
     public User $user;
+    public int $size;
     public string $avatarPath = '';
     public bool $hasAvatar = false;
 
