@@ -45,7 +45,7 @@ class RacerController extends Controller
 
         return back()->with('flash', [
             'type' => 'success',
-            'message' => __('Test passed!. You got the racer promotion and will be able to signup for tourneys'),
+            'message' => __('Test passed! You got the racer promotion and will be able to signup for tourneys'),
         ]);
     }
 }
