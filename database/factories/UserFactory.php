@@ -53,4 +53,11 @@ class UserFactory extends Factory
             'is_admin' => true,
         ]);
     }
+
+    public function racer()
+    {
+        return $this->state([
+            'role' => $this->model::ROLE_RACER,
+        ]);
+    }
 }

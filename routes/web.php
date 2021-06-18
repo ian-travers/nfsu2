@@ -6,11 +6,13 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\Quiz\AnswersController;
 use App\Http\Controllers\Backend\Quiz\QuestionsController;
+use App\Http\Controllers\Backend\SeasonsController;
 use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\NFSUServerController;
 use App\Http\Controllers\PublicProfileController;
 use App\Http\Controllers\Tests\RacerController;
 use App\Http\Controllers\User\AccountController;
+use App\Http\Controllers\User\Cabinet\TourneysController;
 use App\Http\Controllers\User\Team\CreateTeamController;
 use App\Http\Controllers\User\Team\EditTeamController;
 use App\Http\Controllers\User\Team\JoinTeamController;
@@ -112,6 +114,22 @@ Route::group(['middleware' => 'language'], function () {
         });
     });
 
+    // User Cabinet
+    Route::group([
+        'middleware' => ['auth'],
+        'prefix' => 'cabinet',
+        'namespace' => 'User\Cabinet',
+        'as' => 'cabinet'
+    ], function () {
+        Route::group([
+            'middleware' => ['racer'],
+            'prefix' => 'tourneys',
+            'as' => '.tourneys'
+        ], function () {
+            Route::post('', [TourneysController::class, 'store'])->name('.store');
+        });
+    });
+
     // Backend
     Route::group([
         'middleware' => ['auth', 'admin'],
@@ -120,6 +138,15 @@ Route::group(['middleware' => 'language'], function () {
         'as' => 'adm'
     ], function () {
         Route::get('', [DashboardController::class, 'show'])->name('.dashboard');
+
+        // Seasons
+        Route::group([
+            'prefix' => 'seasons',
+            'as' => '.seasons',
+        ], function () {
+            Route::get('', [SeasonsController::class, 'index'])->name('.index');
+            Route::patch('{season}', [SeasonsController::class, 'complete'])->name('.complete');
+        });
 
         // Users
         Route::group([

@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $correct_answer
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Quiz\Answer[] $answers
  * @property-read int|null $answers_count
+ * @property-read mixed $question
+ * @method static \Database\Factories\Quiz\QuestionFactory factory(...$parameters)
  * @method static Builder|Question newModelQuery()
  * @method static Builder|Question newQuery()
  * @method static Builder|Question query()

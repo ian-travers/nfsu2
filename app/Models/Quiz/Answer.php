@@ -15,7 +15,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $answer_en
  * @property string $answer_ru
  * @property int $index
+ * @property-read mixed $answer
  * @property-read \App\Models\Quiz\Question $question
+ * @method static \Database\Factories\Quiz\AnswerFactory factory(...$parameters)
  * @method static Builder|Answer newModelQuery()
  * @method static Builder|Answer newQuery()
  * @method static Builder|Answer query()
