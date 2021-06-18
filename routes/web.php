@@ -6,7 +6,6 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\Quiz\AnswersController;
 use App\Http\Controllers\Backend\Quiz\QuestionsController;
-use App\Http\Controllers\Backend\SeasonsController;
 use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\NFSUServerController;
 use App\Http\Controllers\PublicProfileController;
@@ -138,15 +137,6 @@ Route::group(['middleware' => 'language'], function () {
         'as' => 'adm'
     ], function () {
         Route::get('', [DashboardController::class, 'show'])->name('.dashboard');
-
-        // Seasons
-        Route::group([
-            'prefix' => 'seasons',
-            'as' => '.seasons',
-        ], function () {
-            Route::get('', [SeasonsController::class, 'index'])->name('.index');
-            Route::patch('{season}', [SeasonsController::class, 'complete'])->name('.complete');
-        });
 
         // Users
         Route::group([

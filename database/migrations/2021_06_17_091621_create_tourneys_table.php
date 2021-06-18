@@ -18,7 +18,7 @@ class CreateTourneysTable extends Migration
             $table->foreignId('supervisor_id')->nullable()->constrained('users')->cascadeOnUpdate()->nullOnDelete();
             $table->string('supervisor_username', 16);
             $table->string('status', 20)->default('planned');
-            $table->foreignId('season_id')->constrained()->restrictOnDelete();
+            $table->integer('season_id');
             $table->timestamps();
         });
     }

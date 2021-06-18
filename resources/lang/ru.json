@@ -128,6 +128,7 @@
     "Players": "Игроки",
     "Please click the button below to verify your email address.": "Кликните на кнопку ниже, чтобы подтвердить ваш адрес email.",
     "Profile": "Профиль",
+    "Public profile": "Публичный профиль",
     "Quiz": "Тест",
     "Quiz answer has been deleted.": "Ответ удален.",
     "Quiz answer has been updated.": "Ответ изменен.",
@@ -180,7 +181,7 @@
     "This quiz answer will be deleted! Proceed?": "Этот ответ будет удален! Продолжить?",
     "This quiz question will be deleted! Proceed?": "Этот вопрос будет удален! Продолжить?",
     "This role has already been assigned.": "Это роль уже назначена.",
-    "This test will find out how well you know the Rules of the NFSU Cup. When you pass this test you will be promoted to racer and will be able to participate in tourneys. You may only make one mistake.": "Этот тест определит, насколько хорошо ты знаешь Правила NFSU Cup. После прохождения этого теста ты получишь статус гонщика и сможешь участвовать в турнирах. Ты можешь сделать только одну ошибку.",
+    "This test will find out how well you know the Rules of the NFSU Cup. When you pass this test you will be promoted to racer and will be able to participate in tourneys.": "Этот тест определит, насколько хорошо ты знаешь Правила NFSU Cup. После прохождения этого теста ты получишь статус гонщика и сможешь участвовать в турнирах.",
     "This user will be able to login the site! Proceed?": "Этот пользователь сможет снова входить на сайт! Продолжить?",
     "This user will be deleted. His username will become available for registration. Proceed?": "Этот пользователь будет полностью удален. Его имя пользователя станет доступным для регистрации. Продолжить?",
     "This user will not be able to login the site! Proceed?": "Этот пользователь не сможет входить на сайт! Продолжить?",
@@ -229,5 +230,6 @@
     "Your personal account": "Твой персональный аккаунт",
     "Your profile has no an avatar": "Твой профиль без аватара",
     "Your team": "Твоя команда",
-    "Your username will be not available to registration on NFSU Cup.": "Твое имя пользователя не будет доступно для регистрации на NFSU Cup."
+    "Your username will be not available to registration on NFSU Cup.": "Твое имя пользователя не будет доступно для регистрации на NFSU Cup.",
+    "You should promote to the rider.": "You should promote to the rider."
 }

@@ -30,6 +30,7 @@ class RacerTest extends TestCase
     /** @test */
     function passing_the_test_gives_the_racer_role()
     {
+        $this->withoutExceptionHandling();
         $this->seed(QuizSeeder::class);
 
         /** @var \App\Models\User $user */
@@ -40,7 +41,7 @@ class RacerTest extends TestCase
 
         // knowingly correct form data
         $form = [
-            'test-form' => [
+            'racer-test-form' => [
                 1 => 1,
                 2 => 2,
                 3 => 2,

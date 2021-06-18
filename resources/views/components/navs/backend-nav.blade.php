@@ -17,11 +17,4 @@
     >
         {{ __('Quiz') }}
     </x-navs.backend-link>
-
-    <x-navs.backend-link
-        href="{{ route('adm.seasons.index') }}"
-        :active="$controller == 'SeasonsController'"
-    >
-        {{ __('Seasons') }}
-    </x-navs.backend-link>
 </nav>
