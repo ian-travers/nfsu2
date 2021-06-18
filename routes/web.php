@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\Quiz\AnswersController;
 use App\Http\Controllers\Backend\Quiz\QuestionsController;
+use App\Http\Controllers\Backend\Settings\SettingsController;
 use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\NFSUServerController;
 use App\Http\Controllers\PublicProfileController;
@@ -137,6 +138,15 @@ Route::group(['middleware' => 'language'], function () {
         'as' => 'adm'
     ], function () {
         Route::get('', [DashboardController::class, 'show'])->name('.dashboard');
+
+        // Application settings
+        Route::group([
+            'prefix' => 'adm',
+            'namespace' => 'Settings',
+            'as' => '.settings'
+        ], function () {
+            Route::patch('update-racer-test-settings', [SettingsController::class, 'updateRacerTestSettings'])->name('.update-racer-test-settings');
+        });
 
         // Users
         Route::group([

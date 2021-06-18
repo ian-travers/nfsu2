@@ -13,6 +13,7 @@ class RacerController extends Controller
     {
         return view('frontend.test.racer', [
             'questions' => Question::getRacerTestQuestions(),
+            'allowed_errors_count' => app(RacerTestSettings::class)->allowed_errors_count,
             'title' => 'Racer test',
         ]);
     }
