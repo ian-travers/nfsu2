@@ -2,7 +2,9 @@
 
 namespace Tests\Feature\Test;
 
+use App\Models\Quiz\Question;
 use App\Models\User;
+use App\RacerTestSettings;
 use Database\Seeders\QuizSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -39,17 +41,13 @@ class RacerTest extends TestCase
 
         $this->assertFalse($user->isRacer());
 
+        $questions = Question::get()->take(app(RacerTestSettings::class)->questions_count);
+
         // knowingly correct form data
-        $form = [
-            'racer-test-form' => [
-                1 => 1,
-                2 => 2,
-                3 => 2,
-                4 => 3,
-                5 => 3,
-                6 => 3,
-            ],
-        ];
+        $form['racer-test-form'] = [];
+        foreach ($questions as $question) {
+            $form['racer-test-form'] += [$question->id => $question->correct_answer];
+        }
 
         $this->post('/tests/racer', $form);
 

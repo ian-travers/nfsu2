@@ -3,6 +3,7 @@
 namespace App\Models\Quiz;
 
 use App\Models\NativeAttribute;
+use App\RacerTestSettings;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -39,7 +40,7 @@ class Question extends Model
 
     public static function getRacerTestQuestions()
     {
-        return self::get()->shuffle()->take(config('tests.racer.questions_count'));
+        return self::get()->shuffle()->take(app(RacerTestSettings::class)->questions_count);
     }
 
     public function answers()

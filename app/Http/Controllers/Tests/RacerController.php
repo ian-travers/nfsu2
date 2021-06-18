@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tests;
 use App\Http\Controllers\Controller;
 use App\Models\Quiz\Question;
 use App\Models\User;
+use App\RacerTestSettings;
 
 class RacerController extends Controller
 {
@@ -16,13 +17,13 @@ class RacerController extends Controller
         ]);
     }
 
-    public function check()
+    public function check(RacerTestSettings $settings)
     {
         $form = request()->validate([
             'racer-test-form' => 'required',
         ]);
 
-        $errorsCount = config('tests.racer.questions_count') - count($form['racer-test-form']);
+        $errorsCount = $settings->questions_count - count($form['racer-test-form']);
 
         foreach ($form['racer-test-form'] as $q => $a) {
             $question = Question::findOrFail($q);
@@ -32,7 +33,7 @@ class RacerController extends Controller
             }
         }
 
-        $result = $errorsCount - config('tests.racer.errors_allowed_count');
+        $result = $errorsCount - $settings->allowed_errors_count;
 
         if ($result > 0) {
             return back()->with('flash', [
