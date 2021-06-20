@@ -1,6 +1,6 @@
 <?php
 
-use App\RacerTestSettings;
+use App\Settings\RacerTestSettings;
 
 return [
 

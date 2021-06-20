@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Tests;
 use App\Http\Controllers\Controller;
 use App\Models\Quiz\Question;
 use App\Models\User;
-use App\RacerTestSettings;
+use App\Settings\RacerTestSettings;
 
 class RacerController extends Controller
 {

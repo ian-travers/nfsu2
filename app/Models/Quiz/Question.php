@@ -3,7 +3,7 @@
 namespace App\Models\Quiz;
 
 use App\Models\NativeAttribute;
-use App\RacerTestSettings;
+use App\Settings\RacerTestSettings;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

@@ -4,7 +4,7 @@ namespace Tests\Feature\Backend;
 
 use App\Http\Livewire\Dashboard\DashboardRacerTest;
 use App\Models\User;
-use App\RacerTestSettings;
+use App\Settings\RacerTestSettings;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;

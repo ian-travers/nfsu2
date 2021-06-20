@@ -4,7 +4,7 @@ namespace Tests\Feature\Test;
 
 use App\Models\Quiz\Question;
 use App\Models\User;
-use App\RacerTestSettings;
+use App\Settings\RacerTestSettings;
 use Database\Seeders\QuizSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -16,6 +16,7 @@ class RacerTest extends TestCase
     /** @test */
     function user_may_visit_the_test_page()
     {
+        $this->withoutExceptionHandling();
         $this->signIn();
 
         $this->get('/tests/racer')

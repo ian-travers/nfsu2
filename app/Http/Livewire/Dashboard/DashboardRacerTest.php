@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Dashboard;
 
-use App\RacerTestSettings;
+use App\Settings\RacerTestSettings;
 use Livewire\Component;
 
 class DashboardRacerTest extends Component

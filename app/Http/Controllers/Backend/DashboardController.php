@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\RacerTestSettings;
+use App\Settings\RacerTestSettings;
 
 class DashboardController extends Controller
 {
