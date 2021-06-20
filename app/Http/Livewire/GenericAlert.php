@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class GenericAlert extends Component
 {
-    protected $listeners = ['passwordChanged', 'saved'];
+    protected $listeners = ['passwordChanged', 'saved', 'seasonComplete', 'seasonSuspend', 'seasonResume'];
 
     public function passwordChanged()
     {
@@ -21,6 +21,30 @@ class GenericAlert extends Component
         session()->flash('flash', [
             'type' => 'success',
             'message' => __('Saved.'),
+        ]);
+    }
+
+    public function seasonComplete()
+    {
+        session()->flash('flash', [
+            'type' => 'success',
+            'message' => __('Season has been completed. New season starts.'),
+        ]);
+    }
+
+    public function seasonSuspend()
+    {
+        session()->flash('flash', [
+            'type' => 'success',
+            'message' => __('Season has been suspended.'),
+        ]);
+    }
+
+    public function seasonResume()
+    {
+        session()->flash('flash', [
+            'type' => 'success',
+            'message' => __('Season has been resumed.'),
         ]);
     }
 
