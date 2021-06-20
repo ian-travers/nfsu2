@@ -6,13 +6,21 @@ use Livewire\Component;
 
 class GenericAlert extends Component
 {
-    protected $listeners = ['passwordChanged'];
+    protected $listeners = ['passwordChanged', 'saved'];
 
     public function passwordChanged()
     {
         session()->flash('flash', [
             'type' => 'success',
             'message' => __('Password has been changed.'),
+        ]);
+    }
+
+    public function saved()
+    {
+        session()->flash('flash', [
+            'type' => 'success',
+            'message' => __('Saved.'),
         ]);
     }
 
