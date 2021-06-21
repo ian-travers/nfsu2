@@ -34,7 +34,12 @@ class DashboardSeason extends Component
 
         $settings->save();
 
-        $this->emitTo('generic-alert', 'seasonComplete');
+        session()->flash('flash', [
+            'type' => 'success',
+            'message' => __('Season has been completed. New season starts.'),
+        ]);
+
+        return redirect()->route('adm.dashboard');
     }
 
     public function suspend()
@@ -46,7 +51,12 @@ class DashboardSeason extends Component
 
         $settings->save();
 
-        $this->emitTo('generic-alert', 'seasonSuspend');
+        session()->flash('flash', [
+            'type' => 'success',
+            'message' => __('Season has been suspended.'),
+        ]);
+
+        return redirect()->route('adm.dashboard');
     }
 
     public function resume()
@@ -58,7 +68,12 @@ class DashboardSeason extends Component
 
         $settings->save();
 
-        $this->emitTo('generic-alert', 'seasonResume');
+        session()->flash('flash', [
+            'type' => 'success',
+            'message' => __('Season has been resumed.'),
+        ]);
+
+        return redirect()->route('adm.dashboard');
     }
 
     public function render()
