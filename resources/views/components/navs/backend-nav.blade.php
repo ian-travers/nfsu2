@@ -1,9 +1,12 @@
 <nav class="flex-1 px-2 bg-white space-y-1">
+    <div class="flex justify-center mb-3">
+        {{ __('Dashboard') }}
+    </div>
     <x-navs.backend-link
         href="{{ route('adm.dashboard') }}"
         :active="$controller == 'DashboardController'"
     >
-        {{ __('Dashboard') }}
+        {{ __('Application settings') }}
     </x-navs.backend-link>
     <x-navs.backend-link
         href="{{ route('adm.users.index') }}"

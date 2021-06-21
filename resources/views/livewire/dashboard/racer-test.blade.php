@@ -22,7 +22,7 @@
             class="block mt-1 w-full"
             type="number"
             name="allowed_errors_count"
-            value="old('allowed_errors_count')"
+            :value="old('allowed_errors_count')"
             autocomplete="allowed_errors_count"
         />
         @error('allowedErrorsCount')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
