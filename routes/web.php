@@ -126,6 +126,8 @@ Route::group(['middleware' => 'language'], function () {
             'as' => '.tourneys'
         ], function () {
             Route::post('', [TourneysController::class, 'store'])->name('.store');
+            Route::patch('{tourney}', [TourneysController::class, 'update'])->name('.update');
+            Route::delete('{tourney}', [TourneysController::class, 'remove'])->name('.delete');
         });
     });
 

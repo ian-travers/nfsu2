@@ -22,7 +22,7 @@ class Racer
 
         return redirect()->back()->with('flash', [
             'type' => 'error',
-            'message' => __('You should promote to the rider.'),
+            'message' => __('You should promote to the racer.'),
         ]);
     }
 }
