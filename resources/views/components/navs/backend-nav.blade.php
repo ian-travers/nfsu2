@@ -2,22 +2,22 @@
     <div class="flex justify-center mb-3">
         {{ __('Dashboard') }}
     </div>
-    <x-navs.backend-link
+    <x-navs.vertical.nav-item
         href="{{ route('adm.dashboard') }}"
         :active="$controller == 'DashboardController'"
     >
         {{ __('Application settings') }}
-    </x-navs.backend-link>
-    <x-navs.backend-link
+    </x-navs.vertical.nav-item>
+    <x-navs.vertical.nav-item
         href="{{ route('adm.users.index') }}"
         :active="$controller == 'UsersController'"
     >
         {{ __('Users') }}
-    </x-navs.backend-link>
-    <x-navs.backend-link
+    </x-navs.vertical.nav-item>
+    <x-navs.vertical.nav-item
         href="{{ route('adm.quiz.question.index') }}"
         :active="$controller == 'QuestionsController' || $controller == 'AnswersController'"
     >
         {{ __('Quiz') }}
-    </x-navs.backend-link>
+    </x-navs.vertical.nav-item>
 </nav>

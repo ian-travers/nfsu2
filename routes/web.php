@@ -11,6 +11,7 @@ use App\Http\Controllers\NFSUServerController;
 use App\Http\Controllers\PublicProfileController;
 use App\Http\Controllers\Tests\RacerController;
 use App\Http\Controllers\User\AccountController;
+use App\Http\Controllers\User\Cabinet\CabinetController;
 use App\Http\Controllers\User\Cabinet\TourneysController;
 use App\Http\Controllers\User\Team\CreateTeamController;
 use App\Http\Controllers\User\Team\EditTeamController;
@@ -120,6 +121,7 @@ Route::group(['middleware' => 'language'], function () {
         'namespace' => 'User\Cabinet',
         'as' => 'cabinet'
     ], function () {
+        Route::get('', [CabinetController::class, 'index'])->name('.index');
         Route::group([
             'middleware' => ['racer'],
             'prefix' => 'tourneys',

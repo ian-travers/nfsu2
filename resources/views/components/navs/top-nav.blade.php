@@ -47,6 +47,7 @@
                     <x-dropdown-link href="{{ route('tests.racer.show') }}">{{ __('Racer test') }}</x-dropdown-link>
                 @endif
                 <x-dropdown-link href="{{ route('settings.profile') }}">{{ __('Settings') }}</x-dropdown-link>
+                <x-dropdown-link href="{{ route('cabinet.index') }}">{{ __('Cabinet') }}</x-dropdown-link>
                 <div class="border-t border-gray-500"></div>
                 <form method="post" id="logout-form" action="{{ route('logout') }}">
                     @csrf
