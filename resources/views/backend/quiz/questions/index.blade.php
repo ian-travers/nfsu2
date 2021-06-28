@@ -16,7 +16,7 @@
         </div>
     @else
         <p class="mt-4">
-            {{ __('There is no questions yet') }}
+            {{ __('There is no questions yet.') }}
         </p>
     @endif
 </x-layouts.back>

@@ -5,9 +5,16 @@
     <nav class="mt-5 space-y-1">
         <x-navs.vertical.nav-item
             href="{{ route('cabinet.index') }}"
-            :active="request()->is('cabinet/index')"
+            :active="$controller == 'CabinetController'"
         >
             {{ __('Overall info') }}
+        </x-navs.vertical.nav-item>
+
+        <x-navs.vertical.nav-item
+            href="{{ route('cabinet.tourneys.index') }}"
+            :active="$controller == 'TourneysController'"
+        >
+            {{ __('Tourneys') }}
         </x-navs.vertical.nav-item>
     </nav>
 </div>

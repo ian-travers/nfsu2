@@ -3,7 +3,6 @@
 namespace Tests\Feature\Racer\Tourney;
 
 use App\Models\User;
-use App\Settings\SeasonSettings;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -15,6 +14,7 @@ class CreateTest extends TestCase
     /** @test */
     function racer_can_create_a_tourney()
     {
+        $this->withoutExceptionHandling();
         /** @var User $racer */
         $racer = User::factory()->racer()->create();
 
@@ -22,14 +22,11 @@ class CreateTest extends TestCase
 
         $attributes = [
             'name' => 'Drag on Mine',
-            'track_id' => '1202',
+            'track_id' => '12020',
             'room' => 'tourney',
             'started_at' => Carbon::now()->addDays(2),
             'signup_time' => '15',
-            'supervisor_id' => $racer->id,
-            'supervisor_username' => $racer->username,
-            'status' => 'planned',
-            'season_id' => app(SeasonSettings::class)->index,
+            'description' => 'It is fun.',
         ];
 
         $this->post('/cabinet/tourneys', $attributes);

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Tourney\Tourney;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -29,6 +30,8 @@ use Illuminate\Support\Facades\Storage;
  * @property string $locale
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|Tourney[] $tourneys
+ * @property-read int|null $tourneys_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
@@ -181,5 +184,10 @@ class User extends Authenticatable
     public static function setRacer(self $user)
     {
         $user->update(['role' => self::ROLE_RACER]);
+    }
+
+    public function tourneys()
+    {
+        return $this->hasMany(Tourney::class, 'supervisor_id');
     }
 }

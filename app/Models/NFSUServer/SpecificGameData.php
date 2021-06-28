@@ -65,25 +65,16 @@ class SpecificGameData
         '1308' => 'Drift Track 8',
     ];
 
-    /**
-     * @throws \Exception
-     */
     public function directions(): array
     {
         return cache()->rememberForever('server.directions', fn() => $this->directions);
     }
 
-    /**
-     * @throws \Exception
-     */
     public function cars(): array
     {
         return cache()->rememberForever('server.cars', fn() => $this->cars);
     }
 
-    /**
-     * @throws \Exception
-     */
     public function tracks(): array
     {
         return cache()->rememberForever('server.tracks', fn() => $this->tracks);
@@ -96,41 +87,26 @@ class SpecificGameData
             : 'Unknown track';
     }
 
-    /**
-     * @throws \Exception
-     */
     public function tracksCircuit(): array
     {
         return cache()->rememberForever('server.tracks.circuit', fn() => array_slice($this->tracks, 0, 8, true));
     }
 
-    /**
-     * @throws \Exception
-     */
     public function tracksSprint(): array
     {
         return cache()->rememberForever('server.tracks.sprint', fn() => array_slice($this->tracks, 8, 8, true));
     }
 
-    /**
-     * @throws \Exception
-     */
     public function tracksDrag(): array
     {
         return cache()->rememberForever('server.tracks.drag', fn() => array_slice($this->tracks, 16, 6, true));
     }
 
-    /**
-     * @throws \Exception
-     */
     public function tracksDrift(): array
     {
         return cache()->rememberForever('server.tracks.drift', fn() => array_slice($this->tracks, 22, 8, true));
     }
 
-    /**
-     * @throws \Exception
-     */
     public function modes(): array
     {
         return cache()->rememberForever('server.modes', fn() => [
@@ -160,5 +136,71 @@ class SpecificGameData
         }
 
         return false;
+    }
+
+    public static function allCircuits(): array
+    {
+        $sgd = new self();
+
+        foreach ($sgd->tracksCircuit() as $key => $value) {
+            $res[$key . '0'] = $value; // Forward tracks
+        }
+
+        foreach ($sgd->tracksCircuit() as $key => $value) {
+            $res[$key . '1'] = $value . ' Reverse'; // Reverse tracks
+        }
+
+        return $res ?? [];
+    }
+
+    public static function allSprints(): array
+    {
+        $sgd = new self();
+
+        foreach ($sgd->tracksSprint() as $key => $value) {
+            $res[$key . '0'] = $value; // Forward tracks
+        }
+
+        foreach ($sgd->tracksSprint() as $key => $value) {
+            $res[$key . '1'] = $value . ' Reverse'; // Reverse tracks
+        }
+
+        return $res ?? [];
+    }
+
+    public static function allDrags(): array
+    {
+        $sgd = new self();
+
+        foreach ($sgd->tracksDrag() as $key => $value) {
+            $res[$key . '0'] = $value; // Forward tracks
+        }
+
+        foreach ($sgd->tracksDrag() as $key => $value) {
+            $res[$key . '1'] = $value . ' Reverse'; // Reverse tracks
+        }
+
+        return $res ?? [];
+
+    }
+
+    public static function allDrifts(): array
+    {
+        $sgd = new self();
+
+        foreach ($sgd->tracksDrift() as $key => $value) {
+            $res[$key . '0'] = $value; // Forward tracks
+        }
+
+        return $res ?? [];
+    }
+
+    public static function getTrackName(string $id)
+    {
+        $res = (new SpecificGameData)->tracks()[substr($id, 0, 4)];
+
+        return substr($id, 4, 1) == '1'
+            ? $res . ' Reverse'
+            : $res;
     }
 }

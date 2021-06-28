@@ -11,7 +11,7 @@ class CreateTourneysTable extends Migration
         Schema::create('tourneys', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->string('track_id', 4);
+            $table->string('track_id', 5);
             $table->string('room', 20);
             $table->timestamp('started_at');
             $table->unsignedSmallInteger('signup_time');
@@ -19,6 +19,7 @@ class CreateTourneysTable extends Migration
             $table->string('supervisor_username', 16);
             $table->string('status', 20)->default('planned');
             $table->integer('season_id');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

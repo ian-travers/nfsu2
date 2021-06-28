@@ -19,12 +19,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $supervisor_username
  * @property string $status
  * @property int $season_id
+ * @property string|null $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Database\Factories\Tourney\TourneyFactory factory(...$parameters)
  * @method static Builder|Tourney newModelQuery()
  * @method static Builder|Tourney newQuery()
  * @method static Builder|Tourney query()
  * @method static Builder|Tourney whereCreatedAt($value)
+ * @method static Builder|Tourney whereDescription($value)
  * @method static Builder|Tourney whereId($value)
  * @method static Builder|Tourney whereName($value)
  * @method static Builder|Tourney whereRoom($value)
@@ -78,5 +81,10 @@ class Tourney extends Model
     public function isDeletable(): bool
     {
         return $this->isScheduled() || $this->isCancelled();
+    }
+
+    public function status()
+    {
+        return static::statuses()[$this->status];
     }
 }

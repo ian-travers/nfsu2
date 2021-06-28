@@ -28,7 +28,7 @@ class EditTest extends TestCase
 
         $attributes = [
             'name' => 'Name UPD',
-            'track_id' => '1302',
+            'track_id' => '12021',
             'room' => 'new room',
             'signup_time' => '30',
             'started_at' => Carbon::now()->addDays(4),

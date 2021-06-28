@@ -127,7 +127,10 @@ Route::group(['middleware' => 'language'], function () {
             'prefix' => 'tourneys',
             'as' => '.tourneys'
         ], function () {
+            Route::get('', [TourneysController::class, 'index'])->name('.index');
+            Route::get('create', [TourneysController::class, 'create'])->name('.create');
             Route::post('', [TourneysController::class, 'store'])->name('.store');
+            Route::get('edit/{tourney}', [TourneysController::class, 'edit'])->name('.edit');
             Route::patch('{tourney}', [TourneysController::class, 'update'])->name('.update');
             Route::delete('{tourney}', [TourneysController::class, 'remove'])->name('.delete');
         });

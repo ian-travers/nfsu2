@@ -69,7 +69,7 @@
                                 <span class="fflag ff-lg fflag-{{ $user->country }}"></span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                @include('components.status-badge', ['active' => !$user->trashed()])
+                                @include('components.user-status-badge', ['active' => !$user->trashed()])
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {{ $user->getRole() }}
