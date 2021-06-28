@@ -59,7 +59,7 @@ class TourneysController extends Controller
 
         return redirect()->route('cabinet.tourneys.index')->with('flash', [
             'type' => 'success',
-            'message' => 'Tourney has been created.',
+            'message' => __('Tourney has been created.'),
         ]);
     }
 
@@ -80,7 +80,7 @@ class TourneysController extends Controller
         if (Gate::denies('update-tourney', $tourney)) {
             return redirect()->back()->with('flash', [
                 'type' => 'error',
-                'message' => 'Impossible to change someone else\'s tourney.',
+                'message' => __("Impossible to edit someone else's tourney."),
             ]);
         }
 
@@ -96,7 +96,7 @@ class TourneysController extends Controller
 
         return redirect()->route('cabinet.tourneys.index')->with('flash', [
             'type' => 'success',
-            'message' => 'Tourney has been updated.',
+            'message' => __('Tourney has been updated.'),
         ]);
     }
 
@@ -105,14 +105,14 @@ class TourneysController extends Controller
         if (Gate::denies('update-tourney', $tourney)) {
             return redirect()->back()->with('flash', [
                 'type' => 'error',
-                'message' => 'Impossible to delete someone else\'s tourney.',
+                'message' => __("Impossible to delete someone else's tourney."),
             ]);
         }
 
         if(! $tourney->isDeletable()) {
             return redirect()->back()->with('flash', [
                 'type' => 'warning',
-                'message' => 'You may only delete scheduled or cancelled tourneys.',
+                'message' => __('You may only delete scheduled or cancelled tourneys.'),
             ]);
         }
 
@@ -120,7 +120,7 @@ class TourneysController extends Controller
 
         return redirect()->back()->with('flash', [
             'type' => 'success',
-            'message' => 'Tourney has been deleted.',
+            'message' => __('Tourney has been deleted.'),
         ]);
     }
 }
