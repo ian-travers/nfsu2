@@ -5,7 +5,7 @@
         <a href="{{ route('home') }}">
             <x-logo></x-logo>
         </a>
-        <x-navs.link route="#">{{ __('Tourneys') }}</x-navs.link>
+        <x-navs.link route="tourneys.index">{{ __('Tourneys') }}</x-navs.link>
         <x-dropdown>
             <x-slot name="trigger">
                 <button

@@ -2,6 +2,7 @@
 
 namespace App\Models\Tourney;
 
+use App\Settings\SeasonSettings;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static Builder|Tourney currentSeason()
  * @method static \Database\Factories\Tourney\TourneyFactory factory(...$parameters)
  * @method static Builder|Tourney newModelQuery()
  * @method static Builder|Tourney newQuery()
@@ -51,7 +53,7 @@ class Tourney extends Model
     public const STATUS_DRAW = 'draw';
     public const STATUS_ACTIVE = 'active';
     public const STATUS_FINAL = 'final';
-    public const STATUS_PASSED = 'passed';
+    public const STATUS_COMPLETED = 'completed';
     public const STATUS_CANCELLED = 'cancelled';
 
     public static function statuses(): array
@@ -61,7 +63,7 @@ class Tourney extends Model
             self::STATUS_DRAW => __('Draw'),
             self::STATUS_ACTIVE => __('Active'),
             self::STATUS_FINAL => __('Final'),
-            self::STATUS_PASSED => __('Passed'),
+            self::STATUS_COMPLETED => __('Completed'),
             self::STATUS_CANCELLED => __('Cancelled'),
         ];
     }
@@ -71,6 +73,16 @@ class Tourney extends Model
     public function isScheduled(): bool
     {
         return $this->status === self::STATUS_SCHEDULED;
+    }
+
+    public function isDraw(): bool
+    {
+        return $this->status === self::STATUS_DRAW;
+    }
+
+    public function isCompleted(): bool
+    {
+        return $this->status === self::STATUS_COMPLETED;
     }
 
     public function isCancelled(): bool
@@ -86,5 +98,38 @@ class Tourney extends Model
     public function status()
     {
         return static::statuses()[$this->status];
+    }
+
+    public function type(): string
+    {
+        switch (substr($this->track_id, 1, 1)) {
+            case '0':
+                return 'circuit';
+            case '1':
+                return 'sprint';
+            case '2':
+                return 'drag';
+            case '3':
+                return 'drift';
+            default:
+                return 'unknown type';
+        }
+    }
+
+    public function isSigningUp(): bool
+    {
+        $offset = $this->started_at->diffInMinutes(now(), false);
+
+        return ($offset < 0) && (($offset + $this->signup_time) >= 0);
+    }
+
+    public function isFeatured(): bool
+    {
+        return $this->isSigningUp() || $this->status === self::STATUS_DRAW || $this->status === self::STATUS_ACTIVE || $this->status === self::STATUS_FINAL;
+    }
+
+    public function scopeCurrentSeason($query)
+    {
+        return $query->where('season_id', app(SeasonSettings::class)->index);
     }
 }

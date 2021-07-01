@@ -67,7 +67,7 @@ class EditTest extends TestCase
         $this->patch("/cabinet/tourneys/{$tourney->id}", $attributes)
             ->assertSessionHas('flash', [
                'type' => 'error',
-                'message' => 'Impossible to change someone else\'s tourney.'
+                'message' => 'Impossible to edit someone else\'s tourney.'
             ]);
 
         $this->assertDatabaseMissing('tourneys', $attributes);

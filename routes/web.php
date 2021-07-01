@@ -10,9 +10,10 @@ use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\NFSUServerController;
 use App\Http\Controllers\PublicProfileController;
 use App\Http\Controllers\Tests\RacerController;
+use App\Http\Controllers\TourneysController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\Cabinet\CabinetController;
-use App\Http\Controllers\User\Cabinet\TourneysController;
+use App\Http\Controllers\User\Cabinet\TourneysController as CabinetTourneysController;
 use App\Http\Controllers\User\Team\CreateTeamController;
 use App\Http\Controllers\User\Team\EditTeamController;
 use App\Http\Controllers\User\Team\JoinTeamController;
@@ -26,6 +27,13 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('/', function () {
         return view('welcome');
     })->name('home');
+
+    Route::group([
+        'prefix' => 'tourneys',
+        'as' => 'tourneys',
+    ], function () {
+        Route::get('', [TourneysController::class, 'index'])->name('.index');
+    });
 
     Route::group([
         'middleware' => 'auth',
@@ -127,12 +135,12 @@ Route::group(['middleware' => 'language'], function () {
             'prefix' => 'tourneys',
             'as' => '.tourneys'
         ], function () {
-            Route::get('', [TourneysController::class, 'index'])->name('.index');
-            Route::get('create', [TourneysController::class, 'create'])->name('.create');
-            Route::post('', [TourneysController::class, 'store'])->name('.store');
-            Route::get('edit/{tourney}', [TourneysController::class, 'edit'])->name('.edit');
-            Route::patch('{tourney}', [TourneysController::class, 'update'])->name('.update');
-            Route::delete('{tourney}', [TourneysController::class, 'remove'])->name('.delete');
+            Route::get('', [CabinetTourneysController::class, 'index'])->name('.index');
+            Route::get('create', [CabinetTourneysController::class, 'create'])->name('.create');
+            Route::post('', [CabinetTourneysController::class, 'store'])->name('.store');
+            Route::get('edit/{tourney}', [CabinetTourneysController::class, 'edit'])->name('.edit');
+            Route::patch('{tourney}', [CabinetTourneysController::class, 'update'])->name('.update');
+            Route::delete('{tourney}', [CabinetTourneysController::class, 'remove'])->name('.delete');
         });
     });
 

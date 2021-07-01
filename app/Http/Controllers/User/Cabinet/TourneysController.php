@@ -13,7 +13,7 @@ class TourneysController extends Controller
     public function index()
     {
         return view('frontend.user.cabinet.tourneys.index', [
-            'tourneys' => auth()->user()->tourneys->paginate(10),
+            'tourneys' => auth()->user()->tourneys()->latest('started_at')->paginate(10),
             'title' => __('Your tourneys'),
         ]);
     }
