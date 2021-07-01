@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Tourney\TourneyDetail[] $details
+ * @property-read int|null $details_count
  * @method static Builder|Tourney currentSeason()
  * @method static \Database\Factories\Tourney\TourneyFactory factory(...$parameters)
  * @method static Builder|Tourney newModelQuery()
@@ -69,6 +71,11 @@ class Tourney extends Model
     }
 
     protected $dates = ['started_at'];
+
+    public function details()
+    {
+        return $this->hasMany(TourneyDetail::class);
+    }
 
     public function isScheduled(): bool
     {

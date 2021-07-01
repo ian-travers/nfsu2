@@ -33,6 +33,7 @@ Route::group(['middleware' => 'language'], function () {
         'as' => 'tourneys',
     ], function () {
         Route::get('', [TourneysController::class, 'index'])->name('.index');
+        Route::post('{tourney}/signup', [TourneysController::class, 'signup'])->middleware('auth')->name('.signup');
     });
 
     Route::group([

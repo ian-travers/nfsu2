@@ -190,4 +190,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Tourney::class, 'supervisor_id');
     }
+
+    public function isSigned(Tourney $tourney)
+    {
+        return $tourney->details()->where('racer_id', $this->id)->exists();
+    }
 }
