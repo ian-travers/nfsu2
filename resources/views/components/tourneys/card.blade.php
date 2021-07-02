@@ -4,7 +4,8 @@
     class="flex items-center justify-between transition-colors duration-300 border border-gray-400 border-opacity-50 hover:border-opacity-100 bg-nfsu-color bg-opacity-75 hover:bg-opacity-100 rounded-lg px-4 py-2"
 >
     <div class="mr-4">
-        <img src="{{ asset("storage/images/{$tourney->type()}.png") }}" alt="int" class="rounded-lg">
+        <img src="{{ asset("storage/images/{$tourney->type()}.png") }}" width="65" height="35" alt="type"
+             class="rounded-lg" title="{{ __(ucfirst($tourney->type())) }}">
     </div>
 
     <div class="flex-1">
@@ -17,11 +18,7 @@
             </div>
             <div>
                 <a href="#">
-                    @if($tourney->isCompleted())
-                        <x-form.success-button>{{ __('Results') }}</x-form.success-button>
-                    @else
-                        <x-form.primary-button>{{ __('Details') }}</x-form.primary-button>
-                    @endif
+                    <x-form.primary-button>{{ $tourney->isCompleted() ? __('Results') : __('Details') }}</x-form.primary-button>
                 </a>
             </div>
         </div>

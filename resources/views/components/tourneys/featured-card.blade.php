@@ -4,7 +4,7 @@
     class="flex items-start justify-between transition-colors duration-300 border border-gray-400 border-opacity-50 hover:border-opacity-100 bg-nfsu-color bg-opacity-75 hover:bg-opacity-100 rounded-lg px-6 py-4 max-w-4xl mx-auto">
     <div class="mr-6">
         <img src="{{ asset("storage/images/{$tourney->type()}.png") }}" width="160" height="90" alt="race-type"
-             title="{{ $tourney->type() }}" class="rounded-lg">
+             title="{{ __(ucfirst($tourney->type())) }}" class="rounded-lg">
     </div>
     <div class="flex-1 flex justify-between">
         <div class="space-y-2">
@@ -22,7 +22,7 @@
                 <span class="uppercase">{{ $tourney->room }}</span>
             </div>
             <div>
-                <span class="text-gray-400">{{ __('Supervisor') }}:</span>
+                <span class="text-gray-400">{{ __(ucfirst('supervisor')) }}:</span>
                  {{ $tourney->supervisor_username }}
             </div>
             <div class="text-sm">{{ $tourney->description }}</div>

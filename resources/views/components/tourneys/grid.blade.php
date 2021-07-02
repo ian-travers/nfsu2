@@ -5,7 +5,7 @@
 @endforeach
 
 {{--Grid--}}
-<div class="lg:grid lg:grid-cols-3 lg:gap-4 space-y-3 lg:space-y-0">
+<div class="lg:grid lg:grid-cols-2 lg:gap-4 space-y-3 lg:space-y-0">
     @foreach($tourneys as $tourney)
         <x-tourneys.card :tourney="$tourney"/>
     @endforeach
