@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Tourney\Tourney;
+use App\Models\Tourney\TourneyDetail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -194,5 +195,19 @@ class User extends Authenticatable
     public function isSigned(Tourney $tourney)
     {
         return $tourney->details()->where('racer_id', $this->id)->exists();
+    }
+
+    public function signupTourney(Tourney $tourney)
+    {
+        TourneyDetail::create([
+            'tourney_id' => $tourney->id,
+            'racer_id' => $this->id,
+            'racer_username' => $this->username,
+        ]);
+    }
+
+    public function withdrawTourney(Tourney $tourney)
+    {
+        $tourney->details()->where('racer_id', $this->id)->delete();
     }
 }

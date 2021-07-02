@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tourney\Tourney;
-use App\Models\Tourney\TourneyDetail;
 
 class TourneysController extends Controller
 {
@@ -41,15 +40,38 @@ class TourneysController extends Controller
             ]);
         }
 
-        TourneyDetail::create([
-            'tourney_id' => $tourney->id,
-            'racer_id' => $user->id,
-            'racer_username' => $user->username,
-        ]);
+        $user->signupTourney($tourney);
 
         return redirect()->back()->with('flash', [
             'type' => 'success',
             'message' => __('You have been signed up the tourney.'),
+        ]);
+    }
+
+    public function withdraw(Tourney $tourney)
+    {
+        /** @var \App\Models\User $user */
+        $user = auth()->user();
+
+        if (!$user->isRacer()) {
+            return redirect()->back()->with('flash', [
+                'type' => 'error',
+                'message' => __('You have no right to withdraw yourself from the tourney. You must pass the racer test first.'),
+            ]);
+        }
+
+        if (!$user->isSigned($tourney)) {
+            return redirect()->back()->with('flash', [
+                'type' => 'warning',
+                'message' => __('You have not signed for the tourney.'),
+            ]);
+        }
+
+        $user->withdrawTourney($tourney);
+
+        return redirect()->back()->with('flash', [
+            'type' => 'success',
+            'message' => __('You have been withdrawn from the tourney.'),
         ]);
     }
 }
