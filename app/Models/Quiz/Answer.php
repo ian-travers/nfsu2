@@ -36,8 +36,6 @@ class Answer extends Model
 
     public $timestamps = false;
 
-    protected $guarded = [];
-
     public function question()
     {
         return $this->belongsTo(Question::class, 'quiz_question_id');

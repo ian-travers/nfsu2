@@ -65,8 +65,6 @@ class User extends Authenticatable
     public const ROLE_RACER = 'racer';
     public const ROLE_SUPERVISOR = 'supervisor';
 
-    protected $fillable = ['username', 'country', 'avatar', 'email', 'password', 'team_id', 'role', 'is_admin'];
-
     protected $hidden = ['password', 'remember_token'];
 
     protected $casts = [

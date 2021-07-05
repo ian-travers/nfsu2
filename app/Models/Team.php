@@ -39,8 +39,6 @@ class Team extends Model
 
     protected $hidden = ['password'];
 
-    protected $guarded = [];
-
     public function captain()
     {
         return $this->belongsTo(User::class, 'captain_id');

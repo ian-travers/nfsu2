@@ -33,8 +33,6 @@ class TourneyDetail extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-
     protected $dates = ['signed_at'];
 
     public $timestamps = false;

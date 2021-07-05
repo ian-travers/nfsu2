@@ -50,8 +50,6 @@ class Tourney extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-
     public const STATUS_SCHEDULED = 'scheduled';
     public const STATUS_DRAW = 'draw';
     public const STATUS_ACTIVE = 'active';

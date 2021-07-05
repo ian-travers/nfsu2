@@ -36,8 +36,6 @@ class Question extends Model
 
     public $timestamps = false;
 
-    protected $guarded = [];
-
     public static function getRacerTestQuestions()
     {
         return self::get()->shuffle()->take(app(RacerTestSettings::class)->questions_count);
