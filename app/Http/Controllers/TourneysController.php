@@ -21,6 +21,14 @@ class TourneysController extends Controller
         ]);
     }
 
+    public function show(Tourney $tourney)
+    {
+        return view('frontend.tourneys.show', [
+           'tourney' => $tourney,
+           'title' => $tourney->name,
+        ]);
+    }
+
     public function signup(Tourney $tourney)
     {
         /** @var \App\Models\User $user */

@@ -2,6 +2,7 @@
 
 namespace App\Models\Tourney;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -41,5 +42,10 @@ class TourneyDetail extends Model
     public function tourney()
     {
         return $this->belongsTo(Tourney::class);
+    }
+
+    public function racer()
+    {
+        return $this->belongsTo(User::class, 'racer_id')->withTrashed();
     }
 }

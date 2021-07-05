@@ -2,6 +2,7 @@
 
 namespace App\Models\Tourney;
 
+use App\Models\NFSUServer\SpecificGameData;
 use App\Settings\SeasonSettings;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -133,6 +134,11 @@ class Tourney extends Model
     public function isFeatured(): bool
     {
         return $this->isSigningUp() || $this->status === self::STATUS_DRAW || $this->status === self::STATUS_ACTIVE || $this->status === self::STATUS_FINAL;
+    }
+
+    public function trackName()
+    {
+        return SpecificGameData::getTrackName($this->track_id);
     }
 
     public function scopeCurrentSeason($query)

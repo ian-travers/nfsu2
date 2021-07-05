@@ -12,12 +12,12 @@
         <div class="flex items-end justify-between">
             <div>
                 <div class="">{{ $tourney->name }}</div>
-                <div class="">{{ \App\Models\NFSUServer\SpecificGameData::getTrackName($tourney->track_id) }}</div>
+                <div class="">{{ $tourney->trackName() }}</div>
                 <div class="">{{ $tourney->started_at->format('Y-m-d H:i') }}</div>
                 <x-tourney-status-badge :tourney="$tourney"/>
             </div>
             <div>
-                <a href="#">
+                <a href="{{ route('tourneys.show', $tourney) }}">
                     <x-form.primary-button>{{ $tourney->isCompleted() ? __('Results') : __('Details') }}</x-form.primary-button>
                 </a>
             </div>

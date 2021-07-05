@@ -11,7 +11,7 @@
             <div class="text-2xl font-semibold">{{ $tourney->name }}</div>
             <div class="text-lg font-medium">
                 <span class="text-gray-400"> {{ __('Track') }}:</span>
-                {{ \App\Models\NFSUServer\SpecificGameData::getTrackName($tourney->track_id) }}
+                {{ $tourney->trackName() }}
             </div>
             <div>
                 <span class="text-gray-400">{{ __('Starts at') }}:</span>
@@ -45,7 +45,7 @@
             </div>
             <div class="flex-grow">&nbsp;</div>
             <div>
-                <a href="#">
+                <a href="{{ route('tourneys.show', $tourney) }}">
                     <x-form.primary-button>{{ __('Details') }}</x-form.primary-button>
                 </a>
             </div>

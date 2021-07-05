@@ -114,6 +114,11 @@ class User extends Authenticatable
         return isset($this->team_id);
     }
 
+    public function team()
+    {
+        return $this->isTeamMember() ? $this->belongsTo(Team::class) : null;
+    }
+
     public function isTeamCaptain(): bool
     {
         if(!$this->isTeamMember()) {

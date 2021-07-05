@@ -7,35 +7,13 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ __('Username') }}
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ __('Country') }}
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ __('Flag') }}
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ __('Status') }}
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ __('Role') }}
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ __('Team captain') }}
-                        </th>
-
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ __('Admin') }}
-                        </th>
+                        <x-table.th>{{ __('Username') }}</x-table.th>
+                        <x-table.th>{{ __('Country') }}</x-table.th>
+                        <x-table.th>{{ __('Flag') }}</x-table.th>
+                        <x-table.th>{{ __('Status') }}</x-table.th>
+                        <x-table.th>{{ __('Role') }}</x-table.th>
+                        <x-table.th>{{ __('Team captain') }}</x-table.th>
+                        <x-table.th>{{ __('Admin') }}</x-table.th>
                         <th scope="col" class="relative px-6 py-3">
                             <span class="sr-only">Change Password</span>
                         </th>

@@ -7,33 +7,13 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ __('Name') }}
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ __('Track') }}
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ __('Starts at') }}
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ __('Signup time') }}
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ __('Room') }}
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ __('Status') }}
-                        </th>
-                        <th scope="col" class="relative px-6 py-3">
-                            <span class="sr-only">Actions</span>
-                        </th>
+                        <x-table.th>{{ __('Name') }}</x-table.th>
+                        <x-table.th>{{ __('Track') }}</x-table.th>
+                        <x-table.th>{{ __('Starts at') }}</x-table.th>
+                        <x-table.th>{{ __('Signup time') }}</x-table.th>
+                        <x-table.th>{{ __('Room') }}</x-table.th>
+                        <x-table.th>{{ __('Status') }}</x-table.th>
+                        <x-table.th><span class="sr-only">Actions</span></x-table.th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">

@@ -7,18 +7,10 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ __('In English') }}
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ __('In Russian') }}
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ __('Correct answer index') }}
-                        </th>
+                        <x-table.th>{{ __('In English') }}</x-table.th>
+                        <x-table.th>{{ __('In Russian') }}</x-table.th>
+                        <x-table.th class="text-center">{{ __('Correct answer index') }}</x-table.th>
+
                         <th scope="col" class="relative px-6 py-3">
                             <span class="sr-only">Actions</span>
                         </th>
