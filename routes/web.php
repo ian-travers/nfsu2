@@ -13,6 +13,7 @@ use App\Http\Controllers\Tests\RacerController;
 use App\Http\Controllers\TourneysController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\Cabinet\CabinetController;
+use App\Http\Controllers\User\Cabinet\HandleTourneyController as CabinetHandleTourneyController;
 use App\Http\Controllers\User\Cabinet\TourneysController as CabinetTourneysController;
 use App\Http\Controllers\User\Team\CreateTeamController;
 use App\Http\Controllers\User\Team\EditTeamController;
@@ -144,6 +145,16 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('edit/{tourney}', [CabinetTourneysController::class, 'edit'])->name('.edit');
             Route::patch('{tourney}', [CabinetTourneysController::class, 'update'])->name('.update');
             Route::delete('{tourney}', [CabinetTourneysController::class, 'remove'])->name('.delete');
+
+            // Handle the tourney
+            Route::group([
+                'prefix' => 'handle',
+                'as' => '.handle',
+            ], function () {
+                Route::get('{tourney}', [CabinetHandleTourneyController::class, 'index'])->name('.index');
+                Route::put('{tourney}/draw', [CabinetHandleTourneyController::class, 'draw'])->name('.draw');
+            });
+
         });
     });
 

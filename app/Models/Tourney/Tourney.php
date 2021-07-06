@@ -143,4 +143,47 @@ class Tourney extends Model
     {
         return $query->where('season_id', app(SeasonSettings::class)->index);
     }
+
+    public function heats()
+    {
+        return $this->hasMany(Heat::class);
+    }
+
+    /**
+     * @throws \Throwable
+     */
+    public function draw()
+    {
+        $participantCount = $this->details()->count();
+
+        throw_unless($this->supervisor_id == auth()->id(), new \DomainException(__("Unable to draw someone's else tourney.")));
+        throw_if($participantCount < 2, new \DomainException(__('Too few racers. You should complete the tourney now.')));
+
+
+        $heatsPerRound = (int)ceil($participantCount / 4);
+
+        $this->createAllHeats($heatsPerRound);
+
+        $participants = $this->details->shuffle();
+
+        $fours = intdiv($participantCount, 4);
+        $remainder = $participantCount % 4;
+    }
+
+    protected function createAllHeats(int $heatsPerRound): void
+    {
+        for ($round = 1; $round <= 4; $round++) {
+            for ($heatNo = 1; $heatNo <= $heatsPerRound; $heatNo++) {
+                $this->heats()->create([
+                    'round' => $round,
+                    'heat_no' => $heatNo,
+                ]);
+            }
+        }
+
+        $this->heats()->create([
+            'round' => 5,
+            'heat_no' => 1,
+        ]);
+    }
 }
