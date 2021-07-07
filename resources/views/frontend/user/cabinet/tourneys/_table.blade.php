@@ -13,7 +13,7 @@
                         <x-table.th>{{ __('Signup time') }}</x-table.th>
                         <x-table.th>{{ __('Room') }}</x-table.th>
                         <x-table.th>{{ __('Status') }}</x-table.th>
-                        <x-table.th><span class="sr-only">Manage</span></x-table.th>
+                        <x-table.th><span class="sr-only">Handle</span></x-table.th>
                         <x-table.th><span class="sr-only">Actions</span></x-table.th>
                     </tr>
                     </thead>
@@ -40,7 +40,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap" rowspan="2">
                                 <a href="{{ route('cabinet.tourneys.handle.index', $tourney) }}">
-                                    <x-form.primary-button>{{ __('Manage') }}</x-form.primary-button>
+                                    <x-form.primary-button>{{ __('Handle') }}</x-form.primary-button>
                                 </a>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium" rowspan="2">

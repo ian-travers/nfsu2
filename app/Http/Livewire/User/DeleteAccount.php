@@ -42,6 +42,8 @@ class DeleteAccount extends Component
             return redirect()->route('settings.account');
         }
 
+        // TODO: Unable to delete account when taking part in the tourney or handle the tourney
+
         $user->removeAvatarFile();
         $user->delete();
 

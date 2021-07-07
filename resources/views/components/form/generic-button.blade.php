@@ -8,6 +8,6 @@
 @endphp
 
 <button
-    {{ $disabled ? 'disabled' : '' }} {{ $attributes->merge(['type' => 'button', 'class' => $classes]) }}>
+    {{ $disabled ? 'disabled' : '' }} {{ $attributes(['type' => 'button', 'class' => $classes]) }}>
     {{ $slot }}
 </button>

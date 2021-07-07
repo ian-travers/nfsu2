@@ -4,7 +4,9 @@ namespace App\Models\Tourney;
 
 use App\Models\NFSUServer\SpecificGameData;
 use App\Settings\SeasonSettings;
+use DomainException;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,8 +26,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Tourney\TourneyDetail[] $details
+ * @property-read Collection|\App\Models\Tourney\TourneyDetail[] $details
  * @property-read int|null $details_count
+ * @property-read Collection|\App\Models\Tourney\Heat[] $heats
+ * @property-read int|null $heats_count
  * @method static Builder|Tourney currentSeason()
  * @method static \Database\Factories\Tourney\TourneyFactory factory(...$parameters)
  * @method static Builder|Tourney newModelQuery()
@@ -150,24 +154,32 @@ class Tourney extends Model
     }
 
     /**
-     * @throws \Throwable
+     * @throws DomainException|\Throwable
      */
     public function draw()
     {
         $participantCount = $this->details()->count();
 
-        throw_unless($this->supervisor_id == auth()->id(), new \DomainException(__("Unable to draw someone's else tourney.")));
-        throw_if($participantCount < 2, new \DomainException(__('Too few racers. You should complete the tourney now.')));
+        throw_unless($this->supervisor_id == auth()->id(), new DomainException(__("Unable to draw someone's else tourney.")));
+        throw_if($participantCount < 2, new DomainException(__('Too few racers. You should complete the tourney now.')));
 
 
         $heatsPerRound = (int)ceil($participantCount / 4);
 
-        $this->createAllHeats($heatsPerRound);
+        if ($this->isScheduled()) {                     // Tourney is scheduled
+            if (!$this->heats()->count()) {             // There are no heats yet
+                $this->createAllHeats($heatsPerRound);
+            }
+        }
+
+        $this->clearHeatsParticipants();
 
         $participants = $this->details->shuffle();
 
         $fours = intdiv($participantCount, 4);
         $remainder = $participantCount % 4;
+
+        $this->drawEachHeat($participants, $fours, $remainder);
     }
 
     protected function createAllHeats(int $heatsPerRound): void
@@ -185,5 +197,81 @@ class Tourney extends Model
             'round' => 5,
             'heat_no' => 1,
         ]);
+    }
+
+    protected function clearHeatsParticipants(): void
+    {
+        $this->heats->map(function (Heat $heat) {
+            $heat->participants()->delete();
+        });
+    }
+
+    protected function drawEachHeat(Collection $participants, int $fours, int $remainder): bool
+    {
+        if ($fours == 0 || ($fours == 1 && $remainder == 0)) { // 2-4 participants
+            for ($round = 1; $round <= 5; $round++) {
+                $this->arrangeHeat($round, 1, $participants);
+            }
+
+            return $this->update(['status' => self::STATUS_DRAW]);
+        }
+
+        if ($remainder == 0) {                              //  only fours each heat
+            for ($round = 1; $round <= 4; $round++) {
+                for ($heat = 1; $heat <= $fours; $heat++) {
+                    $this->arrangeHeat($round, $heat, $participants->shuffle()->slice(4, 4));
+                }
+            }
+
+            return $this->update(['status' => self::STATUS_DRAW]);
+        }
+
+        for ($round = 1; $round <= 4; $round++) {
+            if ($fours == 1) {                          // 5-7 participants
+                $medium = ($round % 2)
+                    ? ceil($participants->count() / 2)
+                    : floor($participants->count() / 2);
+
+                $this->arrangeHeat($round, 1, $participants->shuffle()->slice(0, $medium));
+                $this->arrangeHeat($round, 2, $participants->shuffle()->slice($medium));
+            } else {                                    // 9+ participants, not a multiple of four
+                $offset3 = 0;
+                for ($heat = 1; $heat <= (4 - $remainder); $heat++) {
+                    $this->arrangeHeat($round, $heat, $participants->shuffle()->slice($offset3 * 3, 3));
+                    $offset3++;
+                }
+
+                $offset4 = 0;
+                for ($heat = 5 - $remainder; $heat <= $fours + 1; $heat++) {
+                    $this->arrangeHeat($round, $heat, $participants->shuffle()->slice($offset3 * 3 + $offset4 * 4, 4));
+                    $offset4++;
+                }
+            }
+        }
+
+        return $this->update(['status' => self::STATUS_DRAW]);
+    }
+
+    protected function arrangeHeat(int $round, int $heatNo, Collection $participants): void
+    {
+        $heat = Heat::where([
+            ['tourney_id', $this->id],
+            ['round', $round],
+            ['heat_no', $heatNo]
+        ])->firstOrCreate([
+            'tourney_id' => $this->id,
+            'round' => $round,
+            'heat_no' => $heatNo
+        ]);
+
+        $participants->shuffle()->map(function (TourneyDetail $participant, $key) use ($heat) {
+            $heat->participants()->create([
+                'racer_id' => $participant->racer_id,
+                'racer_username' => $participant->racer_username,
+                'order' => $key + 1,
+            ]);
+        });
+
+
     }
 }

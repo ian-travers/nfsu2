@@ -20,12 +20,15 @@ class HandleTourneyController extends Controller
         try {
             $tourney->draw();
         } catch (\DomainException $e) {
-            return back()->with('flash', [
+            return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
                 'type' => 'error',
                 'message' => $e->getMessage(),
             ]);
         }
 
-        return $tourney;
+        return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
+            'type' => 'success',
+            'message' => 'Random draw has been done.'
+        ]);
     }
 }

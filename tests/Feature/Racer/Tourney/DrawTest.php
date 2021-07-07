@@ -33,6 +33,30 @@ class DrawTest extends TestCase
     }
 
     /** @test */
+    function racer_cannon_draw_own_tourney_with_double_heats_records()
+    {
+        /** @var User $racer */
+        $racer = User::factory()->racer()->create([
+            'username' => 'supervisor',
+        ]);
+
+        $this->signIn($racer);
+        $participantsCount = 9; // it will 3 * 4 regular + 1 final rounds
+
+        $tourney = $this->prepareTourney($racer, $participantsCount);
+
+        $this->assertDatabaseCount('tourney_details', $participantsCount);
+
+        $this->put("/cabinet/tourneys/handle/{$tourney->id}/draw");
+
+        $this->assertDatabaseCount('heats', 13);
+
+        $this->put("/cabinet/tourneys/handle/{$tourney->id}/draw");
+
+        $this->assertDatabaseCount('heats', 13);
+    }
+
+    /** @test */
     function racer_cannot_draw_someones_else_tourney()
     {
         /** @var User $racer */
@@ -103,6 +127,4 @@ class DrawTest extends TestCase
 
         return $tourney;
     }
-
-
 }

@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $tourney_id
  * @property int $pts
  * @property \Illuminate\Support\Carbon $signed_at
+ * @property-read User|null $racer
  * @property-read \App\Models\Tourney\Tourney $tourney
  * @method static \Database\Factories\Tourney\TourneyDetailFactory factory(...$parameters)
  * @method static Builder|TourneyDetail newModelQuery()
