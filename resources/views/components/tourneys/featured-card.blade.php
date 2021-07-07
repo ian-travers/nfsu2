@@ -25,7 +25,10 @@
                 <span class="text-gray-400">{{ __(ucfirst('supervisor')) }}:</span>
                  {{ $tourney->supervisor_username }}
             </div>
-            <div class="text-sm">{{ $tourney->description }}</div>
+            <div class="pr-2">
+                <span class="text-gray-400">{{ __('Additional information') }}:</span>
+                {{ $tourney->description }}
+            </div>
         </div>
         <div class="flex flex-col items-end">
             <div>
