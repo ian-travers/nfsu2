@@ -90,6 +90,16 @@ class Tourney extends Model
         return $this->status === self::STATUS_DRAW;
     }
 
+    public function isActive(): bool
+    {
+        return $this->status === self::STATUS_ACTIVE;
+    }
+
+    public function isFinal(): bool
+    {
+        return $this->status === self::STATUS_FINAL;
+    }
+
     public function isCompleted(): bool
     {
         return $this->status === self::STATUS_COMPLETED;
@@ -100,7 +110,7 @@ class Tourney extends Model
         return $this->status === self::STATUS_CANCELLED;
     }
 
-    public function isDeletable(): bool
+    public function isEditable(): bool
     {
         return $this->isScheduled() || $this->isCancelled();
     }
@@ -154,14 +164,18 @@ class Tourney extends Model
     }
 
     /**
-     * @throws DomainException|\Throwable
+     *  Performs random draw of players by rounds and races
+     *
+     * @throws DomainException
      */
     public function draw()
     {
         $participantCount = $this->details()->count();
 
         throw_unless($this->supervisor_id == auth()->id(), new DomainException(__("Unable to draw someone's else tourney.")));
+        throw_if(now() <= $this->started_at, new DomainException(__('Signup period is not over.')));
         throw_if($participantCount < 2, new DomainException(__('Too few racers. You should complete the tourney now.')));
+        throw_unless($this->isScheduled() || $this->isDraw(), new DomainException(__('The start of the tourney has already been announced. No new draw possible.')));
 
 
         $heatsPerRound = (int)ceil($participantCount / 4);
@@ -271,7 +285,20 @@ class Tourney extends Model
                 'order' => $key + 1,
             ]);
         });
+    }
 
+    /**
+     * Start the tourney
+     *
+     * @return bool
+     * @throws DomainException
+     */
+    public function start(): bool
+    {
+        throw_if($this->isScheduled(), new DomainException(__("You should get tourney's draw first.")));
+        throw_if($this->isActive() || $this->isFinal(), new DomainException(__('Tourney is already started.')));
+        throw_unless($this->supervisor_id == auth()->id(), new DomainException(__("Unable to draw someone's else tourney.")));
 
+        return $this->update(['status' => self::STATUS_ACTIVE]);
     }
 }

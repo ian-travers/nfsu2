@@ -153,6 +153,7 @@ Route::group(['middleware' => 'language'], function () {
             ], function () {
                 Route::get('{tourney}', [CabinetHandleTourneyController::class, 'index'])->name('.index');
                 Route::put('{tourney}/draw', [CabinetHandleTourneyController::class, 'draw'])->name('.draw');
+                Route::patch('{tourney}/start', [CabinetHandleTourneyController::class, 'start'])->name('.start');
             });
 
         });

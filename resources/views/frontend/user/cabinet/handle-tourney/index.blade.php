@@ -2,7 +2,7 @@
 
 <x-layouts.cabinet title="{{ $title }}">
     <div class="overflow-hidden rounded sm:rounded-md text-gray-900">
-        <div class="bg-white px-4">
+        <div class="bg-white px-4 py-3">
             <div class="flex items-center justify-end space-x-2">
                 <a href="{{ route('cabinet.tourneys.edit', $tourney) }}">
                     <x-form.primary-button>{{ __('Edit') }}</x-form.primary-button>
@@ -53,8 +53,10 @@
                     <x-form.primary-button type="submit">{{ __('Random draw') }}</x-form.primary-button>
                 </form>
 
-                <form action="#" class="inline">
-                    <x-form.primary-button>{{ __('Approve the draw and start the tourney') }}</x-form.primary-button>
+                <form action="{{ route('cabinet.tourneys.handle.start', $tourney) }}" method="post" class="inline">
+                    @csrf
+                    @method('patch')
+                    <x-form.primary-button type="submit">{{ __('Approve the draw and start the tourney') }}</x-form.primary-button>
                 </form>
 
                 <form action="#" class="inline">

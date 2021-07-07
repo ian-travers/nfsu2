@@ -31,4 +31,21 @@ class HandleTourneyController extends Controller
             'message' => 'Random draw has been done.'
         ]);
     }
+
+    public function start(Tourney $tourney)
+    {
+        try {
+            $tourney->start();
+        } catch (\DomainException $e) {
+            return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
+                'type' => 'error',
+                'message' => $e->getMessage(),
+            ]);
+        }
+
+        return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
+            'type' => 'success',
+            'message' => 'Tourney has been started. You may wait for a couple of minutes and announce the first round.'
+        ]);
+    }
 }
