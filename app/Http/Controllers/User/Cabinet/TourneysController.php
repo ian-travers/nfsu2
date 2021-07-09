@@ -68,7 +68,7 @@ class TourneysController extends Controller
         if (!$tourney->isScheduled()) {
             return back()->with('flash', [
                 'type' => 'warning',
-                'message' => __('Impossible to edit a tourney with this status.'),
+                'message' => __('Impossible to edit tourney with this status.'),
             ]);
         }
 
@@ -94,7 +94,7 @@ class TourneysController extends Controller
         if (!$tourney->isScheduled()) {
             return redirect()->route('cabinet.tourneys.index', $tourney)->with('flash', [
                 'type' => 'warning',
-                'message' => __('Impossible to edit a tourney with this status.'),
+                'message' => __('Impossible to edit tourney with this status.'),
             ]);
         }
 
