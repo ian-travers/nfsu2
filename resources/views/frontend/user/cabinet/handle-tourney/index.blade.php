@@ -59,8 +59,10 @@
                     <x-form.primary-button type="submit">{{ __('Approve the draw and start the tourney') }}</x-form.primary-button>
                 </form>
 
-                <form action="#" class="inline">
-                    <x-form.primary-button>{{ __('Announce the final round') }}</x-form.primary-button>
+                <form action="{{ route('cabinet.tourneys.handle.final', $tourney) }}" method="post" class="inline">
+                    @csrf
+                    @method('patch')
+                    <x-form.primary-button type="submit">{{ __('Announce the final round') }}</x-form.primary-button>
                 </form>
 
                 <form action="#" class="inline">

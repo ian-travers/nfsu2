@@ -48,4 +48,21 @@ class HandleTourneyController extends Controller
             'message' => 'Tourney has been started. You may wait for a couple of minutes and announce the first round.'
         ]);
     }
+
+    public function final(Tourney $tourney)
+    {
+        try {
+            $tourney->final();
+        } catch (\DomainException $e) {
+            return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
+                'type' => 'error',
+                'message' => $e->getMessage(),
+            ]);
+        }
+
+        return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
+            'type' => 'success',
+            'message' => 'The final round may be started. You may wait for a minute  and announce the final round.'
+        ]);
+    }
 }

@@ -301,4 +301,12 @@ class Tourney extends Model
 
         return $this->update(['status' => self::STATUS_ACTIVE]);
     }
+
+    public function final()
+    {
+        throw_unless($this->isActive(), new DomainException(__("You can only announce the final round for an active tourney.")));
+        throw_unless($this->supervisor_id == auth()->id(), new DomainException(__("Unable to announce the final round someone's else tourney.")));
+
+        return $this->update(['status' => self::STATUS_FINAL]);
+    }
 }
