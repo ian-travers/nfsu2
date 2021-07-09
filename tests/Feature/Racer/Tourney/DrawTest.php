@@ -25,7 +25,7 @@ class DrawTest extends TestCase
 
         $tourney = $this->prepareTourney($racer, $participantsCount);
 
-        $this->assertDatabaseCount('tourney_details', $participantsCount);
+        $this->assertDatabaseCount('tourney_racers', $participantsCount);
 
         $this->put("/cabinet/tourneys/handle/{$tourney->id}/draw");
 
@@ -45,7 +45,7 @@ class DrawTest extends TestCase
 
         $tourney = $this->prepareTourney($racer, $participantsCount);
 
-        $this->assertDatabaseCount('tourney_details', $participantsCount);
+        $this->assertDatabaseCount('tourney_racers', $participantsCount);
 
         $this->put("/cabinet/tourneys/handle/{$tourney->id}/draw");
 
@@ -71,7 +71,7 @@ class DrawTest extends TestCase
 
         $this->signIn(User::factory()->racer()->create());
 
-        $this->assertDatabaseCount('tourney_details', $participantsCount);
+        $this->assertDatabaseCount('tourney_racers', $participantsCount);
 
         $this->put("/cabinet/tourneys/handle/{$tourney->id}/draw")
             ->assertSessionHas('flash', [
@@ -96,12 +96,12 @@ class DrawTest extends TestCase
 
         $this->signIn(User::factory()->create());
 
-        $this->assertDatabaseCount('tourney_details', 1);
+        $this->assertDatabaseCount('tourney_racers', 1);
 
         $this->put("/cabinet/tourneys/handle/{$tourney->id}/draw")
             ->assertSessionHas('flash', [
                 'type' => 'error',
-                'message' => 'You should promote to the racer.'
+                'message' => 'You should be promoted to the racer.'
             ]);
 
         $this->assertDatabaseCount('heats', 0);

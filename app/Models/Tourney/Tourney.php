@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read Collection|\App\Models\Tourney\TourneyDetail[] $details
+ * @property-read Collection|\App\Models\Tourney\TourneyRacer[] $details
  * @property-read int|null $details_count
  * @property-read Collection|\App\Models\Tourney\Heat[] $heats
  * @property-read int|null $heats_count
@@ -75,9 +75,9 @@ class Tourney extends Model
 
     protected $dates = ['started_at'];
 
-    public function details()
+    public function racers()
     {
-        return $this->hasMany(TourneyDetail::class);
+        return $this->hasMany(TourneyRacer::class);
     }
 
     public function isScheduled(): bool
@@ -170,15 +170,15 @@ class Tourney extends Model
      */
     public function draw()
     {
-        $participantCount = $this->details()->count();
+        $racersCount = $this->racers()->count();
 
         throw_unless($this->supervisor_id == auth()->id(), new DomainException(__("Unable to draw someone's else tourney.")));
         throw_if(now() <= $this->started_at, new DomainException(__('Signup period is not over.')));
-        throw_if($participantCount < 2, new DomainException(__('Too few racers. You should complete the tourney now.')));
+        throw_if($racersCount < 2, new DomainException(__('Too few racers. You should complete the tourney now.')));
         throw_unless($this->isScheduled() || $this->isDraw(), new DomainException(__('The start of the tourney has already been announced. No new draw possible.')));
 
 
-        $heatsPerRound = (int)ceil($participantCount / 4);
+        $heatsPerRound = (int)ceil($racersCount / 4);
 
         if ($this->isScheduled()) {                     // Tourney is scheduled
             if (!$this->heats()->count()) {             // There are no heats yet
@@ -186,14 +186,14 @@ class Tourney extends Model
             }
         }
 
-        $this->clearHeatsParticipants();
+        $this->clearHeatsRacers();
 
-        $participants = $this->details->shuffle();
+        $racers = $this->racers()->shuffle();
 
-        $fours = intdiv($participantCount, 4);
-        $remainder = $participantCount % 4;
+        $fours = intdiv($racersCount, 4);
+        $remainder = $racersCount % 4;
 
-        $this->drawEachHeat($participants, $fours, $remainder);
+        $this->drawEachHeat($racers, $fours, $remainder);
     }
 
     protected function createAllHeats(int $heatsPerRound): void
@@ -213,18 +213,18 @@ class Tourney extends Model
         ]);
     }
 
-    protected function clearHeatsParticipants(): void
+    protected function clearHeatsRacers(): void
     {
         $this->heats->map(function (Heat $heat) {
-            $heat->participants()->delete();
+            $heat->racers()->delete();
         });
     }
 
-    protected function drawEachHeat(Collection $participants, int $fours, int $remainder): bool
+    protected function drawEachHeat(Collection $racers, int $fours, int $remainder): bool
     {
         if ($fours == 0 || ($fours == 1 && $remainder == 0)) { // 2-4 participants
             for ($round = 1; $round <= 5; $round++) {
-                $this->arrangeHeat($round, 1, $participants);
+                $this->arrangeHeat($round, 1, $racers);
             }
 
             return $this->update(['status' => self::STATUS_DRAW]);
@@ -233,7 +233,7 @@ class Tourney extends Model
         if ($remainder == 0) {                              //  only fours each heat
             for ($round = 1; $round <= 4; $round++) {
                 for ($heat = 1; $heat <= $fours; $heat++) {
-                    $this->arrangeHeat($round, $heat, $participants->shuffle()->slice(4, 4));
+                    $this->arrangeHeat($round, $heat, $racers->shuffle()->slice(4, 4));
                 }
             }
 
@@ -241,23 +241,23 @@ class Tourney extends Model
         }
 
         for ($round = 1; $round <= 4; $round++) {
-            if ($fours == 1) {                          // 5-7 participants
+            if ($fours == 1) {                          // 5-7 racers
                 $medium = ($round % 2)
-                    ? ceil($participants->count() / 2)
-                    : floor($participants->count() / 2);
+                    ? ceil($racers->count() / 2)
+                    : floor($racers->count() / 2);
 
-                $this->arrangeHeat($round, 1, $participants->shuffle()->slice(0, $medium));
-                $this->arrangeHeat($round, 2, $participants->shuffle()->slice($medium));
+                $this->arrangeHeat($round, 1, $racers->shuffle()->slice(0, $medium));
+                $this->arrangeHeat($round, 2, $racers->shuffle()->slice($medium));
             } else {                                    // 9+ participants, not a multiple of four
                 $offset3 = 0;
                 for ($heat = 1; $heat <= (4 - $remainder); $heat++) {
-                    $this->arrangeHeat($round, $heat, $participants->shuffle()->slice($offset3 * 3, 3));
+                    $this->arrangeHeat($round, $heat, $racers->shuffle()->slice($offset3 * 3, 3));
                     $offset3++;
                 }
 
                 $offset4 = 0;
                 for ($heat = 5 - $remainder; $heat <= $fours + 1; $heat++) {
-                    $this->arrangeHeat($round, $heat, $participants->shuffle()->slice($offset3 * 3 + $offset4 * 4, 4));
+                    $this->arrangeHeat($round, $heat, $racers->shuffle()->slice($offset3 * 3 + $offset4 * 4, 4));
                     $offset4++;
                 }
             }
@@ -266,7 +266,7 @@ class Tourney extends Model
         return $this->update(['status' => self::STATUS_DRAW]);
     }
 
-    protected function arrangeHeat(int $round, int $heatNo, Collection $participants): void
+    protected function arrangeHeat(int $round, int $heatNo, Collection $racers): void
     {
         $heat = Heat::where([
             ['tourney_id', $this->id],
@@ -278,10 +278,10 @@ class Tourney extends Model
             'heat_no' => $heatNo
         ]);
 
-        $participants->shuffle()->map(function (TourneyDetail $participant, $key) use ($heat) {
-            $heat->participants()->create([
-                'racer_id' => $participant->racer_id,
-                'racer_username' => $participant->racer_username,
+        $racers->shuffle()->map(function (TourneyRacer $racer, $key) use ($heat) {
+            $heat->racers()->create([
+                'user_id' => $racer->racer_id,
+                'racer_username' => $racer->racer_username,
                 'order' => $key + 1,
             ]);
         });

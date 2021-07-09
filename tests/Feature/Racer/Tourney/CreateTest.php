@@ -14,7 +14,6 @@ class CreateTest extends TestCase
     /** @test */
     function racer_can_create_a_tourney()
     {
-        $this->withoutExceptionHandling();
         /** @var User $racer */
         $racer = User::factory()->racer()->create();
 
@@ -52,8 +51,7 @@ class CreateTest extends TestCase
         $this->post('/cabinet/tourneys', [])
             ->assertSessionHas('flash', [
                 'type' => 'error',
-                'message' => 'You should promote to the racer.',
+                'message' => 'You should be promoted to the racer.',
             ]);
-
     }
 }

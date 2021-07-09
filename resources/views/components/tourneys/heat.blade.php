@@ -1,4 +1,4 @@
-@php /** @var \App\Models\Tourney\HeatParticipant $racer */ @endphp
+@php /** @var \App\Models\Tourney\HeatRacer $racer */ @endphp
 
 <table class="divide-y divide-gray-200 border">
     <thead class="bg-gray-50">

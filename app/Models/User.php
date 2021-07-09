@@ -3,13 +3,15 @@
 namespace App\Models;
 
 use App\Models\Tourney\Tourney;
-use App\Models\Tourney\TourneyDetail;
+use App\Models\Tourney\TourneyRacer;
+use DomainException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
+use InvalidArgumentException;
 
 /**
  * App\Models\User
@@ -148,9 +150,9 @@ class User extends Authenticatable
      */
     public function changeRole($role): void
     {
-        throw_unless(array_key_exists($role, self::rolesList()), new \InvalidArgumentException(__('Unknown role :role.', ['role' => $role])));
+        throw_unless(array_key_exists($role, self::rolesList()), new InvalidArgumentException(__('Unknown role :role.', ['role' => $role])));
 
-        throw_if($this->role === $role, new \DomainException(__('This role has already been assigned.')));
+        throw_if($this->role === $role, new DomainException(__('This role has already been assigned.')));
 
         $this->update(['role' => $role]);
     }
@@ -197,20 +199,20 @@ class User extends Authenticatable
 
     public function isSigned(Tourney $tourney)
     {
-        return $tourney->details()->where('racer_id', $this->id)->exists();
+        return $tourney->racers()->where('user_id', $this->id)->exists();
     }
 
     public function signupTourney(Tourney $tourney)
     {
-        TourneyDetail::create([
+        TourneyRacer::create([
             'tourney_id' => $tourney->id,
-            'racer_id' => $this->id,
+            'user_id' => $this->id,
             'racer_username' => $this->username,
         ]);
     }
 
     public function withdrawTourney(Tourney $tourney)
     {
-        $tourney->details()->where('racer_id', $this->id)->delete();
+        $tourney->racers()->where('user_id', $this->id)->delete();
     }
 }

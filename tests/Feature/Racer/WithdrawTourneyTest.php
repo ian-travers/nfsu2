@@ -34,7 +34,7 @@ class WithdrawTourneyTest extends TestCase
 
         $this->post("/tourneys/{$tourney->id}/withdraw");
 
-        $this->assertDatabaseCount('tourney_details', 0);
+        $this->assertDatabaseCount('tourney_racers', 0);
     }
 
     /** @test */
@@ -53,11 +53,11 @@ class WithdrawTourneyTest extends TestCase
 
         $this->post("/tourneys/{$tourney->id}/signup");
 
-        $this->assertDatabaseCount('tourney_details', 1);
+        $this->assertDatabaseCount('tourney_racers', 1);
 
         $this->post("/tourneys/{$tourney->id}/withdraw");
 
-        $this->assertDatabaseCount('tourney_details', 0);
+        $this->assertDatabaseCount('tourney_racers', 0);
 
     }
 

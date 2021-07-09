@@ -18,19 +18,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon $signed_at
  * @property-read User|null $racer
  * @property-read \App\Models\Tourney\Tourney $tourney
- * @method static \Database\Factories\Tourney\TourneyDetailFactory factory(...$parameters)
- * @method static Builder|TourneyDetail newModelQuery()
- * @method static Builder|TourneyDetail newQuery()
- * @method static Builder|TourneyDetail query()
- * @method static Builder|TourneyDetail whereId($value)
- * @method static Builder|TourneyDetail wherePts($value)
- * @method static Builder|TourneyDetail whereRacerId($value)
- * @method static Builder|TourneyDetail whereRacerUsername($value)
- * @method static Builder|TourneyDetail whereSignedAt($value)
- * @method static Builder|TourneyDetail whereTourneyId($value)
+ * @method static \Database\Factories\Tourney\TourneyRacerFactory factory(...$parameters)
+ * @method static Builder|TourneyRacer newModelQuery()
+ * @method static Builder|TourneyRacer newQuery()
+ * @method static Builder|TourneyRacer query()
+ * @method static Builder|TourneyRacer whereId($value)
+ * @method static Builder|TourneyRacer wherePts($value)
+ * @method static Builder|TourneyRacer whereRacerId($value)
+ * @method static Builder|TourneyRacer whereRacerUsername($value)
+ * @method static Builder|TourneyRacer whereSignedAt($value)
+ * @method static Builder|TourneyRacer whereTourneyId($value)
  * @mixin \Eloquent
  */
-class TourneyDetail extends Model
+class TourneyRacer extends Model
 {
     use HasFactory;
 
@@ -45,6 +45,6 @@ class TourneyDetail extends Model
 
     public function racer()
     {
-        return $this->belongsTo(User::class, 'racer_id')->withTrashed();
+        return $this->belongsTo(User::class)->withTrashed();
     }
 }

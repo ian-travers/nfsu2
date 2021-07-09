@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Heat;
 
 use App\Models\Tourney\Heat;
-use App\Models\Tourney\HeatParticipant;
+use App\Models\Tourney\HeatRacer;
 use Livewire\Component;
 
 class ResultsForm extends Component
@@ -38,7 +38,7 @@ class ResultsForm extends Component
         $formData = $this->validate();
 
         array_map(function ($item) {
-            $raceResult = HeatParticipant::findOrFail($item['id']);
+            $raceResult = HeatRacer::findOrFail($item['id']);
             $raceResult->update(['place' => $item['place']]);
         }, $formData['resultsForm']);
 

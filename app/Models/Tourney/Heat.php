@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $tourney_id
  * @property int $round
  * @property int $heat_no
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Tourney\HeatParticipant[] $participants
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Tourney\HeatRacer[] $participants
  * @property-read int|null $participants_count
  * @method static Builder|Heat newModelQuery()
  * @method static Builder|Heat newQuery()
@@ -30,8 +30,8 @@ class Heat extends Model
 
     public $timestamps = false;
 
-    public function participants()
+    public function racers()
     {
-        return $this->hasMany(HeatParticipant::class);
+        return $this->hasMany(HeatRacer::class);
     }
 }

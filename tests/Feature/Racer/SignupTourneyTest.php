@@ -34,7 +34,7 @@ class SignupTourneyTest extends TestCase
 
         $this->post("/tourneys/{$tourney->id}/signup");
 
-        $this->assertDatabaseCount('tourney_details', 0);
+        $this->assertDatabaseCount('tourney_racers', 0);
     }
 
     /** @test */
@@ -53,7 +53,7 @@ class SignupTourneyTest extends TestCase
 
         $this->post("/tourneys/{$tourney->id}/signup");
 
-        $this->assertDatabaseCount('tourney_details', 1);
+        $this->assertDatabaseCount('tourney_racers', 1);
     }
 
     /** @test */
@@ -72,7 +72,7 @@ class SignupTourneyTest extends TestCase
 
         $this->post("/tourneys/{$tourney->id}/signup");
 
-        $this->assertDatabaseCount('tourney_details', 1);
+        $this->assertDatabaseCount('tourney_racers', 1);
 
         $this->post("/tourneys/{$tourney->id}/signup")
             ->assertSessionHas('flash', [
@@ -80,6 +80,6 @@ class SignupTourneyTest extends TestCase
                 'message' => 'You may sign up only once.'
             ]);
 
-        $this->assertDatabaseCount('tourney_details', 1);
+        $this->assertDatabaseCount('tourney_racers', 1);
     }
 }
