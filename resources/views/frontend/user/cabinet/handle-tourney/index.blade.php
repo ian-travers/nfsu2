@@ -30,12 +30,14 @@
                         <p>{{ __('Type') }}</p>
                         <p>{{ __('Track') }}</p>
                         <p>{{ __('Date') }}</p>
+                        <p>{{ __('Room') }}</p>
                         <p>{{ __('Status') }}</p>
                     </div>
                     <div>
                         <p>{{ __(Str::ucfirst($tourney->type())) }}</p>
                         <p>{{ $tourney->trackName() }}</p>
                         <p>{{ $tourney->started_at->format('H:i d M Y') }}</p>
+                        <p>{{ $tourney->room }}</p>
                         <p>{{ __(Str::ucfirst($tourney->status)) }}</p>
                     </div>
                 </div>

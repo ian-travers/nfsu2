@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|Team wherePassword($value)
  * @method static Builder|Team whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @noinspection PhpFullyQualifiedNameUsageInspection
  */
 class Team extends Model
 {

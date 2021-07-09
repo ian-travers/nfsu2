@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|Answer whereIndex($value)
  * @method static Builder|Answer whereQuizQuestionId($value)
  * @mixin \Eloquent
+ * @noinspection PhpFullyQualifiedNameUsageInspection
  */
 class Answer extends Model
 {

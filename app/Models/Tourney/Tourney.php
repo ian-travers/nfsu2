@@ -26,10 +26,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read Collection|\App\Models\Tourney\TourneyRacer[] $details
- * @property-read int|null $details_count
  * @property-read Collection|\App\Models\Tourney\Heat[] $heats
  * @property-read int|null $heats_count
+ * @property-read Collection|\App\Models\Tourney\TourneyRacer[] $racers
+ * @property-read int|null $racers_count
  * @method static Builder|Tourney currentSeason()
  * @method static \Database\Factories\Tourney\TourneyFactory factory(...$parameters)
  * @method static Builder|Tourney newModelQuery()
@@ -49,6 +49,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|Tourney whereTrackId($value)
  * @method static Builder|Tourney whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @noinspection PhpFullyQualifiedNameUsageInspection
  */
 class Tourney extends Model
 {
@@ -177,7 +178,6 @@ class Tourney extends Model
         throw_if($racersCount < 2, new DomainException(__('Too few racers. You should complete the tourney now.')));
         throw_unless($this->isScheduled() || $this->isDraw(), new DomainException(__('The start of the tourney has already been announced. No new draw possible.')));
 
-
         $heatsPerRound = (int)ceil($racersCount / 4);
 
         if ($this->isScheduled()) {                     // Tourney is scheduled
@@ -188,7 +188,7 @@ class Tourney extends Model
 
         $this->clearHeatsRacers();
 
-        $racers = $this->racers()->shuffle();
+        $racers = $this->racers->shuffle();
 
         $fours = intdiv($racersCount, 4);
         $remainder = $racersCount % 4;
@@ -278,7 +278,7 @@ class Tourney extends Model
             'heat_no' => $heatNo
         ]);
 
-        $racers->shuffle()->map(function (TourneyRacer $racer, $key) use ($heat) {
+        $racers->map(function (TourneyRacer $racer, $key) use ($heat) {
             $heat->racers()->create([
                 'user_id' => $racer->racer_id,
                 'racer_username' => $racer->racer_username,

@@ -18,6 +18,10 @@
                 </div>
                 <x-tourney-status-badge :tourney="$tourney"/>
             </div>
+            <div class="text-left">
+                <span class="text-gray-400">{{ __('Room') }}:</span>
+                {{ $tourney->room }}
+            </div>
 
             @if($tourney->description)
                 <div class="text-left mt-4">

@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Tourney\TourneyDetail
+ * App\Models\Tourney\TourneyRacer
  *
  * @property int $id
- * @property int|null $racer_id
+ * @property int|null $user_id
  * @property string $racer_username
  * @property int $tourney_id
  * @property int $pts
@@ -24,11 +24,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|TourneyRacer query()
  * @method static Builder|TourneyRacer whereId($value)
  * @method static Builder|TourneyRacer wherePts($value)
- * @method static Builder|TourneyRacer whereRacerId($value)
  * @method static Builder|TourneyRacer whereRacerUsername($value)
  * @method static Builder|TourneyRacer whereSignedAt($value)
  * @method static Builder|TourneyRacer whereTourneyId($value)
+ * @method static Builder|TourneyRacer whereUserId($value)
  * @mixin \Eloquent
+ * @noinspection PhpFullyQualifiedNameUsageInspection
  */
 class TourneyRacer extends Model
 {

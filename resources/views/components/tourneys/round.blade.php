@@ -6,7 +6,7 @@
         <div class="col-start-2">
             @foreach($heats as $heat)
                 <div>
-                    <x-tourneys.heat :racers="$heat->participants" />
+                    <x-tourneys.heat :racers="$heat->racers" />
                 </div>
             @endforeach
         </div>
@@ -17,17 +17,17 @@
         @foreach($heats as $heat)
             <div>
                 <div class="flex items-center justify-center space-x-2 mb-1">
-                    <p class="text-center">{{ __('Race') }} #{{ $heat->heat_no }}</p>
+                    <p class="text-center">{{ __('Heat') }} #{{ $heat->heat_no }}</p>
                     <x-form.primary-button
                         type="button"
                         data-target="updateHeatResults"
                         data-heat-id="{{ $heat->id }}"
                         class="modal-open"
                     >
-                        {{ __('Update Result') }}
+                        {{ __('Update result') }}
                     </x-form.primary-button>
                 </div>
-                <x-tourneys.heat :racers="$heat->participants" />
+                <x-tourneys.heat :racers="$heat->racers" />
             </div>
         @endforeach
     </div>

@@ -25,12 +25,12 @@ class ResultsForm extends Component
     {
         $this->tourneyId = $heat->tourney_id;
 
-        foreach ($heat->participants as $index => $racer) {
+        foreach ($heat->racers as $index => $racer) {
             $this->resultsForm[$index]['id'] = $racer->id;
             $this->resultsForm[$index]['place'] = $racer->place;
         }
 
-        $this->racers = $heat->participants->toArray();
+        $this->racers = $heat->racers->toArray();
     }
 
     public function submit()

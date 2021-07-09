@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Tourney\HeatParticipant
+ * App\Models\Tourney\HeatRacer
  *
  * @property int $id
- * @property int|null $racer_id
+ * @property int|null $user_id
  * @property int $heat_id
  * @property int $order
  * @property string $racer_username
@@ -25,8 +25,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|HeatRacer whereOrder($value)
  * @method static Builder|HeatRacer wherePlace($value)
  * @method static Builder|HeatRacer wherePts($value)
- * @method static Builder|HeatRacer whereRacerId($value)
  * @method static Builder|HeatRacer whereRacerUsername($value)
+ * @method static Builder|HeatRacer whereUserId($value)
  * @mixin \Eloquent
  */
 class HeatRacer extends Model
