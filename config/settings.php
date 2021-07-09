@@ -1,6 +1,7 @@
 <?php
 
 use App\Settings\RacerTestSettings;
+use App\Settings\ScoringSettings;
 use App\Settings\SeasonSettings;
 
 return [
@@ -11,7 +12,8 @@ return [
      */
     'settings' => [
         RacerTestSettings::class,
-        SeasonSettings::class
+        SeasonSettings::class,
+        ScoringSettings::class,
     ],
 
     /*
