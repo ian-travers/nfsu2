@@ -111,8 +111,7 @@ class DrawTest extends TestCase
     {
         /** @var Tourney $tourney */
         $tourney = Tourney::factory()->create([
-            'started_at' => Carbon::now()->addMinutes(20),
-            'signup_time' => '30',
+            'started_at' => Carbon::now(),
             'supervisor_id' => $racer->id,
             'supervisor_username' => $racer->username,
         ]);
