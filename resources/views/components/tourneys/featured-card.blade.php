@@ -22,7 +22,7 @@
                 <span class="uppercase">{{ $tourney->room }}</span>
             </div>
             <div>
-                <span class="text-gray-400">{{ __(ucfirst('supervisor')) }}:</span>
+                <span class="text-gray-400">{{ Str::ucfirst(__('supervisor')) }}:</span>
                  {{ $tourney->supervisor_username }}
             </div>
             <div class="pr-2">
@@ -43,7 +43,7 @@
                 <span
                     class="inline-flex items-center px-3 py-1 rounded-full font-semibold bg-green-100 text-green-800"
                 >
-                    {{ $tourney->details()->count() }}
+                    {{ $tourney->racers()->count() }}
                 </span>
             </div>
             <div class="flex-grow">&nbsp;</div>

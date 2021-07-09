@@ -64,7 +64,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700" colspan="5">
+                            <td class="px-6 py-4 text-sm text-gray-700" colspan="5">
                                 <span class="text-gray-500">{{ __('Additional information') }}</span>
                                 {{ $tourney->description }}
                             </td>

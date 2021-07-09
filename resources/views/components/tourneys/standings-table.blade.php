@@ -14,7 +14,7 @@
         <tr class="divide-x divide-blue-400 transition-colors duration-300 hover:bg-blue-100 hover:bg-opacity-20">
             <td class="text-center px-4 py-2">{{ $loop->index + 1 }}</td>
             <td class="text-center hidden lg:table-cell  px-4 py-2">
-                <span class="fflag ff-md fflag-{{ $racer->user->country }}"></span>
+                <span class="fflag ff-md fflag-{{ $racer->racer->country }}"></span>
             </td>
             <td class="hidden xl:table-cell px-4 py-2">{{ $racer->racer->isTeamMember() ? $racer->racer->team->clan : ''}}</td>
             <td class="px-4 py-2">

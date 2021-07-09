@@ -45,6 +45,6 @@ class TourneyRacer extends Model
 
     public function racer()
     {
-        return $this->belongsTo(User::class)->withTrashed();
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 }
