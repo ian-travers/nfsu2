@@ -28,7 +28,7 @@ class HandleTourneyController extends Controller
 
         return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
             'type' => 'success',
-            'message' => 'Random draw has been done.'
+            'message' => __('Random draw has been done.'),
         ]);
     }
 
@@ -45,7 +45,7 @@ class HandleTourneyController extends Controller
 
         return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
             'type' => 'success',
-            'message' => 'Tourney has been started. You may wait for a couple of minutes and announce the first round.'
+            'message' => __('Tourney has been started. You may wait for a couple of minutes and announce the first round.'),
         ]);
     }
 
@@ -62,7 +62,7 @@ class HandleTourneyController extends Controller
 
         return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
             'type' => 'success',
-            'message' => 'The final round may be started. You may wait for a minute  and announce the final round.'
+            'message' => __('The final round may be started. You may wait for a minute and announce the final round.'),
         ]);
     }
 }

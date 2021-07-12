@@ -280,7 +280,7 @@ class Tourney extends Model
 
         $racers->map(function (TourneyRacer $racer, $key) use ($heat) {
             $heat->racers()->create([
-                'user_id' => $racer->racer_id,
+                'user_id' => $racer->user_id,
                 'racer_username' => $racer->racer_username,
                 'order' => $key + 1,
             ]);
