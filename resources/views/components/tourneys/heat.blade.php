@@ -1,6 +1,7 @@
 @php /** @var \App\Models\Tourney\HeatRacer $racer */ @endphp
 
-<table class="divide-y divide-gray-200 border">
+{{--<table class="divide-y divide-gray-200 border">--}}
+<table {{ $attributes(['class' => 'divide-y divide-gray-200 border']) }}>
     <thead class="bg-gray-50">
     <tr>
         <x-table.th>#</x-table.th>

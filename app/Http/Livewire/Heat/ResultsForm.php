@@ -21,6 +21,7 @@ class ResultsForm extends Component
             'resultsForm.*.place' => 'required|integer|min:0|max:4',
         ];
     }
+
     public function heatProvided(Heat $heat)
     {
         $this->tourneyId = $heat->tourney_id;

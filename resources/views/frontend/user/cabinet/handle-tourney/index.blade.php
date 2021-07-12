@@ -103,6 +103,10 @@
             @livewire('heat.results-form')
         </x-modal>
 
+        <x-modal id="addFinalRacer" title="{{ __('Add racer to the final round') }}">
+            @livewire('heat.add-racer-form')
+        </x-modal>
+
     </div>
 
     @push('scripts')
