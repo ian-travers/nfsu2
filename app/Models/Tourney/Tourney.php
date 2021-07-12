@@ -224,7 +224,7 @@ class Tourney extends Model
     {
         if ($fours == 0 || ($fours == 1 && $remainder == 0)) { // 2-4 participants
             for ($round = 1; $round <= 5; $round++) {
-                $this->arrangeHeat($round, 1, $racers);
+                $this->arrangeHeat($round, 1, $racers->shift());
             }
 
             return $this->update(['status' => self::STATUS_DRAW]);
@@ -232,8 +232,10 @@ class Tourney extends Model
 
         if ($remainder == 0) {                              //  only fours each heat
             for ($round = 1; $round <= 4; $round++) {
+                $racers = $racers->shuffle();
+
                 for ($heat = 1; $heat <= $fours; $heat++) {
-                    $this->arrangeHeat($round, $heat, $racers->shuffle()->slice(4, 4));
+                    $this->arrangeHeat($round, $heat, $racers->slice(4, 4));
                 }
             }
 
@@ -246,18 +248,21 @@ class Tourney extends Model
                     ? ceil($racers->count() / 2)
                     : floor($racers->count() / 2);
 
-                $this->arrangeHeat($round, 1, $racers->shuffle()->slice(0, $medium));
-                $this->arrangeHeat($round, 2, $racers->shuffle()->slice($medium));
+                $racers = $racers->shuffle();
+                $this->arrangeHeat($round, 1, $racers->slice(0, $medium));
+                $this->arrangeHeat($round, 2, $racers->slice($medium));
             } else {                                    // 9+ participants, not a multiple of four
+                $racers = $racers->shuffle();
                 $offset3 = 0;
+
                 for ($heat = 1; $heat <= (4 - $remainder); $heat++) {
-                    $this->arrangeHeat($round, $heat, $racers->shuffle()->slice($offset3 * 3, 3));
+                    $this->arrangeHeat($round, $heat, $racers->slice($offset3 * 3, 3));
                     $offset3++;
                 }
 
                 $offset4 = 0;
                 for ($heat = 5 - $remainder; $heat <= $fours + 1; $heat++) {
-                    $this->arrangeHeat($round, $heat, $racers->shuffle()->slice($offset3 * 3 + $offset4 * 4, 4));
+                    $this->arrangeHeat($round, $heat, $racers->slice($offset3 * 3 + $offset4 * 4, 4));
                     $offset4++;
                 }
             }

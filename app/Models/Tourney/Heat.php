@@ -34,4 +34,9 @@ class Heat extends Model
     {
         return $this->hasMany(HeatRacer::class);
     }
+
+    public function isFinal(): bool
+    {
+        return $this->round == 5;
+    }
 }
