@@ -49,7 +49,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|Tourney whereTrackId($value)
  * @method static Builder|Tourney whereUpdatedAt($value)
  * @mixin \Eloquent
- * @noinspection PhpFullyQualifiedNameUsageInspection
  */
 class Tourney extends Model
 {
@@ -78,7 +77,7 @@ class Tourney extends Model
 
     public function racers()
     {
-        return $this->hasMany(TourneyRacer::class);
+        return $this->hasMany(TourneyRacer::class)->orderByDesc('pts');
     }
 
     public function isScheduled(): bool

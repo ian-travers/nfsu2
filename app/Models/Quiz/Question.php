@@ -27,7 +27,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|Question whereQuestionEn($value)
  * @method static Builder|Question whereQuestionRu($value)
  * @mixin \Eloquent
- * @noinspection PhpFullyQualifiedNameUsageInspection
  */
 class Question extends Model
 {

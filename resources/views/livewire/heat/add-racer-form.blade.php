@@ -1,11 +1,11 @@
 <div>
     <div>
-        <x-form.label for="racers_list">{{ __('Select racer') }}</x-form.label>
         <select
             wire:model.lazy="userId"
             id="racers_list"
             class="rounded-md w-full"
         >
+            <option selected>{{ __('Select racer ...') }}</option>
             @foreach($racers as $id => $username)
                 <option value="{{ $id }}">{{ $username }}</option>
             @endforeach

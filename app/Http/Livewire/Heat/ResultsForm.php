@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Heat;
 
 use App\Models\Tourney\Heat;
 use App\Models\Tourney\HeatRacer;
+use App\Models\Tourney\TourneyRacer;
 use App\Settings\ScoringSettings;
 use Livewire\Component;
 
@@ -39,7 +40,6 @@ class ResultsForm extends Component
     {
         $formData = $this->validate();
 
-
         array_map(function ($item) {
             $raceResult = HeatRacer::findOrFail($item['id']);
 
@@ -71,9 +71,12 @@ class ResultsForm extends Component
             $raceResult->update([
                 'place' => $item['place'],
                 'pts' => $pts,
-
             ]);
+
+            TourneyRacer::updateUserPts($this->heat->tourney_id, $raceResult->user_id);
         }, $formData['resultsForm']);
+
+
 
         $this->dispatchBrowserEvent('modalSubmitted');
 

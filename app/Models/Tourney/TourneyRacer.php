@@ -29,7 +29,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|TourneyRacer whereTourneyId($value)
  * @method static Builder|TourneyRacer whereUserId($value)
  * @mixin \Eloquent
- * @noinspection PhpFullyQualifiedNameUsageInspection
  */
 class TourneyRacer extends Model
 {
@@ -46,6 +45,19 @@ class TourneyRacer extends Model
 
     public function racer()
     {
-        return $this->belongsTo(User::class, 'user_id')->withTrashed();
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public static function updateUserPts($tourneyId, $userId): void
+    {
+        $tourney = Tourney::findOrFail($tourneyId);
+
+        $pts =  $tourney->heats->sum(function ($heat) use ($userId) {
+            return $heat->racers->where('user_id', $userId)->sum('pts');
+        });
+
+        self::where('tourney_id', $tourneyId)
+            ->where('user_id', $userId)
+            ->update(['pts' => $pts]);
     }
 }

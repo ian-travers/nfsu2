@@ -22,7 +22,7 @@
                     <div class="flex-shrink-0 h-6 w-6">
                         @livewire('user.avatar', ['user' => $racer->racer])
                     </div>
-                    <div class="ml-3 {{ $racer->racer->trashed() ? 'line-through' : '' }}">
+                    <div class="ml-3">
                         {{ $racer->racer_username }}
                     </div>
                 </div>
