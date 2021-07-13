@@ -16,6 +16,16 @@ class AddRacerForm extends Component
 
     protected $listeners = ['heatProvided'];
 
+    protected array $messages = [
+        'userId.not_in' => 'This racer is already added to the final.',
+    ];
+
+    protected function validationAttributes() {
+        return [
+            'userId' => __('racer'),
+        ];
+    }
+
     protected function rules()
     {
         return [
