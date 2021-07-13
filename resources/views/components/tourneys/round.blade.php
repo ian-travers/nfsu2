@@ -17,11 +17,19 @@
                                 {{ __('Add racer') }}
                             </x-form.success-button>
 
-                            <x-form.warning-button
-                                type="button"
+                            <form
+                                action="{{ route('cabinet.tourneys.handle.clean-final-heat', $heat->tourney) }}"
+                                class="inline"
+                                method="post"
                             >
-                                {{ __('Clear racers') }}
-                            </x-form.warning-button>
+                                @csrf
+                                @method('patch')
+                                <x-form.warning-button
+                                    type="submit"
+                                >
+                                    {{ __('Clean final') }}
+                                </x-form.warning-button>
+                            </form>
 
                             <x-form.primary-button
                                 type="button"

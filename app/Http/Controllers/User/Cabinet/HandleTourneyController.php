@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Cabinet;
 
 use App\Http\Controllers\Controller;
 use App\Models\Tourney\Tourney;
+use DomainException;
 
 class HandleTourneyController extends Controller
 {
@@ -19,7 +20,7 @@ class HandleTourneyController extends Controller
     {
         try {
             $tourney->draw();
-        } catch (\DomainException $e) {
+        } catch (DomainException $e) {
             return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
                 'type' => 'error',
                 'message' => $e->getMessage(),
@@ -36,7 +37,7 @@ class HandleTourneyController extends Controller
     {
         try {
             $tourney->start();
-        } catch (\DomainException $e) {
+        } catch (DomainException $e) {
             return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
                 'type' => 'error',
                 'message' => $e->getMessage(),
@@ -53,7 +54,7 @@ class HandleTourneyController extends Controller
     {
         try {
             $tourney->final();
-        } catch (\DomainException $e) {
+        } catch (DomainException $e) {
             return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
                 'type' => 'error',
                 'message' => $e->getMessage(),
@@ -63,6 +64,23 @@ class HandleTourneyController extends Controller
         return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
             'type' => 'success',
             'message' => __('The final round may be started. You may wait for a minute and announce the final round.'),
+        ]);
+    }
+
+    public function clearFinalHeat(Tourney $tourney)
+    {
+        try {
+            $tourney->cleanFinalHeat();
+        } catch (DomainException $e) {
+            return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
+                'type' => 'error',
+                'message' => $e->getMessage(),
+            ]);
+        }
+
+        return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
+            'type' => 'success',
+            'message' => __('The final heat has been cleaned.'),
         ]);
     }
 }

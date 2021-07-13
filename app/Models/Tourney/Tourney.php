@@ -313,4 +313,14 @@ class Tourney extends Model
 
         return $this->update(['status' => self::STATUS_FINAL]);
     }
+
+    public function cleanFinalHeat()
+    {
+        throw_unless($this->isActive(), new DomainException(__("You can only clean the final round for an active tourney.")));
+        throw_unless($this->supervisor_id == auth()->id(), new DomainException(__("Unable to clean the final round someone's else tourney.")));
+
+        $heat = $this->heats()->where('round', 5)->get()->take(1);
+
+        $heat[0]->racers()->delete();
+    }
 }
