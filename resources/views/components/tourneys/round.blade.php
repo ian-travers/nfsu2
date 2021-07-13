@@ -6,31 +6,33 @@
         <div class="col-start-2">
             @foreach($heats as $heat)
                 <div>
-                    <div class="flex items-center justify-center space-x-2 mb-1">
-                        <x-form.success-button
-                            type="button"
-                            data-target="addFinalRacer"
-                            data-heat-id="{{ $heat->id }}"
-                            class="modal-open"
-                        >
-                            {{ __('Add racer') }}
-                        </x-form.success-button>
+                    @if($heat->tourney->isActive())
+                        <div class="flex items-center justify-center space-x-2 mb-1">
+                            <x-form.success-button
+                                type="button"
+                                data-target="addFinalRacer"
+                                data-heat-id="{{ $heat->id }}"
+                                class="modal-open"
+                            >
+                                {{ __('Add racer') }}
+                            </x-form.success-button>
 
-                        <x-form.warning-button
-                            type="button"
-                        >
-                            {{ __('Clear racers') }}
-                        </x-form.warning-button>
+                            <x-form.warning-button
+                                type="button"
+                            >
+                                {{ __('Clear racers') }}
+                            </x-form.warning-button>
 
-                        <x-form.primary-button
-                            type="button"
-                            data-target="updateHeatResults"
-                            data-heat-id="{{ $heat->id }}"
-                            class="modal-open"
-                        >
-                            {{ __('Update result') }}
-                        </x-form.primary-button>
-                    </div>
+                            <x-form.primary-button
+                                type="button"
+                                data-target="updateHeatResults"
+                                data-heat-id="{{ $heat->id }}"
+                                class="modal-open"
+                            >
+                                {{ __('Update result') }}
+                            </x-form.primary-button>
+                        </div>
+                    @endif
                     <x-tourneys.heat :racers="$heat->racers" class="w-full"/>
                 </div>
             @endforeach
@@ -41,18 +43,20 @@
     <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3 xl:gap-6">
         @foreach($heats as $heat)
             <div>
-                <div class="flex items-center justify-center space-x-2 mb-1">
-                    <p class="text-center">{{ __('Heat') }} #{{ $heat->heat_no }}</p>
-                    <x-form.primary-button
-                        type="button"
-                        data-target="updateHeatResults"
-                        data-heat-id="{{ $heat->id }}"
-                        class="modal-open"
-                    >
-                        {{ __('Update result') }}
-                    </x-form.primary-button>
-                </div>
-                <x-tourneys.heat :racers="$heat->racers" />
+                @if($heat->tourney->isActive())
+                    <div class="flex items-center justify-center space-x-2 mb-1">
+                        <p class="text-center">{{ __('Heat') }} #{{ $heat->heat_no }}</p>
+                        <x-form.primary-button
+                            type="button"
+                            data-target="updateHeatResults"
+                            data-heat-id="{{ $heat->id }}"
+                            class="modal-open"
+                        >
+                            {{ __('Update result') }}
+                        </x-form.primary-button>
+                    </div>
+                @endif
+                <x-tourneys.heat :racers="$heat->racers"/>
             </div>
         @endforeach
     </div>
