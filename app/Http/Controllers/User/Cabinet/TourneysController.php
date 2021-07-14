@@ -108,6 +108,7 @@ class TourneysController extends Controller
             'room' => 'required|string|max:20',
             'started_at' => 'required|date|after:tomorrow',
             'signup_time' => 'required',
+            'description' => 'nullable',
         ]);
 
         $tourney->update($attributes);
