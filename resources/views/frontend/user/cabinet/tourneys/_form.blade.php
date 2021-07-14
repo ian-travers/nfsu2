@@ -24,22 +24,22 @@
         >
             <optgroup label="{{ __('Circuit') }}">
                 @foreach($circuits as $id => $name)
-                    <option value="{{ $id }}">{{ $name }}</option>
+                    <option value="{{ $id }}" {{ $id == $tourney->track_id ? 'selected' : '' }}>{{ $name }}</option>
                 @endforeach
             </optgroup>
             <optgroup label="{{ __('Sprint') }}">
                 @foreach($sprints as $id => $name)
-                    <option value="{{ $id }}">{{ $name }}</option>
+                    <option value="{{ $id }}" {{ $id == $tourney->track_id ? 'selected' : '' }}>{{ $name }}</option>
                 @endforeach
             </optgroup>
             <optgroup label="{{ __('Drag') }}">
                 @foreach($drags as $id => $name)
-                    <option value="{{ $id }}">{{ $name }}</option>
+                    <option value="{{ $id }}" {{ $id == $tourney->track_id ? 'selected' : '' }}>{{ $name }}</option>
                 @endforeach
             </optgroup>
             <optgroup label="{{ __('Drift') }}">
                 @foreach($drifts as $id => $name)
-                    <option value="{{ $id }}">{{ $name }}</option>
+                    <option value="{{ $id }}" {{ $id == $tourney->track_id ? 'selected' : '' }}>{{ $name }}</option>
                 @endforeach
             </optgroup>
         </select>
