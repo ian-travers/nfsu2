@@ -22,26 +22,10 @@
             name="track_id"
             class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-md"
         >
-            <optgroup label="{{ __('Circuit') }}">
-                @foreach($circuits as $id => $name)
-                    <option value="{{ $id }}" {{ $id == $tourney->track_id ? 'selected' : '' }}>{{ $name }}</option>
-                @endforeach
-            </optgroup>
-            <optgroup label="{{ __('Sprint') }}">
-                @foreach($sprints as $id => $name)
-                    <option value="{{ $id }}" {{ $id == $tourney->track_id ? 'selected' : '' }}>{{ $name }}</option>
-                @endforeach
-            </optgroup>
-            <optgroup label="{{ __('Drag') }}">
-                @foreach($drags as $id => $name)
-                    <option value="{{ $id }}" {{ $id == $tourney->track_id ? 'selected' : '' }}>{{ $name }}</option>
-                @endforeach
-            </optgroup>
-            <optgroup label="{{ __('Drift') }}">
-                @foreach($drifts as $id => $name)
-                    <option value="{{ $id }}" {{ $id == $tourney->track_id ? 'selected' : '' }}>{{ $name }}</option>
-                @endforeach
-            </optgroup>
+            <x-form.track-select-optgroup :title="__('Circuit')" :tracks="$circuits" :currentTrack="$tourney->track_id"/>
+            <x-form.track-select-optgroup :title="__('Sprint')" :tracks="$sprints" :currentTrack="$tourney->track_id"/>
+            <x-form.track-select-optgroup :title="__('Drag')" :tracks="$drags" :currentTrack="$tourney->track_id"/>
+            <x-form.track-select-optgroup :title="__('Drift')" :tracks="$drifts" :currentTrack="$tourney->track_id"/>
         </select>
         @error('track_id')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
     </div>
@@ -93,7 +77,6 @@
         <textarea
             id="description"
             class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-md"
-            type="text"
             name="description"
         >{{ old('description', $tourney->description) }}</textarea>
         @error('description')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
