@@ -24,6 +24,8 @@ class TourneysController extends Controller
      */
     public function create()
     {
+        session()->put('url.intended', url()->previous() == url()->current() ? route('cabinet.tourneys.index') : url()->previous());
+
         return view('frontend.user.cabinet.tourneys.create', [
             'tourney' => new Tourney(),
             'title' => __('Create tourney'),
@@ -57,7 +59,7 @@ class TourneysController extends Controller
 
         Tourney::create($attributes);
 
-        return redirect()->route('cabinet.tourneys.index')->with('flash', [
+        return redirect()->intended()->with('flash', [
             'type' => 'success',
             'message' => __('Tourney has been created.'),
         ]);
@@ -71,6 +73,8 @@ class TourneysController extends Controller
                 'message' => __('Impossible to edit tourney with this status.'),
             ]);
         }
+
+        session()->put('url.intended', url()->previous() == url()->current() ? route('cabinet.tourneys.index') : url()->previous());
 
         return view('frontend.user.cabinet.tourneys.edit', [
             'tourney' => $tourney,
@@ -108,7 +112,7 @@ class TourneysController extends Controller
 
         $tourney->update($attributes);
 
-        return redirect()->route('cabinet.tourneys.index')->with('flash', [
+        return redirect()->intended()->with('flash', [
             'type' => 'success',
             'message' => __('Tourney has been updated.'),
         ]);
