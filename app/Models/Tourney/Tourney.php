@@ -311,12 +311,20 @@ class Tourney extends Model
         throw_unless($this->isActive(), new DomainException(__("You can only announce the final round for an active tourney.")));
         throw_unless($this->supervisor_id == auth()->id(), new DomainException(__("Unable to announce the final round someone's else tourney.")));
 
+        /** @var \App\Models\Tourney\Heat $finalHeat */
+        $finalHeat = ($this->heats()->where('round', 5)->get())[0];
+
+        $mustBe = $this->racers()->count() >= 4 ? 4 : $this->racers()->count();
+
+        throw_if($finalHeat->racers()->count() < $mustBe, new DomainException(__('Not all possible finalists in the final round.')));
+
         return $this->update(['status' => self::STATUS_FINAL]);
     }
 
     public function cleanFinalHeat()
     {
         throw_unless($this->isActive(), new DomainException(__("You can only clean the final round for an active tourney.")));
+        throw_if($this->isFinal(), new DomainException(__('Unable to clean the heat. Final round has been announced.')));
         throw_unless($this->supervisor_id == auth()->id(), new DomainException(__("Unable to clean the final round someone's else tourney.")));
 
         $heat = $this->heats()->where('round', 5)->get()->take(1);

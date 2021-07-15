@@ -6,8 +6,9 @@
         <div class="col-start-2">
             @foreach($heats as $heat)
                 <div>
-                    @if($heat->tourney->isActive())
-                        <div class="flex items-center justify-center space-x-2 mb-1">
+
+                    <div class="flex items-center justify-center space-x-2 mb-1">
+                        @if($heat->tourney->isActive())
                             <x-form.success-button
                                 type="button"
                                 data-target="addFinalRacer"
@@ -30,17 +31,18 @@
                                     {{ __('Clean final') }}
                                 </x-form.warning-button>
                             </form>
+                        @endif
 
-                            <x-form.primary-button
-                                type="button"
-                                data-target="updateHeatResults"
-                                data-heat-id="{{ $heat->id }}"
-                                class="modal-open"
-                            >
-                                {{ __('Update result') }}
-                            </x-form.primary-button>
-                        </div>
-                    @endif
+                        <x-form.primary-button
+                            type="button"
+                            data-target="updateHeatResults"
+                            data-heat-id="{{ $heat->id }}"
+                            class="modal-open"
+                        >
+                            {{ __('Update result') }}
+                        </x-form.primary-button>
+                    </div>
+
                     <x-tourneys.heat :racers="$heat->racers" class="w-full"/>
                 </div>
             @endforeach
