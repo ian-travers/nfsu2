@@ -27,6 +27,7 @@
                                 @method('patch')
                                 <x-form.warning-button
                                     type="submit"
+                                    onclick="return confirm()"
                                 >
                                     {{ __('Clean final') }}
                                 </x-form.warning-button>

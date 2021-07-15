@@ -52,25 +52,25 @@
                 <form action="{{ route('cabinet.tourneys.handle.draw', $tourney) }}" method="post" class="inline">
                     @csrf
                     @method('put')
-                    <x-form.primary-button type="submit">{{ __('Random draw') }}</x-form.primary-button>
+                    <x-form.primary-button type="submit" onclick="return confirm()">{{ __('Random draw') }}</x-form.primary-button>
                 </form>
 
                 <form action="{{ route('cabinet.tourneys.handle.start', $tourney) }}" method="post" class="inline">
                     @csrf
                     @method('patch')
-                    <x-form.primary-button type="submit">{{ __('Approve the draw and start the tourney') }}</x-form.primary-button>
+                    <x-form.primary-button type="submit" onclick="return confirm()">{{ __('Approve the draw and start the tourney') }}</x-form.primary-button>
                 </form>
 
                 <form action="{{ route('cabinet.tourneys.handle.final', $tourney) }}" method="post" class="inline">
                     @csrf
                     @method('patch')
-                    <x-form.primary-button type="submit">{{ __('Announce the final round') }}</x-form.primary-button>
+                    <x-form.primary-button type="submit" onclick="return confirm()">{{ __('Announce the final round') }}</x-form.primary-button>
                 </form>
 
                 <form action="{{ route('cabinet.tourneys.handle.complete', $tourney) }}" method="post" class="inline">
                     @csrf
                     @method('patch')
-                    <x-form.primary-button type="submit">{{ __('Complete the tourney') }}</x-form.primary-button>
+                    <x-form.primary-button type="submit" onclick="return confirm()">{{ __('Complete the tourney') }}</x-form.primary-button>
                 </form>
             </div>
 
