@@ -11,6 +11,8 @@ use Livewire\Component;
 class ResultsForm extends Component
 {
     public Heat $heat;
+    public string $round = '';
+    public string $heatNo = '';
     public array $racers = [];
     public array $resultsForm = [];
 
@@ -34,6 +36,8 @@ class ResultsForm extends Component
         }
 
         $this->racers = $heat->racers->toArray();
+        $this->round = $heat->round;
+        $this->heatNo = $heat->heat_no;
     }
 
     public function submit()
@@ -92,6 +96,8 @@ class ResultsForm extends Component
     {
         return view('livewire.heat.results-form', [
             'racers' => $this->racers,
+            'round' => $this->round,
+            'heatNo' => $this->heatNo,
         ]);
     }
 }

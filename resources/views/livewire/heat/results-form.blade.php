@@ -1,4 +1,5 @@
 <div>
+    <p class="text-center mb-3">{{ __('Round') }} #{{ $round }} | {{ __('Heat') }} #{{ $heatNo }}</p>
     <table class="divide-y divide-gray-200 border w-full">
         <thead class="bg-gray-50">
         <tr>
