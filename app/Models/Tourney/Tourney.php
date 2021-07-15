@@ -255,13 +255,13 @@ class Tourney extends Model
                 $offset3 = 0;
 
                 for ($heat = 1; $heat <= (4 - $remainder); $heat++) {
-                    $this->arrangeHeat($round, $heat, $racers->slice($offset3 * 3, 3));
+                    $this->arrangeHeat($round, $heat, $racers->slice($offset3 * 3, 3)->values());
                     $offset3++;
                 }
 
                 $offset4 = 0;
                 for ($heat = 5 - $remainder; $heat <= $fours + 1; $heat++) {
-                    $this->arrangeHeat($round, $heat, $racers->slice($offset3 * 3 + $offset4 * 4, 4));
+                    $this->arrangeHeat($round, $heat, $racers->slice($offset3 * 3 + $offset4 * 4, 4)->values());
                     $offset4++;
                 }
             }
