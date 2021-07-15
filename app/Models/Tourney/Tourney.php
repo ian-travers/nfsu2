@@ -148,6 +148,11 @@ class Tourney extends Model
         return $this->isSigningUp() || $this->status === self::STATUS_DRAW || $this->status === self::STATUS_ACTIVE || $this->status === self::STATUS_FINAL;
     }
 
+    public function isCancellable(): bool
+    {
+        return $this->racers()->count() < 2 && now() > $this->started_at;
+    }
+
     public function trackName()
     {
         return SpecificGameData::getTrackName($this->track_id);
@@ -330,5 +335,21 @@ class Tourney extends Model
         $heat = $this->heats()->where('round', 5)->get()->take(1);
 
         $heat[0]->racers()->delete();
+    }
+
+    public function complete()
+    {
+        if ($this->isCancellable()) {
+            throw_if($this->isCancelled(), new DomainException('Tourney is already cancelled.'));
+
+            return $this->update(['status' => self::STATUS_CANCELLED]);
+        }
+
+        throw_unless($this->isFinal(), new DomainException(__("You can only complete the with final status.")));
+        throw_unless($this->supervisor_id == auth()->id(), new DomainException(__("Unable to complete someone's else tourney.")));
+
+        return $this->update(['status' => self::STATUS_COMPLETED]);
+
+        // TODO: awarding winners
     }
 }

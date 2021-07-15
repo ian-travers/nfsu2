@@ -83,4 +83,21 @@ class HandleTourneyController extends Controller
             'message' => __('The final heat has been cleaned.'),
         ]);
     }
+
+    public function complete(Tourney $tourney)
+    {
+        try {
+            $tourney->complete();
+        } catch (DomainException $e) {
+            return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
+                'type' => 'error',
+                'message' => $e->getMessage(),
+            ]);
+        }
+
+        return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
+            'type' => 'success',
+            'message' => __('Tourney has been completed.'),
+        ]);
+    }
 }

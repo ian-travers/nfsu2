@@ -33,14 +33,16 @@
                             </form>
                         @endif
 
-                        <x-form.primary-button
-                            type="button"
-                            data-target="updateHeatResults"
-                            data-heat-id="{{ $heat->id }}"
-                            class="modal-open"
-                        >
-                            {{ __('Update result') }}
-                        </x-form.primary-button>
+                        @if($heat->tourney->isFinal())
+                            <x-form.primary-button
+                                type="button"
+                                data-target="updateHeatResults"
+                                data-heat-id="{{ $heat->id }}"
+                                class="modal-open"
+                            >
+                                {{ __('Update result') }}
+                            </x-form.primary-button>
+                        @endif
                     </div>
 
                     <x-tourneys.heat :racers="$heat->racers" class="w-full"/>
