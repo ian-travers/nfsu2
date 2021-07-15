@@ -179,7 +179,7 @@ class Tourney extends Model
 
         throw_unless($this->supervisor_id == auth()->id(), new DomainException(__("Unable to draw someone's else tourney.")));
         throw_if(now() <= $this->started_at, new DomainException(__('Signup period is not over.')));
-        throw_if($racersCount < 2, new DomainException(__('Too few racers. You should complete the tourney now.')));
+        throw_if($racersCount < 2, new DomainException(__('Too few racers. You should complete the tourney now. It will become CANCELLED.')));
         throw_unless($this->isScheduled() || $this->isDraw(), new DomainException(__('The start of the tourney has already been announced. No new draw possible.')));
 
         $heatsPerRound = (int)ceil($racersCount / 4);
@@ -228,7 +228,8 @@ class Tourney extends Model
     {
         if ($fours == 0 || ($fours == 1 && $remainder == 0)) { // 2-4 participants
             for ($round = 1; $round <= 5; $round++) {
-                $this->arrangeHeat($round, 1, $racers->shift());
+                $racers = $racers->shuffle();
+                $this->arrangeHeat($round, 1, $racers);
             }
 
             return $this->update(['status' => self::STATUS_DRAW]);
@@ -340,7 +341,7 @@ class Tourney extends Model
     public function complete()
     {
         if ($this->isCancellable()) {
-            throw_if($this->isCancelled(), new DomainException('Tourney is already cancelled.'));
+            throw_if($this->isCancelled(), new DomainException(__('Tourney is already cancelled.')));
 
             return $this->update(['status' => self::STATUS_CANCELLED]);
         }

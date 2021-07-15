@@ -97,7 +97,7 @@ class HandleTourneyController extends Controller
 
         return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
             'type' => 'success',
-            'message' => __('Tourney has been completed.'),
+            'message' => $tourney->isCancelled() ? __('Tourney has been cancelled.') : __('Tourney has been completed.'),
         ]);
     }
 }
