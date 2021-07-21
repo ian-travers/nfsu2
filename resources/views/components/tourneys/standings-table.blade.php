@@ -23,7 +23,9 @@
                         @livewire('user.avatar', ['user' => $racer->racer])
                     </div>
                     <div class="ml-3">
-                        {{ $racer->racer_username }}
+                        <a href="{{ route('public-profile', $racer->racer->username) }}">
+                            {{ $racer->racer_username }}
+                        </a>
                     </div>
                 </div>
             </td>

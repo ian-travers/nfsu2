@@ -2,34 +2,7 @@
 
 <x-layouts.front title="{{ $title }}">
     <div class="mt-3 md:mt-4 mx-auto px-4 md:px-8 text-blue-400 max-w-screen-2xl space-y-4">
-        <header class="text-center border-b border-blue-400 pb-3 md:pb-6">
-
-            <h2 class="text-xl md:text-3xl mt-4 mb-2 md:mt-8 md:mb-4 tracking-wider font-medium">
-                {{ $tourney->name }}
-                <span class="mx-4">&#11088;</span>
-                {{ $tourney->trackName() }}
-            </h2>
-            <p class="text-base md:text-lg">{{ Str::ucfirst($tourney->started_at->locale(app()->getLocale())->isoFormat('LLLL')) }}</p>
-
-            <div class="flex items-center justify-between">
-                <div>
-                    <span class="text-gray-400">{{ Str::ucfirst(__('supervisor')) }}:</span>
-                    {{ $tourney->supervisor_username }}
-                </div>
-                <x-tourney-status-badge :tourney="$tourney"/>
-            </div>
-            <div class="text-left">
-                <span class="text-gray-400">{{ __('Room') }}:</span>
-                {{ $tourney->room }}
-            </div>
-
-            @if($tourney->description)
-                <div class="text-left mt-4">
-                    <span class="text-gray-400">{{ __('Additional information') }}:</span>
-                    {{ $tourney->description }}
-                </div>
-            @endif
-        </header>
+        @include('frontend.tourneys._header')
 
         <div class="mt-3 md:mt-6">
             <div
@@ -45,4 +18,17 @@
             </div>
         </div>
     </div>
+
+    @if($tourney->heats()->count())
+        <div class="mt-6 max-w-screen-2xl mx-auto text-blue-400">
+            @for($round = 1; $round <= 5; $round++)
+                <div class="p-4 my-8">
+                    @include('frontend.tourneys._round', [
+    'round' => $round,
+    'heats' => $tourney->heats()->where('round', $round)->orderBy('heat_no')->get()
+    ])
+                </div>
+            @endfor
+        </div>
+    @endif
 </x-layouts.front>
