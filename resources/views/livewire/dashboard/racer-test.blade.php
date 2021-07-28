@@ -9,7 +9,6 @@
             type="number"
             name="questions_count"
             :value="old('questions_count')"
-            autofocus
             autocomplete="questions_count"
         />
         @error('questionsCount')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror

@@ -7,41 +7,41 @@ use Livewire\Component;
 
 class DashboardScoring extends Component
 {
-    public string $tourneyRegularFirst = '';
-    public string $tourneyRegularSecond = '';
-    public string $tourneyRegularThird = '';
-    public string $tourneyRegularFourth = '';
+    public string $heatRegularFirst = '';
+    public string $heatRegularSecond = '';
+    public string $heatRegularThird = '';
+    public string $heatRegularFourth = '';
 
-    public string $tourneyFinalFirst = '';
-    public string $tourneyFinalSecond = '';
-    public string $tourneyFinalThird = '';
-    public string $tourneyFinalFourth = '';
+    public string $heatFinalFirst = '';
+    public string $heatFinalSecond = '';
+    public string $heatFinalThird = '';
+    public string $heatFinalFourth = '';
 
     public function mount()
     {
-        $this->tourneyRegularFirst = app(ScoringSettings::class)->tourney_regular_first;
-        $this->tourneyRegularSecond = app(ScoringSettings::class)->tourney_regular_second;
-        $this->tourneyRegularThird = app(ScoringSettings::class)->tourney_regular_third;
-        $this->tourneyRegularFourth = app(ScoringSettings::class)->tourney_regular_fourth;
+        $this->heatRegularFirst = app(ScoringSettings::class)->heat_regular_first;
+        $this->heatRegularSecond = app(ScoringSettings::class)->heat_regular_second;
+        $this->heatRegularThird = app(ScoringSettings::class)->heat_regular_third;
+        $this->heatRegularFourth = app(ScoringSettings::class)->heat_regular_fourth;
 
-        $this->tourneyFinalFirst = app(ScoringSettings::class)->tourney_final_first;
-        $this->tourneyFinalSecond = app(ScoringSettings::class)->tourney_final_second;
-        $this->tourneyFinalThird = app(ScoringSettings::class)->tourney_final_third;
-        $this->tourneyFinalFourth = app(ScoringSettings::class)->tourney_final_fourth;
+        $this->heatFinalFirst = app(ScoringSettings::class)->heat_final_first;
+        $this->heatFinalSecond = app(ScoringSettings::class)->heat_final_second;
+        $this->heatFinalThird = app(ScoringSettings::class)->heat_final_third;
+        $this->heatFinalFourth = app(ScoringSettings::class)->heat_final_fourth;
     }
 
     protected function rules()
     {
         return [
-            'tourneyRegularFirst' => 'required|integer|min:0',
-            'tourneyRegularSecond' => 'required|integer|min:0',
-            'tourneyRegularThird' => 'required|integer|min:0',
-            'tourneyRegularFourth' => 'required|integer|min:0',
+            'heatRegularFirst' => 'required|integer|min:0',
+            'heatRegularSecond' => 'required|integer|min:0',
+            'heatRegularThird' => 'required|integer|min:0',
+            'heatRegularFourth' => 'required|integer|min:0',
 
-            'tourneyFinalFirst' => 'required|integer|min:0',
-            'tourneyFinalSecond' => 'required|integer|min:0',
-            'tourneyFinalThird' => 'required|integer|min:0',
-            'tourneyFinalFourth' => 'required|integer|min:0',
+            'heatFinalFirst' => 'required|integer|min:0',
+            'heatFinalSecond' => 'required|integer|min:0',
+            'heatFinalThird' => 'required|integer|min:0',
+            'heatFinalFourth' => 'required|integer|min:0',
         ];
     }
 
@@ -50,15 +50,15 @@ class DashboardScoring extends Component
         $this->validate();
 
         $settings = app(ScoringSettings::class);
-        $settings->tourney_regular_first = (int)$this->tourneyRegularFirst;
-        $settings->tourney_regular_second = (int)$this->tourneyRegularSecond;
-        $settings->tourney_regular_third = (int)$this->tourneyRegularThird;
-        $settings->tourney_regular_fourth = (int)$this->tourneyRegularFourth;
+        $settings->heat_regular_first = (int)$this->heatRegularFirst;
+        $settings->heat_regular_second = (int)$this->heatRegularSecond;
+        $settings->heat_regular_third = (int)$this->heatRegularThird;
+        $settings->heat_regular_fourth = (int)$this->heatRegularFourth;
 
-        $settings->tourney_final_first = (int)$this->tourneyFinalFirst;
-        $settings->tourney_final_second = (int)$this->tourneyFinalSecond;
-        $settings->tourney_final_third = (int)$this->tourneyFinalThird;
-        $settings->tourney_final_fourth = (int)$this->tourneyFinalFourth;
+        $settings->heat_final_first = (int)$this->heatFinalFirst;
+        $settings->heat_final_second = (int)$this->heatFinalSecond;
+        $settings->heat_final_third = (int)$this->heatFinalThird;
+        $settings->heat_final_fourth = (int)$this->heatFinalFourth;
 
         $settings->save();
 

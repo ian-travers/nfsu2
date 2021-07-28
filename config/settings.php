@@ -3,6 +3,7 @@
 use App\Settings\RacerTestSettings;
 use App\Settings\ScoringSettings;
 use App\Settings\SeasonSettings;
+use App\Settings\SitePointsSettings;
 
 return [
 
@@ -14,6 +15,7 @@ return [
         RacerTestSettings::class,
         SeasonSettings::class,
         ScoringSettings::class,
+        SitePointsSettings::class,
     ],
 
     /*
@@ -71,7 +73,7 @@ return [
      * register them.
      */
     'auto_discover_settings' => [
-        app()->path(),
+        app()->path() . 'Settings',
     ],
 
     /*

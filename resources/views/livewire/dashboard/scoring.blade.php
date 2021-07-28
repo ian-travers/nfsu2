@@ -1,114 +1,113 @@
 <div class="bg-white shadow-lg rounded-md px-4 py-2">
     <h3 class="text-xl">{{ __('Scoring system') }}</h3>
     <div class="border rounded-lg pt-2 pb-4 px-4 mt-4">
-        <h4 class="text-lg text-center font-medium">{{ __('Tourney regular round') }}</h4>
+        <h4 class="text-lg text-center font-medium">{{ __('Heat regular round') }}</h4>
         <div class="flex items-center justify-between space-x-2">
             <div>
-                <x-form.label for="tourney_regular_first" class="text-center">{{ __('1st') }}</x-form.label>
+                <x-form.label for="heat_regular_first" class="text-center">{{ __('1st') }}</x-form.label>
                 <x-form.input
-                    wire:model.lazy="tourneyRegularFirst"
-                    id="tourney_regular_first"
+                    wire:model.lazy="heatRegularFirst"
+                    id="heat_regular_first"
                     class="block mt-1 w-full"
                     type="number"
-                    name="tourney_regular_first"
-                    :value="old('tourney_regular_first')"
+                    name="heat_regular_first"
+                    :value="old('heat_regular_first')"
                     autofocus
-                    autocomplete="tourney_regular_first"
+                    autocomplete="heat_regular_first"
                 />
-                @error('tourneyRegularFirst')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+                @error('heatRegularFirst')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
             <div>
-                <x-form.label for="tourney_regular_second" class="text-center">{{ __('2nd') }}</x-form.label>
+                <x-form.label for="heat_regular_second" class="text-center">{{ __('2nd') }}</x-form.label>
                 <x-form.input
-                    wire:model.lazy="tourneyRegularSecond"
-                    id="tourney_regular_second"
+                    wire:model.lazy="heatRegularSecond"
+                    id="heat_regular_second"
                     class="block mt-1 w-full"
                     type="number"
-                    name="tourney_regular_second"
-                    :value="old('tourney_regular_second')"
-                    autocomplete="tourney_regular_second"
+                    name="heat_regular_second"
+                    :value="old('heat_regular_second')"
+                    autocomplete="heat_regular_second"
                 />
-                @error('tourneyRegularSecond')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+                @error('heatRegularSecond')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
             <div>
-                <x-form.label for="tourney_regular_third" class="text-center">{{ __('3rd') }}</x-form.label>
+                <x-form.label for="heat_regular_third" class="text-center">{{ __('3rd') }}</x-form.label>
                 <x-form.input
-                    wire:model.lazy="tourneyRegularThird"
-                    id="tourney_regular_third"
+                    wire:model.lazy="heatRegularThird"
+                    id="heat_regular_third"
                     class="block mt-1 w-full"
                     type="number"
-                    name="tourney_regular_third"
-                    :value="old('tourney_regular_third')"
-                    autocomplete="tourney_regular_third"
+                    name="heat_regular_third"
+                    :value="old('heat_regular_third')"
+                    autocomplete="heat_regular_third"
                 />
-                @error('tourneyRegularThird')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+                @error('heatRegularThird')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
             <div>
-                <x-form.label for="tourney_regular_fourth" class="text-center">{{ __('4th') }}</x-form.label>
+                <x-form.label for="heat_regular_fourth" class="text-center">{{ __('4th') }}</x-form.label>
                 <x-form.input
-                    wire:model.lazy="tourneyRegularFourth"
-                    id="tourney_regular_fourth"
+                    wire:model.lazy="heatRegularFourth"
+                    id="heat_regular_fourth"
                     class="block mt-1 w-full"
                     type="number"
-                    name="tourney_regular_fourth"
-                    :value="old('tourney_regular_fourth')"
-                    autocomplete="tourney_regular_fourth"
+                    name="heat_regular_fourth"
+                    :value="old('heat_regular_fourth')"
+                    autocomplete="heat_regular_fourth"
                 />
-                @error('tourneyRegularFourth')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+                @error('heatRegularFourth')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
         </div>
-        <h4 class="text-lg text-center font-medium mt-6">{{ __('Tourney final round') }}</h4>
+        <h4 class="text-lg text-center font-medium mt-6">{{ __('Heat final round') }}</h4>
         <div class="flex items-center justify-between space-x-2">
             <div>
-                <x-form.label for="tourney_final_first" class="text-center">{{ __('1st') }}</x-form.label>
+                <x-form.label for="heat_final_first" class="text-center">{{ __('1st') }}</x-form.label>
                 <x-form.input
-                    wire:model.lazy="tourneyFinalFirst"
-                    id="tourney_final_first"
+                    wire:model.lazy="heatFinalFirst"
+                    id="heat_final_first"
                     class="block mt-1 w-full"
                     type="number"
-                    name="tourney_final_first"
-                    :value="old('tourney_final_first')"
-                    autofocus
-                    autocomplete="tourney_final_first"
+                    name="heat_final_first"
+                    :value="old('heat_final_first')"
+                    autocomplete="heat_final_first"
                 />
-                @error('tourneyFinalFirst')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+                @error('heatFinalFirst')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
             <div>
-                <x-form.label for="tourney_final_second" class="text-center">{{ __('2nd') }}</x-form.label>
+                <x-form.label for="heat_final_second" class="text-center">{{ __('2nd') }}</x-form.label>
                 <x-form.input
-                    wire:model.lazy="tourneyFinalSecond"
-                    id="tourney_final_second"
+                    wire:model.lazy="heatFinalSecond"
+                    id="heat_final_second"
                     class="block mt-1 w-full"
                     type="number"
-                    name="tourney_final_second"
-                    :value="old('tourney_final_second')"
-                    autocomplete="tourney_final_second"
+                    name="heat_final_second"
+                    :value="old('heat_final_second')"
+                    autocomplete="heat_final_second"
                 />
-                @error('tourneyFinalSecond')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+                @error('heatFinalSecond')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
             <div>
-                <x-form.label for="tourney_final_third" class="text-center">{{ __('3rd') }}</x-form.label>
+                <x-form.label for="heat_final_third" class="text-center">{{ __('3rd') }}</x-form.label>
                 <x-form.input
-                    wire:model.lazy="tourneyFinalThird"
-                    id="tourney_final_third"
+                    wire:model.lazy="heatFinalThird"
+                    id="heat_final_third"
                     class="block mt-1 w-full"
                     type="number"
-                    name="tourney_final_third"
-                    :value="old('tourney_final_third')"
-                    autocomplete="tourney_final_third"
+                    name="heat_final_third"
+                    :value="old('heat_final_third')"
+                    autocomplete="heat_final_third"
                 />
-                @error('tourneyFinalThird')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+                @error('heatFinalThird')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
             <div>
-                <x-form.label for="tourney_final_fourth" class="text-center">{{ __('4th') }}</x-form.label>
+                <x-form.label for="heat_final_fourth" class="text-center">{{ __('4th') }}</x-form.label>
                 <x-form.input
-                    wire:model.lazy="tourneyFinalFourth"
-                    id="tourney_final_fourth"
+                    wire:model.lazy="heatFinalFourth"
+                    id="heat_final_fourth"
                     class="block mt-1 w-full"
                     type="number"
-                    name="tourney_final_fourth"
-                    :value="old('tourney_final_fourth')"
-                    autocomplete="tourney_final_fourth"
+                    name="heat_final_fourth"
+                    :value="old('heat_final_fourth')"
+                    autocomplete="heat_final_fourth"
                 />
                 @error('tourneyFinalFourth')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
