@@ -18,10 +18,13 @@ class AwardSitePointsAfterTourney
 
             if ($place == 1 && $racer->pts) {
                 $racer->user->gainSitePoints(app(SitePointsSettings::class)->tourney_first);
+                $racer->user->incrementPodiumPlacesCount('first_places');
             } elseif ($place == 2 && $racer->pts) {
                 $racer->user->gainSitePoints(app(SitePointsSettings::class)->tourney_second);
+                $racer->user->incrementPodiumPlacesCount('second_places');
             } elseif ($place == 3 && $racer->pts) {
                 $racer->user->gainSitePoints(app(SitePointsSettings::class)->tourney_third);
+                $racer->user->incrementPodiumPlacesCount('third_places');
             } elseif ($place == 4 && $racer->pts) {
                 $racer->user->gainSitePoints(app(SitePointsSettings::class)->tourney_fourth);
             } elseif ($racer->pts) {

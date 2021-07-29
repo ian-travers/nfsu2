@@ -41,7 +41,6 @@ class CompleteTest extends TestCase
     /** @test */
     function each_tourney_racer_earns_site_points_when_the_tourney_is_completed()
     {
-        $this->withoutExceptionHandling();
         /** @var User $supervisor */
         $supervisor = User::factory()->racer()->create([
             'username' => 'supervisor',
@@ -59,6 +58,32 @@ class CompleteTest extends TestCase
         $this->assertEquals(8, TourneyRacer::firstWhere('pts', 12)->user->site_points);
         $this->assertEquals(6, TourneyRacer::firstWhere('pts', 10)->user->site_points);
         $this->assertEquals(0, TourneyRacer::firstWhere('pts', 0)->user->site_points);
+    }
+
+    /** @test */
+    function tourney_winners_increase_their_associated_counters_when_the_tourney_is_completed()
+    {
+        /** @var User $supervisor */
+        $supervisor = User::factory()->racer()->create([
+            'username' => 'supervisor',
+        ]);
+
+        $tourney =$this->prepareTourney($supervisor, [24, 20, 18, 12, 10, 0]);
+
+        $this->signIn($supervisor);
+
+        $this->patch("/cabinet/tourneys/handle/{$tourney->id}/complete");
+
+        $this->assertEquals(1, TourneyRacer::firstWhere('pts', 24)->user->first_places);
+        $this->assertEquals(1, TourneyRacer::firstWhere('pts', 20)->user->second_places);
+        $this->assertEquals(1, TourneyRacer::firstWhere('pts', 18)->user->third_places);
+        $this->assertEquals(1, TourneyRacer::firstWhere('pts', 24)->user->podiums);
+        $this->assertEquals(1, TourneyRacer::firstWhere('pts', 20)->user->podiums);
+        $this->assertEquals(1, TourneyRacer::firstWhere('pts', 18)->user->podiums);
+
+        $this->assertEquals(0, TourneyRacer::firstWhere('pts', 12)->user->podiums);
+        $this->assertEquals(0, TourneyRacer::firstWhere('pts', 10)->user->podiums);
+        $this->assertEquals(0, TourneyRacer::firstWhere('pts', 0)->user->podiums);
     }
 
     protected function prepareTourney(User $supervisor, array $racersPts): Tourney

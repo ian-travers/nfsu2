@@ -18,6 +18,9 @@ class CreateUsersTable extends Migration
             $table->string('role', 32)->default('user');
             $table->boolean('is_admin')->default(false);
             $table->unsignedBigInteger('site_points')->default(0);
+            $table->unsignedInteger('first_places')->default(0);
+            $table->unsignedInteger('second_places')->default(0);
+            $table->unsignedInteger('third_places')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

@@ -25,6 +25,9 @@ use InvalidArgumentException;
  * @property string $role
  * @property bool $is_admin
  * @property int $site_points
+ * @property int $first_places
+ * @property int $second_places
+ * @property int $third_places
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
@@ -47,14 +50,17 @@ use InvalidArgumentException;
  * @method static Builder|User whereDeletedAt($value)
  * @method static Builder|User whereEmail($value)
  * @method static Builder|User whereEmailVerifiedAt($value)
+ * @method static Builder|User whereFirstPlaces($value)
  * @method static Builder|User whereId($value)
  * @method static Builder|User whereIsAdmin($value)
  * @method static Builder|User whereLocale($value)
  * @method static Builder|User wherePassword($value)
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereRole($value)
+ * @method static Builder|User whereSecondPlaces($value)
  * @method static Builder|User whereSitePoints($value)
  * @method static Builder|User whereTeamId($value)
+ * @method static Builder|User whereThirdPlaces($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereUsername($value)
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
@@ -228,5 +234,15 @@ class User extends Authenticatable
         $this->site_points - $value < 0
             ? $this->update(['site_points' => 0])
             : $this->decrement('site_points', $value);
+    }
+
+    public function incrementPodiumPlacesCount(string $places): void
+    {
+        $this->increment($places);
+    }
+
+    public function getPodiumsAttribute()
+    {
+        return $this->first_places + $this->second_places + $this->third_places;
     }
 }
