@@ -24,6 +24,7 @@ use InvalidArgumentException;
  * @property string $email
  * @property string $role
  * @property bool $is_admin
+ * @property int $site_points
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
@@ -52,6 +53,7 @@ use InvalidArgumentException;
  * @method static Builder|User wherePassword($value)
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereRole($value)
+ * @method static Builder|User whereSitePoints($value)
  * @method static Builder|User whereTeamId($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereUsername($value)
@@ -214,5 +216,17 @@ class User extends Authenticatable
     public function withdrawTourney(Tourney $tourney)
     {
         $tourney->racers()->where('user_id', $this->id)->delete();
+    }
+
+    public function gainSitePoints(int $value): void
+    {
+        $this->increment('site_points', $value);
+    }
+
+    public function loseSitePoints(int $value): void
+    {
+        $this->site_points - $value < 0
+            ? $this->update(['site_points' => 0])
+            : $this->decrement('site_points', $value);
     }
 }

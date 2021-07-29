@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $heat_no
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Tourney\HeatRacer[] $racers
  * @property-read int|null $racers_count
+ * @property-read \App\Models\Tourney\Tourney $tourney
  * @method static Builder|Heat newModelQuery()
  * @method static Builder|Heat newQuery()
  * @method static Builder|Heat query()

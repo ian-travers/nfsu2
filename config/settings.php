@@ -73,7 +73,7 @@ return [
      * register them.
      */
     'auto_discover_settings' => [
-        app()->path() . 'Settings',
+        app()->path() . '/Settings',
     ],
 
     /*

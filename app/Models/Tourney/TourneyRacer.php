@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $tourney_id
  * @property int $pts
  * @property \Illuminate\Support\Carbon $signed_at
- * @property-read User|null $racer
  * @property-read \App\Models\Tourney\Tourney $tourney
+ * @property-read User|null $user
  * @method static \Database\Factories\Tourney\TourneyRacerFactory factory(...$parameters)
  * @method static Builder|TourneyRacer newModelQuery()
  * @method static Builder|TourneyRacer newQuery()
@@ -43,7 +43,7 @@ class TourneyRacer extends Model
         return $this->belongsTo(Tourney::class);
     }
 
-    public function racer()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
