@@ -11,26 +11,24 @@ class UpdateUsersTourneyCountersAndSitePoints
     {
         $racers = $event->tourney->racers;
 
-        foreach ($racers as $racer) {
-            if ($racer->place == 1 && $racer->pts) {
-                $racer->user->gainSitePoints(app(SitePointsSettings::class)->tourney_first);
-                $racer->user->incrementPodiumsCount('first_places');
+        $racers->map(function ($racer) {
+            if ($racer->pts) {
                 $racer->user->incrementTourneysFinishedCount();
-            } elseif ($racer->place == 2 && $racer->pts) {
-                $racer->user->gainSitePoints(app(SitePointsSettings::class)->tourney_second);
-                $racer->user->incrementPodiumsCount('second_places');
-                $racer->user->incrementTourneysFinishedCount();
-            } elseif ($racer->place == 3 && $racer->pts) {
-                $racer->user->gainSitePoints(app(SitePointsSettings::class)->tourney_third);
-                $racer->user->incrementPodiumsCount('third_places');
-                $racer->user->incrementTourneysFinishedCount();
-            } elseif ($racer->place == 4 && $racer->pts) {
-                $racer->user->gainSitePoints(app(SitePointsSettings::class)->tourney_fourth);
-                $racer->user->incrementTourneysFinishedCount();
-            } elseif ($racer->pts) {
-                $racer->user->gainSitePoints(app(SitePointsSettings::class)->tourney_fifth_plus);
-                $racer->user->incrementTourneysFinishedCount();
+                if ($racer->place == 1) {
+                    $racer->user->gainSitePoints(app(SitePointsSettings::class)->tourney_first);
+                    $racer->user->incrementPodiumsCount('first_places');
+                } elseif ($racer->place == 2) {
+                    $racer->user->gainSitePoints(app(SitePointsSettings::class)->tourney_second);
+                    $racer->user->incrementPodiumsCount('second_places');
+                } elseif ($racer->place == 3) {
+                    $racer->user->gainSitePoints(app(SitePointsSettings::class)->tourney_third);
+                    $racer->user->incrementPodiumsCount('third_places');
+                } elseif ($racer->place == 4) {
+                    $racer->user->gainSitePoints(app(SitePointsSettings::class)->tourney_fourth);
+                } else {
+                    $racer->user->gainSitePoints(app(SitePointsSettings::class)->tourney_fifth_plus);
+                }
             }
-        }
+        });
     }
 }
