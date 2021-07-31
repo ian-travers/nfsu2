@@ -50,23 +50,23 @@ class ResultsForm extends Component
             switch ($item['place']) {
                 case 1:
                     $pts = $raceResult->heat->isFinal()
-                        ? app(ScoringSettings::class)->tourney_final_first
-                        : app(ScoringSettings::class)->tourney_regular_first;
+                        ? app(ScoringSettings::class)->heat_final_first
+                        : app(ScoringSettings::class)->heat_regular_first;
                     break;
                 case 2:
                     $pts = $raceResult->heat->isFinal()
-                        ? app(ScoringSettings::class)->tourney_final_second
-                        : app(ScoringSettings::class)->tourney_regular_second;
+                        ? app(ScoringSettings::class)->heat_final_second
+                        : app(ScoringSettings::class)->heat_regular_second;
                     break;
                 case 3:
                     $pts = $raceResult->heat->isFinal()
-                        ? app(ScoringSettings::class)->tourney_final_third
-                        : app(ScoringSettings::class)->tourney_regular_third;
+                        ? app(ScoringSettings::class)->heat_final_third
+                        : app(ScoringSettings::class)->heat_regular_third;
                     break;
                 case 4:
                     $pts = $raceResult->heat->isFinal()
-                        ? app(ScoringSettings::class)->tourney_final_fourth
-                        : app(ScoringSettings::class)->tourney_regular_fourth;
+                        ? app(ScoringSettings::class)->heat_final_fourth
+                        : app(ScoringSettings::class)->heat_regular_fourth;
                     break;
                 default:
                     $pts = 0;

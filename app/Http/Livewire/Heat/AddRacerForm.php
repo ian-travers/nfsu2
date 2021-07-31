@@ -86,7 +86,6 @@ class AddRacerForm extends Component
     {
         return view('livewire.heat.add-racer-form', [
             'racers' => $this->allRacers,
-
             'finalists' => $this->finalists,
         ]);
     }

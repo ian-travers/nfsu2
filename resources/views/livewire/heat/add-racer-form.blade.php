@@ -18,7 +18,7 @@
             {{ __('Cancel') }}
         </x-form.secondary-button>
         <x-form.primary-button wire:click="submit">
-            {{ __('Update') }}
+            {{ __('Add') }}
         </x-form.primary-button>
     </div>
 </div>

@@ -13,9 +13,12 @@ class TourneyRacerFactory extends Factory
 
     public function definition()
     {
+        /** @var \App\Models\User $racer */
+        $racer = User::factory()->racer()->create();
+
         return [
-            'user_id' => User::factory()->racer(),
-            'racer_username' => $this->faker->unique()->word(),
+            'user_id' => $racer->id,
+            'racer_username' => $racer->username,
             'tourney_id' => Tourney::factory(),
             'pts' => 0,
             'signed_at' => now(),
