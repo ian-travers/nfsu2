@@ -4,6 +4,7 @@ namespace Tests\Feature\Racer\Tourney;
 
 use App\Models\Tourney\Tourney;
 use App\Models\Tourney\TourneyRacer;
+use App\Models\Trophy;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -80,6 +81,29 @@ class CompleteTest extends TestCase
         $this->assertEquals(0, TourneyRacer::firstWhere('pts', 12)->user->podiums);
         $this->assertEquals(0, TourneyRacer::firstWhere('pts', 10)->user->podiums);
         $this->assertEquals(0, TourneyRacer::firstWhere('pts', 0)->user->podiums);
+    }
+
+    /** @test */
+    function tourney_winners_get_trophies_when_the_tourney_is_completed()
+    {
+        /** @var User $supervisor */
+        $supervisor = User::factory()->racer()->create();
+
+        $tourney =$this->prepareTourney($supervisor, [24, 20, 18, 12, 10, 0]);
+
+        $this->signIn($supervisor);
+
+        $this->patch("/cabinet/tourneys/handle/{$tourney->id}/complete");
+
+        $this->assertDatabaseCount('trophies', 3);
+
+        $winner = (Trophy::where('place', 1)->first());
+        $second = Trophy::where('place', 2)->first();
+        $third = Trophy::where('place', 3)->first();
+
+        $this->assertTrue($winner->user->is(TourneyRacer::firstWhere('pts', 24)->user));
+        $this->assertTrue($second->user->is(TourneyRacer::firstWhere('pts', 20)->user));
+        $this->assertTrue($third->user->is(TourneyRacer::firstWhere('pts', 18)->user));
     }
 
     protected function prepareTourney(User $supervisor, array $racersPts): Tourney

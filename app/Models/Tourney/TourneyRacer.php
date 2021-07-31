@@ -17,6 +17,7 @@ use Illuminate\Support\Collection;
  * @property int $tourney_id
  * @property int $pts
  * @property \Illuminate\Support\Carbon $signed_at
+ * @property-read int $place
  * @property-read \App\Models\Tourney\Tourney $tourney
  * @property-read User|null $user
  * @method static \Database\Factories\Tourney\TourneyRacerFactory factory(...$parameters)
@@ -62,13 +63,19 @@ class TourneyRacer extends Model
             ->update(['pts' => $pts]);
     }
 
+    public function isPodium(): bool
+    {
+        return $this->place && $this->place < 4;
+    }
+
+
     public function getPlaceAttribute(): int
     {
         $tourney = $this->tourney;
 
         $racers = $tourney->racers;
 
-        $place = 1;
+        $place = 0;
 
         foreach ($racers as $index => $racer) {
             // if any racers have equal pts -> the same place

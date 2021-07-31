@@ -35,10 +35,13 @@ use InvalidArgumentException;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property string $locale
+ * @property-read mixed $podiums
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|Tourney[] $tourneys
  * @property-read int|null $tourneys_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Trophy[] $trophies
+ * @property-read int|null $trophies_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
@@ -81,6 +84,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'is_admin' => 'boolean',
     ];
+
+    public function trophies()
+    {
+        return $this->hasMany(Trophy::class);
+    }
 
     public function hasAvatar(): bool
     {

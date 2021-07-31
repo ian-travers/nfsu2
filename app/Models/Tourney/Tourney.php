@@ -4,6 +4,7 @@ namespace App\Models\Tourney;
 
 use App\Events\TourneyCompleted;
 use App\Models\NFSUServer\SpecificGameData;
+use App\Models\Trophy;
 use App\Settings\SeasonSettings;
 use DomainException;
 use Illuminate\Database\Eloquent\Builder;
@@ -31,6 +32,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $heats_count
  * @property-read Collection|\App\Models\Tourney\TourneyRacer[] $racers
  * @property-read int|null $racers_count
+ * @property-read Collection|Trophy[] $trophies
+ * @property-read int|null $trophies_count
  * @method static Builder|Tourney currentSeason()
  * @method static \Database\Factories\Tourney\TourneyFactory factory(...$parameters)
  * @method static Builder|Tourney newModelQuery()
@@ -79,6 +82,11 @@ class Tourney extends Model
     public function racers()
     {
         return $this->hasMany(TourneyRacer::class)->orderByDesc('pts');
+    }
+
+    public function trophies()
+    {
+        return $this->morphMany(Trophy::class, 'trophiable');
     }
 
     public function isScheduled(): bool
@@ -352,7 +360,6 @@ class Tourney extends Model
         throw_unless($this->supervisor_id == auth()->id(), new DomainException(__("Unable to complete someone's else tourney.")));
 
         event(new TourneyCompleted($this));
-        // TODO: awarding winners
 
         return $this->update(['status' => self::STATUS_COMPLETED]);
     }
