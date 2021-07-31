@@ -13,19 +13,19 @@ class CompleteTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function racer_can_complete_tourney_which_in_final_status()
+    function supervisor_can_complete_tourney_which_in_final_status()
     {
-        /** @var User $racer */
-        $racer = User::factory()->racer()->create([
+        /** @var User $supervisor */
+        $supervisor = User::factory()->racer()->create([
             'username' => 'supervisor',
         ]);
 
-        $this->signIn($racer);
+        $this->signIn($supervisor);
 
         /** @var Tourney $tourney */
         $tourney = Tourney::factory()->create([
-            'supervisor_id' => $racer->id,
-            'supervisor_username' => $racer->username,
+            'supervisor_id' => $supervisor->id,
+            'supervisor_username' => $supervisor->username,
             'status' => Tourney::STATUS_FINAL,
         ]);
 
@@ -42,9 +42,7 @@ class CompleteTest extends TestCase
     function each_tourney_racer_earns_site_points_when_the_tourney_is_completed()
     {
         /** @var User $supervisor */
-        $supervisor = User::factory()->racer()->create([
-            'username' => 'supervisor',
-        ]);
+        $supervisor = User::factory()->racer()->create();
 
         $tourney =$this->prepareTourney($supervisor, [24, 20, 18, 12, 10, 0]);
 
