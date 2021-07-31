@@ -68,15 +68,17 @@
                         <span class="font-bold tracking-wide leading-8">{{ auth()->user()->username }}</span>,
                         {{ __('you signed up.') }}
                     </p>
-                    <form action="{{ route('tourneys.withdraw', $tourney) }}" method="post">
-                        @csrf
-                        <x-form.warning-button
-                            type="submit"
-                            onclick="return confirm()"
-                        >
-                            {{ __('Withdraw') }}
-                        </x-form.warning-button>
-                    </form>
+                    @if($tourney->isScheduled())
+                        <form action="{{ route('tourneys.withdraw', $tourney) }}" method="post">
+                            @csrf
+                            <x-form.warning-button
+                                type="submit"
+                                onclick="return confirm()"
+                            >
+                                {{ __('Withdraw') }}
+                            </x-form.warning-button>
+                        </form>
+                    @endif
                 </div>
             </div>
         @endif
