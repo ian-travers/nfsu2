@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 /**
  * App\Models\Tourney\TourneyRacer
@@ -59,5 +60,43 @@ class TourneyRacer extends Model
         self::where('tourney_id', $tourneyId)
             ->where('user_id', $userId)
             ->update(['pts' => $pts]);
+    }
+
+    public function getPlaceAttribute(): int
+    {
+        $tourney = $this->tourney;
+
+        $racers = $tourney->racers;
+
+        $place = 1;
+
+        foreach ($racers as $index => $racer) {
+            // if any racers have equal pts -> the same place
+            $place = $index ? $this->detectPlace($index, $racer->pts, $racers->take($index)) : 1;
+
+            if ($racer->is($this)) {
+                break;
+            }
+        }
+
+        return $place;
+    }
+
+    /**
+     * Determines the place of the racer in the collection, sorted in descending order of pts.
+     *
+     * @param $index
+     * @param $pts
+     * @param \Illuminate\Support\Collection $racersAbove
+     *
+     * @return int
+     */
+    protected function detectPlace($index, $pts, Collection $racersAbove): int
+    {
+        return $racersAbove->count()
+            ? ($pts == $racersAbove->last()->pts
+                ? $this->detectPlace($index - 1, $racersAbove->last()->pts, $racersAbove->take($index - 1))
+                : ++$index)
+            : 1;
     }
 }

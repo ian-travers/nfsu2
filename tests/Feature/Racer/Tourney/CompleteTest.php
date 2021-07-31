@@ -62,9 +62,7 @@ class CompleteTest extends TestCase
     function tourney_winners_increase_their_associated_counters_when_the_tourney_is_completed()
     {
         /** @var User $supervisor */
-        $supervisor = User::factory()->racer()->create([
-            'username' => 'supervisor',
-        ]);
+        $supervisor = User::factory()->racer()->create();
 
         $tourney =$this->prepareTourney($supervisor, [24, 20, 18, 12, 10, 0]);
 
