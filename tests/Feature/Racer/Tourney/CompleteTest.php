@@ -42,6 +42,7 @@ class CompleteTest extends TestCase
     /** @test */
     function each_tourney_racer_earns_site_points_when_the_tourney_is_completed()
     {
+        $this->withoutExceptionHandling();
         /** @var User $supervisor */
         $supervisor = User::factory()->racer()->create();
 
@@ -71,12 +72,21 @@ class CompleteTest extends TestCase
 
         $this->patch("/cabinet/tourneys/handle/{$tourney->id}/complete");
 
+        $this->assertEquals(1, TourneyRacer::firstWhere('pts', 24)->user->tourneys_finished_count);
+        $this->assertEquals(1, TourneyRacer::firstWhere('pts', 20)->user->tourneys_finished_count);
+        $this->assertEquals(1, TourneyRacer::firstWhere('pts', 18)->user->tourneys_finished_count);
+        $this->assertEquals(1, TourneyRacer::firstWhere('pts', 12)->user->tourneys_finished_count);
+        $this->assertEquals(1, TourneyRacer::firstWhere('pts', 10)->user->tourneys_finished_count);
+        $this->assertEquals(0, TourneyRacer::firstWhere('pts', 0)->user->tourneys_finished_count);
+
         $this->assertEquals(1, TourneyRacer::firstWhere('pts', 24)->user->first_places);
         $this->assertEquals(1, TourneyRacer::firstWhere('pts', 20)->user->second_places);
         $this->assertEquals(1, TourneyRacer::firstWhere('pts', 18)->user->third_places);
+
         $this->assertEquals(1, TourneyRacer::firstWhere('pts', 24)->user->podiums);
         $this->assertEquals(1, TourneyRacer::firstWhere('pts', 20)->user->podiums);
         $this->assertEquals(1, TourneyRacer::firstWhere('pts', 18)->user->podiums);
+
 
         $this->assertEquals(0, TourneyRacer::firstWhere('pts', 12)->user->podiums);
         $this->assertEquals(0, TourneyRacer::firstWhere('pts', 10)->user->podiums);

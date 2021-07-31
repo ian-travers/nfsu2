@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use App\Events\TourneyCompleted;
-use App\Listeners\AwardSitePointsAfterTourney;
 use App\Listeners\RewardTourneyWinners;
+use App\Listeners\UpdateUsersTourneyCountersAndSitePoints;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,7 +22,7 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         TourneyCompleted::class => [
-            AwardSitePointsAfterTourney::class,
+            UpdateUsersTourneyCountersAndSitePoints::class,
             RewardTourneyWinners::class,
         ],
     ];

@@ -25,6 +25,7 @@ use InvalidArgumentException;
  * @property string $role
  * @property bool $is_admin
  * @property int $site_points
+ * @property int $tourneys_finished_count
  * @property int $first_places
  * @property int $second_places
  * @property int $third_places
@@ -64,6 +65,7 @@ use InvalidArgumentException;
  * @method static Builder|User whereSitePoints($value)
  * @method static Builder|User whereTeamId($value)
  * @method static Builder|User whereThirdPlaces($value)
+ * @method static Builder|User whereTourneysFinishedCount($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereUsername($value)
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
@@ -244,7 +246,12 @@ class User extends Authenticatable
             : $this->decrement('site_points', $value);
     }
 
-    public function incrementPodiumPlacesCount(string $places): void
+    public function incrementTourneysFinishedCount(): void
+    {
+        $this->increment('tourneys_finished_count');
+    }
+
+    public function incrementPodiumsCount(string $places): void
     {
         $this->increment($places);
     }
