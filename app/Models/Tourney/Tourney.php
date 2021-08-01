@@ -5,6 +5,7 @@ namespace App\Models\Tourney;
 use App\Events\TourneyCompleted;
 use App\Models\NFSUServer\SpecificGameData;
 use App\Models\Trophy;
+use App\Models\User;
 use App\Settings\SeasonSettings;
 use DomainException;
 use Illuminate\Database\Eloquent\Builder;
@@ -362,5 +363,20 @@ class Tourney extends Model
         event(new TourneyCompleted($this));
 
         return $this->update(['status' => self::STATUS_COMPLETED]);
+    }
+
+    public static function activeTourneys(): \Illuminate\Support\Collection
+    {
+        return self::whereIn('status', self::activeStatuses())->get();
+    }
+
+    public static function unhandledTourneysFor(User $supervisor): \Illuminate\Support\Collection
+    {
+        return self::where('supervisor_id', $supervisor->id)->whereNotIn('status', [self::STATUS_COMPLETED, self::STATUS_CANCELLED])->get();
+    }
+
+    protected static function activeStatuses(): array
+    {
+        return [self::STATUS_DRAW, self::STATUS_ACTIVE, self::STATUS_FINAL];
     }
 }

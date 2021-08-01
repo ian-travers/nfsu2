@@ -215,9 +215,23 @@ class User extends Authenticatable
         return $this->hasMany(Tourney::class, 'supervisor_id');
     }
 
-    public function isSigned(Tourney $tourney)
+    public function isSignedForTourney(Tourney $tourney)
     {
         return $tourney->racers()->where('user_id', $this->id)->exists();
+    }
+
+    public function isSigned(): bool
+    {
+        $activeTourneys = Tourney::activeTourneys();
+
+        return ($activeTourneys->filter(function ($tourney) {
+            return $this->isSignedForTourney($tourney);
+        }))->count();
+    }
+
+    public function hasUnhandledTourney(): bool
+    {
+        return Tourney::unhandledTourneysFor($this)->count();
     }
 
     public function signupTourney(Tourney $tourney)

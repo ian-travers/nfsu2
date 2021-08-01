@@ -41,7 +41,7 @@ class TourneysController extends Controller
             ]);
         }
 
-        if ($user->isSigned($tourney)) {
+        if ($user->isSignedForTourney($tourney)) {
             return redirect()->back()->with('flash', [
                 'type' => 'warning',
                 'message' => __('You may sign up only once.'),
@@ -68,7 +68,7 @@ class TourneysController extends Controller
             ]);
         }
 
-        if (!$user->isSigned($tourney)) {
+        if (!$user->isSignedForTourney($tourney)) {
             return redirect()->back()->with('flash', [
                 'type' => 'warning',
                 'message' => __('You have not signed for the tourney.'),

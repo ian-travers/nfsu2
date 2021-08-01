@@ -3,6 +3,8 @@
 namespace Tests\Feature\User;
 
 use App\Http\Livewire\User\DeleteAccount;
+use App\Models\Tourney\Tourney;
+use App\Models\Tourney\TourneyRacer;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -84,5 +86,60 @@ class DeleteAccountTest extends TestCase
             ->assertRedirect('settings/account');
 
         $this->assertFalse($captain->fresh()->trashed());
+    }
+
+    /** @test */
+    function user_cannot_delete_own_account_until_tourney_is_not_complete()
+    {
+        /** @var User $user */
+        $user = User::factory()->racer()->create();
+
+        TourneyRacer::factory()->create([
+            'user_id' => $user->id,
+            'racer_username' => $user->username,
+            'tourney_id' => Tourney::factory()->create(['status' => 'active']),
+        ]);
+
+        $this->signIn($user);
+
+        $user->isSigned();
+
+        Livewire::test(DeleteAccount::class)
+            ->set('email', auth()->user()->email)
+            ->set('phrase', 'delete my account right now')
+            ->call('submit')
+            ->assertSessionHas('flash', [
+                'type' => 'error',
+                'message' => 'You cannot delete account right now. Wait for the tourney to finish.',
+            ])
+            ->assertRedirect('settings/account');
+
+        $this->assertFalse($user->fresh()->trashed());
+    }
+
+    /** @test */
+    function supervisor_cannot_delete_own_account_until_his_tourney_is_not_complete_or_has_scheduled_tourneys()
+    {
+        /** @var User $supervisor */
+        $supervisor = User::factory()->racer()->create();
+
+        Tourney::factory()->create([
+            'supervisor_id' => $supervisor->id,
+        ]);
+
+        $this->signIn($supervisor);
+
+
+        Livewire::test(DeleteAccount::class)
+            ->set('email', auth()->user()->email)
+            ->set('phrase', 'delete my account right now')
+            ->call('submit')
+            ->assertSessionHas('flash', [
+                'type' => 'error',
+                'message' => 'You cannot delete account. You must handle the current tourney and delete all scheduled.',
+            ])
+            ->assertRedirect('settings/account');
+
+        $this->assertFalse($supervisor->fresh()->trashed());
     }
 }

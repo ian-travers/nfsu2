@@ -42,7 +42,23 @@ class DeleteAccount extends Component
             return redirect()->route('settings.account');
         }
 
-        // TODO: Unable to delete account when taking part in the tourney or handle the tourney
+        if ($user->isSigned()) {
+            session()->flash('flash', [
+                'type' => 'error',
+                'message' => __('You cannot delete account right now. Wait for the tourney to finish.'),
+            ]);
+
+            return redirect()->route('settings.account');
+        }
+
+        if ($user->hasUnhandledTourney()) {
+            session()->flash('flash', [
+                'type' => 'error',
+                'message' => __('You cannot delete account. You must handle the current tourney and delete all scheduled.'),
+            ]);
+
+            return redirect()->route('settings.account');
+        }
 
         $user->removeAvatarFile();
         $user->delete();

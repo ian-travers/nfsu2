@@ -14,20 +14,30 @@
         <tr class="divide-x divide-blue-400 transition-colors duration-300 hover:bg-blue-100 hover:bg-opacity-20">
             <td class="text-center px-4 py-2">{{ $racer->place }}</td>
             <td class="text-center hidden lg:table-cell  px-4 py-2">
-                <span class="fflag ff-md fflag-{{ $racer->user->country }}"></span>
+                @if($racer->user)
+                    <span class="fflag ff-md fflag-{{ $racer->user->country }}"></span>
+                @endif
             </td>
-            <td class="hidden xl:table-cell px-4 py-2">{{ $racer->user->isTeamMember() ? $racer->racer->team->clan : ''}}</td>
+            <td class="hidden xl:table-cell px-4 py-2">
+                @if($racer->user)
+                    {{ $racer->user->isTeamMember() ? $racer->racer->team->clan : ''}}
+                @endif
+            </td>
             <td class="px-4 py-2">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 h-6 w-6">
-                        @livewire('user.avatar', ['user' => $racer->user])
+                @if($racer->user)
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 h-6 w-6">
+                            @livewire('user.avatar', ['user' => $racer->user])
+                        </div>
+                        <div class="ml-3">
+                            <a href="{{ route('public-profile', $racer->user->username) }}">
+                                {{ $racer->racer_username }}
+                            </a>
+                        </div>
                     </div>
-                    <div class="ml-3">
-                        <a href="{{ route('public-profile', $racer->user->username) }}">
-                            {{ $racer->racer_username }}
-                        </a>
-                    </div>
-                </div>
+                @else
+                    <span class="text-gray-400">{{ $racer->racer_username }}</span>
+                @endif
             </td>
             <td class="text-right px-4 py-2">{{ $racer->pts }}</td>
         </tr>
