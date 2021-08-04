@@ -47,7 +47,7 @@ class Trophy extends Model
 
     public function iconUrl(): string
     {
-        if ($this->trophiable_type == 'App\Models\Tourney\Tourney') {
+        if ($this->trophiable_type == 'tourney') {
             return Storage::url("medals/tourney/{$this->trophiable->type()}-{$this->place}.svg");
         }
 

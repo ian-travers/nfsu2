@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Tourney\Tourney;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
@@ -51,5 +53,9 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Model::unguard();
+
+        Relation::morphMap([
+            'tourney' => Tourney::class,
+        ]);
     }
 }
