@@ -42,12 +42,17 @@
                         @foreach($user->trophies as $trophy)
                             @if($trophy->trophiable_type = "tourney")
                                 <div class="inline-block h-8 w-8">
-                                    <img src="{{ $trophy->iconUrl() }}" alt="medal" title="{{ $trophy->htmlTitleAttribute() }}">
+                                    <a href="{{ route('tourneys.show', $trophy->trophiable) }}" title="{{ $trophy->htmlTitleAttribute() }}">
+                                        <x-trophy-medal
+                                            place="{{ $trophy->place }}"
+                                            type="{{ $trophy->trophiable->type() }}"
+                                            size="8"
+                                        />
+                                    </a>
                                 </div>
                             @endif
                         @endforeach
                     </div>
-
                 </div>
             </div>
         @endif

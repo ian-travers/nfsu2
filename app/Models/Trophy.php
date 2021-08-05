@@ -6,7 +6,6 @@ use App\Models\Tourney\Tourney;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 
 /**
  * App\Models\Trophy
@@ -43,15 +42,6 @@ class Trophy extends Model
     public function trophiable()
     {
         return $this->morphTo();
-    }
-
-    public function iconUrl(): string
-    {
-        if ($this->trophiable_type == 'tourney') {
-            return Storage::url("medals/tourney/{$this->trophiable->type()}-{$this->place}.svg");
-        }
-
-        return '';
     }
 
     public function htmlTitleAttribute(): string
