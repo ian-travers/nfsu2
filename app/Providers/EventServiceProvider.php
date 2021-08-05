@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\TourneyCompleted;
 use App\Listeners\RewardTourneyWinners;
+use App\Listeners\UpdateSeasonPlayers;
 use App\Listeners\UpdateUsersTourneyCountersAndSitePoints;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -24,6 +25,7 @@ class EventServiceProvider extends ServiceProvider
         TourneyCompleted::class => [
             UpdateUsersTourneyCountersAndSitePoints::class,
             RewardTourneyWinners::class,
+            UpdateSeasonPlayers::class,
         ],
     ];
 

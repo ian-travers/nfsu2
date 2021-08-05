@@ -20,7 +20,7 @@
             </td>
             <td class="hidden xl:table-cell px-4 py-2">
                 @if($racer->user)
-                    {{ $racer->user->isTeamMember() ? $racer->racer->team->clan : ''}}
+                    {{ $racer->user->isTeamMember() ? $racer->user->team->clan : ''}}
                 @endif
             </td>
             <td class="px-4 py-2">

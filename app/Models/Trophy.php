@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Tourney\Tourney;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +14,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $trophiable_type
  * @property int $trophiable_id
  * @property string $place
- * @property-read Tourney $tourney
  * @property-read Model|\Eloquent $trophiable
  * @property-read \App\Models\User $user
  * @method static Builder|Trophy newModelQuery()

@@ -2,10 +2,12 @@
 
 namespace Tests\Feature\Racer\Tourney;
 
+use App\Models\Tourney\SeasonRacer;
 use App\Models\Tourney\Tourney;
 use App\Models\Tourney\TourneyRacer;
 use App\Models\Trophy;
 use App\Models\User;
+use App\Settings\SeasonSettings;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -42,7 +44,6 @@ class CompleteTest extends TestCase
     /** @test */
     function each_tourney_racer_earns_site_points_when_the_tourney_is_completed()
     {
-        $this->withoutExceptionHandling();
         /** @var User $supervisor */
         $supervisor = User::factory()->racer()->create();
 
@@ -116,10 +117,36 @@ class CompleteTest extends TestCase
         $this->assertTrue($third->user->is(TourneyRacer::firstWhere('pts', 18)->user));
     }
 
+    /** @test */
+    function each_tourney_racer_updates_their_season_statistic_when_the_tourney_is_completed()
+    {
+        /** @var User $supervisor */
+        $supervisor = User::factory()->racer()->create();
+
+        $tourney =$this->prepareTourney($supervisor, [24, 20, 0]);
+
+        $this->signIn($supervisor);
+
+        $this->patch("/cabinet/tourneys/handle/{$tourney->id}/complete");
+
+        $place1 = TourneyRacer::where(['pts' => 24, 'tourney_id' => $tourney->id])->first();
+        $place2 = TourneyRacer::where(['pts' => 20, 'tourney_id' => $tourney->id])->first();
+
+        $sr = SeasonRacer::where(['user_id' => $place1->user_id, 'season_index' => app(SeasonSettings::class)->index])->first();
+        $this->assertEquals(1, $sr->circuit_count);
+        $this->assertEquals(24, $sr->circuit_pts);
+
+        $sr = SeasonRacer::where(['user_id' => $place2->user_id, 'season_index' => app(SeasonSettings::class)->index])->first();
+        $this->assertEquals(1, $sr->circuit_count);
+        $this->assertEquals(20, $sr->circuit_pts);
+
+        $this->assertDatabaseCount('season_racers', 2);
+    }
+
     protected function prepareTourney(User $supervisor, array $racersPts): Tourney
     {
         /** @var Tourney $tourney */
-        $tourney = Tourney::factory()->create([
+        $tourney = Tourney::factory()->circuit()->create([
             'supervisor_id' => $supervisor->id,
             'supervisor_username' => $supervisor->username,
             'status' => Tourney::STATUS_FINAL,

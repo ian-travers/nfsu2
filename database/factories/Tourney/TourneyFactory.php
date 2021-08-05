@@ -27,4 +27,32 @@ class TourneyFactory extends Factory
             'season_id' => app(SeasonSettings::class)->index,
         ];
     }
+
+    public function circuit()
+    {
+        return $this->state([
+            'track_id' => '10010',
+        ]);
+    }
+
+    public function sprint()
+    {
+        return $this->state([
+            'track_id' => '11020',
+        ]);
+    }
+
+    public function drag()
+    {
+        return $this->state([
+            'track_id' => '12020',
+        ]);
+    }
+
+    public function drift()
+    {
+        return $this->state([
+            'track_id' => '13010',
+        ]);
+    }
 }

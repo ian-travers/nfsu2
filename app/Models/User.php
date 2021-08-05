@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Tourney\SeasonRacer;
 use App\Models\Tourney\Tourney;
 use App\Models\Tourney\TourneyRacer;
+use App\Settings\SeasonSettings;
 use DomainException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -39,6 +41,8 @@ use InvalidArgumentException;
  * @property-read mixed $podiums
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|SeasonRacer[] $racedSeasons
+ * @property-read int|null $raced_seasons_count
  * @property-read \Illuminate\Database\Eloquent\Collection|Tourney[] $tourneys
  * @property-read int|null $tourneys_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Trophy[] $trophies
@@ -273,5 +277,15 @@ class User extends Authenticatable
     public function getPodiumsAttribute()
     {
         return $this->first_places + $this->second_places + $this->third_places;
+    }
+
+    public function racedSeasons()
+    {
+        return $this->hasMany(SeasonRacer::class);
+    }
+
+    public function currentSeasonDetails()
+    {
+        return $this->racedSeasons()->where('season_id', app(SeasonSettings::class)->index)->first();
     }
 }
