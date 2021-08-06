@@ -59,7 +59,7 @@ class NFSUServerController extends Controller
             'track' => $track,
             'modes' => $sgd->modes(),
             'rating' => $bp->rating(),
-            'title' => __('Best Performers') . ' | ' . $track,
+            'title' => __('Best performers') . ' | ' . $track,
         ]);
     }
 

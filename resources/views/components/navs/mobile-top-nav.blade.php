@@ -39,11 +39,18 @@
             <x-navs.mobile-link route="tourneys.index">{{ __('Tourneys') }}</x-navs.mobile-link>
 
             <div class="text-sm font-semibold text-gray-400 tracking-widest uppercase text-center">
-                {{ __('Game Server') }}
+                {{ __('Game server') }}
             </div>
             <x-navs.mobile-link route="server.monitor">{{ __('Monitor') }}</x-navs.mobile-link>
-            <x-navs.mobile-link route="server.best-performers-redirect">{{ __('Best Performers') }}</x-navs.mobile-link>
+            <x-navs.mobile-link route="server.best-performers-redirect">{{ __('Best performers') }}</x-navs.mobile-link>
             <x-navs.mobile-link route="server.ratings-redirect">{{ __('Ratings') }}</x-navs.mobile-link>
+
+            <div class="text-sm font-semibold text-gray-400 tracking-widest uppercase text-center">
+                {{ __('Season standings') }}
+            </div>
+            <x-navs.mobile-link route="server.monitor">{{ __('Personal standing') }}</x-navs.mobile-link>
+            <x-navs.mobile-link route="server.best-performers-redirect">{{ __('Countries standing') }}</x-navs.mobile-link>
+            <x-navs.mobile-link route="server.ratings-redirect">{{ __('Teams standing') }}</x-navs.mobile-link>
         </div>
 
         <div class="py-3 border-t border-gray-700">
@@ -54,11 +61,10 @@
             @auth
                 <div class="flex items-center px-5">
                     <div class="flex-shrink-0">
-                        @livewire('user.avatar')
+                        @livewire('user.avatar', ['size' => 10])
                     </div>
                     <div class="ml-3">
                         <div class="text-base font-medium leading-none text-white">{{ auth()->user()->username }}</div>
-                        <div class="text-sm font-medium leading-none text-gray-400">{{ auth()->user()->email }}</div>
                     </div>
                     <button
                         class="ml-auto bg-nfsu-brand flex-shrink-0 p-1 text-gray-400 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">

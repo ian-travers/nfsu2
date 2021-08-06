@@ -1,5 +1,5 @@
 <div class="bg-white shadow-lg rounded-md px-4 py-2">
-    <h3 class="text-xl">{{ __('Scoring system') }}</h3>
+    <h3 class="text-xl">{{ __('Tourney scoring') }}</h3>
     <div class="border rounded-lg pt-2 pb-4 px-4 mt-4">
         <h4 class="text-lg text-center font-medium">{{ __('Heat regular round') }}</h4>
         <div class="flex items-center justify-between space-x-2">
