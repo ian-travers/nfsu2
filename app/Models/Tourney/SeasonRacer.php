@@ -60,7 +60,7 @@ class SeasonRacer extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->with('team');
     }
 
     public function incrementStatistics(string $type, int $pts): void
@@ -68,5 +68,15 @@ class SeasonRacer extends Model
         $field = $type . '_pts';
 
         $this->increment("{$type}_count", 1, ["{$type}_pts" => $this->$field  + $pts]);
+    }
+
+    public function getOverallCountAttribute()
+    {
+        return $this->circuit_count + $this->sprint_count + $this->drag_count + $this->drift_count;
+    }
+
+    public function getOverallPtsAttribute()
+    {
+        return $this->circuit_pts + $this->sprint_pts + $this->drag_pts + $this->drift_pts;
     }
 }

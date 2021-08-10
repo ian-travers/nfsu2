@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\Quiz\QuestionsController;
 use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\NFSUServerController;
 use App\Http\Controllers\PublicProfileController;
+use App\Http\Controllers\SeasonStandingsController;
 use App\Http\Controllers\Tests\RacerController;
 use App\Http\Controllers\TourneysController;
 use App\Http\Controllers\User\AccountController;
@@ -37,6 +38,15 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('{tourney}', [TourneysController::class, 'show'])->name('.show');
         Route::post('{tourney}/signup', [TourneysController::class, 'signup'])->middleware('auth')->name('.signup');
         Route::post('{tourney}/withdraw', [TourneysController::class, 'withdraw'])->middleware('auth')->name('.withdraw');
+    });
+
+    Route::group([
+        'prefix' => 'season-standings',
+        'as' => 'season-standings',
+    ], function () {
+        Route::get('personal', [SeasonStandingsController::class, 'personal'])->name('.personal');
+        Route::get('countries', [SeasonStandingsController::class, 'countries'])->name('.countries');
+        Route::get('teams', [SeasonStandingsController::class, 'teams'])->name('.teams');
     });
 
     Route::group([

@@ -9,8 +9,9 @@
 
 <div
     x-data="{ isOpen: false }"
+    class="relative"
 >
-    <div @click="isOpen = !isOpen" class="flex items-center">
+    <div @click="isOpen = !isOpen" {{ $attributes(['class' => 'flex items-center']) }}>
         {{ $trigger }}
     </div>
     <div
@@ -24,7 +25,8 @@
         x-transition:leave="transition ease-in duration-150 transform"
         x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-95"
-        class="{{ $alignmentClasses[$alignment] }} absolute mt-2 w-48 rounded-md border border-gray-700 py-1 bg-nfsu-color ring-1 ring-white ring-opacity-20 md:ri"
+
+        {{ $attributes(['class' => "{$alignmentClasses[$alignment]} mt-2 absolute w-full rounded-md border border-gray-700 py-1 bg-nfsu-color ring-1 ring-white ring-opacity-20"]) }}
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="user-menu"

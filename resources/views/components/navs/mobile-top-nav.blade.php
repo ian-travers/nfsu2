@@ -39,18 +39,19 @@
             <x-navs.mobile-link route="tourneys.index">{{ __('Tourneys') }}</x-navs.mobile-link>
 
             <div class="text-sm font-semibold text-gray-400 tracking-widest uppercase text-center">
+                {{ __('Season standings') }}
+            </div>
+            <x-navs.mobile-link route="season-standings.personal">{{ __('Personal standing') }}</x-navs.mobile-link>
+            <x-navs.mobile-link
+                route="server.best-performers-redirect">{{ __('Countries standing') }}</x-navs.mobile-link>
+            <x-navs.mobile-link route="server.ratings-redirect">{{ __('Teams standing') }}</x-navs.mobile-link>
+
+            <div class="text-sm font-semibold text-gray-400 tracking-widest uppercase text-center">
                 {{ __('Game server') }}
             </div>
             <x-navs.mobile-link route="server.monitor">{{ __('Monitor') }}</x-navs.mobile-link>
             <x-navs.mobile-link route="server.best-performers-redirect">{{ __('Best performers') }}</x-navs.mobile-link>
             <x-navs.mobile-link route="server.ratings-redirect">{{ __('Ratings') }}</x-navs.mobile-link>
-
-            <div class="text-sm font-semibold text-gray-400 tracking-widest uppercase text-center">
-                {{ __('Season standings') }}
-            </div>
-            <x-navs.mobile-link route="server.monitor">{{ __('Personal standing') }}</x-navs.mobile-link>
-            <x-navs.mobile-link route="server.best-performers-redirect">{{ __('Countries standing') }}</x-navs.mobile-link>
-            <x-navs.mobile-link route="server.ratings-redirect">{{ __('Teams standing') }}</x-navs.mobile-link>
         </div>
 
         <div class="py-3 border-t border-gray-700">

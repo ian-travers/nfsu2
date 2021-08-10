@@ -10,6 +10,19 @@
         <x-dropdown>
             <x-slot name="trigger">
                 <button
+                    class="hover:bg-gray-700 hover:text-blue-100 px-3 py-2 rounded-md font-medium {{ substr(Route::currentRouteName(), 0, 9) == 'standings' ? 'bg-gray-900 text-white' : 'text-blue-200' }}"
+                >
+                    {{ __('Season standings') }}
+                </button>
+            </x-slot>
+            <x-dropdown-link href="{{ route('season-standings.personal') }}">{{ __('Personal standing') }}</x-dropdown-link>
+            <x-dropdown-link href="#">{{ __('Countries standing') }}</x-dropdown-link>
+            <x-dropdown-link href="#">{{ __('Teams standing') }}</x-dropdown-link>
+        </x-dropdown>
+
+        <x-dropdown>
+            <x-slot name="trigger">
+                <button
                     class="hover:bg-gray-700 hover:text-blue-100 px-3 py-2 rounded-md font-medium {{ substr(Route::currentRouteName(), 0, 6) == 'server' ? 'bg-gray-900 text-white' : 'text-blue-200' }}"
                 >
                     {{ __('Game server') }}
@@ -21,19 +34,6 @@
                 href="{{ route('server.best-performers', ['circuit', '1001']) }}">{{ __('Best performers') }}</x-dropdown-link>
             <x-dropdown-link
                 href="{{ route('server.ratings', 'overall') }}">{{ __('Ratings') }}</x-dropdown-link>
-        </x-dropdown>
-
-        <x-dropdown>
-            <x-slot name="trigger">
-                <button
-                    class="hover:bg-gray-700 hover:text-blue-100 px-3 py-2 rounded-md font-medium {{ substr(Route::currentRouteName(), 0, 9) == 'standings' ? 'bg-gray-900 text-white' : 'text-blue-200' }}"
-                >
-                    {{ __('Season standings') }}
-                </button>
-            </x-slot>
-            <x-dropdown-link href="#">{{ __('Personal standing') }}</x-dropdown-link>
-            <x-dropdown-link href="#">{{ __('Countries standing') }}</x-dropdown-link>
-            <x-dropdown-link href="#">{{ __('Teams standing') }}</x-dropdown-link>
         </x-dropdown>
 
         @can('admin')

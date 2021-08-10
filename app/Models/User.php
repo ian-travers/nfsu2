@@ -84,7 +84,7 @@ class User extends Authenticatable
     public const ROLE_RACER = 'racer';
     public const ROLE_SUPERVISOR = 'supervisor';
 
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['password', 'remember_token', 'email'];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
@@ -138,7 +138,7 @@ class User extends Authenticatable
 
     public function team()
     {
-        return $this->isTeamMember() ? $this->belongsTo(Team::class) : null;
+        return $this->belongsTo(Team::class);
     }
 
     public function isTeamCaptain(): bool
