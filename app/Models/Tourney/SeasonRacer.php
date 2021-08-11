@@ -41,7 +41,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class SeasonRacer extends Model
 {
-    use HasFactory;
+    use HasFactory, DetectPlace;
 
     public $timestamps = false;
 
@@ -78,5 +78,21 @@ class SeasonRacer extends Model
     public function getOverallPtsAttribute()
     {
         return $this->circuit_pts + $this->sprint_pts + $this->drag_pts + $this->drift_pts;
+    }
+
+    public function getPlace($racers)
+    {
+        $place = 0;
+
+        foreach ($racers as $index => $racer) {
+            // if any racers have equal pts -> the same place
+            $place = $index ? $this->detectPlace($index, $racer->pts, $racers->take($index)) : 1;
+
+            if ($racer->is($this)) {
+                break;
+            }
+        }
+//        dd($place);
+        return $place;
     }
 }

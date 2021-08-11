@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 
 /**
  * App\Models\Tourney\TourneyRacer
@@ -34,7 +33,7 @@ use Illuminate\Support\Collection;
  */
 class TourneyRacer extends Model
 {
-    use HasFactory;
+    use HasFactory, DetectPlace;
 
     protected $dates = ['signed_at'];
 
@@ -54,7 +53,7 @@ class TourneyRacer extends Model
     {
         $tourney = Tourney::findOrFail($tourneyId);
 
-        $pts =  $tourney->heats->sum(function ($heat) use ($userId) {
+        $pts = $tourney->heats->sum(function ($heat) use ($userId) {
             return $heat->racers->where('user_id', $userId)->sum('pts');
         });
 
@@ -68,12 +67,9 @@ class TourneyRacer extends Model
         return $this->place && $this->place < 4;
     }
 
-
     public function getPlaceAttribute(): int
     {
-        $tourney = $this->tourney;
-
-        $racers = $tourney->racers;
+        $racers = $this->tourney->racers;
 
         $place = 0;
 
@@ -87,23 +83,5 @@ class TourneyRacer extends Model
         }
 
         return $place;
-    }
-
-    /**
-     * Determines the place of the racer in the collection, sorted in descending order of pts.
-     *
-     * @param $index
-     * @param $pts
-     * @param \Illuminate\Support\Collection $racersAbove
-     *
-     * @return int
-     */
-    protected function detectPlace($index, $pts, Collection $racersAbove): int
-    {
-        return $racersAbove->count()
-            ? ($pts == $racersAbove->last()->pts
-                ? $this->detectPlace($index - 1, $racersAbove->last()->pts, $racersAbove->take($index - 1))
-                : ++$index)
-            : 1;
     }
 }
