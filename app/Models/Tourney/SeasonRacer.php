@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property int $user_id
+ * @property string $racer_username
  * @property int $season_index
  * @property int $circuit_count
  * @property int $circuit_pts
@@ -21,6 +22,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $drag_pts
  * @property int $drift_count
  * @property int $drift_pts
+ * @property-read mixed $overall_count
+ * @property-read mixed $overall_pts
  * @property-read User $user
  * @method static \Database\Factories\Tourney\SeasonRacerFactory factory(...$parameters)
  * @method static Builder|SeasonRacer newModelQuery()
@@ -33,6 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|SeasonRacer whereDriftCount($value)
  * @method static Builder|SeasonRacer whereDriftPts($value)
  * @method static Builder|SeasonRacer whereId($value)
+ * @method static Builder|SeasonRacer whereRacerUsername($value)
  * @method static Builder|SeasonRacer whereSeasonIndex($value)
  * @method static Builder|SeasonRacer whereSprintCount($value)
  * @method static Builder|SeasonRacer whereSprintPts($value)
@@ -67,7 +71,7 @@ class SeasonRacer extends Model
     {
         $field = $type . '_pts';
 
-        $this->increment("{$type}_count", 1, ["{$type}_pts" => $this->$field  + $pts]);
+        $this->increment("{$type}_count", 1, ["{$type}_pts" => $this->$field + $pts]);
     }
 
     public function getOverallCountAttribute()
@@ -92,7 +96,7 @@ class SeasonRacer extends Model
                 break;
             }
         }
-//        dd($place);
+
         return $place;
     }
 }

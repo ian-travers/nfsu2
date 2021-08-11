@@ -19,6 +19,7 @@ class UpdateSeasonPlayers
                 $seasonRacer = SeasonRacer::firstOrCreate([
                     'season_index' => app(SeasonSettings::class)->index,
                     'user_id' => $racer->user_id,
+                    'racer_username' => $racer->racer_username,
                 ]);
 
                 $seasonRacer->incrementStatistics($tourney->type(), $racer->pts);

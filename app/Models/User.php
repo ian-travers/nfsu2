@@ -43,6 +43,7 @@ use InvalidArgumentException;
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|SeasonRacer[] $racedSeasons
  * @property-read int|null $raced_seasons_count
+ * @property-read \App\Models\Team|null $team
  * @property-read \Illuminate\Database\Eloquent\Collection|Tourney[] $tourneys
  * @property-read int|null $tourneys_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Trophy[] $trophies

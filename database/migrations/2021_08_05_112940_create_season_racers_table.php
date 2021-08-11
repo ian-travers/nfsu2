@@ -11,6 +11,7 @@ class CreateSeasonRacersTable extends Migration
         Schema::create('season_racers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('racer_username', 16);
             $table->unsignedInteger('season_index')->default(1);
             $table->unsignedInteger('circuit_count')->default(0);
             $table->unsignedInteger('circuit_pts')->default(0);
