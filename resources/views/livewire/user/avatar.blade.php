@@ -6,17 +6,17 @@
             alt="avatar"
         >
     @else
-        <span
-            class="inline-block h-{{ $size }} w-{{ $size }} rounded-full overflow-hidden bg-gray-100"
+        <svg
+            class="w-{{ $size }} h-{{ $size }}"
+            viewBox="0 0 32 32"
         >
-            <svg
-                class="h-full w-full text-gray-300"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-            >
-                <path
-                    d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"/>
-            </svg>
-        </span>
+            <circle style="fill:#5294E2" cx="16" cy="16" r="14"/>
+            <g>
+                <path style="fill:#ffffff"
+                      d="m 16,6 c -2.2096,0 -4,1.7912 -4,4 0,2.2088 1.7904,4 4,4 2.2096,0 4,-1.7912 4,-4 0,-2.2088 -1.7904,-4 -4,-4 z"/>
+                <path style="fill:#ffffff"
+                      d="m 16,16.000001 c -6.9993,0.0042 -7,4.430769 -7,4.430769 v 1.8 c 0,0 1.292299,2.76923 7,2.76923 5.707701,0 7,-2.76923 7,-2.76923 v -1.8 c 0,0 0,-4.433538 -6.9986,-4.430769 z"/>
+            </g>
+        </svg>
     @endif
 </div>

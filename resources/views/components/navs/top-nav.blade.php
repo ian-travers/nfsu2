@@ -45,10 +45,10 @@
     <div class="flex items-center">
         {{-- Authenticated user menu --}}
         @auth
-            <x-dropdown>
+            <x-dropdown alignment="right">
                 <x-slot name="trigger">
                     <button
-                        class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                        class="bg-gray-800 rounded-full flex items-center focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                         id="user-menu"
                         aria-haspopup="true"
                     >
