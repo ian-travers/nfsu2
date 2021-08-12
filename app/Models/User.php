@@ -287,6 +287,6 @@ class User extends Authenticatable
 
     public function currentSeasonDetails()
     {
-        return $this->racedSeasons()->where('season_id', app(SeasonSettings::class)->index)->first();
+        return $this->racedSeasons()->where('season_index', app(SeasonSettings::class)->index)->first();
     }
 }

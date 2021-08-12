@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $supervisor_id
  * @property string $supervisor_username
  * @property string $status
- * @property int $season_id
+ * @property int $season_index
  * @property string|null $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -170,7 +170,7 @@ class Tourney extends Model
 
     public function scopeCurrentSeason($query)
     {
-        return $query->where('season_id', app(SeasonSettings::class)->index);
+        return $query->where('season_index', app(SeasonSettings::class)->index);
     }
 
     public function heats()

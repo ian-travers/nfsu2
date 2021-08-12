@@ -65,7 +65,7 @@ class SeasonHelper
         $typeKeys = Tourney::selectRaw('SUBSTR(track_id, 2, 1) as race_type')
             ->distinct()
             ->where('status', 'completed')
-            ->where('season_id', self::index($index))
+            ->where('season_index', self::index($index))
             ->get()
             ->pluck('race_type')
             ->toArray();

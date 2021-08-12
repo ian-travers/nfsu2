@@ -54,7 +54,7 @@ class TourneysController extends Controller
             'supervisor_id' => $user->id,
             'supervisor_username' => $user->username,
             'status' => Tourney::STATUS_SCHEDULED,
-            'season_id' => app(SeasonSettings::class)->index,
+            'season_index' => app(SeasonSettings::class)->index,
         ], $attributes);
 
         Tourney::create($attributes);

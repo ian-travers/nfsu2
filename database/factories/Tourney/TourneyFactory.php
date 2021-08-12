@@ -24,7 +24,7 @@ class TourneyFactory extends Factory
             'supervisor_id' => User::factory(),
             'supervisor_username' => $this->faker->word(),
             'status' => Tourney::STATUS_SCHEDULED,
-            'season_id' => app(SeasonSettings::class)->index,
+            'season_index' => app(SeasonSettings::class)->index,
         ];
     }
 
