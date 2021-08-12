@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\SeasonHelper;
+use App\ReadRepositories\SeasonHelper;
 
 class SeasonStandingsController extends Controller
 {
@@ -13,13 +13,17 @@ class SeasonStandingsController extends Controller
             'types' => SeasonHelper::types(),
             'countries' => SeasonHelper::countries(),
             'teams' => SeasonHelper::teams(),
-            'racers' => SeasonHelper::racers(request(['type', 'country', 'team'])),
+            'racers' => SeasonHelper::racersStanding(request(['type', 'country', 'team'])),
         ]);
     }
 
     public function countries()
     {
-        //
+        return view('frontend.season-standings.countries', [
+            'title' => __('Countries standing'),
+            'types' => SeasonHelper::types(),
+            'countries' => SeasonHelper::countriesStanding(request(['type'])),
+        ]);
     }
 
     public function teams()

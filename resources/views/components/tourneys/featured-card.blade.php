@@ -61,7 +61,7 @@
     </div>
 
     @auth
-        @if(auth()->user()->isSigned($tourney))
+        @if(auth()->user()->isSignedForTourney($tourney))
             <div class="border-t border-gray-400 border-opacity-50 mt-4 py-4">
                 <div class="flex items-center justify-between">
                     <p>

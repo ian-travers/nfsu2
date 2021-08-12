@@ -4,7 +4,7 @@ namespace App\Models;
 
 use DomainException;
 
-class CountriesList
+class Country
 {
     const countries = [
         'en' => [
@@ -518,10 +518,21 @@ class CountriesList
      * @return array
      * @throws \Throwable|DomainException
      */
-    public static function all(string $locale): array
+    public static function all(string $locale = null): array
     {
+        $locale ??= app()->getLocale();
+
         throw_unless(in_array($locale, config('language.allowed')), new DomainException(__('Unsupported locale is provided.')));
 
         return static::countries[$locale];
+    }
+
+    public static function name(string $key, string $locale = null): string
+    {
+        $locale ??= app()->getLocale();
+
+        throw_unless(in_array($locale, config('language.allowed')), new DomainException(__('Unsupported locale is provided.')));
+
+        return static::countries[$locale][$key];
     }
 }

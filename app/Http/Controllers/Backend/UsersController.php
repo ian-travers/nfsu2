@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\CountriesList;
+use App\Models\Country;
 use App\Models\User;
 
 class UsersController extends Controller
@@ -24,7 +24,7 @@ class UsersController extends Controller
         return view('backend.users.create', [
             'title' => __('Create user'),
             'user' => new User(),
-            'countries' => CountriesList::all(app()->getLocale()),
+            'countries' => Country::all(),
             'roles' => User::rolesList(),
         ]);
     }
@@ -54,7 +54,7 @@ class UsersController extends Controller
         return view('backend.users.edit', [
             'title' => __('Edit user'),
             'user' => $user,
-            'countries' => CountriesList::all(app()->getLocale()),
+            'countries' => Country::all(),
             'roles' => User::rolesList(),
         ]);
     }

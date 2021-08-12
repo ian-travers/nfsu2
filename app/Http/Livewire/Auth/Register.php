@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Auth;
 
-use App\Models\CountriesList;
+use App\Models\Country;
 use App\Models\User;
 use Livewire\Component;
 use Lukeraymonddowning\Honey\Traits\WithRecaptcha;
@@ -27,7 +27,7 @@ class Register extends Component
 
     public function mount()
     {
-        $this->countries = CountriesList::all(app()->getLocale());
+        $this->countries = Country::all();
     }
 
     public function submit()

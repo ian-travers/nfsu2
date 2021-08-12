@@ -6,7 +6,7 @@
         {{-- Filters--}}
         <div class="lg:grid lg:grid-cols-3 lg:gap-4">
             <div>
-                @include('frontend.season-standings._type-filter')
+                @include('frontend.season-standings._type-filter', ['route' => route('season-standings.personal')])
             </div>
             <div>
                 @include('frontend.season-standings._country-filter')

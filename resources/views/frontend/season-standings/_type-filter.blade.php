@@ -16,8 +16,8 @@
     @foreach($types as $type)
         <x-dropdown-link
             href="{{ $type == 'overall'
-                                ? route('season-standings.personal') . '/?' . http_build_query(request()->except('type'))
-                                : route('season-standings.personal') . '/?type=' . $type . '&' .http_build_query(request()->except('type'))
+                                ? $route . '/?' . http_build_query(request()->except('type'))
+                                : $route . '/?type=' . $type . '&' .http_build_query(request()->except('type'))
                             }}"
         >
             {{ __(ucfirst($type)) }}

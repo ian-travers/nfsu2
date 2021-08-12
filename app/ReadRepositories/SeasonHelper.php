@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Helpers;
+namespace App\ReadRepositories;
 
-use App\Models\CountriesList;
+use App\Models\Country;
 use App\Models\Tourney\SeasonRacer;
 use App\Models\User;
 use App\Settings\SeasonSettings;
@@ -15,7 +15,7 @@ class SeasonHelper
         return app(SeasonSettings::class)->index;
     }
 
-    public static function racers(array $filters, int $index = null): Collection
+    public static function racersStanding(array $filters, int $index = null): Collection
     {
         $type = $filters['type'] ?? 'overall';
         $country = $filters['country'] ?? 'all';
@@ -23,25 +23,25 @@ class SeasonHelper
 
         switch ($type) {
             case 'circuit':
-                $pts = 'circuit_pts as pts';
+                $pts = 'circuit_pts';
                 break;
             case 'sprint':
-                $pts = 'sprint_pts as pts';
+                $pts = 'sprint_pts';
                 break;
             case 'drag':
-                $pts = 'drag_pts as pts';
+                $pts = 'drag_pts';
                 break;
             case 'drift':
-                $pts = 'drift_pts as pts';
+                $pts = 'drift_pts';
                 break;
             default:
-                $pts = 'circuit_pts + sprint_pts + drag_pts + drift_pts as pts';
+                $pts = 'circuit_pts + sprint_pts + drag_pts + drift_pts';
         }
 
         $seasonIndex = $index ?? self::index();
 
         /** @var \Illuminate\Database\Eloquent\Builder $query */
-        $query = SeasonRacer::selectRaw('id,user_id,' . $pts)->where('season_index', $seasonIndex)->orderByDesc('pts');
+        $query = SeasonRacer::selectRaw("id,user_id,{$pts} as pts")->where('season_index', $seasonIndex)->orderByDesc('pts');
 
         if ($country !== 'all') {
             $query->whereHas('user', fn($query) =>
@@ -60,6 +60,36 @@ class SeasonHelper
         return $query->orderByDesc('pts')->get();
     }
 
+    public static function countriesStanding(array $filters, int $index = null)
+    {
+        $type = $filters['type'] ?? 'overall';
+
+        switch ($type) {
+            case 'circuit':
+                $pts = 'circuit_pts';
+                break;
+            case 'sprint':
+                $pts = 'sprint_pts';
+                break;
+            case 'drag':
+                $pts = 'drag_pts';
+                break;
+            case 'drift':
+                $pts = 'drift_pts';
+                break;
+            default:
+                $pts = 'circuit_pts + sprint_pts + drag_pts + drift_pts';
+        }
+
+        /** @var \Illuminate\Database\Eloquent\Builder $query */
+        $query = SeasonRacer::query()
+            ->join('users', 'season_racers.user_id', '=', 'users.id')
+            ->selectRaw("users.country, count(users.id) as `count`,sum({$pts}) as pts")
+            ->groupBy('users.country');
+
+        return $query->orderByDesc('pts')->get();
+    }
+
     public static function types()
     {
         return ['overall', 'circuit', 'sprint', 'drag', 'drift'];
@@ -72,7 +102,7 @@ class SeasonHelper
         $keys = User::whereIn('id', SeasonRacer::where('season_index', self::index())->pluck('user_id'))->distinct()->pluck('country');
 
         foreach ($keys as $key) {
-            $result[$key] = CountriesList::all(app()->getLocale())[$key];
+            $result[$key] = Country::all()[$key];
         }
 
         return $result;

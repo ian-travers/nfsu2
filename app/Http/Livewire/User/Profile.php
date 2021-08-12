@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\User;
 
-use App\Models\CountriesList;
+use App\Models\Country;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -47,7 +47,7 @@ class Profile extends Component
         $this->hasAvatar = $user->hasAvatar();
         $this->avatarPath = Storage::url($user->avatar);
 
-        $this->countries = CountriesList::all($user->locale);
+        $this->countries = Country::all($user->locale);
     }
 
     public function submit()

@@ -16,7 +16,7 @@
                 </button>
             </x-slot>
             <x-dropdown-link href="{{ route('season-standings.personal') }}">{{ __('Personal standing') }}</x-dropdown-link>
-            <x-dropdown-link href="#">{{ __('Countries standing') }}</x-dropdown-link>
+            <x-dropdown-link href="{{ route('season-standings.countries') }}">{{ __('Countries standing') }}</x-dropdown-link>
             <x-dropdown-link href="#">{{ __('Teams standing') }}</x-dropdown-link>
         </x-dropdown>
 
