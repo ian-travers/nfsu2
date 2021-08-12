@@ -21,27 +21,7 @@ class SeasonHelper
         $country = $filters['country'] ?? 'all';
         $team = $filters['team'] ?? 'all';
 
-        switch ($type) {
-            case 'circuit':
-                $tourneysCount = 'circuit_count';
-                $pts = 'circuit_pts';
-                break;
-            case 'sprint':
-                $tourneysCount = 'sprint_count';
-                $pts = 'sprint_pts';
-                break;
-            case 'drag':
-                $tourneysCount = 'drag_count';
-                $pts = 'drag_pts';
-                break;
-            case 'drift':
-                $tourneysCount = 'drift_count';
-                $pts = 'drift_pts';
-                break;
-            default:
-                $tourneysCount = 'circuit_count + sprint_count + drag_count + drift_count';
-                $pts = 'circuit_pts + sprint_pts + drag_pts + drift_pts';
-        }
+        [$tourneysCount, $pts] = self::returningValues($type);
 
         $seasonIndex = $index ?? self::index();
 
@@ -69,27 +49,7 @@ class SeasonHelper
     {
         $type = $filters['type'] ?? 'all';
 
-        switch ($type) {
-            case 'circuit':
-                $tourneysCount = 'circuit_count';
-                $pts = 'circuit_pts';
-                break;
-            case 'sprint':
-                $tourneysCount = 'sprint_count';
-                $pts = 'sprint_pts';
-                break;
-            case 'drag':
-                $tourneysCount = 'drag_count';
-                $pts = 'drag_pts';
-                break;
-            case 'drift':
-                $tourneysCount = 'drift_count';
-                $pts = 'drift_pts';
-                break;
-            default:
-                $tourneysCount = 'circuit_count + sprint_count + drag_count + drift_count';
-                $pts = 'circuit_pts + sprint_pts + drag_pts + drift_pts';
-        }
+        [$tourneysCount, $pts] = self::returningValues($type);
 
         /** @var \Illuminate\Database\Eloquent\Builder $query */
         $query = SeasonRacer::query()
@@ -133,5 +93,17 @@ class SeasonHelper
         }
 
         return $result;
+    }
+
+    protected static function returningValues(string $type): array
+    {
+        if (!($type == 'circuit' || $type == 'sprint' || $type == 'drag' || $type == 'drift')) {
+            return [
+                'circuit_count + sprint_count + drag_count + drift_count',
+                'circuit_pts + sprint_pts + drag_pts + drift_pts'
+            ];
+        }
+
+        return ["{$type}_count", "{$type}_pts"];
     }
 }
