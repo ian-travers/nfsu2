@@ -14,8 +14,9 @@
                 <tr class="text-center divide-x divide-blue-400">
                     <th class="w-1/12 px-4 py-2">#</th>
                     <th class="w-1/12 px-4 py-2">{{ __('Flag') }}</th>
-                    <th class="w-1/2 px-4 py-2">{{ __('Country') }}</th>
+                    <th class="w-1/3 px-4 py-2">{{ __('Country') }}</th>
                     <th class="w-1/6 px-4 py-2">{{ __('Racers number') }}</th>
+                    <th class="w-1/6 px-4 py-2">{{ __('Tourneys number') }}</th>
                     <th class="w-1/6 px-4 py-2">{{ __('Pts.') }}</th>
                 </tr>
                 </thead>
@@ -27,7 +28,8 @@
                             <span class="fflag ff-md fflag-{{ $country->country }}"></span>
                         </td>
                         <td class="px-4 py-2">{{ \App\Models\Country::name($country->country) }}</td>
-                        <td class="text-right px-4 py-2">{{ $country->count }}</td>
+                        <td class="text-right px-4 py-2">{{ $country->racers_count }}</td>
+                        <td class="text-right px-4 py-2">{{ $country->tourneys_count }}</td>
                         <td class="text-right px-4 py-2">{{ $country->pts }}</td>
                     </tr>
                 @endforeach

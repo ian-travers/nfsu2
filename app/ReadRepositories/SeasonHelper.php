@@ -23,25 +23,30 @@ class SeasonHelper
 
         switch ($type) {
             case 'circuit':
+                $tourneysCount = 'circuit_count';
                 $pts = 'circuit_pts';
                 break;
             case 'sprint':
+                $tourneysCount = 'sprint_count';
                 $pts = 'sprint_pts';
                 break;
             case 'drag':
+                $tourneysCount = 'drag_count';
                 $pts = 'drag_pts';
                 break;
             case 'drift':
+                $tourneysCount = 'drift_count';
                 $pts = 'drift_pts';
                 break;
             default:
+                $tourneysCount = 'circuit_count + sprint_count + drag_count + drift_count';
                 $pts = 'circuit_pts + sprint_pts + drag_pts + drift_pts';
         }
 
         $seasonIndex = $index ?? self::index();
 
         /** @var \Illuminate\Database\Eloquent\Builder $query */
-        $query = SeasonRacer::selectRaw("id,user_id,{$pts} as pts")->where('season_index', $seasonIndex)->orderByDesc('pts');
+        $query = SeasonRacer::selectRaw("id,user_id,{$tourneysCount} as tourneys_count, {$pts} as pts")->where('season_index', $seasonIndex)->orderByDesc('pts');
 
         if ($country !== 'all') {
             $query->whereHas('user', fn($query) =>
@@ -62,29 +67,34 @@ class SeasonHelper
 
     public static function countriesStanding(array $filters, int $index = null)
     {
-        $type = $filters['type'] ?? 'overall';
+        $type = $filters['type'] ?? 'all';
 
         switch ($type) {
             case 'circuit':
+                $tourneysCount = 'circuit_count';
                 $pts = 'circuit_pts';
                 break;
             case 'sprint':
+                $tourneysCount = 'sprint_count';
                 $pts = 'sprint_pts';
                 break;
             case 'drag':
+                $tourneysCount = 'drag_count';
                 $pts = 'drag_pts';
                 break;
             case 'drift':
+                $tourneysCount = 'drift_count';
                 $pts = 'drift_pts';
                 break;
             default:
+                $tourneysCount = 'circuit_count + sprint_count + drag_count + drift_count';
                 $pts = 'circuit_pts + sprint_pts + drag_pts + drift_pts';
         }
 
         /** @var \Illuminate\Database\Eloquent\Builder $query */
         $query = SeasonRacer::query()
             ->join('users', 'season_racers.user_id', '=', 'users.id')
-            ->selectRaw("users.country, count(users.id) as `count`,sum({$pts}) as pts")
+            ->selectRaw("users.country, count(users.id) as racers_count,sum({$tourneysCount}) as tourneys_count,sum({$pts}) as pts")
             ->groupBy('users.country');
 
         return $query->orderByDesc('pts')->get();

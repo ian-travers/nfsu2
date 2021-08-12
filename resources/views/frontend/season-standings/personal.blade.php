@@ -26,6 +26,7 @@
                     <th class="hidden lg:table-cell px-4 py-2">{{ __('Country') }}</th>
                     <th class="hidden xl:table-cell px-4 py-2">{{ __('Team') }}</th>
                     <th class="px-4 py-2">{{ __('Player') }}</th>
+                    <th class="px-4 py-2">{{ __('Tourneys number') }}</th>
                     <th class="px-4 py-2">{{ __('Pts.') }}</th>
                 </tr>
                 </thead>
@@ -59,6 +60,7 @@
                                 <span class="text-gray-400">{{ $racer->user->username }}</span>
                             @endif
                         </td>
+                        <td class="text-right px-4 py-2">{{ $racer->tourneys_count }}</td>
                         <td class="text-right px-4 py-2">{{ $racer->pts }}</td>
                     </tr>
                 @endforeach
