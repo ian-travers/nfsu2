@@ -35,7 +35,7 @@
         x-show="isOpen"
         class="md:hidden border-t border-gray-600 mt-1"
     >
-        <div class="px-2 py-3 ">
+        <div class="px-2 py-3">
             <x-navs.mobile-link route="tourneys.index">{{ __('Tourneys') }}</x-navs.mobile-link>
 
             <div class="text-sm font-semibold text-gray-400 tracking-widest uppercase text-center">
@@ -54,9 +54,11 @@
             <x-navs.mobile-link route="server.ratings-redirect">{{ __('Ratings') }}</x-navs.mobile-link>
         </div>
 
-        <div class="py-3 border-t border-gray-700">
-            <x-navs.mobile-link route="adm.dashboard">{{ __('Manage Site') }}</x-navs.mobile-link>
-        </div>
+        @can('admin')
+            <div class="border-t border-gray-700 px-2 py-3">
+                <x-navs.mobile-link route="adm.dashboard">{{ __('Manage Site') }}</x-navs.mobile-link>
+            </div>
+        @endcan
 
         <div class="pt-4 pb-3 border-t border-gray-700">
             @auth
