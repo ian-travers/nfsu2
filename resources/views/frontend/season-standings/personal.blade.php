@@ -4,14 +4,14 @@
     <div class="mt-3 md:mt-4 mx-auto px-4 md:px-8 text-blue-400 max-w-screen-2xl">
         <h2 class="text-xl md:text-3xl my-4 md:my-8 text-center tracking-wider font-medium">{{ __('Personal standings') }}</h2>
         {{-- Filters--}}
-        <div class="lg:grid lg:grid-cols-3 lg:gap-4">
-            <div>
+        <div class="sm:grid sm:grid-cols-3 sm:gap-1 lg:gap-4">
+            <div class="mt-4 sm:mt-0">
                 @include('frontend.season-standings._type-filter', ['route' => route('season-standings.personal')])
             </div>
-            <div>
+            <div class="mt-4 sm:mt-0">
                 @include('frontend.season-standings._country-filter')
             </div>
-            <div>
+            <div class="mt-4 sm:mt-0">
                 @include('frontend.season-standings._team-filter')
             </div>
         </div>
@@ -22,12 +22,13 @@
             <table class="border border-blue-400 divide-y divide-blue-200 w-full">
                 <thead>
                 <tr class="text-center divide-x divide-blue-400">
-                    <th class="px-4 py-2">#</th>
-                    <th class="hidden lg:table-cell px-4 py-2">{{ __('Country') }}</th>
-                    <th class="hidden xl:table-cell px-4 py-2">{{ __('Team') }}</th>
-                    <th class="px-4 py-2">{{ __('Player') }}</th>
-                    <th class="px-4 py-2">{{ __('Tourneys number') }}</th>
-                    <th class="px-4 py-2">{{ __('Pts.') }}</th>
+                    <th class="w-1/12 px-4 py-2">#</th>
+                    <th class="hidden lg:w-1/12 lg:table-cell px-4 py-2">{{ __('Country') }}</th>
+                    <th class="hidden xl:w-1/12 xl:table-cell px-4 py-2">{{ __('Team') }}</th>
+                    <th class="w-1/6 px-4 py-2">{{ __('Player') }}</th>
+                    <th class="w-1/12 px-4 py-2">{{ __('Tourneys number') }}</th>
+                    <th class="w-1/12 px-4 py-2">{{ __('Pts.') }}</th>
+                    <th class="hidden xl:table-cell px-4 py-2">{{ __('Trophies') }}</th>
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-blue-400">
@@ -62,6 +63,26 @@
                         </td>
                         <td class="text-right px-4 py-2">{{ $racer->tourneys_count }}</td>
                         <td class="text-right px-4 py-2">{{ $racer->pts }}</td>
+                        <td class="hidden xl:table-cell px-4 py-2">
+                            @if($user = $racer->user)
+                                @if($user->trophies()->count())
+                                    @foreach($user->trophies as $trophy)
+                                        @if($trophy->trophiable_type = "tourney")
+                                            <div class="inline-block">
+                                                <a href="{{ route('tourneys.show', $trophy->trophiable) }}"
+                                                   title="{{ $trophy->htmlTitleAttribute() }}">
+                                                    <x-trophy-medal
+                                                        place="{{ $trophy->place }}"
+                                                        type="{{ $trophy->trophiable->type() }}"
+                                                        size="6"
+                                                    />
+                                                </a>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                @endif
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
