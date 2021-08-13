@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\NFSUServerController;
 use App\Http\Controllers\PublicProfileController;
 use App\Http\Controllers\SeasonStandingsController;
+use App\Http\Controllers\TeamsController;
 use App\Http\Controllers\Tests\RacerController;
 use App\Http\Controllers\TourneysController;
 use App\Http\Controllers\User\AccountController;
@@ -59,6 +60,7 @@ Route::group(['middleware' => 'language'], function () {
     });
 
     Route::get('players/{user:username}', [PublicProfileController::class, 'show'])->name('public-profile');
+    Route::get('teams/{team:clan}', [TeamsController::class, 'show'])->name('team-profile');
 
     Route::group([
         'prefix' => 'server',

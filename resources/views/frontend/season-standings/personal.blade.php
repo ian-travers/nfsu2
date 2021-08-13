@@ -42,7 +42,11 @@
                         </td>
                         <td class="hidden xl:table-cell px-4 py-2">
                             @if($racer->user)
-                                {{ $racer->user->isTeamMember() ? $racer->user->team->clan : ''}}
+                                @if($racer->user->isTeamMember())
+                                    <a href="{{ route('team-profile', $racer->user->team) }}" class="hover:underline">
+                                        {{ $racer->user->team->clan }}
+                                    </a>
+                                @endif
                             @endif
                         </td>
                         <td class="px-4 py-2">
@@ -51,7 +55,7 @@
                                     <div class="flex-shrink-0 h-6 w-6">
                                         @livewire('user.avatar', ['user' => $racer->user])
                                     </div>
-                                    <div class="ml-3">
+                                    <div class="hover:underline ml-3">
                                         <a href="{{ route('public-profile', $racer->user->username) }}">
                                             {{ $racer->user->username }}
                                         </a>
@@ -68,7 +72,7 @@
                                 @if($user->trophies()->count())
                                     @foreach($user->trophies as $trophy)
                                         @if($trophy->trophiable_type = "tourney")
-                                            <div class="inline-block">
+                                            <div class="inline-block focus:outline-none transform transition hover:scale-125">
                                                 <a href="{{ route('tourneys.show', $trophy->trophiable) }}"
                                                    title="{{ $trophy->htmlTitleAttribute() }}">
                                                     <x-trophy-medal

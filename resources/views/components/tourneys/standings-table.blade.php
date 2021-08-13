@@ -13,14 +13,18 @@
     @foreach($tourney->racers as $racer)
         <tr class="divide-x divide-blue-400 transition-colors duration-300 hover:bg-blue-100 hover:bg-opacity-20">
             <td class="text-center px-4 py-2">{{ $racer->place }}</td>
-            <td class="text-center hidden lg:table-cell  px-4 py-2">
+            <td class="text-center hidden lg:table-cell px-4 py-2">
                 @if($racer->user)
                     <span class="fflag ff-md fflag-{{ $racer->user->country }}"></span>
                 @endif
             </td>
             <td class="hidden xl:table-cell px-4 py-2">
                 @if($racer->user)
-                    {{ $racer->user->isTeamMember() ? $racer->user->team->clan : ''}}
+                    @if($racer->user->isTeamMember())
+                        <a href="{{ route('team-profile', $racer->user->team) }}" class="hover:underline">
+                            {{ $racer->user->team->clan }}
+                        </a>
+                    @endif
                 @endif
             </td>
             <td class="px-4 py-2">
@@ -30,9 +34,11 @@
                             @livewire('user.avatar', ['user' => $racer->user])
                         </div>
                         <div class="ml-3">
-                            <a href="{{ route('public-profile', $racer->user->username) }}">
-                                {{ $racer->racer_username }}
-                            </a>
+                            <div class="hover:underline ml-2">
+                                <a href="{{ route('public-profile', $racer->user->username) }}">
+                                    {{ $racer->user->username }}
+                                </a>
+                            </div>
                         </div>
                     </div>
                 @else
