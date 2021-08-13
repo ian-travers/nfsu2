@@ -13,6 +13,15 @@
                     {{ $user->username }}
                     <span
                         class="text-sm block">{{ __('Member sings :date', ['date' => $user->created_at->diffForHumans()]) }}</span>
+                    @isset($user->team)
+                        <p class="mt-8 text-base">{{ __('Team') }}:
+                            <span
+                                class="inline-flex items-center px-3 py-0.5 rounded text-xl bg-gray-600 text-green-400">
+                                {{ $user->team->clan }}
+                            </span>
+                            <span class="text-gray-400 ml-1">{{ $user->team->name }}</span>
+                        </p>
+                    @endisset
                 </div>
                 <div class="flex items-baseline">
                     <span class="fflag ff-lg ff-wave fflag-{{ $user->country }}"></span>
@@ -42,7 +51,8 @@
                         @foreach($user->trophies as $trophy)
                             @if($trophy->trophiable_type = "tourney")
                                 <div class="inline-block h-8 w-8">
-                                    <a href="{{ route('tourneys.show', $trophy->trophiable) }}" title="{{ $trophy->htmlTitleAttribute() }}">
+                                    <a href="{{ route('tourneys.show', $trophy->trophiable) }}"
+                                       title="{{ $trophy->htmlTitleAttribute() }}">
                                         <x-trophy-medal
                                             place="{{ $trophy->place }}"
                                             type="{{ $trophy->trophiable->type() }}"
