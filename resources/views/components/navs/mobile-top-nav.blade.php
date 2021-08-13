@@ -43,7 +43,7 @@
             </div>
             <x-navs.mobile-link route="season-standings.personal">{{ __('Personal standing') }}</x-navs.mobile-link>
             <x-navs.mobile-link route="season-standings.countries">{{ __('Countries standing') }}</x-navs.mobile-link>
-            <x-navs.mobile-link route="server.ratings-redirect">{{ __('Teams standing') }}</x-navs.mobile-link>
+            <x-navs.mobile-link route="season-standings.teams">{{ __('Teams standing') }}</x-navs.mobile-link>
 
             <div class="text-sm font-semibold text-gray-400 tracking-widest uppercase text-center">
                 {{ __('Game server') }}

@@ -60,6 +60,23 @@ class SeasonHelper
         return $query->orderByDesc('pts')->get();
     }
 
+    public static function teamsStanding(array $filters, int $index = null)
+    {
+        $type = $filters['type'] ?? 'all';
+
+        [$tourneysCount, $pts] = self::returningValues($type);
+
+        /** @var \Illuminate\Database\Eloquent\Builder $query */
+        $query = SeasonRacer::query()
+            ->join('users', 'season_racers.user_id', '=', 'users.id')
+            ->join('teams', 'users.team_id', '=', 'teams.id')
+            ->selectRaw("teams.clan, teams.name, count(users.id) as racers_count, sum({$tourneysCount}) as tourneys_count,sum({$pts}) as pts")
+            ->where('season_index', self::index($index))
+            ->groupBy('teams.clan');
+
+        return $query->orderByDesc('pts')->get();
+    }
+
     public static function types(int $index = null)
     {
         $typeKeys = Tourney::selectRaw('SUBSTR(track_id, 2, 1) as race_type')

@@ -28,6 +28,10 @@ class SeasonStandingsController extends Controller
 
     public function teams()
     {
-        //
+        return view('frontend.season-standings.teams', [
+            'title' => __('Teams standing'),
+            'types' => SeasonHelper::types(),
+            'teams' => SeasonHelper::teamsStanding(request(['type'])),
+        ]);
     }
 }
