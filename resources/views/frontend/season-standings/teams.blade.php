@@ -24,12 +24,12 @@
                     <tr class="divide-x divide-blue-400 transition-colors duration-300 hover:bg-blue-100 hover:bg-opacity-20">
                         <td class="text-center px-4 py-2">{{ $loop->index + 1 }}</td>
                         <td class="text-center hover:underline px-4 py-2">
-                            <a href="#">
+                            <a href="{{ route('team-profile', $team) }}">
                                 {{ $team->clan }}
                             </a>
                         </td>
                         <td class="hover:underline px-4 py-2">
-                            <a href="#">
+                            <a href="{{ route('team-profile', $team) }}">
                                 {{ $team->name }}
                             </a>
                         </td>
