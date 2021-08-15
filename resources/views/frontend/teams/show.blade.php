@@ -14,7 +14,7 @@
                     </span>
 
                     <span
-                        class="text-sm block">{{ __('Sings :date', ['date' => $team->created_at->diffForHumans()]) }}</span>
+                        class="text-sm block">{{ __('Registered :date', ['date' => $team->created_at->diffForHumans()]) }}</span>
                 </p>
                 <p class="mt-4">
                     {{ __('Captain') }}:

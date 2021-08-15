@@ -10,7 +10,7 @@ class TeamsController extends Controller
     {
         return view('frontend.teams.show', [
             'team' => $team,
-            'title' => __('View team'),
+            'title' => __('Team profile'),
         ]);
     }
 }
