@@ -130,6 +130,11 @@ class Tourney extends Model
         return static::statuses()[$this->status];
     }
 
+    public function winnerUsername(): string
+    {
+        return $this->isCompleted() ? $this->racers()->first()->racer_username : '';
+    }
+
     public function type(): string
     {
         switch (substr($this->track_id, 1, 1)) {

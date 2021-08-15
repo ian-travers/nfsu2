@@ -10,11 +10,16 @@
 
     <div class="flex-1">
         <div class="flex items-end justify-between">
-            <div>
-                <div class="">{{ $tourney->name }}</div>
+            <div class="flex-1">
+                <div class="">
+                    {{ $tourney->name }}
+                    <x-tourney-status-badge :tourney="$tourney"/>
+                </div>
                 <div class="">{{ $tourney->trackName() }}</div>
                 <div class="">{{ $tourney->started_at->format('Y-m-d H:i') }}</div>
-                <x-tourney-status-badge :tourney="$tourney"/>
+                @if($tourney->isCompleted())
+                    <p>{{ __('Winner: :username', ['username' => $tourney->winnerUsername()]) }}</p>
+                @endif
             </div>
             <div>
                 <a href="{{ route('tourneys.show', $tourney) }}">
