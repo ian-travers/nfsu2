@@ -5,6 +5,7 @@ namespace App\ReadRepositories;
 use App\Models\Country;
 use App\Models\Tourney\SeasonRacer;
 use App\Models\Tourney\Tourney;
+use App\Models\Trophy;
 use App\Models\User;
 use App\Settings\SeasonSettings;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,7 +17,7 @@ class SeasonHelper
         return $index ?? app(SeasonSettings::class)->index;
     }
 
-    public static function racersStanding(array $filters, int $index = null): Collection
+    public static function racersStanding(array $filters = [], int $index = null): Collection
     {
         $type = $filters['type'] ?? 'overall';
         $country = $filters['country'] ?? 'all';
@@ -25,7 +26,7 @@ class SeasonHelper
         [$tourneysCount, $pts] = self::returningValues($type);
 
         /** @var \Illuminate\Database\Eloquent\Builder $query */
-        $query = SeasonRacer::selectRaw("id,user_id,{$tourneysCount} as tourneys_count, {$pts} as pts")->where('season_index', self::index($index))->orderByDesc('pts');
+        $query = SeasonRacer::selectRaw("id,racer_username,user_id,{$tourneysCount} as tourneys_count, {$pts} as pts")->where('season_index', self::index($index));
 
         if ($country !== 'all') {
             $query->whereHas('user', fn($query) =>
@@ -44,6 +45,14 @@ class SeasonHelper
         return $query->orderByDesc('pts')->get();
     }
 
+    public static function tourneyTrophiesByUserId(int $userId, int $index = null)
+    {
+        return Trophy::where('user_id', $userId)
+            ->where('trophiable_type', 'tourney')
+            ->whereHas('trophiable', fn($query) => $query->where('season_index', self::index()))
+            ->get();
+    }
+
     public static function countriesStanding(array $filters, int $index = null)
     {
         $type = $filters['type'] ?? 'all';
@@ -53,7 +62,7 @@ class SeasonHelper
         /** @var \Illuminate\Database\Eloquent\Builder $query */
         $query = SeasonRacer::query()
             ->join('users', 'season_racers.user_id', '=', 'users.id')
-            ->selectRaw("users.country, count(users.id) as racers_count,sum({$tourneysCount}) as tourneys_count,sum({$pts}) as pts")
+            ->selectRaw("users.country,count(users.id) as racers_count,sum({$tourneysCount}) as tourneys_count,sum({$pts}) as pts")
             ->where('season_index', self::index($index))
             ->groupBy('users.country');
 
@@ -70,7 +79,7 @@ class SeasonHelper
         $query = SeasonRacer::query()
             ->join('users', 'season_racers.user_id', '=', 'users.id')
             ->join('teams', 'users.team_id', '=', 'teams.id')
-            ->selectRaw("teams.clan, teams.name, count(users.id) as racers_count, sum({$tourneysCount}) as tourneys_count,sum({$pts}) as pts")
+            ->selectRaw("teams.clan,teams.name, count(users.id) as racers_count,sum({$tourneysCount}) as tourneys_count,sum({$pts}) as pts")
             ->where('season_index', self::index($index))
             ->groupBy('teams.clan');
 
@@ -112,10 +121,13 @@ class SeasonHelper
     {
         $result['ALL'] = __('All');
 
-        $keys = User::whereIn('id', SeasonRacer::where('season_index', self::index($index))->pluck('user_id'))->distinct()->pluck('country');
+        $keys = User::whereIn('id', SeasonRacer::where('season_index', self::index($index))
+            ->pluck('user_id'))
+            ->distinct()
+            ->pluck('country');
 
         foreach ($keys as $key) {
-            $result[$key] = Country::all()[$key];
+            $result[$key] = Country::name($key);
         }
 
         return $result;
@@ -128,7 +140,7 @@ class SeasonHelper
         $result['ALL'] = __('All');
 
         $racers = $racers->filter(function ($racer) {
-            return $racer->user->team;
+            return $racer->user? $racer->user->isTeamMember() : false;
         });
 
         foreach ($racers as $racer) {
