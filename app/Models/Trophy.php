@@ -32,6 +32,8 @@ class Trophy extends Model
 
     public $timestamps = false;
 
+    protected $with = ['trophiable'];
+
     public function user()
     {
         return $this->belongsTo(User::class);

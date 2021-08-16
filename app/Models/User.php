@@ -92,6 +92,8 @@ class User extends Authenticatable
         'is_admin' => 'boolean',
     ];
 
+//    protected $with = ['trophies'];
+
     public function trophies()
     {
         return $this->hasMany(Trophy::class);

@@ -40,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
         Collection::macro('paginate', function($perPage, $total = null, $page = null, $pageName = 'page') {
             $page = $page ?: LengthAwarePaginator::resolveCurrentPage($pageName);
 
+            /** @var LengthAwarePaginator $this */
             return new LengthAwarePaginator(
                 $this->forPage($page, $perPage),
                 $total ?: $this->count(),
@@ -53,6 +54,10 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Model::unguard();
+        Model::preventLazyLoading(!$this->app->isProduction());
+        Model::handleLazyLoadingViolationUsing(
+            fn($model, $relation) => logger("Lazy loading violation:: load '$relation' on '" . get_class($model) . '\'')
+        );
 
         Relation::morphMap([
             'tourney' => Tourney::class,

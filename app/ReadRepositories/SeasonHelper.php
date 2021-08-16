@@ -25,8 +25,7 @@ class SeasonHelper
 
         [$tourneysCount, $pts] = self::returningValues($type);
 
-        /** @var \Illuminate\Database\Eloquent\Builder $query */
-        $query = SeasonRacer::selectRaw("id,racer_username,user_id,{$tourneysCount} as tourneys_count, {$pts} as pts")->where('season_index', self::index($index));
+        $query = SeasonRacer::with('user')->selectRaw("id,racer_username,user_id,{$tourneysCount} as tourneys_count, {$pts} as pts")->where('season_index', self::index($index));
 
         if ($country !== 'all') {
             $query->whereHas('user', fn($query) =>
