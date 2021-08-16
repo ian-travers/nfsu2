@@ -35,6 +35,8 @@ class TourneyRacer extends Model
 {
     use HasFactory, DetectPlace;
 
+    protected $with = ['tourney', 'user'];
+
     protected $dates = ['signed_at'];
 
     public $timestamps = false;

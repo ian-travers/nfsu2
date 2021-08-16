@@ -31,6 +31,8 @@ class Heat extends Model
 
     public $timestamps = false;
 
+    protected $with = ['racers'];
+
     public function racers()
     {
         return $this->hasMany(HeatRacer::class);

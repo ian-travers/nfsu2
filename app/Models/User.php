@@ -92,7 +92,7 @@ class User extends Authenticatable
         'is_admin' => 'boolean',
     ];
 
-//    protected $with = ['trophies'];
+    protected $with = ['team', 'trophies'];
 
     public function trophies()
     {

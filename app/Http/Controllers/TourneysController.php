@@ -8,7 +8,7 @@ class TourneysController extends Controller
 {
     public function index()
     {
-        $all = Tourney::currentSeason()->get();
+        $all = Tourney::currentSeason()->latest('started_at')->get();
 
         $tourneys = $all->reject(function ($tourney) {
             return $tourney->isFeatured();
