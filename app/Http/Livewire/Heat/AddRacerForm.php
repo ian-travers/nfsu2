@@ -16,9 +16,11 @@ class AddRacerForm extends Component
 
     protected $listeners = ['heatProvided'];
 
-    protected array $messages = [
-        'userId.not_in' => 'This racer is already added to the final.',
-    ];
+    protected function messages() {
+        return [
+            'userId.not_in' => __('This racer is already added to the final.'),
+        ];
+    }
 
     protected function validationAttributes() {
         return [
@@ -31,6 +33,11 @@ class AddRacerForm extends Component
         return [
             'userId' => ['required', Rule::notIn($this->finalists)],
         ];
+    }
+
+    public function hydrate()
+    {
+        $this->resetErrorBag();
     }
 
     public function heatProvided(Heat $heat)
