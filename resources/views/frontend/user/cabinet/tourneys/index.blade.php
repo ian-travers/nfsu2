@@ -3,9 +3,13 @@
         <div class="bg-white px-4 py-5">
             <div class="flex items-center justify-between">
                 <h1 class="text-2xl font-semibold tracking-wide">{{ __('Your tourneys') }}</h1>
-                <a href="{{ route('cabinet.tourneys.create') }}">
-                    <x-form.primary-button>{{ __('Create') }}</x-form.primary-button>
-                </a>
+                @if($suspend)
+                    <p class="text-gray-500">{{ __('Season is suspended.') }}</p>
+                @else
+                    <a href="{{ route('cabinet.tourneys.create') }}">
+                        <x-form.primary-button>{{ __('Create') }}</x-form.primary-button>
+                    </a>
+                @endif
             </div>
 
             @if($tourneys->count())

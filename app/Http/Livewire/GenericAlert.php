@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class GenericAlert extends Component
 {
-    protected $listeners = ['passwordChanged', 'saved', 'seasonComplete', 'seasonSuspend', 'seasonResume'];
+    protected $listeners = ['passwordChanged', 'saved'];
 
     public function passwordChanged()
     {

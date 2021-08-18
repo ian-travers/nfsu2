@@ -14,16 +14,20 @@ class TourneysController extends Controller
     {
         return view('frontend.user.cabinet.tourneys.index', [
             'tourneys' => auth()->user()->tourneys()->latest('started_at')->paginate(10),
+            'suspend' => app(SeasonSettings::class)->suspend,
             'title' => __('Your tourneys'),
         ]);
     }
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     * @throws \Exception
-     */
     public function create()
     {
+        if ($this->checkSuspending()) {
+            return redirect()->route('cabinet.tourneys.index')->with('flash', [
+                'type' => 'warning',
+                'message' => __('Season is suspended.'),
+            ]);
+        }
+
         session()->put('url.intended', url()->previous() == url()->current() ? route('cabinet.tourneys.index') : url()->previous());
 
         return view('frontend.user.cabinet.tourneys.create', [
@@ -38,6 +42,13 @@ class TourneysController extends Controller
 
     public function store()
     {
+        if ($this->checkSuspending()) {
+            return redirect()->route('cabinet.tourneys.index')->with('flash', [
+                'type' => 'warning',
+                'message' => __('Season is suspended.'),
+            ]);
+        }
+
         $attributes = request()->validate([
             'name' => 'required|string|min:4|max:100',
             'track_id' => 'required|size:5',
@@ -67,6 +78,13 @@ class TourneysController extends Controller
 
     public function edit(Tourney $tourney)
     {
+        if ($this->checkSuspending()) {
+            return redirect()->route('cabinet.tourneys.index')->with('flash', [
+                'type' => 'warning',
+                'message' => __('Season is suspended.'),
+            ]);
+        }
+
         if (!$tourney->isScheduled()) {
             return back()->with('flash', [
                 'type' => 'warning',
@@ -88,6 +106,13 @@ class TourneysController extends Controller
 
     public function update(Tourney $tourney)
     {
+        if ($this->checkSuspending()) {
+            return redirect()->route('cabinet.tourneys.index')->with('flash', [
+                'type' => 'warning',
+                'message' => __('Season is suspended.'),
+            ]);
+        }
+
         if (Gate::denies('update-tourney', $tourney)) {
             return redirect()->back()->with('flash', [
                 'type' => 'error',
@@ -121,6 +146,13 @@ class TourneysController extends Controller
 
     public function remove(Tourney $tourney)
     {
+        if ($this->checkSuspending()) {
+            return redirect()->route('cabinet.tourneys.index')->with('flash', [
+                'type' => 'warning',
+                'message' => __('Season is suspended.'),
+            ]);
+        }
+
         if (Gate::denies('update-tourney', $tourney)) {
             return redirect()->back()->with('flash', [
                 'type' => 'error',
@@ -128,7 +160,7 @@ class TourneysController extends Controller
             ]);
         }
 
-        if(! $tourney->isEditable()) {
+        if (!$tourney->isEditable()) {
             return redirect()->back()->with('flash', [
                 'type' => 'warning',
                 'message' => __('You may only delete scheduled or cancelled tourneys.'),
@@ -141,5 +173,10 @@ class TourneysController extends Controller
             'type' => 'success',
             'message' => __('Tourney has been deleted.'),
         ]);
+    }
+
+    protected function checkSuspending(): bool
+    {
+        return app(SeasonSettings::class)->suspend;
     }
 }

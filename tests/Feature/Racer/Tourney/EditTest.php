@@ -4,6 +4,7 @@ namespace Tests\Feature\Racer\Tourney;
 
 use App\Models\Tourney\Tourney;
 use App\Models\User;
+use App\Settings\SeasonSettings;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -71,5 +72,28 @@ class EditTest extends TestCase
             ]);
 
         $this->assertDatabaseMissing('tourneys', $attributes);
+    }
+
+    /** @test */
+    function racer_cannot_edit_a_tourney_when_season_is_suspended()
+    {
+        /** @var User $racer */
+        $racer = User::factory()->racer()->create();
+
+        $this->signIn($racer);
+
+        /** @var Tourney $tourney */
+        $tourney = Tourney::factory()->create([
+            'supervisor_id' => $racer->id,
+            'supervisor_username' => $racer->username,
+        ]);
+
+        app(SeasonSettings::class)->suspend = true;
+
+        $this->patch("/cabinet/tourneys/{$tourney->id}", [])
+            ->assertSessionHas('flash', [
+                'type' => 'warning',
+                'message' => 'Season is suspended.',
+            ]);
     }
 }

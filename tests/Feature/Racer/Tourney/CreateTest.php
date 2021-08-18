@@ -3,6 +3,7 @@
 namespace Tests\Feature\Racer\Tourney;
 
 use App\Models\User;
+use App\Settings\SeasonSettings;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -52,6 +53,23 @@ class CreateTest extends TestCase
             ->assertSessionHas('flash', [
                 'type' => 'error',
                 'message' => 'You should be promoted to the racer.',
+            ]);
+    }
+
+    /** @test */
+    function racer_cannot_create_a_tourney_when_season_is_suspended()
+    {
+        /** @var User $racer */
+        $racer = User::factory()->racer()->create();
+
+        $this->signIn($racer);
+
+        app(SeasonSettings::class)->suspend = true;
+
+        $this->post('/cabinet/tourneys', [])
+            ->assertSessionHas('flash', [
+                'type' => 'warning',
+                'message' => 'Season is suspended.',
             ]);
     }
 }
