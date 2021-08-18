@@ -193,6 +193,7 @@ class Tourney extends Model
         $racersCount = $this->racers()->count();
 
         throw_unless($this->supervisor_id == auth()->id(), new DomainException(__("Unable to draw someone's else tourney.")));
+        throw_if($this->isCancelled(), new DomainException(__("Tourney is already cancelled.")));
         throw_if(now() <= $this->started_at, new DomainException(__('Signup period is not over.')));
         throw_if($racersCount < 2, new DomainException(__('Too few racers. You should complete the tourney now. It will become CANCELLED.')));
         throw_unless($this->isScheduled() || $this->isDraw(), new DomainException(__('The start of the tourney has already been announced. No new draw possible.')));
@@ -322,6 +323,8 @@ class Tourney extends Model
     {
         throw_if($this->isScheduled(), new DomainException(__("You should get tourney's draw first.")));
         throw_if($this->isActive() || $this->isFinal(), new DomainException(__('Tourney is already started.')));
+        throw_if($this->isCompleted(), new DomainException(__('Tourney is already completed.')));
+        throw_if($this->isCancelled(), new DomainException(__('Tourney is already cancelled.')));
         throw_unless($this->supervisor_id == auth()->id(), new DomainException(__("Unable to draw someone's else tourney.")));
 
         return $this->update(['status' => self::STATUS_ACTIVE]);

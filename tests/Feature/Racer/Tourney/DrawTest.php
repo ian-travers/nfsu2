@@ -16,9 +16,7 @@ class DrawTest extends TestCase
     function racer_can_draw_own_tourney()
     {
         /** @var User $racer */
-        $racer = User::factory()->racer()->create([
-            'username' => 'supervisor',
-        ]);
+        $racer = User::factory()->racer()->create();
 
         $this->signIn($racer);
         $participantsCount = 9; // it will 3 * 4 regular + 1 final rounds
@@ -33,12 +31,75 @@ class DrawTest extends TestCase
     }
 
     /** @test */
+    function racer_can_confirm_draw_own_tourney()
+    {
+        /** @var User $racer */
+        $racer = User::factory()->racer()->create();
+
+        $this->signIn($racer);
+        $participantsCount = 2;
+
+        $tourney = $this->prepareTourney($racer, $participantsCount);
+
+        $this->put("/cabinet/tourneys/handle/{$tourney->id}/draw");
+        $this->patch("/cabinet/tourneys/handle/{$tourney->id}/start");
+
+        $this->assertTrue($tourney->fresh()->isActive());
+    }
+
+    /** @test */
+    function racer_cannot_confirm_draw_completed_tourney()
+    {
+        /** @var User $racer */
+        $racer = User::factory()->racer()->create();
+
+        /** @var Tourney $tourney */
+        $tourney = Tourney::factory()->create([
+            'supervisor_id' => $racer->id,
+            'supervisor_username' => $racer->username,
+            'status' => Tourney::STATUS_COMPLETED,
+        ]);
+
+        $this->signIn($racer);
+
+        $this->patch("/cabinet/tourneys/handle/{$tourney->id}/start")
+            ->assertSessionHas('flash', [
+                'type' => 'error',
+                'message' => 'Tourney is completed.'
+            ]);
+
+        $this->assertFalse($tourney->fresh()->isActive());
+    }
+
+    /** @test */
+    function racer_cannot_confirm_draw_cancelled_tourney()
+    {
+        /** @var User $racer */
+        $racer = User::factory()->racer()->create();
+
+        /** @var Tourney $tourney */
+        $tourney = Tourney::factory()->create([
+            'supervisor_id' => $racer->id,
+            'supervisor_username' => $racer->username,
+            'status' => Tourney::STATUS_CANCELLED,
+        ]);
+
+        $this->signIn($racer);
+
+        $this->patch("/cabinet/tourneys/handle/{$tourney->id}/start")
+            ->assertSessionHas('flash', [
+                'type' => 'error',
+                'message' => 'Tourney is cancelled.'
+            ]);
+
+        $this->assertFalse($tourney->fresh()->isActive());
+    }
+
+    /** @test */
     function racer_cannon_draw_own_tourney_with_double_heats_records()
     {
         /** @var User $racer */
-        $racer = User::factory()->racer()->create([
-            'username' => 'supervisor',
-        ]);
+        $racer = User::factory()->racer()->create();
 
         $this->signIn($racer);
         $participantsCount = 9; // it will 3 * 4 regular + 1 final rounds
@@ -60,9 +121,7 @@ class DrawTest extends TestCase
     function racer_cannot_draw_someones_else_tourney()
     {
         /** @var User $racer */
-        $racer = User::factory()->racer()->create([
-            'username' => 'supervisor',
-        ]);
+        $racer = User::factory()->racer()->create();
 
         $this->signIn($racer);
         $participantsCount = 2;
@@ -86,9 +145,7 @@ class DrawTest extends TestCase
     function user_cannot_draw_a_tourney()
     {
         /** @var User $racer */
-        $racer = User::factory()->racer()->create([
-            'username' => 'supervisor',
-        ]);
+        $racer = User::factory()->racer()->create();
 
         $this->signIn($racer);
 
