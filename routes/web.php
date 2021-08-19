@@ -164,11 +164,7 @@ Route::group(['middleware' => 'language'], function () {
                 'as' => '.handle',
             ], function () {
                 Route::get('{tourney}', [CabinetHandleTourneyController::class, 'index'])->name('.index');
-                Route::put('{tourney}/draw', [CabinetHandleTourneyController::class, 'draw'])->name('.draw');
-                Route::patch('{tourney}/start', [CabinetHandleTourneyController::class, 'start'])->name('.start');
-                Route::patch('{tourney}/final', [CabinetHandleTourneyController::class, 'final'])->name('.final');
                 Route::patch('{tourney}/clean-final-heat', [CabinetHandleTourneyController::class, 'clearFinalHeat'])->name('.clean-final-heat');
-                Route::patch('{tourney}/complete', [CabinetHandleTourneyController::class, 'complete'])->name('.complete');
             });
 
         });

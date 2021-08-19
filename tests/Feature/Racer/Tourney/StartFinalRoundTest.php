@@ -2,9 +2,11 @@
 
 namespace Tests\Feature\Racer\Tourney;
 
+use App\Http\Livewire\TourneyHandle\AnnounceFinal;
 use App\Models\Tourney\Tourney;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class StartFinalRoundTest extends TestCase
@@ -23,11 +25,12 @@ class StartFinalRoundTest extends TestCase
 
         $tourney = Tourney::factory()->create([
             'supervisor_id' => $racer->id,
-            'supervisor_username' => $racer->username,
             'status' => Tourney::STATUS_SCHEDULED,
         ]);
 
-        $this->patch("/cabinet/tourneys/handle/{$tourney->id}/final")
+        Livewire::test(AnnounceFinal::class)
+            ->set('tourney', $tourney)
+            ->call('handle')
             ->assertSessionHas('flash', [
                 'type' => 'error',
                 'message' => 'You can only announce the final round for an active tourney.',

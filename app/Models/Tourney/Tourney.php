@@ -165,7 +165,7 @@ class Tourney extends Model
 
     public function isCancellable(): bool
     {
-        return $this->racers()->count() < 2 && now() > $this->started_at;
+        return $this->racers()->count() < 2 && now() > $this->started_at && $this->isScheduled();
     }
 
     public function trackName()
@@ -358,12 +358,6 @@ class Tourney extends Model
 
     public function complete()
     {
-        if ($this->isCancellable()) {
-            throw_if($this->isCancelled(), new DomainException(__('Tourney is already cancelled.')));
-
-            return $this->update(['status' => self::STATUS_CANCELLED]);
-        }
-
         throw_if($this->isCompleted(), new DomainException(__('Tourney is already completed.')));
         throw_unless($this->isFinal(), new DomainException(__("You can only complete the with final status.")));
         throw_unless($this->supervisor_id == auth()->id(), new DomainException(__("Unable to complete someone's else tourney.")));
@@ -371,6 +365,15 @@ class Tourney extends Model
         event(new TourneyCompleted($this));
 
         return $this->update(['status' => self::STATUS_COMPLETED]);
+    }
+
+    public function cancel()
+    {
+        throw_if($this->isCancelled(), new DomainException(__('Tourney is already cancelled.')));
+        throw_unless($this->isCancellable(), new DomainException(__('This tourney cannot be canceled.')));
+        throw_unless($this->supervisor_id == auth()->id(), new DomainException(__("Unable to cancel someone's else tourney.")));
+
+        return $this->update(['status' => self::STATUS_CANCELLED]);
     }
 
     public static function activeTourneys(): \Illuminate\Support\Collection

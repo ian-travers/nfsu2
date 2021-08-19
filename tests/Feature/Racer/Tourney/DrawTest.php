@@ -2,10 +2,11 @@
 
 namespace Tests\Feature\Racer\Tourney;
 
+use App\Http\Livewire\TourneyHandle\Draw;
 use App\Models\Tourney\Tourney;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class DrawTest extends TestCase
@@ -25,74 +26,11 @@ class DrawTest extends TestCase
 
         $this->assertDatabaseCount('tourney_racers', $participantsCount);
 
-        $this->put("/cabinet/tourneys/handle/{$tourney->id}/draw");
+        Livewire::test(Draw::class)
+            ->set('tourney', $tourney)
+            ->call('handle');
 
         $this->assertDatabaseCount('heats', 13);
-    }
-
-    /** @test */
-    function racer_can_confirm_draw_own_tourney()
-    {
-        /** @var User $racer */
-        $racer = User::factory()->racer()->create();
-
-        $this->signIn($racer);
-        $participantsCount = 2;
-
-        $tourney = $this->prepareTourney($racer, $participantsCount);
-
-        $this->put("/cabinet/tourneys/handle/{$tourney->id}/draw");
-        $this->patch("/cabinet/tourneys/handle/{$tourney->id}/start");
-
-        $this->assertTrue($tourney->fresh()->isActive());
-    }
-
-    /** @test */
-    function racer_cannot_confirm_draw_completed_tourney()
-    {
-        /** @var User $racer */
-        $racer = User::factory()->racer()->create();
-
-        /** @var Tourney $tourney */
-        $tourney = Tourney::factory()->create([
-            'supervisor_id' => $racer->id,
-            'supervisor_username' => $racer->username,
-            'status' => Tourney::STATUS_COMPLETED,
-        ]);
-
-        $this->signIn($racer);
-
-        $this->patch("/cabinet/tourneys/handle/{$tourney->id}/start")
-            ->assertSessionHas('flash', [
-                'type' => 'error',
-                'message' => 'Tourney is completed.'
-            ]);
-
-        $this->assertFalse($tourney->fresh()->isActive());
-    }
-
-    /** @test */
-    function racer_cannot_confirm_draw_cancelled_tourney()
-    {
-        /** @var User $racer */
-        $racer = User::factory()->racer()->create();
-
-        /** @var Tourney $tourney */
-        $tourney = Tourney::factory()->create([
-            'supervisor_id' => $racer->id,
-            'supervisor_username' => $racer->username,
-            'status' => Tourney::STATUS_CANCELLED,
-        ]);
-
-        $this->signIn($racer);
-
-        $this->patch("/cabinet/tourneys/handle/{$tourney->id}/start")
-            ->assertSessionHas('flash', [
-                'type' => 'error',
-                'message' => 'Tourney is cancelled.'
-            ]);
-
-        $this->assertFalse($tourney->fresh()->isActive());
     }
 
     /** @test */
@@ -108,11 +46,15 @@ class DrawTest extends TestCase
 
         $this->assertDatabaseCount('tourney_racers', $participantsCount);
 
-        $this->put("/cabinet/tourneys/handle/{$tourney->id}/draw");
+        Livewire::test(Draw::class)
+            ->set('tourney', $tourney)
+            ->call('handle');
 
         $this->assertDatabaseCount('heats', 13);
 
-        $this->put("/cabinet/tourneys/handle/{$tourney->id}/draw");
+        Livewire::test(Draw::class)
+            ->set('tourney', $tourney)
+            ->call('handle');
 
         $this->assertDatabaseCount('heats', 13);
     }
@@ -132,11 +74,9 @@ class DrawTest extends TestCase
 
         $this->assertDatabaseCount('tourney_racers', $participantsCount);
 
-        $this->put("/cabinet/tourneys/handle/{$tourney->id}/draw")
-            ->assertSessionHas('flash', [
-                'type' => 'error',
-                'message' => "Unable to draw someone's else tourney."
-            ]);
+        Livewire::test(Draw::class)
+            ->set('tourney', $tourney)
+            ->call('handle');
 
         $this->assertDatabaseCount('heats', 0);
     }
@@ -155,11 +95,9 @@ class DrawTest extends TestCase
 
         $this->assertDatabaseCount('tourney_racers', 1);
 
-        $this->put("/cabinet/tourneys/handle/{$tourney->id}/draw")
-            ->assertSessionHas('flash', [
-                'type' => 'error',
-                'message' => 'You should be promoted to the racer.'
-            ]);
+        Livewire::test(Draw::class)
+            ->set('tourney', $tourney)
+            ->call('handle');
 
         $this->assertDatabaseCount('heats', 0);
     }
@@ -168,9 +106,8 @@ class DrawTest extends TestCase
     {
         /** @var Tourney $tourney */
         $tourney = Tourney::factory()->create([
-            'started_at' => Carbon::now(),
+            'started_at' => now(),
             'supervisor_id' => $racer->id,
-            'supervisor_username' => $racer->username,
         ]);
 
         $racer->signupTourney($tourney);

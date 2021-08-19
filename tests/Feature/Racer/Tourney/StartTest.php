@@ -2,10 +2,13 @@
 
 namespace Tests\Feature\Racer\Tourney;
 
+use App\Http\Livewire\TourneyHandle\Draw;
+use App\Http\Livewire\TourneyHandle\Start;
 use App\Models\Tourney\Tourney;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class StartTest extends TestCase
@@ -13,21 +16,75 @@ class StartTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function racer_can_start_own_tourney()
+    function racer_cannot_confirm_draw_and_start_completed_tourney()
     {
         /** @var User $racer */
-        $racer = User::factory()->racer()->create([
-            'username' => 'supervisor',
+        $racer = User::factory()->racer()->create();
+
+        $tourney = Tourney::factory()->create([
+            'started_at' => now()->subMinute(),
+            'supervisor_id' => $racer->id,
+            'status' => Tourney::STATUS_COMPLETED,
         ]);
 
         $this->signIn($racer);
-        $participantsCount = 2;
 
-        $tourney = $this->prepareTourney($racer, $participantsCount);
+        Livewire::test(Start::class)
+            ->set('tourney', $tourney)
+            ->call('handle')
+            ->assertSessionHas('flash', [
+                'type' => 'error',
+                'message' => 'Tourney is already completed.'
+            ]);
 
-        $this->patch("/cabinet/tourneys/handle/{$tourney->id}/start");
+        $this->assertFalse($tourney->fresh()->isActive());
+    }
 
-        $this->assertEquals(Tourney::STATUS_ACTIVE, $tourney->fresh()->status);
+    /** @test */
+    function racer_cannot_confirm_draw_cancelled_tourney()
+    {
+        /** @var User $racer */
+        $racer = User::factory()->racer()->create();
+
+        /** @var Tourney $tourney */
+        $tourney = Tourney::factory()->create([
+            'started_at' => now()->subMinute(),
+            'supervisor_id' => $racer->id,
+            'status' => Tourney::STATUS_CANCELLED,
+
+        ]);
+
+        $this->signIn($racer);
+
+        Livewire::test(Start::class)
+            ->set('tourney', $tourney)
+            ->call('handle')
+            ->assertSessionHas('flash', [
+                'type' => 'error',
+                'message' => 'Tourney is already cancelled.'
+            ]);
+
+        $this->assertFalse($tourney->fresh()->isActive());
+    }
+
+    /** @test */
+    function racer_can_confirm_draw_and_start_own_tourney()
+    {
+        /** @var User $racer */
+        $racer = User::factory()->racer()->create();
+
+        $this->signIn($racer);
+        $tourney = $this->prepareTourney($racer, 2);
+
+        Livewire::test(Draw::class)
+            ->set('tourney', $tourney)
+            ->call('handle');
+
+        Livewire::test(Start::class)
+            ->set('tourney', $tourney)
+            ->call('handle');
+
+        $this->assertTrue($tourney->fresh()->isActive());
     }
 
     protected function prepareTourney(User $racer, int $participants): Tourney

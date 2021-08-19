@@ -8,29 +8,10 @@
             {{-- Operations--}}
             <div class="border-t border-b border-blue-200 flex flex-col space-y-3 lg:flex-row lg:space-y-0 lg:items-center lg:space-x-2 py-3 mt-4">
                 <p class="inline">{{ __('Handling') }}:</p>
-                <form action="{{ route('cabinet.tourneys.handle.draw', $tourney) }}" method="post" class="inline">
-                    @csrf
-                    @method('put')
-                    <x-form.primary-button type="submit" onclick="return confirm()">{{ __('Random draw') }}</x-form.primary-button>
-                </form>
-
-                <form action="{{ route('cabinet.tourneys.handle.start', $tourney) }}" method="post" class="inline">
-                    @csrf
-                    @method('patch')
-                    <x-form.primary-button type="submit" onclick="return confirm()">{{ __('Approve the draw and start the tourney') }}</x-form.primary-button>
-                </form>
-
-                <form action="{{ route('cabinet.tourneys.handle.final', $tourney) }}" method="post" class="inline">
-                    @csrf
-                    @method('patch')
-                    <x-form.primary-button type="submit" onclick="return confirm()">{{ __('Announce the final round') }}</x-form.primary-button>
-                </form>
-
-                <form action="{{ route('cabinet.tourneys.handle.complete', $tourney) }}" method="post" class="inline">
-                    @csrf
-                    @method('patch')
-                    <x-form.primary-button type="submit" onclick="return confirm()">{{ __('Complete the tourney') }}</x-form.primary-button>
-                </form>
+                @livewire('tourney-handle.draw', ['tourney' => $tourney])
+                @livewire('tourney-handle.start', ['tourney' => $tourney])
+                @livewire('tourney-handle.announce-final', ['tourney' => $tourney])
+                @livewire('tourney-handle.complete', ['tourney' => $tourney])
             </div>
 
             <div class="mt-3 md:mt-6">

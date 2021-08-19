@@ -16,57 +16,6 @@ class HandleTourneyController extends Controller
         ]);
     }
 
-    public function draw(Tourney $tourney)
-    {
-        try {
-            $tourney->draw();
-        } catch (DomainException $e) {
-            return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
-                'type' => 'error',
-                'message' => $e->getMessage(),
-            ]);
-        }
-
-        return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
-            'type' => 'success',
-            'message' => __('Random draw has been done.'),
-        ]);
-    }
-
-    public function start(Tourney $tourney)
-    {
-        try {
-            $tourney->start();
-        } catch (DomainException $e) {
-            return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
-                'type' => 'error',
-                'message' => $e->getMessage(),
-            ]);
-        }
-
-        return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
-            'type' => 'success',
-            'message' => __('Tourney has been started. You may wait for a couple of minutes and announce the first round.'),
-        ]);
-    }
-
-    public function final(Tourney $tourney)
-    {
-        try {
-            $tourney->final();
-        } catch (DomainException $e) {
-            return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
-                'type' => 'error',
-                'message' => $e->getMessage(),
-            ]);
-        }
-
-        return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
-            'type' => 'success',
-            'message' => __('The final round may be started. You may wait for a minute and announce the final round.'),
-        ]);
-    }
-
     public function clearFinalHeat(Tourney $tourney)
     {
         try {
@@ -81,23 +30,6 @@ class HandleTourneyController extends Controller
         return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
             'type' => 'success',
             'message' => __('The final heat has been cleaned.'),
-        ]);
-    }
-
-    public function complete(Tourney $tourney)
-    {
-        try {
-            $tourney->complete();
-        } catch (DomainException $e) {
-            return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
-                'type' => 'error',
-                'message' => $e->getMessage(),
-            ]);
-        }
-
-        return redirect()->route('cabinet.tourneys.handle.index', $tourney)->with('flash', [
-            'type' => 'success',
-            'message' => $tourney->isCancelled() ? __('Tourney has been cancelled.') : __('Tourney has been completed.'),
         ]);
     }
 }

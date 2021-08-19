@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Racer\Tourney;
 
+use App\Http\Livewire\TourneyHandle\Complete;
 use App\Models\Tourney\SeasonRacer;
 use App\Models\Tourney\Tourney;
 use App\Models\Tourney\TourneyRacer;
@@ -9,6 +10,7 @@ use App\Models\Trophy;
 use App\Models\User;
 use App\Settings\SeasonSettings;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class CompleteTest extends TestCase
@@ -16,23 +18,22 @@ class CompleteTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function supervisor_can_complete_tourney_which_in_final_status()
+    function racer_can_complete_tourney_which_in_final_status()
     {
-        /** @var User $supervisor */
-        $supervisor = User::factory()->racer()->create([
-            'username' => 'supervisor',
-        ]);
+        /** @var User $racer */
+        $racer = User::factory()->racer()->create();
 
-        $this->signIn($supervisor);
+        $this->signIn($racer);
 
         /** @var Tourney $tourney */
         $tourney = Tourney::factory()->create([
-            'supervisor_id' => $supervisor->id,
-            'supervisor_username' => $supervisor->username,
+            'supervisor_id' => $racer->id,
             'status' => Tourney::STATUS_FINAL,
         ]);
 
-        $this->patch("/cabinet/tourneys/handle/{$tourney->id}/complete")
+        Livewire::test(Complete::class)
+            ->set('tourney', $tourney)
+            ->call('handle')
             ->assertSessionHas('flash', [
                 'type' => 'success',
                 'message' => 'Tourney has been completed.',
@@ -51,7 +52,9 @@ class CompleteTest extends TestCase
 
         $this->signIn($supervisor);
 
-        $this->patch("/cabinet/tourneys/handle/{$tourney->id}/complete");
+        Livewire::test(Complete::class)
+            ->set('tourney', $tourney)
+            ->call('handle');
 
         $this->assertEquals(10, TourneyRacer::firstWhere('pts', 24)->user->site_points);
         $this->assertEquals(9, TourneyRacer::firstWhere('pts', 20)->user->site_points);
@@ -71,7 +74,9 @@ class CompleteTest extends TestCase
 
         $this->signIn($supervisor);
 
-        $this->patch("/cabinet/tourneys/handle/{$tourney->id}/complete");
+        Livewire::test(Complete::class)
+            ->set('tourney', $tourney)
+            ->call('handle');
 
         $this->assertEquals(1, TourneyRacer::firstWhere('pts', 24)->user->tourneys_finished_count);
         $this->assertEquals(1, TourneyRacer::firstWhere('pts', 20)->user->tourneys_finished_count);
@@ -104,7 +109,9 @@ class CompleteTest extends TestCase
 
         $this->signIn($supervisor);
 
-        $this->patch("/cabinet/tourneys/handle/{$tourney->id}/complete");
+        Livewire::test(Complete::class)
+            ->set('tourney', $tourney)
+            ->call('handle');
 
         $this->assertDatabaseCount('trophies', 3);
 
@@ -127,7 +134,9 @@ class CompleteTest extends TestCase
 
         $this->signIn($supervisor);
 
-        $this->patch("/cabinet/tourneys/handle/{$tourney->id}/complete");
+        Livewire::test(Complete::class)
+            ->set('tourney', $tourney)
+            ->call('handle');
 
         $place1 = TourneyRacer::where(['pts' => 24, 'tourney_id' => $tourney->id])->first();
         $place2 = TourneyRacer::where(['pts' => 20, 'tourney_id' => $tourney->id])->first();
@@ -148,7 +157,6 @@ class CompleteTest extends TestCase
         /** @var Tourney $tourney */
         $tourney = Tourney::factory()->circuit()->create([
             'supervisor_id' => $supervisor->id,
-            'supervisor_username' => $supervisor->username,
             'status' => Tourney::STATUS_FINAL,
         ]);
 
