@@ -5,13 +5,22 @@
         <div class="bg-white px-4 py-3">
             @include('frontend.user.cabinet.handle-tourney._header')
 
-            {{-- Operations--}}
-            <div class="border-t border-b border-blue-200 flex flex-col space-y-3 lg:flex-row lg:space-y-0 lg:items-center lg:space-x-2 py-3 mt-4">
+            {{-- Actions --}}
+            <div
+                class="border-t border-b border-blue-200 flex flex-col space-y-3 lg:flex-row lg:space-y-0 lg:items-center lg:space-x-2 py-3 mt-4">
                 <p class="inline">{{ __('Handling') }}:</p>
-                @livewire('tourney-handle.draw', ['tourney' => $tourney])
-                @livewire('tourney-handle.start', ['tourney' => $tourney])
-                @livewire('tourney-handle.announce-final', ['tourney' => $tourney])
-                @livewire('tourney-handle.complete', ['tourney' => $tourney])
+                @if($tourney->isHandleable())
+                    @livewire('tourney-handle.draw', ['tourney' => $tourney])
+                    @if($tourney->isCancellable())
+                        @livewire('tourney-handle.cancel', ['tourney' => $tourney])
+                    @else
+                        @livewire('tourney-handle.start', ['tourney' => $tourney])
+                        @livewire('tourney-handle.announce-final', ['tourney' => $tourney])
+                        @livewire('tourney-handle.complete', ['tourney' => $tourney])
+                    @endif
+                @else
+                    <p class="inline text-yellow-500">{{ __('Actions on this tourney are not possible.') }}</p>
+                @endif
             </div>
 
             <div class="mt-3 md:mt-6">
@@ -32,7 +41,8 @@
                     <div class="mt-6 border-t border-black">
                         @for($round = 1; $round <= 5; $round++)
                             <div class="border rounded-md p-4 my-8">
-                                <x-tourneys.round :round="$round" :heats="$tourney->heats()->where('round', $round)->orderBy('heat_no')->get()"/>
+                                <x-tourneys.round :round="$round"
+                                                  :heats="$tourney->heats()->where('round', $round)->orderBy('heat_no')->get()"/>
                             </div>
                         @endfor
                     </div>

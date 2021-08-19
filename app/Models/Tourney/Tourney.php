@@ -120,9 +120,31 @@ class Tourney extends Model
         return $this->status === self::STATUS_CANCELLED;
     }
 
+    public function isCancellable(): bool
+    {
+        return $this->racers()->count() < 2 && now() > $this->started_at && $this->isScheduled();
+    }
+
     public function isEditable(): bool
     {
         return $this->isScheduled() || $this->isCancelled();
+    }
+
+    public function isHandleable(): bool
+    {
+        return !($this->isCompleted() || $this->isCancelled()) && now() > $this->started_at;
+    }
+
+    public function isSigningUp(): bool
+    {
+        $offset = $this->started_at->diffInMinutes(now(), false);
+
+        return ($offset < 0) && (($offset + $this->signup_time) >= 0);
+    }
+
+    public function isFeatured(): bool
+    {
+        return $this->isSigningUp() || $this->status === self::STATUS_DRAW || $this->status === self::STATUS_ACTIVE || $this->status === self::STATUS_FINAL;
     }
 
     public function status()
@@ -149,23 +171,6 @@ class Tourney extends Model
             default:
                 return 'unknown type';
         }
-    }
-
-    public function isSigningUp(): bool
-    {
-        $offset = $this->started_at->diffInMinutes(now(), false);
-
-        return ($offset < 0) && (($offset + $this->signup_time) >= 0);
-    }
-
-    public function isFeatured(): bool
-    {
-        return $this->isSigningUp() || $this->status === self::STATUS_DRAW || $this->status === self::STATUS_ACTIVE || $this->status === self::STATUS_FINAL;
-    }
-
-    public function isCancellable(): bool
-    {
-        return $this->racers()->count() < 2 && now() > $this->started_at && $this->isScheduled();
     }
 
     public function trackName()

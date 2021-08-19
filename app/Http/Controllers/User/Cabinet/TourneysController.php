@@ -169,7 +169,7 @@ class TourneysController extends Controller
 
         $tourney->delete();
 
-        return redirect()->back()->with('flash', [
+        return redirect()->route('cabinet.tourneys.index')->with('flash', [
             'type' => 'success',
             'message' => __('Tourney has been deleted.'),
         ]);
