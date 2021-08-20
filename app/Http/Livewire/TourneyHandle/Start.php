@@ -31,6 +31,9 @@ class Start extends Component
 
     public function render()
     {
-        return view('livewire.tourney-handle.start');
+        return view('livewire.tourney-handle.action', [
+            'buttonCaption' => __('Approve the draw and start the tourney'),
+            'confirmationMessage' => __('Now the heats will be available for viewing on the tourney page. Continue?'),
+        ]);
     }
 }

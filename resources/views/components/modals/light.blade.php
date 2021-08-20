@@ -8,7 +8,7 @@
     <div class="fixed inset-0 bg-gray-900 opacity-60"></div>
 
     <div
-        class="bg-gray-50 max-w-md h-56 mt-12 mx-auto rounded-md border border-gray-400 fixed inset-0"
+        class="bg-gray-50 max-w-md h-60 mt-12 mx-auto rounded-md border border-gray-400 fixed inset-0"
         @click.away="show = false"
         x-show.transition="show"
     >

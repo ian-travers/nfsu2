@@ -31,6 +31,9 @@ class Cancel extends Component
 
     public function render()
     {
-        return view('livewire.tourney-handle.cancel');
+        return view('livewire.tourney-handle.action', [
+            'buttonCaption' => __('Cancel the tourney'),
+            'confirmationMessage' => __('Now the tourney will be cancelled. Continue?'),
+        ]);
     }
 }

@@ -17,7 +17,7 @@ class Draw extends Component
 
             session()->flash('flash', [
                 'type' => 'success',
-                'message' => __('Random draw has been done.'),
+                'message' => __("Random draw has been done. If something doesn't suit you, you can do it again."),
             ]);
         } catch (DomainException $e) {
             session()->flash('flash', [
@@ -31,6 +31,9 @@ class Draw extends Component
 
     public function render()
     {
-        return view('livewire.tourney-handle.draw');
+        return view('livewire.tourney-handle.action', [
+            'buttonCaption' => __('Random draw'),
+            'confirmationMessage' => __('Now the heats for the tourney will be created and the drawing for the racers will be held. Continue?'),
+        ]);
     }
 }

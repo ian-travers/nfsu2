@@ -200,7 +200,7 @@ class Tourney extends Model
         throw_unless($this->supervisor_id == auth()->id(), new DomainException(__("Unable to draw someone's else tourney.")));
         throw_if($this->isCancelled(), new DomainException(__("Tourney is already cancelled.")));
         throw_if(now() <= $this->started_at, new DomainException(__('Signup period is not over.')));
-        throw_if($racersCount < 2, new DomainException(__('Too few racers. You should complete the tourney now. It will become CANCELLED.')));
+        throw_if($racersCount < 2, new DomainException(__('Too few racers. You should cancel the tourney now.')));
         throw_unless($this->isScheduled() || $this->isDraw(), new DomainException(__('The start of the tourney has already been announced. No new draw possible.')));
 
         $heatsPerRound = (int)ceil($racersCount / 4);
