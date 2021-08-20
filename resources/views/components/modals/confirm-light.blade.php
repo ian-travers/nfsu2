@@ -8,13 +8,13 @@
     <div class="fixed inset-0 bg-gray-900 opacity-60"></div>
 
     <div
-        class="bg-nfsu-color bg-opacity-75 max-w-md h-44 m-auto rounded-md border border-gray-400 border-opacity-50 fixed inset-0"
+        class="bg-gray-50 max-w-md h-60 mt-12 mx-auto rounded-md border border-gray-400 fixed inset-0"
         @click.away="show = false"
         x-show.transition="show"
     >
         <div class="flex flex-col h-full justify-between">
             <header class="flex justify-between items-center px-6 py-4">
-                <p class="text-2xl">{{ $title }}</p>
+                <p class="text-2xl">{{ __('Confirmation') }}</p>
                 <div
                     class="cursor-pointer z-50"
                     @click="show = false"
@@ -30,7 +30,8 @@
             </main>
             <footer
                 class="flex justify-end border-t border-gray-400 border-opacity-50 space-x-2 rounded-b-md px-6 py-4">
-                {{ $footer }}
+                <x-form.secondary-button wire:click="$set('showDialog', false)">{{ __('Cancel') }}</x-form.secondary-button>
+                <x-form.primary-button wire:click="handle">{{ __('Continue') }}</x-form.primary-button>
             </footer>
         </div>
     </div>
