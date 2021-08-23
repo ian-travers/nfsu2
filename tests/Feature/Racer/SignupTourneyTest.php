@@ -2,9 +2,11 @@
 
 namespace Tests\Feature\Racer;
 
+use App\Http\Livewire\Tourney\Signup;
 use App\Models\Tourney\Tourney;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class SignupTourneyTest extends TestCase
@@ -14,8 +16,15 @@ class SignupTourneyTest extends TestCase
     /** @test */
     function guest_cannot_signup()
     {
-        $this->post("/tourneys/1/signup")
-            ->assertRedirect('/login');
+        Livewire::test(Signup::class)
+            ->set('tourney', 1)
+            ->call('handle')
+            ->assertSessionHas('flash', [
+                'type' => 'warning',
+                'message' => 'You must log in the site.'
+            ]);
+
+        $this->assertDatabaseCount('tourney_racers', 0);
     }
 
     /** @test */
@@ -32,7 +41,13 @@ class SignupTourneyTest extends TestCase
 
         $this->signIn($user);
 
-        $this->post("/tourneys/{$tourney->id}/signup");
+        Livewire::test(Signup::class)
+            ->set('tourney', $tourney)
+            ->call('handle')
+            ->assertSessionHas('flash', [
+                'type' => 'error',
+                'message' => 'You have no right to sign up the tourney. You must pass the racer test first.'
+            ]);
 
         $this->assertDatabaseCount('tourney_racers', 0);
     }
@@ -51,7 +66,13 @@ class SignupTourneyTest extends TestCase
 
         $this->signIn($racer);
 
-        $this->post("/tourneys/{$tourney->id}/signup");
+        Livewire::test(Signup::class)
+            ->set('tourney', $tourney)
+            ->call('handle')
+            ->assertSessionHas('flash', [
+                'type' => 'success',
+                'message' => 'You have been signed up the tourney.'
+            ]);
 
         $this->assertDatabaseCount('tourney_racers', 1);
     }
@@ -70,11 +91,15 @@ class SignupTourneyTest extends TestCase
 
         $this->signIn($racer);
 
-        $this->post("/tourneys/{$tourney->id}/signup");
+        Livewire::test(Signup::class)
+            ->set('tourney', $tourney)
+            ->call('handle');
 
         $this->assertDatabaseCount('tourney_racers', 1);
 
-        $this->post("/tourneys/{$tourney->id}/signup")
+        Livewire::test(Signup::class)
+            ->set('tourney', $tourney)
+            ->call('handle')
             ->assertSessionHas('flash', [
                 'type' => 'warning',
                 'message' => 'You may sign up only once.'

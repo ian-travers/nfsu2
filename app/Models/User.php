@@ -243,6 +243,8 @@ class User extends Authenticatable
 
     public function signupTourney(Tourney $tourney)
     {
+        throw_unless($this->isRacer(), new DomainException(__('You have no right to sign up the tourney. You must pass the racer test first.')));
+
         TourneyRacer::create([
             'tourney_id' => $tourney->id,
             'user_id' => $this->id,
@@ -252,6 +254,8 @@ class User extends Authenticatable
 
     public function withdrawTourney(Tourney $tourney)
     {
+        throw_unless($this->isRacer(), new DomainException(__('You have no right to withdraw yourself from the tourney. You must pass the racer test first.')));
+
         $tourney->racers()->where('user_id', $this->id)->delete();
     }
 

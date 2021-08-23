@@ -1,9 +1,7 @@
 <div>
-    <p class="my-6">
-        <x-form.primary-button wire:click="$set('showDialog', true)">{{ $buttonCaption }}</x-form.primary-button>
-    </p>
+    <x-form.primary-button wire:click="$set('showDialog', true)">{{ $buttonCaption }}</x-form.primary-button>
 
-    <x-modals.confirm-light wire:model.defer="showDialog">
+    <x-modals.confirm wire:model.defer="showDialog">
         {{ $confirmationMessage }}
-    </x-modals.confirm-light>
+    </x-modals.confirm>
 </div>

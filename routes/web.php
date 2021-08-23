@@ -37,8 +37,6 @@ Route::group(['middleware' => 'language'], function () {
     ], function () {
         Route::get('', [TourneysController::class, 'index'])->name('.index');
         Route::get('{tourney}', [TourneysController::class, 'show'])->name('.show');
-        Route::post('{tourney}/signup', [TourneysController::class, 'signup'])->middleware('auth')->name('.signup');
-        Route::post('{tourney}/withdraw', [TourneysController::class, 'withdraw'])->middleware('auth')->name('.withdraw');
     });
 
     Route::group([

@@ -36,10 +36,7 @@
             <div class="flex flex-col items-end">
                 <div>
                     @if($tourney->isSigningUp())
-                        <form action="{{ route('tourneys.signup', $tourney) }}" method="post">
-                            @csrf
-                            <x-form.success-button type="submit">{{ __('Sign Up') }}</x-form.success-button>
-                        </form>
+                        @livewire('tourney.signup', ['tourney' => $tourney])
                     @endif
                 </div>
                 <div class="mt-4 self-center">
@@ -69,15 +66,7 @@
                         {{ __('you signed up.') }}
                     </p>
                     @if($tourney->isScheduled())
-                        <form action="{{ route('tourneys.withdraw', $tourney) }}" method="post">
-                            @csrf
-                            <x-form.warning-button
-                                type="submit"
-                                onclick="return confirm()"
-                            >
-                                {{ __('Withdraw') }}
-                            </x-form.warning-button>
-                        </form>
+                        @livewire('tourney.withdraw', ['tourney' => $tourney])
                     @endif
                 </div>
             </div>

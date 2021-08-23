@@ -2,9 +2,12 @@
 
 namespace Tests\Feature\Racer;
 
+use App\Http\Livewire\Tourney\Signup;
+use App\Http\Livewire\Tourney\Withdraw;
 use App\Models\Tourney\Tourney;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class WithdrawTourneyTest extends TestCase
@@ -14,25 +17,13 @@ class WithdrawTourneyTest extends TestCase
     /** @test */
     function guest_cannot_withdraw()
     {
-        $this->post("/tourneys/1/withdraw")
-            ->assertRedirect('/login');
-    }
-
-    /** @test */
-    function the_user_cannot_withdraw()
-    {
-        /** @var Tourney $tourney */
-        $tourney = Tourney::factory()->create([
-            'started_at' => now()->addMinutes(15),
-            'signup_time' => 30,
-        ]);
-
-        /** @var User $user */
-        $user = User::factory()->create();
-
-        $this->signIn($user);
-
-        $this->post("/tourneys/{$tourney->id}/withdraw");
+        Livewire::test(Withdraw::class)
+            ->set('tourney', 1)
+            ->call('handle')
+            ->assertSessionHas('flash', [
+                'type' => 'warning',
+                'message' => 'You must log in the site.'
+            ]);
 
         $this->assertDatabaseCount('tourney_racers', 0);
     }
@@ -51,11 +42,19 @@ class WithdrawTourneyTest extends TestCase
 
         $this->signIn($racer);
 
-        $this->post("/tourneys/{$tourney->id}/signup");
+        Livewire::test(Signup::class)
+            ->set('tourney', $tourney)
+            ->call('handle');
 
         $this->assertDatabaseCount('tourney_racers', 1);
 
-        $this->post("/tourneys/{$tourney->id}/withdraw");
+        Livewire::test(Withdraw::class)
+            ->set('tourney', $tourney)
+            ->call('handle')
+            ->assertSessionHas('flash', [
+                'type' => 'success',
+                'message' => 'You have been withdrawn from the tourney.'
+            ]);
 
         $this->assertDatabaseCount('tourney_racers', 0);
 
@@ -75,7 +74,9 @@ class WithdrawTourneyTest extends TestCase
 
         $this->signIn($racer);
 
-        $this->post("/tourneys/{$tourney->id}/withdraw")
+        Livewire::test(Withdraw::class)
+            ->set('tourney', $tourney)
+            ->call('handle')
             ->assertSessionHas('flash', [
                 'type' => 'warning',
                 'message' => 'You have not signed for the tourney.'

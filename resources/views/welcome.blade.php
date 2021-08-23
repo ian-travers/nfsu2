@@ -11,7 +11,5 @@
                 You are logged in now
             </div>
         @endauth
-
-        @livewire('confirm-dialog')
     </div>
 </x-layouts.front>
