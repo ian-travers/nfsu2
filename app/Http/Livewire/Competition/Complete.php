@@ -31,7 +31,7 @@ class Complete extends Component
 
     public function render()
     {
-        return view('livewire.tourney-handle.action', [
+        return view('livewire.confirm-action', [
             'buttonCaption' => __('Complete'),
             'confirmationMessage' => __('Now the competition will be completed. Continue?'),
         ]);

@@ -22,8 +22,8 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                     @foreach($competitions as $competition)
                         <tr>
-                            <td class="px-6 py-4">
-                                <p class="text-md">
+                            <td class="px-6 py-1">
+                                <p class="text-sm">
                                     {{ \App\Models\NFSUServer\SpecificGameData::getTrackName($competition->track1_id) }}
                                 </p>
                                 @if($competition->track2_id)

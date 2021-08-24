@@ -2,6 +2,8 @@
 
 namespace App\Models\Competition;
 
+use App\Events\CompetitionCompleted;
+use DomainException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -55,11 +57,15 @@ class Competition extends Model
 
     public function isCompletable(): bool
     {
-        return $this->ended_at < now();
+        return $this->ended_at < now() && !$this->isCompleted();
     }
 
     public function complete(): void
     {
+        throw_if($this->isCompleted(), new DomainException(__('Competition is already completed')));
+
+        event(new CompetitionCompleted($this));
+
         $this->update(['is_completed' => true]);
     }
 }

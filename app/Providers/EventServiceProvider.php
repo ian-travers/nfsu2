@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\CompetitionCompleted;
 use App\Events\TourneyCompleted;
 use App\Listeners\RewardTourneyWinners;
 use App\Listeners\UpdateSeasonPlayers;
@@ -26,6 +27,10 @@ class EventServiceProvider extends ServiceProvider
             UpdateUsersTourneyCountersAndSitePoints::class,
             RewardTourneyWinners::class,
             UpdateSeasonPlayers::class,
+        ],
+
+        CompetitionCompleted::class => [
+
         ],
     ];
 

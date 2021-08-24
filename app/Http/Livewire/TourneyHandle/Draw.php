@@ -31,7 +31,7 @@ class Draw extends Component
 
     public function render()
     {
-        return view('livewire.tourney-handle.action', [
+        return view('livewire.confirm-action', [
             'buttonCaption' => __('Random draw'),
             'confirmationMessage' => __('Now the heats for the tourney will be created and the drawing for the racers will be held. Continue?'),
         ]);

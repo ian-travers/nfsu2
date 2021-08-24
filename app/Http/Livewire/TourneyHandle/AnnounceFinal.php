@@ -31,7 +31,7 @@ class AnnounceFinal extends Component
 
     public function render()
     {
-        return view('livewire.tourney-handle.action', [
+        return view('livewire.confirm-action', [
             'buttonCaption' => __('Announce the final round'),
             'confirmationMessage' => __('Now the final heat racers will be available for viewing on the tourney page. Continue?'),
         ]);

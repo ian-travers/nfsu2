@@ -31,7 +31,7 @@ class Complete extends Component
 
     public function render()
     {
-        return view('livewire.tourney-handle.action', [
+        return view('livewire.confirm-action', [
             'buttonCaption' => __('Complete the tourney'),
             'confirmationMessage' => __('Now the tourney will be completed. Check carefully all the results of the races. The completing of the tourney is done once and cannot be cancelled. Continue?'),
         ]);
