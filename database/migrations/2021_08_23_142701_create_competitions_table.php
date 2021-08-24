@@ -17,6 +17,7 @@ class CreateCompetitionsTable extends Migration
             $table->string('track4_id')->nullable();
             $table->timestamp('started_at');
             $table->timestamp('ended_at');
+            $table->unsignedInteger('season_index');
         });
     }
 

@@ -3,6 +3,7 @@
 namespace Database\Factories\Competition;
 
 use App\Models\Competition\Competition;
+use App\Settings\SeasonSettings;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
 
@@ -17,6 +18,7 @@ class CompetitionFactory extends Factory
             'started_at' => now()->today()->subDay(),
             'ended_at' => now()->addDays(1),
             'is_completed' => false,
+            'season_index' => app(SeasonSettings::class)->index,
         ];
     }
 }

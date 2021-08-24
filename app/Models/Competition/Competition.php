@@ -3,6 +3,7 @@
 namespace App\Models\Competition;
 
 use App\Events\CompetitionCompleted;
+use App\Settings\SeasonSettings;
 use DomainException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -62,7 +63,8 @@ class Competition extends Model
 
     public function complete(): void
     {
-        throw_if($this->isCompleted(), new DomainException(__('Competition is already completed')));
+        throw_if(app(SeasonSettings::class)->suspend, new DomainException(__('Season is suspended.')));
+        throw_if($this->isCompleted(), new DomainException(__('Competition is already completed.')));
 
         event(new CompetitionCompleted($this));
 

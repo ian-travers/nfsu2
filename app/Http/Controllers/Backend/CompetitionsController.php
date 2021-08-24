@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Competition\Competition;
 use App\Models\NFSUServer\SpecificGameData;
+use App\Settings\SeasonSettings;
 
 class CompetitionsController extends Controller
 {
@@ -18,6 +19,13 @@ class CompetitionsController extends Controller
 
     public function create()
     {
+        if ($this->checkSuspending()) {
+            return redirect()->route('adm.competitions.index')->with('flash', [
+                'type' => 'warning',
+                'message' => __('Season is suspended.'),
+            ]);
+        }
+
         return view('backend.competitions.create', [
             'title' => __('Create new competition'),
             'competition' => new Competition([
@@ -33,7 +41,9 @@ class CompetitionsController extends Controller
 
     public function store()
     {
-        Competition::create($this->validateForm());
+        Competition::create(array_merge([
+            'season_index' => app(SeasonSettings::class)->index,
+        ], $this->validateForm()));
 
         return redirect()->route('adm.competitions.index')->with('flash', [
             'type' => 'success',
@@ -43,6 +53,13 @@ class CompetitionsController extends Controller
 
     public function edit(Competition $competition)
     {
+        if ($this->checkSuspending()) {
+            return redirect()->route('adm.competitions.index')->with('flash', [
+                'type' => 'warning',
+                'message' => __('Season is suspended.'),
+            ]);
+        }
+
         return view('backend.competitions.edit', [
             'title' => __('Edit competition'),
             'competition' => $competition,
@@ -84,5 +101,10 @@ class CompetitionsController extends Controller
             'started_at' => 'required|date',
             'ended_at' => 'required|date',
         ]);
+    }
+
+    protected function checkSuspending(): bool
+    {
+        return app(SeasonSettings::class)->suspend;
     }
 }
