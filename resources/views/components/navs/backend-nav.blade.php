@@ -9,6 +9,12 @@
         {{ __('Application settings') }}
     </x-navs.vertical.nav-item>
     <x-navs.vertical.nav-item
+        href="{{ route('adm.competitions.index') }}"
+        :active="$controller == 'CompetitionsController'"
+    >
+        {{ __('Competitions') }}
+    </x-navs.vertical.nav-item>
+    <x-navs.vertical.nav-item
         href="{{ route('adm.users.index') }}"
         :active="$controller == 'UsersController'"
     >

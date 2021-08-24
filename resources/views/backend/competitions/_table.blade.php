@@ -7,13 +7,14 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                     <tr>
-                        <x-table.th>{{ __('Track #1') }}</x-table.th>
-                        <x-table.th>{{ __('Track #2') }}</x-table.th>
-                        <x-table.th>{{ __('Track #3') }}</x-table.th>
-                        <x-table.th>{{ __('Track #4') }}</x-table.th>
-                        <x-table.th>{{ __('Started at') }}</x-table.th>
-                        <x-table.th>{{ __('Ended at') }}</x-table.th>
-                        <th scope="col" class="relative px-6 py-3">
+                        <x-table.th>{{ __('Competition tracks') }}</x-table.th>
+                        <x-table.th class="text-center">{{ __('Started at') }}</x-table.th>
+                        <x-table.th class="text-center">{{ __('Ended at') }}</x-table.th>
+                        <x-table.th class="text-center w-10">{{ __('Active') }}</x-table.th>
+                        <th scope="col" class="w-12 px-6 py-3">
+                            <span class="sr-only">Manage</span>
+                        </th>
+                        <th scope="col" class="w-12 px-6 py-3">
                             <span class="sr-only">Actions</span>
                         </th>
                     </tr>
@@ -22,22 +23,45 @@
                     @foreach($competitions as $competition)
                         <tr>
                             <td class="px-6 py-4">
-                                {{ \App\Models\NFSUServer\SpecificGameData::getTrackName($competition->track1_id) }}
-                            </td>
-                            <td class="px-6 py-4 {{ $competition->track2_id ? '' : 'text-gray-400' }}">
-                                {{ $competition->track2_id ? \App\Models\NFSUServer\SpecificGameData::getTrackName($competition->track2_id) : 'No' }}
-                            </td>
-                            <td class="px-6 py-4 {{ $competition->track3_id ? '' : 'text-gray-400' }}">
-                                {{ $competition->track3_id ? \App\Models\NFSUServer\SpecificGameData::getTrackName($competition->track3_id) : 'No' }}
-                            </td>
-                            <td class="px-6 py-4 {{ $competition->track4_id ? '' : 'text-gray-400' }}">
-                                {{ $competition->track4_id ? \App\Models\NFSUServer\SpecificGameData::getTrackName($competition->track4_id) : 'No' }}
+                                <p class="text-md">
+                                    {{ \App\Models\NFSUServer\SpecificGameData::getTrackName($competition->track1_id) }}
+                                </p>
+                                @if($competition->track2_id)
+                                    <p class="text-sm">
+                                        {{ \App\Models\NFSUServer\SpecificGameData::getTrackName($competition->track2_id) }}
+                                    </p>
+                                @endif
+                                @if($competition->track3_id)
+                                    <p class="text-sm">
+                                        {{ \App\Models\NFSUServer\SpecificGameData::getTrackName($competition->track3_id) }}
+                                    </p>
+                                @endif
+                                @if($competition->track4_id)
+                                    <p class="text-sm">
+                                        {{ \App\Models\NFSUServer\SpecificGameData::getTrackName($competition->track4_id) }}
+                                    </p>
+                                @endif
+
                             </td>
                             <td class="text-center px-6 py-4">
                                 {{ $competition->started_at->format('Y-m-d') }}
                             </td>
                             <td class="text-center px-6 py-4">
                                 {{ $competition->ended_at->format('Y-m-d') }}
+                            </td>
+                            <td class="text-center">
+                                @unless($competition->isCompleted())
+                                    @if($competition->isStarted())
+                                        <svg class="mx-auto h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    @endif
+                                @endunless
+                            </td>
+                            <td>
+                                @if($competition->isCompletable())
+                                    @livewire('competition.complete', ['competition' => $competition])
+                                @endif
                             </td>
                             <td class="whitespace-nowrap text-right text-sm font-medium px-6">
                                 <a

@@ -42,4 +42,24 @@ class Competition extends Model
     protected $casts = [
         'is_completed' => 'bool',
     ];
+
+    public function isStarted(): bool
+    {
+        return $this->started_at < now();
+    }
+
+    public function isCompleted(): bool
+    {
+        return (bool)$this->is_completed;
+    }
+
+    public function isCompletable(): bool
+    {
+        return $this->ended_at < now();
+    }
+
+    public function complete(): void
+    {
+        $this->update(['is_completed' => true]);
+    }
 }

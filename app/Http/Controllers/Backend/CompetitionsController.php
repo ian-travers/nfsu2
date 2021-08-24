@@ -18,12 +18,10 @@ class CompetitionsController extends Controller
 
     public function create()
     {
-        session()->put('url.intended', url()->previous() == url()->current() ? route('cabinet.tourneys.index') : url()->previous());
-
         return view('backend.competitions.create', [
             'title' => __('Create new competition'),
             'competition' => new Competition([
-                'started_at' => now(),
+                'started_at' => now()->today(),
                 'ended_at' => now()->addDays(7)
             ]),
             'circuits' => SpecificGameData::allCircuits(),
@@ -37,7 +35,7 @@ class CompetitionsController extends Controller
     {
         Competition::create($this->validateForm());
 
-        return back()->with('flash', [
+        return redirect()->route('adm.competitions.index')->with('flash', [
             'type' => 'success',
             'message' => __('Competition has been created.'),
         ]);
@@ -59,7 +57,7 @@ class CompetitionsController extends Controller
     {
         $competition->update($this->validateForm());
 
-        return back()->with('flash', [
+        return redirect()->route('adm.competitions.index')->with('flash', [
             'type' => 'success',
             'message' => __('Competition has been updated.'),
         ]);
