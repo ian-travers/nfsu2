@@ -25,7 +25,7 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                     @foreach($users as $user)
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
                                         @livewire('user.avatar', ['user' => $user])
@@ -40,19 +40,19 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td class="px-6 whitespace-nowrap text-sm text-gray-500">
                                 {{ $user->country }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 whitespace-nowrap">
                                 <span class="fflag ff-lg fflag-{{ $user->country }}"></span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 whitespace-nowrap">
                                 @include('components.user-status-badge', ['active' => !$user->trashed()])
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {{ $user->getRole() }}
                             </td>
-                            <td class="px-6 py-4 text-gray-500">
+                            <td class="px-6 text-gray-500">
                                 <span class="flex justify-center">
                                     @if($user->isTeamCaptain())
                                         <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -64,7 +64,7 @@
                                 </span>
 
                             </td>
-                            <td class="px-6 py-4 text-gray-500">
+                            <td class="px-6 text-gray-500">
                                 <span class="flex justify-center">
                                 @if($user->isAdmin())
                                         <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -75,7 +75,7 @@
                                     @endif
                                 </span>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 ">
                                 <x-form.secondary-button
                                     type="button"
                                     data-target="changePassword"
@@ -86,7 +86,7 @@
                                     {{ __('Change password') }}...
                                 </x-form.secondary-button>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <td class="px-6 whitespace-nowrap text-right text-sm font-medium">
                                 @if($user->trashed())
                                     <form action="{{ route('adm.users.restore', $user->id) }}" method="post">
                                         @csrf

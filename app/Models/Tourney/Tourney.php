@@ -45,7 +45,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|Tourney whereId($value)
  * @method static Builder|Tourney whereName($value)
  * @method static Builder|Tourney whereRoom($value)
- * @method static Builder|Tourney whereSeasonId($value)
+ * @method static Builder|Tourney whereSeasonIndex($value)
  * @method static Builder|Tourney whereSignupTime($value)
  * @method static Builder|Tourney whereStartedAt($value)
  * @method static Builder|Tourney whereStatus($value)

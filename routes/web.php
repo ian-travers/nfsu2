@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\Backend\CompetitionsController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\Quiz\AnswersController;
 use App\Http\Controllers\Backend\Quiz\QuestionsController;
@@ -216,6 +217,19 @@ Route::group(['middleware' => 'language'], function () {
                 Route::patch('{answer}', [AnswersController::class, 'update'])->name('.update');
                 Route::delete('{answer}', [AnswersController::class, 'remove'])->name('.delete');
             });
+        });
+
+        // Users
+        Route::group([
+            'prefix' => 'competitions',
+            'as' => '.competitions',
+        ], function () {
+            Route::get('', [CompetitionsController::class, 'index'])->name('.index');
+            Route::get('create', [CompetitionsController::class, 'create'])->name('.create');
+            Route::post('', [CompetitionsController::class, 'store'])->name('.store');
+            Route::get('edit/{competition}', [CompetitionsController::class, 'edit'])->name('.edit');
+            Route::patch('{competition}', [CompetitionsController::class, 'update'])->name('.update');
+            Route::delete('{competition}', [CompetitionsController::class, 'remove'])->name('.delete');
         });
     });
 
