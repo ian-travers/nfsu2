@@ -4,7 +4,6 @@ namespace App\Models\Tourney;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -25,7 +24,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read mixed $overall_count
  * @property-read mixed $overall_pts
  * @property-read User $user
- * @method static \Database\Factories\Tourney\SeasonRacerFactory factory(...$parameters)
  * @method static Builder|SeasonRacer newModelQuery()
  * @method static Builder|SeasonRacer newQuery()
  * @method static Builder|SeasonRacer query()
@@ -45,7 +43,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class SeasonRacer extends Model
 {
-    use HasFactory, DetectPlace;
+    use DetectPlace;
 
     public $timestamps = false;
 

@@ -14,7 +14,6 @@ class CreateTest extends TestCase
     /** @test */
     function admin_can_create_a_competition()
     {
-        $this->withoutExceptionHandling();
         $this->signIn(User::factory()->admin()->create());
 
         $this->post('/adm/competitions', [

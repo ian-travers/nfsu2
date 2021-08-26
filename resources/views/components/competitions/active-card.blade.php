@@ -25,7 +25,7 @@
                             <td class="px-4 py-2">{{ $racer['username'] }}</td>
                             <td class="px-4 py-2">{{ $racer['result'] }}</td>
                             <td class="px-4 py-2">{{ $racer['car'] }}</td>
-                            <td class="text-right px-4 py-2">{{ $racer['competition_pts'] }}</td>
+                            <td class="text-right px-4 py-2">{{ $racer['pts'] }}</td>
                         </tr>
                     @endforeach
                     </tbody>

@@ -24,6 +24,9 @@ use Illuminate\Support\Str;
  * @property string|null $track4_id
  * @property \Illuminate\Support\Carbon $started_at
  * @property \Illuminate\Support\Carbon $ended_at
+ * @property int $season_index
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Competition\CompetitionUser[] $users
+ * @property-read int|null $users_count
  * @method static \Database\Factories\Competition\CompetitionFactory factory(...$parameters)
  * @method static Builder|Competition newModelQuery()
  * @method static Builder|Competition newQuery()
@@ -31,6 +34,7 @@ use Illuminate\Support\Str;
  * @method static Builder|Competition whereEndedAt($value)
  * @method static Builder|Competition whereId($value)
  * @method static Builder|Competition whereIsCompleted($value)
+ * @method static Builder|Competition whereSeasonIndex($value)
  * @method static Builder|Competition whereStartedAt($value)
  * @method static Builder|Competition whereTrack1Id($value)
  * @method static Builder|Competition whereTrack2Id($value)
@@ -49,6 +53,11 @@ class Competition extends Model
     protected $casts = [
         'is_completed' => 'bool',
     ];
+
+    public function users()
+    {
+        return $this->hasMany(CompetitionUser::class)->orderByDesc('pts');
+    }
 
     public function isStarted(): bool
     {
@@ -142,7 +151,7 @@ class Competition extends Model
                 'username' => $racer['name'],
                 'car' => $racer['car'],
                 'result' => $racer['resultForHumans'],
-                'competition_pts' => intdiv(203 - log($place, 60) * (80 - $place) - $place * 3, 1),
+                'pts' => intdiv(203 - log($place, 60) * (80 - $place) - $place * 3, $this->tracksCount()),
             ];
 
             $result->push($item);

@@ -5,7 +5,6 @@ namespace Database\Factories\Competition;
 use App\Models\Competition\Competition;
 use App\Settings\SeasonSettings;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Arr;
 
 class CompetitionFactory extends Factory
 {
@@ -14,7 +13,8 @@ class CompetitionFactory extends Factory
     public function definition()
     {
         return [
-            'track1_id' => Arr::random(['10010', '12020', '11020', '13010']),
+            'track1_id' => '10011',
+            'track2_id' => '11020',
             'started_at' => now()->today()->subDay(),
             'ended_at' => now()->addDays(1),
             'is_completed' => false,
