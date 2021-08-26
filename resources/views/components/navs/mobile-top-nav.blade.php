@@ -36,6 +36,7 @@
         class="md:hidden border-t border-gray-600 mt-1"
     >
         <div class="px-2 py-3">
+            <x-navs.mobile-link route="competitions.index">{{ __('Competitions') }}</x-navs.mobile-link>
             <x-navs.mobile-link route="tourneys.index">{{ __('Tourneys') }}</x-navs.mobile-link>
 
             <div class="text-sm font-semibold text-gray-400 tracking-widest uppercase text-center">

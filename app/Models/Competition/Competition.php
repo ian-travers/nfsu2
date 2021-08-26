@@ -3,11 +3,15 @@
 namespace App\Models\Competition;
 
 use App\Events\CompetitionCompleted;
+use App\Models\NFSUServer\BestPerformers;
+use App\Models\NFSUServer\SpecificGameData;
 use App\Settings\SeasonSettings;
 use DomainException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 /**
  * App\Models\Competition\Competition
@@ -69,5 +73,91 @@ class Competition extends Model
         event(new CompetitionCompleted($this));
 
         $this->update(['is_completed' => true]);
+    }
+
+    public function tracksCount(): int
+    {
+        $result = 1;
+
+        if ($this->track2_id) {
+            $result++;
+        }
+
+        if ($this->track3_id) {
+            $result++;
+        }
+
+        if ($this->track4_id) {
+            $result++;
+        }
+
+        return $result;
+    }
+
+    public function ratings(): Collection
+    {
+        $result = collect([]);
+
+        for ($i = 1; $i <= 2; $i++) {
+            $field = "track{$i}_id";
+
+            if (isset($this->$field)) {
+                $trackName = SpecificGameData::getTrackName($this->$field);
+                $rating = $this->getRating($i);
+
+                $result[$trackName] = $rating;
+            }
+        }
+
+        return $result;
+    }
+
+    protected function getRating($index): ?Collection
+    {
+        $field = "track{$index}_id";
+
+        $direction = Str::substr($this->$field, 4, 1) == '0' ? 'forward' : 'reverse';
+
+        $rating = (new BestPerformers(config('nfsu-server.path'), Str::substr($this->$field, 0, 4)))
+            ->rating()
+            ->filter(fn($value) => $value['direction'] == $direction && \App\Models\User::existsByUsername($value['name']))
+            ->values();
+
+        $result = collect();
+
+        $rating->map(function ($racer, $key) use ($result) {
+            $place = $key + 1;
+
+            // Check for equals result and set the same place
+            if ($key >= 1) {
+                $previous = $result->skip($key - 1)->first();
+
+                if ($racer['resultForHumans'] == $previous['result']) {
+                    $place = $previous['place'];
+                }
+            }
+
+            $item = [
+                'place' => $place,
+                'username' => $racer['name'],
+                'car' => $racer['car'],
+                'result' => $racer['resultForHumans'],
+                'competition_pts' => intdiv(203 - log($place, 60) * (80 - $place) - $place * 3, 1),
+            ];
+
+            $result->push($item);
+        });
+
+        return $result;
+    }
+
+    public static function hasActive(): bool
+    {
+        return (bool)self::where('is_completed', false)->count();
+    }
+
+    public static function active(): ?self
+    {
+        return self::where('is_completed', false)->where('season_index', app(SeasonSettings::class)->index)->first();
     }
 }

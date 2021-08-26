@@ -5,6 +5,8 @@
         <a href="{{ route('home') }}">
             <x-logo></x-logo>
         </a>
+        <x-navs.link route="competitions.index">{{ __('Competition') }}</x-navs.link>
+
         <x-navs.link route="tourneys.index">{{ __('Tourneys') }}</x-navs.link>
 
         <x-dropdown>

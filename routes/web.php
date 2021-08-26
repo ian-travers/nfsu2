@@ -32,6 +32,8 @@ Route::group(['middleware' => 'language'], function () {
         return view('welcome');
     })->name('home');
 
+    Route::get('competitions', [\App\Http\Controllers\CompetitionsController::class, 'index'])->name('competitions.index');
+
     Route::group([
         'prefix' => 'tourneys',
         'as' => 'tourneys',

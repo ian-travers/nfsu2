@@ -295,4 +295,9 @@ class User extends Authenticatable
     {
         return $this->racedSeasons()->where('season_index', app(SeasonSettings::class)->index)->first();
     }
+
+    public static function existsByUsername(string $username): bool
+    {
+        return self::where('username', $username)->exists();
+    }
 }
