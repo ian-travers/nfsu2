@@ -12,7 +12,10 @@ class ArchiveParticipants
         foreach ($competition->ratings() as $trackName => $rating) {
             foreach ($rating as $participant) {
                 if ($user = $competition->users()->where('username', $participant['username'])->first()) {
-                    $user->update(['result' => $user->result . " | {$trackName} - {$participant['result']}"]);
+                    $user->update([
+                        'result' => $user->result . " | {$trackName} - {$participant['result']}",
+                        'pts' => $user->pts + $participant['pts'],
+                    ]);
                 } else {
                     $competition->users()->create([
                         'place' => $participant['place'],
