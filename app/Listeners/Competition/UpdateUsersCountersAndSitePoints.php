@@ -8,10 +8,8 @@ class UpdateUsersCountersAndSitePoints
 {
     public function handle($event)
     {
-        $participants = $event->competition->users;
-
-        $participants->map(function ($participant) {
-            if ($user = User::where('username', $participant->username)->first()) {
+        $event->competition->racers->map(function ($racer) {
+            if ($user = User::where('username', $racer->username)->first()) {
                 $user->increment('competitions_count');
                 $user->gainSitePoints(10);
             }

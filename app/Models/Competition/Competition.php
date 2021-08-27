@@ -5,6 +5,8 @@ namespace App\Models\Competition;
 use App\Events\CompetitionCompleted;
 use App\Models\NFSUServer\BestPerformers;
 use App\Models\NFSUServer\SpecificGameData;
+use App\Models\Trophy;
+use App\Models\User;
 use App\Settings\SeasonSettings;
 use DomainException;
 use Illuminate\Database\Eloquent\Builder;
@@ -25,7 +27,7 @@ use Illuminate\Support\Str;
  * @property \Illuminate\Support\Carbon $started_at
  * @property \Illuminate\Support\Carbon $ended_at
  * @property int $season_index
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Competition\CompetitionUser[] $users
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Competition\CompetitionRacer[] $users
  * @property-read int|null $users_count
  * @method static \Database\Factories\Competition\CompetitionFactory factory(...$parameters)
  * @method static Builder|Competition newModelQuery()
@@ -54,9 +56,14 @@ class Competition extends Model
         'is_completed' => 'bool',
     ];
 
-    public function users()
+    public function racers()
     {
-        return $this->hasMany(CompetitionUser::class)->orderByDesc('pts');
+        return $this->hasMany(CompetitionRacer::class)->orderByDesc('pts');
+    }
+
+    public function trophies()
+    {
+        return $this->morphMany(Trophy::class, 'trophiable');
     }
 
     public function isStarted(): bool
@@ -130,7 +137,10 @@ class Competition extends Model
         $rating = (new BestPerformers(config('nfsu-server.path'), Str::substr($this->$field, 0, 4)))
             ->rating()
             ->filter(fn($value) => $value['direction'] == $direction && \App\Models\User::existsByUsername($value['name']))
-            ->values();
+            ->values()
+            ->transform(function ($racer) {
+                return collect($racer)->put('user_id', User::where('username', $racer['name'])->first()->id);
+            });
 
         $result = collect();
 
@@ -148,6 +158,7 @@ class Competition extends Model
 
             $item = [
                 'place' => $place,
+                'user_id' => $racer['user_id'],
                 'username' => $racer['name'],
                 'car' => $racer['car'],
                 'result' => $racer['resultForHumans'],
@@ -169,4 +180,6 @@ class Competition extends Model
     {
         return self::where('is_completed', false)->where('season_index', app(SeasonSettings::class)->index)->first();
     }
+
+
 }

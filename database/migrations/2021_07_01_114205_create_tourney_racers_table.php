@@ -10,9 +10,9 @@ class CreateTourneyRacersTable extends Migration
     {
         Schema::create('tourney_racers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tourney_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->string('racer_username', 16);
-            $table->foreignId('tourney_id')->constrained()->cascadeOnDelete();
             $table->unsignedSmallInteger('pts')->default(0);
             $table->timestamp('signed_at')->useCurrent();
         });
