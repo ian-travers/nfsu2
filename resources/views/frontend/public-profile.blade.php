@@ -56,7 +56,7 @@
                                 <div class="inline-block h-8 w-8 transform transition hover:scale-125">
                                     <a href="{{ route('tourneys.show', $trophy->trophiable) }}"
                                        title="{{ $trophy->htmlTitleAttribute() }}">
-                                        <x-trophy-medal
+                                        <x-tourney-medal
                                             place="{{ $trophy->place }}"
                                             type="{{ $trophy->trophiable->type() }}"
                                             size="8"
