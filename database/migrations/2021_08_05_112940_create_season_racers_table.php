@@ -21,6 +21,8 @@ class CreateSeasonRacersTable extends Migration
             $table->unsignedInteger('drag_pts')->default(0);
             $table->unsignedInteger('drift_count')->default(0);
             $table->unsignedInteger('drift_pts')->default(0);
+            $table->unsignedInteger('competition_count')->default(0);
+            $table->unsignedInteger('competition_pts')->default(0);
 
             $table->unique(['user_id', 'season_index']);
         });

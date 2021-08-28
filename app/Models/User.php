@@ -31,6 +31,7 @@ use InvalidArgumentException;
  * @property int $first_places
  * @property int $second_places
  * @property int $third_places
+ * @property int $competitions_count
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
@@ -54,6 +55,7 @@ use InvalidArgumentException;
  * @method static \Illuminate\Database\Query\Builder|User onlyTrashed()
  * @method static Builder|User query()
  * @method static Builder|User whereAvatar($value)
+ * @method static Builder|User whereCompetitionsCount($value)
  * @method static Builder|User whereCountry($value)
  * @method static Builder|User whereCreatedAt($value)
  * @method static Builder|User whereDeletedAt($value)

@@ -16,7 +16,7 @@ class CreateCompetitionRacersTable extends Migration
             $table->unsignedTinyInteger('place');
             $table->string('car', 50);
             $table->string('result');
-            $table->unsignedTinyInteger('pts');
+            $table->unsignedInteger('pts');
         });
     }
 

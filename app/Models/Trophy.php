@@ -47,5 +47,6 @@ class Trophy extends Model
     public function htmlTitleAttribute(): string
     {
         return $this->trophiable->name . ' ' . $this->trophiable->started_at->format('Y-m-d');
+//        return $this->trophiable->started_at->format('Y-m-d');
     }
 }

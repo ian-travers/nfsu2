@@ -27,8 +27,10 @@ use Illuminate\Support\Str;
  * @property \Illuminate\Support\Carbon $started_at
  * @property \Illuminate\Support\Carbon $ended_at
  * @property int $season_index
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Competition\CompetitionRacer[] $users
- * @property-read int|null $users_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Competition\CompetitionRacer[] $racers
+ * @property-read int|null $racers_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|Trophy[] $trophies
+ * @property-read int|null $trophies_count
  * @method static \Database\Factories\Competition\CompetitionFactory factory(...$parameters)
  * @method static Builder|Competition newModelQuery()
  * @method static Builder|Competition newQuery()
@@ -110,9 +112,61 @@ class Competition extends Model
         return $result;
     }
 
-    public function ratings(): Collection
+    public function standing(): Collection
     {
-        $result = collect([]);
+        $allRacer = collect();
+
+        foreach ($this->ratingsPerTrack() as $trackName => $rating) {
+            foreach ($rating as $racer) {
+                $existing = $allRacer->first(fn($item) => $item['user_id'] == $racer['user_id']);
+
+                if ($existing) {
+                    $existing['result'] .= " | {$trackName} - {$racer['result']}";
+                    $existing['pts'] += $racer['pts'];
+                } else {
+                    $allRacer->add(collect([
+                        'place' => 0,
+                        'user_id' => $racer['user_id'],
+                        'username' => $racer['username'],
+                        'result' => "{$trackName} - {$racer['result']}",
+                        'car' => $racer['car'],
+                        'pts' => $racer['pts'],
+                    ]));
+                }
+            }
+        }
+
+        $result = collect();
+
+        $allRacer->sortByDesc('pts')->values()->map(function ($racer, $key) use ($result) {
+            $place = $key + 1;
+
+            if ($key >= 1) {
+                $previous = $result->skip($key - 1)->first();
+
+                if ($racer['pts'] == $previous['pts']) {
+                    $place = $previous['place'];
+                }
+            }
+
+            $item = [
+                'place' => $place,
+                'user_id' => $racer['user_id'],
+                'username' => $racer['username'],
+                'car' => $racer['car'],
+                'result' => $racer['result'],
+                'pts' => $racer['pts'],
+            ];
+
+            $result->push($item);
+        });
+
+        return $result;
+    }
+
+    public function ratingsPerTrack(): Collection
+    {
+        $result = collect();
 
         for ($i = 1; $i <= 2; $i++) {
             $field = "track{$i}_id";

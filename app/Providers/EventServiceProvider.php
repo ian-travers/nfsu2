@@ -6,6 +6,7 @@ use App\Events\CompetitionCompleted;
 use App\Events\TourneyCompleted;
 use App\Listeners\Competition\ArchiveRacers;
 use App\Listeners\Competition\RewardCompetitionWinners;
+use App\Listeners\Competition\UpdateSeasonStatistics;
 use App\Listeners\Competition\UpdateUsersCountersAndSitePoints;
 use App\Listeners\RewardTourneyWinners;
 use App\Listeners\UpdateSeasonPlayers;
@@ -36,6 +37,7 @@ class EventServiceProvider extends ServiceProvider
             ArchiveRacers::class,
             UpdateUsersCountersAndSitePoints::class,
             RewardCompetitionWinners::class,
+            UpdateSeasonStatistics::class,
         ],
     ];
 

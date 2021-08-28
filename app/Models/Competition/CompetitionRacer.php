@@ -12,12 +12,14 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property int $competition_id
- * @property int $place
+ * @property int|null $user_id
  * @property string $username
+ * @property int $place
  * @property string $car
  * @property string $result
  * @property int $pts
  * @property-read \App\Models\Competition\Competition $competition
+ * @property-read User|null $user
  * @method static \Database\Factories\Competition\CompetitionRacerFactory factory(...$parameters)
  * @method static Builder|CompetitionRacer newModelQuery()
  * @method static Builder|CompetitionRacer newQuery()
@@ -28,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|CompetitionRacer wherePlace($value)
  * @method static Builder|CompetitionRacer wherePts($value)
  * @method static Builder|CompetitionRacer whereResult($value)
+ * @method static Builder|CompetitionRacer whereUserId($value)
  * @method static Builder|CompetitionRacer whereUsername($value)
  * @mixin \Eloquent
  */

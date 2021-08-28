@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\Tourney\TourneyRacer
  *
  * @property int $id
+ * @property int $tourney_id
  * @property int|null $user_id
  * @property string $racer_username
- * @property int $tourney_id
  * @property int $pts
  * @property \Illuminate\Support\Carbon $signed_at
  * @property-read int $place

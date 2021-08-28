@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Competition\Competition;
 use App\Models\Tourney\Tourney;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -61,6 +62,7 @@ class AppServiceProvider extends ServiceProvider
 
         Relation::morphMap([
             'tourney' => Tourney::class,
+            'competition' => Competition::class,
         ]);
     }
 }

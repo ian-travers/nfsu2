@@ -52,7 +52,7 @@
                 <div class="flex-1">
                     <div class="flex">
                         @foreach($user->trophies as $trophy)
-                            @if($trophy->trophiable_type = "tourney")
+                            @if($trophy->trophiable_type == "tourney")
                                 <div class="inline-block h-8 w-8 transform transition hover:scale-125">
                                     <a href="{{ route('tourneys.show', $trophy->trophiable) }}"
                                        title="{{ $trophy->htmlTitleAttribute() }}">
@@ -64,12 +64,22 @@
                                     </a>
                                 </div>
                             @endif
+                            @if($trophy->trophiable_type == "competition")
+                                <div class="inline-block h-8 w-8 transform transition hover:scale-125">
+                                    <a href="#"
+                                       title="{{ $trophy->htmlTitleAttribute() }}">
+                                        <x-competition-medal
+                                            place="{{ $trophy->place }}"
+                                            size="8"
+                                        />
+                                    </a>
+                                </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>
             </div>
         @endif
-
 
         <div class="flex items-center space-x-4 mt-8">
             <h3 class="text-2xl">{{ __('Achievements') }}</h3>

@@ -4,8 +4,10 @@ namespace Tests\Feature\Backend\Competition;
 
 use App\Http\Livewire\Competition\Complete;
 use App\Models\Competition\Competition;
+use App\Models\Tourney\SeasonRacer;
 use App\Models\Trophy;
 use App\Models\User;
+use App\Settings\SeasonSettings;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -42,12 +44,12 @@ class CompleteTest extends TestCase
         User::factory()->create(['username' => 'Stas']);        // 91 + 91 pts
         User::factory()->create(['username' => 'Spier']);       // 86 + 0 pts
         User::factory()->create(['username' => 'samurai']);     // 0 + 100 pts
+
         Livewire::test(Complete::class)
             ->set('competition', $competition)
             ->call('handle');
 
         $muxomor = $competition->racers()->where('username', 'Muxomor')->firstOrFail();
-
         $stas = $competition->racers()->where('username', 'Stas')->firstOrFail();
         $spies = $competition->racers()->where('username', 'Spier')->firstOrFail();
         $samurai = $competition->racers()->where('username', 'samurai')->firstOrFail();
@@ -61,7 +63,7 @@ class CompleteTest extends TestCase
     }
 
     /** @test */
-    function each_competition_user_earns_site_points_when_the_competition_is_completed()
+    function each_competition_racer_earns_site_points_when_the_competition_is_completed()
     {
         /** @var Competition $competition */
         $competition = Competition::factory()->create();
@@ -105,8 +107,43 @@ class CompleteTest extends TestCase
         $second = Trophy::where('place', 2)->first();
         $third = Trophy::where('place', 3)->first();
 
-        $this->assertTrue($winner->user->is($muxomor));
-        $this->assertTrue($second->user->is($stas));
+        $this->assertTrue($winner->user->is($stas));
+        $this->assertTrue($second->user->is($muxomor));
         $this->assertTrue($third->user->is($spier));
+    }
+
+    /** @test */
+    function each_competition_racer_updates_their_season_statistic_when_the_competition_is_completed()
+    {
+        /** @var Competition $competition */
+        $competition = Competition::factory()->create();
+
+        $this->signIn(User::factory()->admin()->create());
+
+        User::factory()->create(['username' => 'Muxomor']);     // 100 + 0 pts
+        User::factory()->create(['username' => 'Stas']);        // 91 + 91 pts
+        User::factory()->create(['username' => 'samurai']);     // 0 + 100 pts
+
+        Livewire::test(Complete::class)
+            ->set('competition', $competition)
+            ->call('handle');
+
+        $muxomor = $competition->racers()->where('username', 'Muxomor')->firstOrFail();
+        $stas = $competition->racers()->where('username', 'Stas')->firstOrFail();
+        $samurai = $competition->racers()->where('username', 'samurai')->firstOrFail();
+
+        $sr = SeasonRacer::where(['user_id' => $stas->user_id, 'season_index' => app(SeasonSettings::class)->index])->first();
+        $this->assertEquals(1, $sr->competition_count);
+        $this->assertEquals(182, $sr->competition_pts);
+
+        $sr = SeasonRacer::where(['user_id' => $muxomor->user_id, 'season_index' => app(SeasonSettings::class)->index])->first();
+        $this->assertEquals(1, $sr->competition_count);
+        $this->assertEquals(100, $sr->competition_pts);
+
+        $sr = SeasonRacer::where(['user_id' => $samurai->user_id, 'season_index' => app(SeasonSettings::class)->index])->first();
+        $this->assertEquals(1, $sr->competition_count);
+        $this->assertEquals(100, $sr->competition_pts);
+
+        $this->assertDatabaseCount('season_racers', 3);
     }
 }

@@ -21,6 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $drag_pts
  * @property int $drift_count
  * @property int $drift_pts
+ * @property int $competition_count
+ * @property int $competition_pts
  * @property-read mixed $overall_count
  * @property-read mixed $overall_pts
  * @property-read User $user
@@ -29,6 +31,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|SeasonRacer query()
  * @method static Builder|SeasonRacer whereCircuitCount($value)
  * @method static Builder|SeasonRacer whereCircuitPts($value)
+ * @method static Builder|SeasonRacer whereCompetitionCount($value)
+ * @method static Builder|SeasonRacer whereCompetitionPts($value)
  * @method static Builder|SeasonRacer whereDragCount($value)
  * @method static Builder|SeasonRacer whereDragPts($value)
  * @method static Builder|SeasonRacer whereDriftCount($value)

@@ -4,8 +4,9 @@
     <h2 class="text-center text-xl md:text-3xl tracking-wider font-medium">
         {{ __('Current competition') }}
     </h2>
+    @if($competition)
     <div class="grid gap-4 grid-cols-1 md:gap-6 md:grid-cols-2">
-        @foreach($competition->ratings() as $trackName => $rating)
+        @foreach($competition->ratingsPerTrack() as $trackName => $rating)
             <div>
                 <h4 class="text-lg text-center mb-4">{{ $trackName }}</h4>
                 <table class="border border-blue-400 divide-y divide-blue-200 w-full">
@@ -33,5 +34,8 @@
             </div>
         @endforeach
     </div>
+    @else
+        {{ __('There is no active competition.') }}
+    @endif
 </div>
 
