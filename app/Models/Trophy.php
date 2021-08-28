@@ -46,7 +46,14 @@ class Trophy extends Model
 
     public function htmlTitleAttribute(): string
     {
-        return $this->trophiable->name . ' ' . $this->trophiable->started_at->format('Y-m-d');
-//        return $this->trophiable->started_at->format('Y-m-d');
+        if ($this->trophiable_type == 'tourney') {
+            return $this->trophiable->name . ' ' . $this->trophiable->started_at->format('Y-m-d');
+        }
+
+        if ($this->trophiable_type == 'competition') {
+            return __('Competition #') . $this->trophiable_id . ' ' . $this->trophiable->ended_at->format('Y-m-d');
+        }
+
+        return '';
     }
 }
