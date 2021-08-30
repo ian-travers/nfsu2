@@ -126,7 +126,6 @@ class Competition extends Model
                     $existing['car'] .= " | {$racer['car']}";
                 } else {
                     $allRacer->add(collect([
-                        'place' => 0,
                         'user_id' => $racer['user_id'],
                         'username' => $racer['username'],
                         'result' => "{$trackName} - {$racer['result']}",
@@ -157,6 +156,7 @@ class Competition extends Model
                 'car' => $racer['car'],
                 'result' => $racer['result'],
                 'pts' => $racer['pts'],
+                'competition_id' => $this->id, // for bulk inserting
             ];
 
             $result->push($item);
