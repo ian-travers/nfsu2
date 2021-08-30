@@ -5,35 +5,22 @@
         {{ __('Current competition') }}
     </h2>
     @if($competition)
-    <div class="grid gap-4 grid-cols-1 md:gap-6 md:grid-cols-2">
-        @foreach($competition->ratingsPerTrack() as $trackName => $rating)
-            <div>
-                <h4 class="text-lg text-center mb-4">{{ $trackName }}</h4>
-                <table class="border border-blue-400 divide-y divide-blue-200 w-full">
-                    <thead>
-                    <tr class="text-center divide-x divide-blue-400">
-                        <th class="px-4 py-2">#</th>
-                        <th class="px-4 py-2">{{ __('Player') }}</th>
-                        <th class="px-4 py-2">{{ __('Result') }}</th>
-                        <th class="px-4 py-2">{{ __('Car') }}</th>
-                        <th class="px-4 py-2">{{ __('Pts') }}</th>
-                    </tr>
-                    </thead>
-                    <tbody class="divide-y divide-blue-400">
-                    @foreach($rating as $racer)
-                        <tr class="divide-x divide-blue-400 transition-colors duration-300 hover:bg-blue-100 hover:bg-opacity-20">
-                            <td class="text-center px-4 py-2">{{ $racer['place'] }}</td>
-                            <td class="px-4 py-2">{{ $racer['username'] }}</td>
-                            <td class="px-4 py-2">{{ $racer['result'] }}</td>
-                            <td class="px-4 py-2">{{ $racer['car'] }}</td>
-                            <td class="text-right px-4 py-2">{{ $racer['pts'] }}</td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
-        @endforeach
-    </div>
+        <x-competitions.active-card-header class="mt-2" :competition="$competition"/>
+        <div class="mt-4">
+            <p class="text-center text-2xl mb-2">{{ __('Summary') }}</p>
+            <x-competitions._table :rating="$competition->standing()" :resultAlignRight="false"/>
+        </div>
+        <div class="grid gap-4 grid-cols-1 md:gap-6 md:grid-cols-2 mt-8">
+            @foreach($competition->ratingsPerTrack() as $trackName => $rating)
+                <div>
+                    <h4 class="text-lg text-center mb-2">{{ $trackName }}</h4>
+                    <div class="text-sm">
+                        <x-competitions._table :rating="$rating" :resultAlignRight="true"/>
+                    </div>
+
+                </div>
+            @endforeach
+        </div>
     @else
         {{ __('There is no active competition.') }}
     @endif

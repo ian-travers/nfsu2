@@ -123,6 +123,7 @@ class Competition extends Model
                 if ($existing) {
                     $existing['result'] .= " | {$trackName} - {$racer['result']}";
                     $existing['pts'] += $racer['pts'];
+                    $existing['car'] .= " | {$racer['car']}";
                 } else {
                     $allRacer->add(collect([
                         'place' => 0,
