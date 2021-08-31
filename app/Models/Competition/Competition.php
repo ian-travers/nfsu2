@@ -169,7 +169,7 @@ class Competition extends Model
     {
         $result = collect();
 
-        for ($i = 1; $i <= 2; $i++) {
+        for ($i = 1; $i <= 4; $i++) {
             $field = "track{$i}_id";
 
             if (isset($this->$field)) {
@@ -235,6 +235,4 @@ class Competition extends Model
     {
         return self::where('is_completed', false)->where('season_index', app(SeasonSettings::class)->index)->first();
     }
-
-
 }

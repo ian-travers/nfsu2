@@ -14,7 +14,7 @@ class CreateCompetitionRacersTable extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->string('username', 16);
             $table->unsignedTinyInteger('place');
-            $table->string('car', 50);
+            $table->string('car');
             $table->string('result');
             $table->unsignedInteger('pts');
         });
