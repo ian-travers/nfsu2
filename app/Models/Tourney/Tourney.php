@@ -261,7 +261,7 @@ class Tourney extends Model
                 $racers = $racers->shuffle();
 
                 for ($heat = 1; $heat <= $fours; $heat++) {
-                    $this->arrangeHeat($round, $heat, $racers->slice(4, 4));
+                    $this->arrangeHeat($round, $heat, $racers->slice(($heat - 1) * 4, 4));
                 }
             }
 
