@@ -41,7 +41,6 @@
                                         {{ \App\Models\NFSUServer\SpecificGameData::getTrackName($competition->track4_id) }}
                                     </p>
                                 @endif
-
                             </td>
                             <td class="text-center px-6 py-4">
                                 {{ $competition->started_at->format('Y-m-d') }}

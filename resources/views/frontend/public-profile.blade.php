@@ -66,7 +66,7 @@
                             @endif
                             @if($trophy->trophiable_type == "competition")
                                 <div class="inline-block h-8 w-8 transform transition hover:scale-125">
-                                    <a href="#"
+                                    <a href="{{ route('competitions.show', $trophy->trophiable) }}"
                                        title="{{ $trophy->htmlTitleAttribute() }}">
                                         <x-competition-medal
                                             place="{{ $trophy->place }}"

@@ -17,7 +17,6 @@
                     <div class="text-sm">
                         <x-competitions._table :rating="$rating" :resultAlignRight="true"/>
                     </div>
-
                 </div>
             @endforeach
         </div>

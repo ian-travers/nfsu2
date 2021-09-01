@@ -235,4 +235,9 @@ class Competition extends Model
     {
         return self::where('is_completed', false)->where('season_index', app(SeasonSettings::class)->index)->first();
     }
+
+    public function scopePassed(Builder $query): Builder
+    {
+        return $query->where('is_completed', 1);
+    }
 }
