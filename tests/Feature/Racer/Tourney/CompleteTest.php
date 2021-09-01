@@ -89,14 +89,13 @@ class CompleteTest extends TestCase
         $this->assertEquals(1, TourneyRacer::firstWhere('pts', 20)->user->second_places);
         $this->assertEquals(1, TourneyRacer::firstWhere('pts', 18)->user->third_places);
 
-        $this->assertEquals(1, TourneyRacer::firstWhere('pts', 24)->user->podiums);
-        $this->assertEquals(1, TourneyRacer::firstWhere('pts', 20)->user->podiums);
-        $this->assertEquals(1, TourneyRacer::firstWhere('pts', 18)->user->podiums);
+        $this->assertEquals(1, TourneyRacer::firstWhere('pts', 24)->user->tourneyPodiums);
+        $this->assertEquals(1, TourneyRacer::firstWhere('pts', 20)->user->tourneyPodiums);
+        $this->assertEquals(1, TourneyRacer::firstWhere('pts', 18)->user->tourneyPodiums);
 
-
-        $this->assertEquals(0, TourneyRacer::firstWhere('pts', 12)->user->podiums);
-        $this->assertEquals(0, TourneyRacer::firstWhere('pts', 10)->user->podiums);
-        $this->assertEquals(0, TourneyRacer::firstWhere('pts', 0)->user->podiums);
+        $this->assertEquals(0, TourneyRacer::firstWhere('pts', 12)->user->tourneyPodiums);
+        $this->assertEquals(0, TourneyRacer::firstWhere('pts', 10)->user->tourneyPodiums);
+        $this->assertEquals(0, TourneyRacer::firstWhere('pts', 0)->user->tourneyPodiums);
     }
 
     /** @test */

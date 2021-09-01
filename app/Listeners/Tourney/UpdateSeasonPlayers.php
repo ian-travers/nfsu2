@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Tourney;
 
 use App\Events\TourneyCompleted;
 use App\Models\Tourney\SeasonRacer;

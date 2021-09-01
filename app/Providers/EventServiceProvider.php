@@ -4,13 +4,8 @@ namespace App\Providers;
 
 use App\Events\CompetitionCompleted;
 use App\Events\TourneyCompleted;
-use App\Listeners\Competition\ArchiveRacers;
-use App\Listeners\Competition\RewardCompetitionWinners;
-use App\Listeners\Competition\UpdateSeasonStatistics;
-use App\Listeners\Competition\UpdateUsersCountersAndSitePoints;
-use App\Listeners\RewardTourneyWinners;
-use App\Listeners\UpdateSeasonPlayers;
-use App\Listeners\UpdateUsersTourneyCountersAndSitePoints;
+use App\Listeners\Competition;
+use App\Listeners\Tourney;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -28,16 +23,16 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         TourneyCompleted::class => [
-            UpdateUsersTourneyCountersAndSitePoints::class,
-            RewardTourneyWinners::class,
-            UpdateSeasonPlayers::class,
+            Tourney\UpdateUsersTourneyCountersAndSitePoints::class,
+            Tourney\RewardTourneyWinners::class,
+            Tourney\UpdateSeasonPlayers::class,
         ],
 
         CompetitionCompleted::class => [
-            ArchiveRacers::class,
-            UpdateUsersCountersAndSitePoints::class,
-            RewardCompetitionWinners::class,
-            UpdateSeasonStatistics::class,
+            Competition\ArchiveRacers::class,
+            Competition\UpdateUsersCountersAndSitePoints::class,
+            Competition\RewardCompetitionWinners::class,
+            Competition\UpdateSeasonStatistics::class,
         ],
     ];
 

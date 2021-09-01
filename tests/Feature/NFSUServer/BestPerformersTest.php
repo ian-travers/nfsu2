@@ -17,7 +17,7 @@ class BestPerformersTest extends TestCase
     function it_shows_the_stadium()
     {
         $this->get('server/best-performers/circuit/1002')
-            ->assertSee(['Just4lulz', '47.42', 'Mazda RX-7', 'forward']);
+            ->assertSee(['MOFOx', '50.71', 'Mazda RX-7', 'reverse']);
     }
 
     /** @test */
@@ -73,7 +73,7 @@ class BestPerformersTest extends TestCase
     function it_shows_the_broadway()
     {
         $this->get('server/best-performers/sprint/1103')
-            ->assertSee(['Ron123', '2:19.86', 'Toyota Supra', 'reverse']);
+            ->assertSee(['samurai', '2:20.98', 'Toyota Supra', 'reverse']);
     }
 
     /** @test */
@@ -129,7 +129,7 @@ class BestPerformersTest extends TestCase
     function it_shows_the_highway_1()
     {
         $this->get('server/best-performers/drag/1202')
-            ->assertSee(['fancy', '18.94', 'Mazda RX-7', 'forward']);
+            ->assertSee(['Stas', '19.89', 'Mazda RX-7', 'reverse']);
     }
 
     /** @test */
@@ -172,7 +172,7 @@ class BestPerformersTest extends TestCase
     function it_shows_the_drift_track_2()
     {
         $this->get('server/best-performers/drift/1302')
-            ->assertSee(['Izzibaew', '35 061', 'Mitsubishi Lancer', 'forward']);
+            ->assertSee(['Muxomor', '35 061', 'Mitsubishi Lancer', 'forward']);
     }
 
     /** @test */
