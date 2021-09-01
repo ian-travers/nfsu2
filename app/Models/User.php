@@ -283,9 +283,14 @@ class User extends Authenticatable
         $this->increment($places);
     }
 
-    public function getPodiumsAttribute()
+    public function getTourneyPodiumsAttribute()
     {
         return $this->first_places + $this->second_places + $this->third_places;
+    }
+
+    public function getCompetitionPodiumsAttribute()
+    {
+        return $this->trophies()->where('trophiable_type', 'competition')->count();
     }
 
     public function racedSeasons()

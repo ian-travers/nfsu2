@@ -36,11 +36,15 @@
                 <div class="flex justify-center items-start">
                     <x-profile-panel>
                         <p class="text-lg font-bold">{{ __('Tourneys') }}</p>
-                        <span class="block text-6xl py-2">{{ $user->tourneys_finished_count }}</span>
+                        <span class="text-6xl">{{ $user->tourneys_finished_count }}</span>
+                        <span class="text-4xl"> / </span>
+                        <span class="text-2xl">{{ $user->tourneyPodiums }}</span>
                     </x-profile-panel>
                     <x-profile-panel>
-                        <p class="text-lg font-bold">{{ __('Podiums') }}</p>
-                        <span class="block text-6xl py-2">{{ $user->podiums }}</span>
+                        <p class="text-lg font-bold">{{ __('Competitions') }}</p>
+                        <span class="text-6xl">{{ $user->competitions_count }}</span>
+                        <span class="text-4xl"> / </span>
+                        <span class="text-2xl">{{ $user->competitionPodiums }}</span>
                     </x-profile-panel>
                 </div>
             </div>

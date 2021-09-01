@@ -34,6 +34,7 @@ use Illuminate\Support\Str;
  * @method static \Database\Factories\Competition\CompetitionFactory factory(...$parameters)
  * @method static Builder|Competition newModelQuery()
  * @method static Builder|Competition newQuery()
+ * @method static Builder|Competition passed()
  * @method static Builder|Competition query()
  * @method static Builder|Competition whereEndedAt($value)
  * @method static Builder|Competition whereId($value)
