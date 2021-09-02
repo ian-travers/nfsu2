@@ -2,11 +2,11 @@
 
 <x-layouts.front title="{{ $title }}">
     <div class="mt-3 md:mt-4 mx-auto px-4 md:px-8 text-blue-400 max-w-screen-2xl">
-        <h2 class="text-xl md:text-3xl my-4 md:my-8 text-center tracking-wider font-medium">{{ __('Personal standings') }}</h2>
+        <h2 class="text-xl md:text-3xl my-4 md:my-8 text-center tracking-wider font-medium">{{ __('Tourney personal standings') }}</h2>
         {{-- Filters--}}
         <div class="sm:grid sm:grid-cols-3 sm:gap-1 lg:gap-4">
             <div class="mt-4 sm:mt-0">
-                @include('frontend.season-standings._type-filter', ['route' => route('season-standings.personal')])
+                @include('frontend.season-standings._type-filter', ['route' => route('season-standings.tourney-personal')])
             </div>
             <div class="mt-4 sm:mt-0">
                 @include('frontend.season-standings._country-filter')
@@ -26,7 +26,7 @@
                     <th class="hidden lg:w-1/12 lg:table-cell px-4 py-2">{{ __('Country') }}</th>
                     <th class="hidden xl:w-1/12 xl:table-cell px-4 py-2">{{ __('Team') }}</th>
                     <th class="w-1/6 px-4 py-2">{{ __('Player') }}</th>
-                    <th class="w-1/12 px-4 py-2">{{ __('Tourneys number') }}</th>
+                    <th class="w-1/12 px-4 py-2">{{ __('Count') }}</th>
                     <th class="w-1/12 px-4 py-2">{{ __('Pts.') }}</th>
                     <th class="hidden xl:table-cell px-4 py-2">{{ __('Trophies') }}</th>
                 </tr>
@@ -68,7 +68,7 @@
                         <td class="text-right px-4 py-2">{{ $racer->tourneys_count }}</td>
                         <td class="text-right px-4 py-2">{{ $racer->pts }}</td>
                         <td class="hidden xl:table-cell px-4 py-2">
-                            @foreach(\App\ReadRepositories\SeasonHelper::tourneyTrophiesByUserId($racer->user_id) as $trophy)
+                            @foreach(\App\ReadRepositories\SeasonHelper::trophiesByUserId($racer->user_id) as $trophy)
                                 <div class="inline-block focus:outline-none transform transition hover:scale-125">
                                     <a href="{{ route('tourneys.show', $trophy->trophiable) }}"
                                        title="{{ $trophy->htmlTitleAttribute() }}">

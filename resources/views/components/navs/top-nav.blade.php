@@ -17,9 +17,13 @@
                     {{ __('Season standings') }}
                 </button>
             </x-slot>
-            <x-dropdown-link href="{{ route('season-standings.personal') }}">{{ __('Personal standing') }}</x-dropdown-link>
-            <x-dropdown-link href="{{ route('season-standings.countries') }}">{{ __('Countries standing') }}</x-dropdown-link>
-            <x-dropdown-link href="{{ route('season-standings.teams') }}">{{ __('Teams standing') }}</x-dropdown-link>
+            <p class="text-center font-semibold text-gray-300 pt-2">{{ __('Tourneys') }}</p>
+            <x-dropdown-link href="{{ route('season-standings.tourney-personal') }}">{{ __('Personal standing') }}</x-dropdown-link>
+            <x-dropdown-link href="{{ route('season-standings.tourney-countries') }}">{{ __('Countries standing') }}</x-dropdown-link>
+            <x-dropdown-link href="{{ route('season-standings.tourney-teams') }}">{{ __('Teams standing') }}</x-dropdown-link>
+            <div class="border-t border-gray-500"></div>
+            <p class="text-center font-semibold text-gray-300 pt-2">{{ __('Competitions') }}</p>
+            <x-dropdown-link href="{{ route('season-standings.competition-personal') }}">{{ __('Personal standing') }}</x-dropdown-link>
         </x-dropdown>
 
         <x-dropdown>

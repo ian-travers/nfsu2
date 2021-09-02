@@ -42,9 +42,12 @@
             <div class="text-sm font-semibold text-gray-400 tracking-widest uppercase text-center">
                 {{ __('Season standings') }}
             </div>
-            <x-navs.mobile-link route="season-standings.personal">{{ __('Personal standing') }}</x-navs.mobile-link>
-            <x-navs.mobile-link route="season-standings.countries">{{ __('Countries standing') }}</x-navs.mobile-link>
-            <x-navs.mobile-link route="season-standings.teams">{{ __('Teams standing') }}</x-navs.mobile-link>
+            <p class="text-xs font-semibold text-gray-300 tracking-widest uppercase text-center">{{ __('Tourneys') }}</p>
+            <x-navs.mobile-link route="season-standings.tourney-personal">{{ __('Personal standing') }}</x-navs.mobile-link>
+            <x-navs.mobile-link route="season-standings.tourney-countries">{{ __('Countries standing') }}</x-navs.mobile-link>
+            <x-navs.mobile-link route="season-standings.tourney-teams">{{ __('Teams standing') }}</x-navs.mobile-link>
+            <p class="text-xs font-semibold text-gray-300 tracking-widest uppercase text-center">{{ __('Competitions') }}</p>
+            <x-navs.mobile-link route="season-standings.competition-personal">{{ __('Personal standing') }}</x-navs.mobile-link>
 
             <div class="text-sm font-semibold text-gray-400 tracking-widest uppercase text-center">
                 {{ __('Game server') }}

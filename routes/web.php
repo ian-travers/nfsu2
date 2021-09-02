@@ -47,9 +47,10 @@ Route::group(['middleware' => 'language'], function () {
         'prefix' => 'season-standings',
         'as' => 'season-standings',
     ], function () {
-        Route::get('personal', [SeasonStandingsController::class, 'personal'])->name('.personal');
-        Route::get('countries', [SeasonStandingsController::class, 'countries'])->name('.countries');
-        Route::get('teams', [SeasonStandingsController::class, 'teams'])->name('.teams');
+        Route::get('tourney-personal', [SeasonStandingsController::class, 'tourneyPersonal'])->name('.tourney-personal');
+        Route::get('tourney-countries', [SeasonStandingsController::class, 'tourneyCountries'])->name('.tourney-countries');
+        Route::get('tourney-teams', [SeasonStandingsController::class, 'tourneyTeam'])->name('.tourney-teams');
+        Route::get('competition-personal', [SeasonStandingsController::class, 'competitionPersonal'])->name('.competition-personal');
     });
 
     Route::group([

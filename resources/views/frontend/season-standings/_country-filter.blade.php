@@ -16,8 +16,8 @@
     @foreach($countries as $key => $country)
         <x-dropdown-link
             href="{{ $key == 'ALL'
-                                ? route('season-standings.personal') . '/?' . http_build_query(request()->except('country'))
-                                : route('season-standings.personal') . '/?country=' . $key . '&' .http_build_query(request()->except('country'))
+                                ? route('season-standings.tourney-personal') . '/?' . http_build_query(request()->except('country'))
+                                : route('season-standings.tourney-personal') . '/?country=' . $key . '&' .http_build_query(request()->except('country'))
                             }}"
         >
             {{ ucfirst($country) }}

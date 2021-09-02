@@ -17,7 +17,7 @@ class SeasonHelper
         return $index ?? app(SeasonSettings::class)->index;
     }
 
-    public static function racersStanding(array $filters = [], int $index = null): Collection
+    public static function racersStanding(array $filters = [], int $seasonIndex = null): Collection
     {
         $type = $filters['type'] ?? 'overall';
         $country = $filters['country'] ?? 'all';
@@ -25,34 +25,33 @@ class SeasonHelper
 
         [$tourneysCount, $pts] = self::returningValues($type);
 
-        $query = SeasonRacer::with('user')->selectRaw("id,racer_username,user_id,{$tourneysCount} as tourneys_count, {$pts} as pts")->where('season_index', self::index($index));
+        $query = SeasonRacer::with('user')
+            ->selectRaw("id,racer_username,user_id,{$tourneysCount} as tourneys_count, {$pts} as pts")
+            ->where('season_index', self::index($seasonIndex));
 
         if ($country !== 'all') {
-            $query->whereHas('user', fn($query) =>
-                $query->where('country', $country)
+            $query->whereHas('user', fn($query) => $query->where('country', $country)
             );
         }
 
         if ($team !== 'all') {
-            $query->whereHas('user', fn($query) =>
-                $query->whereHas('team', fn($query) =>
-                    $query->where('clan', $team)
-                )
+            $query->whereHas('user', fn($query) => $query->whereHas('team', fn($query) => $query->where('clan', $team)
+            )
             );
         }
 
         return $query->orderByDesc('pts')->get();
     }
 
-    public static function tourneyTrophiesByUserId(int $userId, int $index = null)
+    public static function trophiesByUserId(int $userId, string $type = 'tourney', int $seasonIndex = null): Collection
     {
         return Trophy::where('user_id', $userId)
-            ->where('trophiable_type', 'tourney')
+            ->where('trophiable_type', $type)
             ->whereHas('trophiable', fn($query) => $query->where('season_index', self::index()))
             ->get();
     }
 
-    public static function countriesStanding(array $filters, int $index = null)
+    public static function countriesStanding(array $filters, int $seasonIndex = null): Collection
     {
         $type = $filters['type'] ?? 'all';
 
@@ -62,13 +61,13 @@ class SeasonHelper
         $query = SeasonRacer::query()
             ->join('users', 'season_racers.user_id', '=', 'users.id')
             ->selectRaw("users.country,count(users.id) as racers_count,sum({$tourneysCount}) as tourneys_count,sum({$pts}) as pts")
-            ->where('season_index', self::index($index))
+            ->where('season_index', self::index($seasonIndex))
             ->groupBy('users.country');
 
         return $query->orderByDesc('pts')->get();
     }
 
-    public static function teamsStanding(array $filters, int $index = null)
+    public static function teamsStanding(array $filters, int $seasonIndex = null): Collection
     {
         $type = $filters['type'] ?? 'all';
 
@@ -79,18 +78,18 @@ class SeasonHelper
             ->join('users', 'season_racers.user_id', '=', 'users.id')
             ->join('teams', 'users.team_id', '=', 'teams.id')
             ->selectRaw("teams.clan,teams.name, count(users.id) as racers_count,sum({$tourneysCount}) as tourneys_count,sum({$pts}) as pts")
-            ->where('season_index', self::index($index))
+            ->where('season_index', self::index($seasonIndex))
             ->groupBy('teams.clan');
 
         return $query->orderByDesc('pts')->get();
     }
 
-    public static function types(int $index = null)
+    public static function types(int $seasonIndex = null): array
     {
         $typeKeys = Tourney::selectRaw('SUBSTR(track_id, 2, 1) as race_type')
             ->distinct()
             ->where('status', 'completed')
-            ->where('season_index', self::index($index))
+            ->where('season_index', self::index($seasonIndex))
             ->get()
             ->pluck('race_type')
             ->toArray();
@@ -116,11 +115,11 @@ class SeasonHelper
         return $types;
     }
 
-    public static function countries(int $index = null)
+    public static function countries(int $seasonIndex = null): array
     {
         $result['ALL'] = __('All');
 
-        $keys = User::whereIn('id', SeasonRacer::where('season_index', self::index($index))
+        $keys = User::whereIn('id', SeasonRacer::where('season_index', self::index($seasonIndex))
             ->pluck('user_id'))
             ->distinct()
             ->pluck('country');
@@ -132,14 +131,14 @@ class SeasonHelper
         return $result;
     }
 
-    public static function teams(int $index = null)
+    public static function teams(int $seasonIndex = null): array
     {
-        $racers = SeasonRacer::with('user')->where('season_index', self::index($index))->get();
+        $racers = SeasonRacer::with('user')->where('season_index', self::index($seasonIndex))->get();
 
         $result['ALL'] = __('All');
 
         $racers = $racers->filter(function ($racer) {
-            return $racer->user? $racer->user->isTeamMember() : false;
+            return $racer->user ? $racer->user->isTeamMember() : false;
         });
 
         foreach ($racers as $racer) {
@@ -159,5 +158,15 @@ class SeasonHelper
         }
 
         return ["{$type}_count", "{$type}_pts"];
+    }
+
+    public static function competitionRacersStanding(int $seasonIndex = null)
+    {
+        return SeasonRacer::with('user')
+            ->selectRaw("id,racer_username,user_id,competition_count,competition_pts as pts")
+            ->where('competition_count', '>', 0)
+            ->where('season_index', self::index($seasonIndex))
+            ->orderByDesc('pts')
+            ->get();
     }
 }

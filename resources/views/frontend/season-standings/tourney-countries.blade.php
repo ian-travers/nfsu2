@@ -2,9 +2,9 @@
 
 <x-layouts.front title="{{ $title }}">
     <div class="mt-3 md:mt-4 mx-auto px-4 md:px-8 text-blue-400 max-w-screen-2xl">
-        <h2 class="text-xl md:text-3xl my-4 md:my-8 text-center tracking-wider font-medium">{{ __('Countries standing') }}</h2>
+        <h2 class="text-xl md:text-3xl my-4 md:my-8 text-center tracking-wider font-medium">{{ __('Tourney countries standing') }}</h2>
         <div class="w-1/3">
-            @include('frontend.season-standings._type-filter', ['route' => route('season-standings.countries')])
+            @include('frontend.season-standings._type-filter', ['route' => route('season-standings.tourney-countries')])
         </div>
 
         {{-- Table --}}
@@ -15,8 +15,8 @@
                     <th class="w-1/12 px-4 py-2">#</th>
                     <th class="w-1/12 px-4 py-2">{{ __('Flag') }}</th>
                     <th class="w-1/3 px-4 py-2">{{ __('Country') }}</th>
-                    <th class="w-1/6 px-4 py-2">{{ __('Racers number') }}</th>
-                    <th class="w-1/6 px-4 py-2">{{ __('Tourneys number') }}</th>
+                    <th class="w-1/6 px-4 py-2">{{ __('Racers') }}</th>
+                    <th class="w-1/6 px-4 py-2">{{ __('Count') }}</th>
                     <th class="w-1/6 px-4 py-2">{{ __('Pts.') }}</th>
                 </tr>
                 </thead>

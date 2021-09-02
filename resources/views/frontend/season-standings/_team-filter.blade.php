@@ -16,8 +16,8 @@
     @foreach($teams as $key => $team)
         <x-dropdown-link
             href="{{ $key == 'ALL'
-                                ? route('season-standings.personal') . '/?' . http_build_query(request()->except('team'))
-                                : route('season-standings.personal') . '/?team=' . $key . '&' .http_build_query(request()->except('team'))
+                                ? route('season-standings.tourney-personal') . '/?' . http_build_query(request()->except('team'))
+                                : route('season-standings.tourney-personal') . '/?team=' . $key . '&' .http_build_query(request()->except('team'))
                             }}"
         >
             {{ $team }}
