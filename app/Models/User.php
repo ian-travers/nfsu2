@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Tourney\SeasonAward;
 use App\Models\Tourney\SeasonRacer;
 use App\Models\Tourney\Tourney;
 use App\Models\Tourney\TourneyRacer;
+use App\ReadRepositories\SeasonHelper;
 use App\Settings\SeasonSettings;
 use DomainException;
 use Illuminate\Database\Eloquent\Builder;
@@ -39,11 +41,14 @@ use InvalidArgumentException;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property string $locale
- * @property-read mixed $podiums
+ * @property-read mixed $competition_podiums
+ * @property-read mixed $tourney_podiums
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|SeasonRacer[] $racedSeasons
  * @property-read int|null $raced_seasons_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|SeasonAward[] $seasonAwards
+ * @property-read int|null $season_awards_count
  * @property-read \App\Models\Team|null $team
  * @property-read \Illuminate\Database\Eloquent\Collection|Tourney[] $tourneys
  * @property-read int|null $tourneys_count
@@ -101,6 +106,48 @@ class User extends Authenticatable
         return $this->hasMany(Trophy::class);
     }
 
+    public function seasonAwards()
+    {
+        return $this->hasMany(SeasonAward::class);
+    }
+
+    public function seasonOverallAwards(int $seasonIndex = null)
+    {
+        return $this->seasonAwardsByType('overall', SeasonHelper::index($seasonIndex));
+    }
+
+    public function seasonCircuitAwards(int $seasonIndex = null)
+    {
+        return $this->seasonAwardsByType('circuit', SeasonHelper::index($seasonIndex));
+    }
+
+    public function seasonSprintAwards(int $seasonIndex = null)
+    {
+        return $this->seasonAwardsByType('sprint', SeasonHelper::index($seasonIndex));
+    }
+
+    public function seasonDragAwards(int $seasonIndex = null)
+    {
+        return $this->seasonAwardsByType('drag', SeasonHelper::index($seasonIndex));
+    }
+
+    public function seasonDriftAwards(int $seasonIndex = null)
+    {
+        return $this->seasonAwardsByType('drift', SeasonHelper::index($seasonIndex));
+    }
+
+    public function seasonCompetitionAwards(int $seasonIndex = null)
+    {
+        return $this->seasonAwardsByType('competition', SeasonHelper::index($seasonIndex));
+    }
+
+    protected function seasonAwardsByType(string $type, int $seasonIndex)
+    {
+        return $this->seasonAwards()
+            ->where(['type'=> $type, 'season_index' => $seasonIndex])
+            ->get();
+    }
+
     public function hasAvatar(): bool
     {
         return (bool)$this->avatar;
@@ -148,7 +195,7 @@ class User extends Authenticatable
 
     public function isTeamCaptain(): bool
     {
-        if(!$this->isTeamMember()) {
+        if (!$this->isTeamMember()) {
             return false;
         }
 

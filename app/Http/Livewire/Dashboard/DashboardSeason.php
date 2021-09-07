@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Events\SeasonCompleted;
 use App\Settings\SeasonSettings;
 use Livewire\Component;
 
@@ -26,6 +27,8 @@ class DashboardSeason extends Component
     public function complete()
     {
         $this->validate();
+
+        event(new SeasonCompleted($this->index));
 
         $this->index++;
 

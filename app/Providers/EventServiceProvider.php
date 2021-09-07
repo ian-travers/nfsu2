@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Events\CompetitionCompleted;
+use App\Events\SeasonCompleted;
 use App\Events\TourneyCompleted;
 use App\Listeners\Competition;
+use App\Listeners\Season;
 use App\Listeners\Tourney;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -33,6 +35,10 @@ class EventServiceProvider extends ServiceProvider
             Competition\UpdateUsersCountersAndSitePoints::class,
             Competition\RewardCompetitionWinners::class,
             Competition\UpdateSeasonStatistics::class,
+        ],
+
+        SeasonCompleted::class => [
+            Season\RewardSeasonWinners::class
         ],
     ];
 

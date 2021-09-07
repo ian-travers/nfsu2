@@ -3,6 +3,7 @@
 namespace App\ReadRepositories;
 
 use App\Models\Country;
+use App\Models\Tourney\SeasonAward;
 use App\Models\Tourney\SeasonRacer;
 use App\Models\Tourney\Tourney;
 use App\Models\Trophy;
@@ -30,14 +31,11 @@ class SeasonHelper
             ->where('season_index', self::index($seasonIndex));
 
         if ($country !== 'all') {
-            $query->whereHas('user', fn($query) => $query->where('country', $country)
-            );
+            $query->whereHas('user', fn($query) => $query->where('country', $country));
         }
 
         if ($team !== 'all') {
-            $query->whereHas('user', fn($query) => $query->whereHas('team', fn($query) => $query->where('clan', $team)
-            )
-            );
+            $query->whereHas('user', fn($query) => $query->whereHas('team', fn($query) => $query->where('clan', $team)));
         }
 
         return $query->orderByDesc('pts')->get();
@@ -47,7 +45,7 @@ class SeasonHelper
     {
         return Trophy::where('user_id', $userId)
             ->where('trophiable_type', $type)
-            ->whereHas('trophiable', fn($query) => $query->where('season_index', self::index()))
+            ->whereHas('trophiable', fn($query) => $query->where('season_index', self::index($seasonIndex)))
             ->get();
     }
 
@@ -168,5 +166,188 @@ class SeasonHelper
             ->where('season_index', self::index($seasonIndex))
             ->orderByDesc('pts')
             ->get();
+    }
+
+    public static function rewardWinners(int $seasonIndex = null)
+    {
+        $winners = [];
+        $index = self::index($seasonIndex);
+
+        // overall
+        $racers = self::racersStanding();
+        foreach ($racers as $racer) {
+            if ($racer->getPlace($racers) == 1) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'overall',
+                    'place' => 1,
+                ];
+            } elseif ($racer->getPlace($racers) == 2) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'overall',
+                    'place' => 2,
+                ];
+            } elseif ($racer->getPlace($racers) == 3) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'overall',
+                    'place' => 3,
+                ];
+            } else {
+                break;
+            }
+        }
+
+        // circuit
+        $racers = self::racersStanding(['type' => 'circuit']);
+        foreach ($racers as $racer) {
+            if ($racer->getPlace($racers) == 1) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'circuit',
+                    'place' => 1,
+                ];
+            } elseif ($racer->getPlace($racers) == 2) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'circuit',
+                    'place' => 2,
+                ];
+            } elseif ($racer->getPlace($racers) == 3) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'circuit',
+                    'place' => 3,
+                ];
+            } else {
+                break;
+            }
+        }
+
+        // sprint
+        $racers = self::racersStanding(['type' => 'sprint']);
+        foreach ($racers as $racer) {
+            if ($racer->getPlace($racers) == 1) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'sprint',
+                    'place' => 1,
+                ];
+            } elseif ($racer->getPlace($racers) == 2) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'sprint',
+                    'place' => 2,
+                ];
+            } elseif ($racer->getPlace($racers) == 3) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'sprint',
+                    'place' => 3,
+                ];
+            } else {
+                break;
+            }
+        }
+
+        // drag
+        $racers = self::racersStanding(['type' => 'drag']);
+        foreach ($racers as $racer) {
+            if ($racer->getPlace($racers) == 1) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'drag',
+                    'place' => 1,
+                ];
+            } elseif ($racer->getPlace($racers) == 2) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'drag',
+                    'place' => 2,
+                ];
+            } elseif ($racer->getPlace($racers) == 3) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'drag',
+                    'place' => 3,
+                ];
+            } else {
+                break;
+            }
+        }
+
+        // drift
+        $racers = self::racersStanding(['type' => 'drift']);
+        foreach ($racers as $racer) {
+            if ($racer->getPlace($racers) == 1) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'drift',
+                    'place' => 1,
+                ];
+            } elseif ($racer->getPlace($racers) == 2) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'drift',
+                    'place' => 2,
+                ];
+            } elseif ($racer->getPlace($racers) == 3) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'drift',
+                    'place' => 3,
+                ];
+            } else {
+                break;
+            }
+        }
+
+        // competition
+        $racers = self::competitionRacersStanding();
+        foreach ($racers as $racer) {
+            if ($racer->getPlace($racers) == 1) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'competition',
+                    'place' => 1,
+                ];
+            } elseif ($racer->getPlace($racers) == 2) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'competition',
+                    'place' => 2,
+                ];
+            } elseif ($racer->getPlace($racers) == 3) {
+                $winners[] = [
+                    'user_id' => $racer->user_id,
+                    'season_index' => $index,
+                    'type' => 'competition',
+                    'place' => 3,
+                ];
+            } else {
+                break;
+            }
+        }
+
+        // persist
+        SeasonAward::insert($winners);
     }
 }

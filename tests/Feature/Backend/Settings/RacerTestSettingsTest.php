@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Backend;
+namespace Tests\Feature\Backend\Settings;
 
 use App\Http\Livewire\Dashboard\DashboardRacerTest;
 use App\Models\User;
