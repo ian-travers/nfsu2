@@ -2,38 +2,16 @@
 
 @php
     $types = [
-        'circuit' => [
-            'letter' => 'C',
-            'x' => 60,
-        ],
-        'sprint' => [
-            'letter' => 'S',
-            'x' => 80,
-        ],
-
-        'drag' => [
-            'letter' => 'D',
-            'x' => 70,
-        ],
-        'drift' => [
-            'letter' => 'T',
-            'x' => 78,
-        ],
+        'circuit' => ['letter' => 'C', 'x' => 60],
+        'sprint' => ['letter' => 'S', 'x' => 80],
+        'drag' => ['letter' => 'D', 'x' => 70],
+        'drift' => ['letter' => 'T', 'x' => 78],
     ];
 
     $colors = [
-        1 => [
-            'main' => '#ffd700',
-            'letter' => '#ff9700',
-        ],
-        2 => [
-            'main' => '#c0c0c0',
-            'letter' => '#858585',
-        ],
-        3 => [
-            'main' => '#cd7f32',
-            'letter' => '#ad6b2a',
-        ],
+        1 => ['main' => '#ffd700', 'letter' => '#ff9700'],
+        2 => ['main' => '#c0c0c0', 'letter' => '#858585'],
+        3 => ['main' => '#cd7f32', 'letter' => '#ad6b2a'],
     ];
 
 @endphp
