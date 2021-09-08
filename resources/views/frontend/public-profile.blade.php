@@ -49,6 +49,28 @@
             </div>
         </div>
 
+        @if($user->seasonAwards()->count())
+            <div class="flex items-baseline mt-8 space-x-4">
+                <h3 class="text-2xl">{{ __('Season awards') }}</h3>
+                <div class="flex-1">
+                    <div class="flex">
+                        @foreach($user->seasonAwards as $seasonAward)
+                            <div class="inline-block h-8 w-8 transform transition hover:scale-125">
+                                <a href="#"
+                                   title="{{ $seasonAward->htmlTitleAttribute() }}">
+                                    <x-season-award
+                                        place="{{ $seasonAward->place }}"
+                                        type="{{ $seasonAward->type }}"
+                                        size="12"
+                                    />
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        @endif
+
         @if($user->trophies()->count())
             <div class="flex mt-8 space-x-4">
                 <h3 class="text-2xl">{{ __('Trophies') }}</h3>

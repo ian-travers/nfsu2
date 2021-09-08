@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * App\Models\Tourney\SeasonAward
@@ -35,5 +36,10 @@ class SeasonAward extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function htmlTitleAttribute(): string
+    {
+        return __('Season') . ' #' . $this->season_index . ' - ' . Str::ucfirst($this->type);
     }
 }
