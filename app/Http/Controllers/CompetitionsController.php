@@ -22,4 +22,12 @@ class CompetitionsController extends Controller
             'competition' => $competition,
         ]);
     }
+
+    public function archive()
+    {
+        return view('frontend.competitions.archive', [
+            'title' => __('Competition archive'),
+            'competitions' => Competition::passed()->get(),
+        ]);
+    }
 }

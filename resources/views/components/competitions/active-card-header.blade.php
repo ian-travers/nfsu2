@@ -2,7 +2,7 @@
 
 <div {{ $attributes(['class' => 'mx-auto']) }}>
     <p class="text-lg text-center">
-        <span class="text-gray-500">#{{ $competition->id }}</span>
+        <span class="text-gray-300">#{{ $competition->id }}</span>
         {{ $competition->started_at->format('Y-m-d') }}
         &mdash;
         {{ $competition->ended_at->format('Y-m-d') }}

@@ -33,6 +33,7 @@ Route::group(['middleware' => 'language'], function () {
     })->name('home');
 
     Route::get('competitions', [\App\Http\Controllers\CompetitionsController::class, 'index'])->name('competitions.index');
+    Route::get('competitions/archive', [\App\Http\Controllers\CompetitionsController::class, 'archive'])->name('competitions.archive');
     Route::get('competitions/{competition}', [\App\Http\Controllers\CompetitionsController::class, 'show'])->name('competitions.show');
 
     Route::group([
