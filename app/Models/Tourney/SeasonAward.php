@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $season_index
  * @property string $type
  * @property string $place
+ * @property-read User $user
  * @method static Builder|SeasonAward newModelQuery()
  * @method static Builder|SeasonAward newQuery()
  * @method static Builder|SeasonAward query()

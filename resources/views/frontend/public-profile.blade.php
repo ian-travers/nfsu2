@@ -28,8 +28,7 @@
                 </div>
                 <div class="flex items-baseline">
                     <span class="fflag ff-lg ff-wave fflag-{{ $user->country }}"></span>
-                    <span
-                        class="text-xs ml-2">{{ \App\Models\Country::name($user->country) }}</span>
+                    <span class="text-xs ml-2">{{ \App\Models\Country::name($user->country) }}</span>
                 </div>
             </div>
             <div>

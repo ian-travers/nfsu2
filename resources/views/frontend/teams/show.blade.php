@@ -32,8 +32,8 @@
                             </td>
                             <td class="w-1/6 px-4 py-2">
                                 <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-6 w-6">
-                                        @livewire('user.avatar', ['user' => $user])
+                                    <div class="flex-shrink-0">
+                                        @livewire('user.avatar', ['user' => $user, 'size' => 6])
                                     </div>
                                     <div class="ml-2">
                                         <div class="hover:underline ml-2">
@@ -47,12 +47,12 @@
                             <td class="hidden md:table-cell px-4 py-2">
                                 @if($user->trophies()->count())
                                     @foreach($user->trophies as $trophy)
-                                        @if($trophy->trophiable_type = "tourney")
+                                        @if($trophy->trophiable_type == "tourney")
                                             <div
                                                 class="inline-block focus:outline-none transform transition hover:scale-125">
                                                 <a href="{{ route('tourneys.show', $trophy->trophiable) }}"
                                                    title="{{ $trophy->htmlTitleAttribute() }}">
-                                                    <x-trophy-medal
+                                                    <x-tourney-medal
                                                         place="{{ $trophy->place }}"
                                                         type="{{ $trophy->trophiable->type() }}"
                                                         size="6"

@@ -99,16 +99,16 @@ class User extends Authenticatable
         'is_admin' => 'boolean',
     ];
 
-    protected $with = ['team', 'trophies'];
+    protected $with = ['team', 'trophies', 'seasonAwards'];
 
     public function trophies()
     {
-        return $this->hasMany(Trophy::class);
+        return $this->hasMany(Trophy::class)->orderByDesc('id');
     }
 
     public function seasonAwards()
     {
-        return $this->hasMany(SeasonAward::class);
+        return $this->hasMany(SeasonAward::class)->orderByDesc('id');
     }
 
     public function seasonOverallAwards(int $seasonIndex = null)
