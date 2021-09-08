@@ -28,4 +28,12 @@ class TourneysController extends Controller
            'title' => $tourney->name,
         ]);
     }
+
+    public function archive()
+    {
+        return view('frontend.tourneys.archive', [
+            'tourneys' => Tourney::archive()->latest('started_at')->get(),
+            'title' => __('Tourney archive'),
+        ]);
+    }
 }

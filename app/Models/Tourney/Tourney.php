@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $racers_count
  * @property-read Collection|Trophy[] $trophies
  * @property-read int|null $trophies_count
+ * @method static Builder|Tourney archive()
  * @method static Builder|Tourney currentSeason()
  * @method static \Database\Factories\Tourney\TourneyFactory factory(...$parameters)
  * @method static Builder|Tourney newModelQuery()
@@ -181,6 +182,11 @@ class Tourney extends Model
     public function scopeCurrentSeason($query)
     {
         return $query->where('season_index', app(SeasonSettings::class)->index);
+    }
+
+    public function scopeArchive($query)
+    {
+        return $query->where('season_index', '<', app(SeasonSettings::class)->index);
     }
 
     public function heats()

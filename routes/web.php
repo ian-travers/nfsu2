@@ -40,6 +40,7 @@ Route::group(['middleware' => 'language'], function () {
         'as' => 'tourneys',
     ], function () {
         Route::get('', [TourneysController::class, 'index'])->name('.index');
+        Route::get('archive', [TourneysController::class, 'archive'])->name('.archive');
         Route::get('{tourney}', [TourneysController::class, 'show'])->name('.show');
     });
 
