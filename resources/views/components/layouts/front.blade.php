@@ -7,17 +7,15 @@
 @livewireStyles
 <body class="antialiased min-h-screen flex flex-col">
 
-<header class="bg-nfsu-color border-b border-gray-600">
-    <nav class="max-w-screen-2xl mx-auto">
-        <x-navs.top-nav></x-navs.top-nav>
-        <x-navs.mobile-top-nav></x-navs.mobile-top-nav>
-    </nav>
-</header>
+<x-layouts._header/>
+
 <main class="flex-grow bg-nfsu-map bg-no-repeat bg-cover bg-fixed text-blue-300">
     @livewire('generic-alert')
 
     {{ $slot }}
 </main>
+
+<x-layouts._footer/>
 
 <script>
     window._locale = '{{ app()->getLocale() }}';
