@@ -41,7 +41,7 @@ class SeasonHelper
         return $query->orderByDesc('pts')->get();
     }
 
-    public static function trophiesByUserId(int $userId, string $type = 'tourney', int $seasonIndex = null): Collection
+    public static function trophiesByUserId(int $userId, string $type, int $seasonIndex = null): Collection
     {
         return Trophy::where('user_id', $userId)
             ->where('trophiable_type', $type)

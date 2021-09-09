@@ -2,17 +2,18 @@
 
 <x-layouts.front title="{{ $title }}">
     <div class="mt-3 md:mt-4 mx-auto px-4 md:px-8 text-blue-400 max-w-screen-2xl">
-        <h2 class="text-xl md:text-3xl my-4 md:my-8 text-center tracking-wider font-medium">{{ __('Tourney personal standings') }}</h2>
+        <div class="flex items-center justify-between pt-4">
+            <p>{{ __('Seasons archive') }}</p>
+            <p class="hover:text-blue-300 hover:underline">
+                <a href="{{ route('seasons-archive.index') }}">{{ __('All seasons') }}</a>
+            </p>
+        </div>
+        <h2 class="text-xl md:text-3xl my-2 md:my-4 text-center tracking-wider font-medium">{{ __('Tourney personal standings') }}</h2>
+
         {{-- Filters--}}
         <div class="sm:grid sm:grid-cols-3 sm:gap-1 lg:gap-4">
             <div class="mt-4 sm:mt-0">
-                @include('frontend.season-standings._type-filter', ['route' => route('season-standings.tourney-personal')])
-            </div>
-            <div class="mt-4 sm:mt-0">
-                @include('frontend.season-standings._country-filter')
-            </div>
-            <div class="mt-4 sm:mt-0">
-                @include('frontend.season-standings._team-filter')
+                @include('frontend.season-standings._type-filter', ['route' => route('seasons-archive.show', $season)])
             </div>
         </div>
         {{-- End filters--}}
@@ -68,7 +69,7 @@
                         <td class="text-right px-4 py-2">{{ $racer->tourneys_count }}</td>
                         <td class="text-right px-4 py-2">{{ $racer->pts }}</td>
                         <td class="hidden xl:table-cell px-4 py-2">
-                            @foreach(\App\ReadRepositories\SeasonHelper::trophiesByUserId($racer->user_id, 'tourney') as $trophy)
+                            @foreach(\App\ReadRepositories\SeasonHelper::trophiesByUserId($racer->user_id, 'tourney', $season) as $trophy)
                                 <div class="inline-block focus:outline-none transform transition hover:scale-125">
                                     <a href="{{ route('tourneys.show', $trophy->trophiable) }}"
                                        title="{{ $trophy->htmlTitleAttribute() }}">
@@ -86,5 +87,7 @@
                 </tbody>
             </table>
         </div>
+
     </div>
 </x-layouts.front>
+

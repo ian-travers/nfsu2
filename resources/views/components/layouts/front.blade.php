@@ -9,7 +9,7 @@
 
 <x-layouts._header/>
 
-<main class="flex-grow bg-nfsu-map bg-no-repeat bg-cover bg-fixed text-blue-300">
+<main class="flex-grow bg-nfsu-map bg-no-repeat bg-cover bg-fixed text-blue-300 pb-12">
     @livewire('generic-alert')
 
     {{ $slot }}

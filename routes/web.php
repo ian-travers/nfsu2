@@ -8,8 +8,10 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\Quiz\AnswersController;
 use App\Http\Controllers\Backend\Quiz\QuestionsController;
 use App\Http\Controllers\Backend\UsersController;
+use App\Http\Controllers\CompetitionsController as ReadCompetitionsController;
 use App\Http\Controllers\NFSUServerController;
 use App\Http\Controllers\PublicProfileController;
+use App\Http\Controllers\SeasonsArchiveController;
 use App\Http\Controllers\SeasonStandingsController;
 use App\Http\Controllers\TeamsController;
 use App\Http\Controllers\Tests\RacerController;
@@ -32,9 +34,22 @@ Route::group(['middleware' => 'language'], function () {
         return view('welcome');
     })->name('home');
 
-    Route::get('competitions', [\App\Http\Controllers\CompetitionsController::class, 'index'])->name('competitions.index');
-    Route::get('competitions/archive', [\App\Http\Controllers\CompetitionsController::class, 'archive'])->name('competitions.archive');
-    Route::get('competitions/{competition}', [\App\Http\Controllers\CompetitionsController::class, 'show'])->name('competitions.show');
+    Route::group([
+        'prefix' => 'seasons-archive',
+        'as' => 'seasons-archive',
+    ], function () {
+        Route::get('', [SeasonsArchiveController::class, 'index'])->name('.index');
+        Route::get('{season}', [SeasonsArchiveController::class, 'show'])->name('.show');
+    });
+
+    Route::group([
+        'prefix' => 'competitions',
+        'as' => 'competitions',
+    ], function () {
+        Route::get('', [ReadCompetitionsController::class, 'index'])->name('.index');
+        Route::get('archive', [ReadCompetitionsController::class, 'archive'])->name('.archive');
+        Route::get('{competition}', [ReadCompetitionsController::class, 'show'])->name('.show');
+    });
 
     Route::group([
         'prefix' => 'tourneys',
