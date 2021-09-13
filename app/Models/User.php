@@ -106,6 +106,11 @@ class User extends Authenticatable
         return $this->hasMany(Trophy::class)->orderByDesc('id');
     }
 
+    public function tourneyTrophies()
+    {
+        return $this->trophies()->where('trophiable_type', 'tourney');
+    }
+
     public function seasonAwards()
     {
         return $this->hasMany(SeasonAward::class)->orderByDesc('id');

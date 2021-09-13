@@ -69,7 +69,7 @@
                         <td class="text-right px-4 py-2">{{ $racer->tourneys_count }}</td>
                         <td class="text-right px-4 py-2">{{ $racer->pts }}</td>
                         <td class="hidden xl:table-cell px-4 py-2">
-                            @foreach(\App\ReadRepositories\SeasonHelper::trophiesByUserId($racer->user_id, 'tourney', $season) as $trophy)
+                            @foreach($racer->user->tourneyTrophies as $trophy)
                                 <div class="inline-block focus:outline-none transform transition hover:scale-125">
                                     <a href="{{ route('tourneys.show', $trophy->trophiable) }}"
                                        title="{{ $trophy->htmlTitleAttribute() }}">
