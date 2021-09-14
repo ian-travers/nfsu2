@@ -115,6 +115,10 @@ class Competition extends Model
 
     public function standing(): Collection
     {
+        if ($this->isCompleted()) {
+            return $this->racers;
+        }
+
         $allRacer = collect();
 
         foreach ($this->ratingsPerTrack() as $trackName => $rating) {
@@ -186,13 +190,14 @@ class Competition extends Model
 
     protected function getRating($index): ?Collection
     {
+
         $field = "track{$index}_id";
 
         $direction = Str::substr($this->$field, 4, 1) == '0' ? 'forward' : 'reverse';
 
         $rating = (new BestPerformers(config('nfsu-server.path'), Str::substr($this->$field, 0, 4)))
             ->rating()
-            ->filter(fn($value) => $value['direction'] == $direction && \App\Models\User::existsByUsername($value['name']))
+            ->filter(fn($value) => $value['direction'] == $direction && User::existsByUsername($value['name']))
             ->values()
             ->transform(function ($racer) {
                 return collect($racer)->put('user_id', User::where('username', $racer['name'])->first()->id);
