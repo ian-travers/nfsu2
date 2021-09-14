@@ -9,6 +9,7 @@
         @else
             <p class="leading-5 text-lg mt-1">{{ __('No mistakes are allowed.') }}</p>
         @endif
+        @error('racer-test-form')<p class="text-red-500 text-sm py-2 md:-mb-4">{{ __('The test form is not completed') }}</p>@enderror
         <form action="{{ route('tests.racer.check') }}" method="post">
             <div class="md:grid md:grid-cols-2 md:gap-3 mt-4 md:mt-8">
                 @csrf

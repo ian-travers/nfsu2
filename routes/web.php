@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\CompetitionsController as ReadCompetitionsController;
 use App\Http\Controllers\NFSUServerController;
 use App\Http\Controllers\PublicProfileController;
+use App\Http\Controllers\RulesController;
 use App\Http\Controllers\SeasonsArchiveController;
 use App\Http\Controllers\SeasonStandingsController;
 use App\Http\Controllers\TeamsController;
@@ -33,6 +34,9 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('/', function () {
         return view('welcome');
     })->name('home');
+
+    Route::get('rules', [RulesController::class, 'show'])->name('rules');
+    Route::post('rules', [RulesController::class, 'check'])->name('rules-check');
 
     Route::group([
         'prefix' => 'seasons-archive',

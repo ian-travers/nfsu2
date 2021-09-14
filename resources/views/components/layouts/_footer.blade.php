@@ -61,12 +61,12 @@
                     </div>
                     <div class="mt-12 md:mt-0">
                         <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                            Support
+                            {{ __('Help center') }}
                         </h3>
                         <ul role="list" class="mt-4 space-y-4">
                             <li>
-                                <a href="#" class="text-base text-gray-500 hover:text-gray-900">
-                                    Pricing
+                                <a href="{{ route('rules') }}" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
+                                    {{ __('Rules') }}
                                 </a>
                             </li>
 
