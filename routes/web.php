@@ -14,6 +14,7 @@ use App\Http\Controllers\PublicProfileController;
 use App\Http\Controllers\RulesController;
 use App\Http\Controllers\SeasonsArchiveController;
 use App\Http\Controllers\SeasonStandingsController;
+use App\Http\Controllers\StaticPagesController;
 use App\Http\Controllers\TeamsController;
 use App\Http\Controllers\Tests\RacerController;
 use App\Http\Controllers\TourneysController;
@@ -260,4 +261,9 @@ Route::group(['middleware' => 'language'], function () {
 
     // Dummy route
     Route::get('#', fn() => view('welcome'))->name('#');
+
+    // Static pages. Should be at the bottom
+    Route::get('information/{page}', StaticPagesController::class)
+        ->name('page')
+        ->where('page', 'tourneys|competitions|nfsu-cup|nfsu-server');
 });

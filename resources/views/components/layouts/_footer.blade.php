@@ -41,25 +41,25 @@
                         </h3>
                         <ul role="list" class="mt-4 space-y-4">
                             <li>
-                                <a href="#" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
+                                <a href="{{ route('page', 'tourneys') }}" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
                                     {{ __('Tourneys') }}
                                 </a>
                             </li>
 
                             <li>
-                                <a href="#" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
+                                <a href="{{ route('page', 'competitions') }}" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
                                     {{ __('Competitions') }}
                                 </a>
                             </li>
 
                             <li>
-                                <a href="#" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
+                                <a href="{{ route('page', 'nfsu-cup') }}" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
                                     NFSU Cup
                                 </a>
                             </li>
 
                             <li>
-                                <a href="#" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
+                                <a href="{{ route('page', 'nfsu-server') }}" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
                                     {{ __('NFSU Server') }}
                                 </a>
                             </li>
