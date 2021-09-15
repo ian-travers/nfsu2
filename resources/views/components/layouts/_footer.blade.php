@@ -36,25 +36,31 @@
             <div class="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
                 <div class="md:grid md:grid-cols-2 md:gap-8">
                     <div>
-                        <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">
-                            {{ __('Archive') }}
+                        <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                            {{ __('Information') }}
                         </h3>
-                        <ul role="list" class="mt-4 space-y-2">
+                        <ul role="list" class="mt-4 space-y-4">
                             <li>
-                                <a href="{{ route('seasons-archive.index') }}" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
-                                    {{ __('Seasons') }}
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="{{ route('tourneys.archive') }}" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
+                                <a href="#" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
                                     {{ __('Tourneys') }}
                                 </a>
                             </li>
 
                             <li>
-                                <a href="{{ route('competitions.archive') }}" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
+                                <a href="#" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
                                     {{ __('Competitions') }}
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
+                                    NFSU Cup
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
+                                    {{ __('NFSU Server') }}
                                 </a>
                             </li>
                         </ul>
@@ -128,25 +134,25 @@
                         </ul>
                     </div>
                     <div class="mt-12 md:mt-0">
-                        <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                            Legal
+                        <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">
+                            {{ __('Archive') }}
                         </h3>
-                        <ul role="list" class="mt-4 space-y-4">
+                        <ul role="list" class="mt-4 space-y-2">
                             <li>
-                                <a href="#" class="text-base text-gray-500 hover:text-gray-900">
-                                    Claim
+                                <a href="{{ route('seasons-archive.index') }}" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
+                                    {{ __('Seasons') }}
                                 </a>
                             </li>
 
                             <li>
-                                <a href="#" class="text-base text-gray-500 hover:text-gray-900">
-                                    Privacy
+                                <a href="{{ route('tourneys.archive') }}" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
+                                    {{ __('Tourneys') }}
                                 </a>
                             </li>
 
                             <li>
-                                <a href="#" class="text-base text-gray-500 hover:text-gray-900">
-                                    Terms
+                                <a href="{{ route('competitions.archive') }}" class="text-base text-blue-400 hover:text-blue-300 hover:underline transition">
+                                    {{ __('Competitions') }}
                                 </a>
                             </li>
                         </ul>
