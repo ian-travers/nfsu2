@@ -28,6 +28,7 @@ class SeasonHelper
 
         $query = SeasonRacer::with('user')
             ->selectRaw("id,racer_username,user_id,{$tourneysCount} as tourneys_count, {$pts} as pts")
+            ->whereRaw("{$tourneysCount} > 0")
             ->where('season_index', self::index($seasonIndex));
 
         if ($country !== 'all') {

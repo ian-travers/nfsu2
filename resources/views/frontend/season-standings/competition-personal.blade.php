@@ -39,7 +39,7 @@
                             @if($racer->user)
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-6 w-6">
-                                        @livewire('user.avatar', ['user' => $racer->user])
+                                        @livewire('user.avatar', ['user' => $racer->user, 'size' => 6])
                                     </div>
                                     <div class="hover:underline ml-3">
                                         <a href="{{ route('public-profile', $racer->user->username) }}">
