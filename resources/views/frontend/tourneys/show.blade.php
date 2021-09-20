@@ -24,9 +24,9 @@
             @for($round = 1; $round <= 5; $round++)
                 <div class="p-4 my-8">
                     @include('frontend.tourneys._round', [
-    'round' => $round,
-    'heats' => $tourney->heats()->where('round', $round)->orderBy('heat_no')->get()
-    ])
+                    'round' => $round,
+                    'heats' => $tourney->heats()->where('round', $round)->orderBy('heat_no')->get()
+                    ])
                 </div>
             @endfor
         </div>

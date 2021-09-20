@@ -9,9 +9,7 @@
             </div>
         @endif
         <div class="mt-8">
-            <a href="{{ route('tourneys.archive') }}" class="hover:underline text-sm">
-                {{ __('Tourney archive') }}
-            </a>
+            <x-link href="{{ route('tourneys.archive') }}" class="text-sm">{{ __('Tourney archive') }}</x-link>
         </div>
     </div>
 </x-layouts.front>

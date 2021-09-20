@@ -3,10 +3,8 @@
         <h2 class="text-xl md:text-3xl my-4 md:my-8 text-center tracking-wider font-medium">{{ __('Current competition') }}</h2>
         <x-competitions.active-card :competition="$competition"/>
 
-        <div class="text-sm mt-8">
-            <a href="{{ route('competitions.archive') }}" class="hover:underline ">
-                {{ __('Competition archive') }}
-            </a>
+        <div class="mt-8">
+            <x-link href="{{ route('competitions.archive') }}" class="text-sm">{{ __('Competition archive') }}</x-link>
         </div>
     </div>
 </x-layouts.front>
