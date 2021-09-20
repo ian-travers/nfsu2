@@ -66,7 +66,7 @@
                         <td class="text-right px-4 py-2">{{ $tourneyRacer->tourneys_count }}</td>
                         <td class="text-right px-4 py-2">{{ $tourneyRacer->pts }}</td>
                         <td class="hidden xl:table-cell px-4 py-2">
-                            @foreach($tourneyRacer->user->tourneyTrophies as $trophy)
+                            @foreach(\App\ReadRepositories\SeasonHelper::trophiesByUserId($tourneyRacer->user_id, 'tourney', $season) as $trophy)
                                 <div class="inline-block focus:outline-none transform transition hover:scale-125">
                                     <a href="{{ route('tourneys.show', $trophy->trophiable) }}"
                                        title="{{ $trophy->htmlTitleAttribute() }}">
@@ -136,7 +136,7 @@
                         <td class="text-right px-4 py-2">{{ $competitionRacer->competition_count }}</td>
                         <td class="text-right px-4 py-2">{{ $competitionRacer->pts }}</td>
                         <td class="hidden xl:table-cell px-4 py-2">
-                            @foreach(\App\ReadRepositories\SeasonHelper::trophiesByUserId($competitionRacer->user_id, 'competition') as $trophy)
+                            @foreach(\App\ReadRepositories\SeasonHelper::trophiesByUserId($competitionRacer->user_id, 'competition', $season) as $trophy)
                                 <div class="inline-block focus:outline-none transform transition hover:scale-125">
                                     <a href="{{ route('competitions.show', $trophy->trophiable) }}"
                                        title="{{ $trophy->htmlTitleAttribute() }}">
