@@ -56,7 +56,7 @@
                     <div class="flex">
                         @foreach($user->seasonAwards as $seasonAward)
                             <div class="inline-block h-8 w-8 transform transition hover:scale-125">
-                                <a href="#"
+                                <a href="{{ route('seasons-archive.show', $seasonAward->season_index) }}"
                                    title="{{ $seasonAward->htmlTitleAttribute() }}">
                                     <x-season-award
                                         place="{{ $seasonAward->place }}"
