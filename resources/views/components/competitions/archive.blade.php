@@ -7,5 +7,5 @@
         @endforeach
     </div>
 @else
-    <div class="mt-4">{{ __('There is not competitions yet.') }}</div>
+    <div class="mt-4">{{ __('There is no competitions yet.') }}</div>
 @endif

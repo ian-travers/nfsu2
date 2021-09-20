@@ -28,7 +28,7 @@
                             <td class="px-6 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
-                                        @livewire('user.avatar', ['user' => $user])
+                                        @livewire('user.avatar', ['user' => $user, 'size' => 10])
                                     </div>
                                     <div class="ml-4">
                                         <div class="text-sm font-medium text-gray-900">
