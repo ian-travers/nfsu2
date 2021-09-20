@@ -34,7 +34,6 @@ class CompleteTest extends TestCase
         // TODO: check for admin permission
         // $this->signIn(User::factory()->admin()->create());
 
-        /** @var SeasonRacer $overallFirst */
         $tourneysFirst = SeasonRacer::factory()->firstTourneys()->create();
         $tourneysSecond = SeasonRacer::factory()->secondTourneys()->create();
         $tourneysThird = SeasonRacer::factory()->thirdTourneys()->create();

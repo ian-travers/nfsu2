@@ -26,6 +26,10 @@ class SeasonRacerFactory extends Factory
     public function firstTourneys()
     {
         return $this->state([
+            'circuit_count' => 1,
+            'sprint_count' => 1,
+            'drag_count' => 1,
+            'drift_count' => 1,
             'circuit_pts' => 100,
             'sprint_pts' => 100,
             'drag_pts' => 100,
@@ -36,6 +40,10 @@ class SeasonRacerFactory extends Factory
     public function secondTourneys()
     {
         return $this->state([
+            'circuit_count' => 1,
+            'sprint_count' => 1,
+            'drag_count' => 1,
+            'drift_count' => 1,
             'circuit_pts' => 80,
             'sprint_pts' => 80,
             'drag_pts' => 80,
@@ -46,6 +54,10 @@ class SeasonRacerFactory extends Factory
     public function thirdTourneys()
     {
         return $this->state([
+            'circuit_count' => 1,
+            'sprint_count' => 1,
+            'drag_count' => 1,
+            'drift_count' => 1,
             'circuit_pts' => 60,
             'sprint_pts' => 60,
             'drag_pts' => 60,
