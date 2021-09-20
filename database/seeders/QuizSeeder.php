@@ -17,7 +17,7 @@ class QuizSeeder extends Seeder
         ]);
         $question->addAnswer([
             'answer_en' => 'Fill out "Sign Up" form on this site.',
-            'answer_ru' => 'Подать заявку" из меню на этом сайте.',
+            'answer_ru' => '"Подать заявку" из меню на этом сайте.',
             'index' => '1',
         ]);
         $question->addAnswer([
