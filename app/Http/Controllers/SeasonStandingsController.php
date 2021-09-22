@@ -13,7 +13,7 @@ class SeasonStandingsController extends Controller
             'types' => SeasonHelper::types(),
             'countries' => SeasonHelper::countries(),
             'teams' => SeasonHelper::teams(),
-            'racers' => SeasonHelper::racersStanding(request(['type', 'country', 'team'])),
+            'racers' => SeasonHelper::tourneyRacersStanding(request(['type', 'country', 'team'])),
         ]);
     }
 

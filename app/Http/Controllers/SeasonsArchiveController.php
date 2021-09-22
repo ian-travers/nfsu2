@@ -23,7 +23,7 @@ class SeasonsArchiveController extends Controller
             'types' => SeasonHelper::types($season),
             'countries' => SeasonHelper::countries($season),
             'teams' => SeasonHelper::teams($season),
-            'tourneyRacers' => SeasonHelper::racersStanding(request(['type', 'country', 'team']), $season),
+            'tourneyRacers' => SeasonHelper::tourneyRacersStanding(request(['type', 'country', 'team']), $season),
             'competitionRacers' => SeasonHelper::competitionRacersStanding($season),
             'season' => $season,
         ]);

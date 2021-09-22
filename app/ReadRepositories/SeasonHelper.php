@@ -18,7 +18,7 @@ class SeasonHelper
         return $index ?? app(SeasonSettings::class)->index;
     }
 
-    public static function racersStanding(array $filters = [], int $seasonIndex = null): Collection
+    public static function tourneyRacersStanding(array $filters = [], int $seasonIndex = null): Collection
     {
         $type = $filters['type'] ?? 'overall';
         $country = $filters['country'] ?? 'all';
@@ -175,7 +175,7 @@ class SeasonHelper
         $index = self::index($seasonIndex);
 
         // overall
-        $racers = self::racersStanding();
+        $racers = self::tourneyRacersStanding();
         foreach ($racers as $racer) {
             if ($racer->getPlace($racers) == 1) {
                 $winners[] = [
@@ -204,7 +204,7 @@ class SeasonHelper
         }
 
         // circuit
-        $racers = self::racersStanding(['type' => 'circuit']);
+        $racers = self::tourneyRacersStanding(['type' => 'circuit']);
         foreach ($racers as $racer) {
             if ($racer->getPlace($racers) == 1) {
                 $winners[] = [
@@ -233,7 +233,7 @@ class SeasonHelper
         }
 
         // sprint
-        $racers = self::racersStanding(['type' => 'sprint']);
+        $racers = self::tourneyRacersStanding(['type' => 'sprint']);
         foreach ($racers as $racer) {
             if ($racer->getPlace($racers) == 1) {
                 $winners[] = [
@@ -262,7 +262,7 @@ class SeasonHelper
         }
 
         // drag
-        $racers = self::racersStanding(['type' => 'drag']);
+        $racers = self::tourneyRacersStanding(['type' => 'drag']);
         foreach ($racers as $racer) {
             if ($racer->getPlace($racers) == 1) {
                 $winners[] = [
@@ -291,7 +291,7 @@ class SeasonHelper
         }
 
         // drift
-        $racers = self::racersStanding(['type' => 'drift']);
+        $racers = self::tourneyRacersStanding(['type' => 'drift']);
         foreach ($racers as $racer) {
             if ($racer->getPlace($racers) == 1) {
                 $winners[] = [
