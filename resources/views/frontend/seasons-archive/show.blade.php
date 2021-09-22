@@ -155,4 +155,3 @@
         </div>
     </div>
 </x-layouts.front>
-

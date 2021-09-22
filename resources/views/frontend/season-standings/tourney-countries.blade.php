@@ -41,5 +41,4 @@
             {{ __('There is no tourneys yet.') }}
         @endif
     </div>
-
 </x-layouts.front>
