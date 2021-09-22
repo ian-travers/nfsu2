@@ -85,6 +85,13 @@ class TourneysController extends Controller
             ]);
         }
 
+        if (Gate::denies('update-tourney', $tourney)) {
+            return redirect()->back()->with('flash', [
+                'type' => 'error',
+                'message' => __("Impossible to edit someone else's tourney."),
+            ]);
+        }
+
         if (!$tourney->isScheduled()) {
             return back()->with('flash', [
                 'type' => 'warning',

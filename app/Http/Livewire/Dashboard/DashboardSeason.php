@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Dashboard;
 
 use App\Events\SeasonCompleted;
 use App\Settings\SeasonSettings;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 
 class DashboardSeason extends Component
@@ -26,23 +27,30 @@ class DashboardSeason extends Component
 
     public function complete()
     {
-        $this->validate();
+        if (Gate::denies('admin')) {
+            session()->flash('flash', [
+                'type' => 'error',
+                'message' => __('You have no permission to complete the season.'),
+            ]);
+        } else {
+            $this->validate();
 
-        event(new SeasonCompleted($this->index));
+            event(new SeasonCompleted($this->index));
 
-        $this->index++;
+            $this->index++;
 
-        $settings = app(SeasonSettings::class);
-        $settings->index = (int)$this->index;
+            $settings = app(SeasonSettings::class);
+            $settings->index = (int)$this->index;
 
-        $settings->save();
+            $settings->save();
 
-        session()->flash('flash', [
-            'type' => 'success',
-            'message' => __('Season has been completed. New season starts.'),
-        ]);
+            session()->flash('flash', [
+                'type' => 'success',
+                'message' => __('Season has been completed. New season starts.'),
+            ]);
+        }
 
-        return redirect()->route('adm.dashboard');
+        redirect()->route('adm.dashboard');
     }
 
     public function suspend()

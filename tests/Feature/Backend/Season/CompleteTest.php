@@ -5,6 +5,7 @@ namespace Tests\Feature\Backend\Season;
 use App\Http\Livewire\Dashboard\DashboardSeason;
 use App\Models\Tourney\SeasonAward;
 use App\Models\Tourney\SeasonRacer;
+use App\Models\User;
 use App\Settings\SeasonSettings;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -19,8 +20,7 @@ class CompleteTest extends TestCase
     {
         $this->assertEquals(1, app(SeasonSettings::class)->index);
 
-        // TODO: check for admin permission
-        // $this->signIn(User::factory()->admin()->create());
+        $this->signIn(User::factory()->admin()->create());
 
         Livewire::test(DashboardSeason::class)
             ->call('complete');
@@ -31,9 +31,6 @@ class CompleteTest extends TestCase
     /** @test */
     function all_season_winners_get_trophies_when_the_season_is_completed()
     {
-        // TODO: check for admin permission
-        // $this->signIn(User::factory()->admin()->create());
-
         $tourneysFirst = SeasonRacer::factory()->firstTourneys()->create();
         $tourneysSecond = SeasonRacer::factory()->secondTourneys()->create();
         $tourneysThird = SeasonRacer::factory()->thirdTourneys()->create();
@@ -42,8 +39,7 @@ class CompleteTest extends TestCase
         $competitionsSecond = SeasonRacer::factory()->secondCompetitions()->create();
         $competitionsThird = SeasonRacer::factory()->thirdCompetitions()->create();
 
-        // TODO: check for admin permission
-        // $this->signIn(User::factory()->admin()->create());
+        $this->signIn(User::factory()->admin()->create());
 
         Livewire::test(DashboardSeason::class)
             ->call('complete');
