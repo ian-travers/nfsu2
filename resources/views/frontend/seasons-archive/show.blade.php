@@ -4,6 +4,7 @@
     <div class="mt-3 md:mt-4 mx-auto px-4 md:px-8 text-blue-400 max-w-screen-2xl">
         <div class="flex items-center justify-between pt-4">
             <p>{{ __('Seasons archive') }}</p>
+            <p class="text-xl">#{{ $season }}</p>
             <x-link href="{{ route('seasons-archive.index') }}">{{ __('All seasons') }}</x-link>
         </div>
         <h2 class="text-xl md:text-3xl my-2 md:my-4 text-center tracking-wider font-medium">{{ __('Tourney personal standings') }}</h2>
