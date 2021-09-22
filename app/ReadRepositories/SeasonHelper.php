@@ -27,7 +27,8 @@ class SeasonHelper
         [$tourneysCount, $pts] = self::returningValues($type);
 
         $query = SeasonRacer::with('user')
-            ->selectRaw("id,racer_username,user_id,{$tourneysCount} as tourneys_count, {$pts} as pts")
+//            ->selectRaw("id,racer_username,user_id,{$tourneysCount} as tourneys_count, {$pts} as pts")
+            ->selectRaw("id,racer_username,user_id,{$tourneysCount} as count, {$pts} as pts")
             ->whereRaw("{$tourneysCount} > 0")
             ->where('season_index', self::index($seasonIndex));
 
@@ -162,7 +163,8 @@ class SeasonHelper
     public static function competitionRacersStanding(int $seasonIndex = null)
     {
         return SeasonRacer::with('user')
-            ->selectRaw("id,racer_username,user_id,competition_count,competition_pts as pts")
+//            ->selectRaw("id,racer_username,user_id,competition_count,competition_pts as pts")
+            ->selectRaw("id,racer_username,user_id,competition_count as count,competition_pts as pts")
             ->where('competition_count', '>', 0)
             ->where('season_index', self::index($seasonIndex))
             ->orderByDesc('pts')
