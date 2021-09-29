@@ -7,28 +7,45 @@
                 class="text-3xl border border-blue-400 rounded-lg hover:text-gray-50 hover:bg-blue-400 transition duration-500 px-36 py-4"
             >{{ __('Download') }}</a>
         </div>
-        <div class="flex mt-6">
-            <div class="w-48">{{ __('Size') }}</div>
-            <div class="flex-1">{{ number_format($file->size, 0, '', ' ') }} {{ __('bytes') }} ({{ __('zip folder') }})</div>
-        </div>
-        <div class="flex mt-6">
-            <div class="w-48">{{ __('Brief') }}</div>
+        <div class="flex-none md:flex mt-8">
             <div class="flex-1">
-                {{ __('Need for Speed Underground video game of 2003. Arcade racing.') }}<br>
-                {{ __('Developed by EA Black Box (ex Black Box Games).') }}<br>
-                {{ __('Version: 1.4.') }}<br>
-                {{ __('Language: english.') }}<br>
-                {{ __('Features: no-cd, intro video was cut.') }}
+                <div class="flex mt-6">
+                    <div class="w-48">{{ __('Size') }}</div>
+                    <div class="flex-1">
+                        {{ number_format($file->size, 0, '', ' ') }}
+                        {{ __('bytes') }}
+                        ({{ __('zip folder') }})
+                    </div>
+                </div>
+                <div class="flex mt-6">
+                    <div class="w-48">{{ __('Brief') }}</div>
+                    <div class="flex-1">
+                        {{ __('Need for Speed Underground video game of 2003. Arcade racing.') }}<br>
+                        {{ __('Developed by EA Black Box (ex Black Box Games).') }}<br>
+                        {{ __('Version: 1.4.') }}<br>
+                        {{ __('Language: english.') }}<br>
+                        {{ __('Features: no-cd, intro video was cut.') }}
+                    </div>
+                </div>
+                <div class="flex mt-6">
+                    <div class="w-48">
+                        {{ __('Setup') }}
+                    </div>
+                    <div class="flex-1">
+                        {{ __('Unzip to desired folder. Create a shortcut wherever you want for executable speed.exe. You can change shortcut icon by the NFSU_icon.ico. The game is ready to start.') }}
+                    </div>
+                </div>
+                <div class="flex mt-6">
+                    <div class="w-48">
+                        {{ __('See also') }}
+                    </div>
+                    <div class="flex-1">
+                        <x-link href="{{ route('downloads', 'nfsu-client') }}">{{ __('NFSU Client') }}</x-link>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="flex mt-6">
-            <div class="w-48">{{ __('Setup') }}</div>
-            <div class="flex-1">{{ __('Unzip to desired folder. Create a shortcut wherever you want for executable speed.exe. You can change shortcut icon by the NFSU_icon.ico. The game is ready to start.') }}</div>
-        </div>
-        <div class="flex mt-6">
-            <div class="w-48">{{ __('See also') }}</div>
-            <div class="flex-1">
-                <x-link href="{{ route('downloads', 'nfsu-client') }}">{{ __('NFSU Client') }}</x-link>
+            <div class="w-96 mt-6 md:mt-0 pl-8">
+                <img src="{{ asset("storage/images/nfsu-cover.jpg") }}" alt="Cover"/>
             </div>
         </div>
     </div>
