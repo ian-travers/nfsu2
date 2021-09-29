@@ -79,38 +79,13 @@
                 <div class="md:grid md:grid-cols-2 md:gap-8">
                     <div>
                         <h3 class="text-sm font-semibold text-gray-500 tracking-wider uppercase">
-                            Company
+                            {{ __('Downloads') }}
                         </h3>
                         <ul role="list" class="mt-4 space-y-1">
-                            <li>
-                                <a href="#" class="text-base text-gray-500 hover:text-gray-900">
-                                    About
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="text-base text-gray-500 hover:text-gray-900">
-                                    Blog
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="text-base text-gray-500 hover:text-gray-900">
-                                    Jobs
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="text-base text-gray-500 hover:text-gray-900">
-                                    Press
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="text-base text-gray-500 hover:text-gray-900">
-                                    Partners
-                                </a>
-                            </li>
+                            <li><x-link href="{{ route('downloads', 'nfsu') }}">{{ __('NFS Underground') }}</x-link></li>
+                            <li><x-link href="{{ route('downloads', 'nfsu-client') }}">{{ __('NFSU Client') }}</x-link></li>
+                            <li><x-link href="{{ route('downloads', 'nfsu-save') }}">{{ __('NFSU Save') }}</x-link></li>
+                            <li><x-link href="{{ route('downloads', 'nfsu-save-patcher') }}">{{ __('NFSU Save Patcher') }}</x-link></li>
                         </ul>
                     </div>
                     <div class="mt-12 md:mt-0">

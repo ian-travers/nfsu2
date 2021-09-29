@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\Quiz\AnswersController;
 use App\Http\Controllers\Backend\Quiz\QuestionsController;
 use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\CompetitionsController as ReadCompetitionsController;
+use App\Http\Controllers\DownloadsController;
 use App\Http\Controllers\NFSUServerController;
 use App\Http\Controllers\PublicProfileController;
 use App\Http\Controllers\RulesController;
@@ -263,6 +264,10 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('#', fn() => view('welcome'))->name('#');
 
     // Static pages. Should be at the bottom
+    Route::get('downloads/{filename}', DownloadsController::class)
+        ->name('downloads')
+        ->where('filename', 'nfsu|nfsu-client|nfsu-save|nfsu-save-patcher');
+
     Route::get('information/{page}', StaticPagesController::class)
         ->name('page')
         ->where('page', 'tourneys|competitions|nfsu-cup|nfsu-server');
