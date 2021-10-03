@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Backend\CompetitionsController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\NewsController;
 use App\Http\Controllers\Backend\Quiz\AnswersController;
 use App\Http\Controllers\Backend\Quiz\QuestionsController;
 use App\Http\Controllers\Backend\UsersController;
@@ -246,7 +247,7 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
-        // Users
+        // Competitions
         Route::group([
             'prefix' => 'competitions',
             'as' => '.competitions',
@@ -257,6 +258,19 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('edit/{competition}', [CompetitionsController::class, 'edit'])->name('.edit');
             Route::patch('{competition}', [CompetitionsController::class, 'update'])->name('.update');
             Route::delete('{competition}', [CompetitionsController::class, 'remove'])->name('.delete');
+        });
+
+        // News
+        Route::group([
+            'prefix' => 'news',
+            'as' => '.news',
+        ], function () {
+            Route::get('', [NewsController::class, 'index'])->name('.index');
+            Route::get('create', [NewsController::class, 'create'])->name('.create');
+            Route::post('', [NewsController::class, 'store'])->name('.store');
+            Route::get('edit/{newsitem}', [NewsController::class, 'edit'])->name('.edit');
+            Route::patch('{newsitem}', [NewsController::class, 'update'])->name('.update');
+            Route::delete('{newsitem}', [NewsController::class, 'remove'])->name('.delete');
         });
     });
 

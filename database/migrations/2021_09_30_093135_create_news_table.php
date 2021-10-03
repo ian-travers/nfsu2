@@ -12,7 +12,7 @@ class CreateNewsTable extends Migration
             $table->id();
             $table->string('title_en');
             $table->string('title_ru');
-            $table->string('slug')->unique();
+            $table->string('slug')->unique()->nullable();
             $table->text('body_en');
             $table->text('body_ru');
             $table->tinyInteger('status')->default(0);
