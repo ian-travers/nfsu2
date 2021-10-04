@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
  * @property int $id
  * @property string $title_en
  * @property string $title_ru
- * @property string $slug
+ * @property string|null $slug
  * @property string $body_en
  * @property string $body_ru
  * @property int $status
@@ -38,7 +38,7 @@ use Illuminate\Support\Str;
  */
 class News extends Model
 {
-    use HasFactory, NativeAttribute;
+    use HasFactory, NativeAttribute, HasComments;
 
     protected static function boot()
     {
