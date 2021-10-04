@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Auth;
 
 use App\Models\Country;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Livewire\Component;
 use Lukeraymonddowning\Honey\Traits\WithRecaptcha;
 
@@ -41,6 +42,8 @@ class Register extends Component
             'email' => $this->email,
             'password' => bcrypt($this->password),
         ]);
+
+        event(new Registered($user));
 
         auth()->login($user);
 

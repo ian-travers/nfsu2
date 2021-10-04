@@ -8,8 +8,8 @@ use App\Events\TourneyCompleted;
 use App\Listeners\Competition;
 use App\Listeners\Season;
 use App\Listeners\Tourney;
+use App\Listeners\User\CreateNewsItemWhenRegistered;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -21,7 +21,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         Registered::class => [
-            SendEmailVerificationNotification::class,
+            CreateNewsItemWhenRegistered::class,
         ],
 
         TourneyCompleted::class => [

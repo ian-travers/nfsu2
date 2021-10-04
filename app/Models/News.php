@@ -40,8 +40,6 @@ class News extends Model
 {
     use HasFactory, NativeAttribute;
 
-    protected $guarded = [];
-
     protected static function boot()
     {
         parent::boot();
