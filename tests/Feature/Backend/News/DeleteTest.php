@@ -18,10 +18,10 @@ class DeleteTest extends TestCase
 
         $news = News::factory()->create();
 
-        $this->assertDatabaseCount('News', 1);
+        $this->assertDatabaseCount('news', 1);
 
         $this->delete("/adm/news/{$news->id}");
 
-        $this->assertDatabaseCount('News', 0);
+        $this->assertDatabaseCount('news', 0);
     }
 }

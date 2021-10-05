@@ -15,7 +15,7 @@ class EditTest extends TestCase
     function admin_can_update_a_news()
     {
         $this->signIn(User::factory()->admin()->create());
-        $this->withoutExceptionHandling();
+
         $news = News::factory()->create();
 
         $attributes =  [
@@ -28,7 +28,7 @@ class EditTest extends TestCase
 
         $this->patch("/adm/news/{$news->id}", $attributes);
 
-        $this->assertDatabaseCount('News', 1);
-        $this->assertDatabaseHas('News', $attributes);
+        $this->assertDatabaseCount('news', 1);
+        $this->assertDatabaseHas('news', $attributes);
     }
 }

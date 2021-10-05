@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\Backend\CommentsController;
 use App\Http\Controllers\Backend\CompetitionsController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\NewsController;
@@ -268,9 +269,21 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('', [NewsController::class, 'index'])->name('.index');
             Route::get('create', [NewsController::class, 'create'])->name('.create');
             Route::post('', [NewsController::class, 'store'])->name('.store');
+            Route::get('{newsitem}', [NewsController::class, 'show'])->name('.view');
             Route::get('edit/{newsitem}', [NewsController::class, 'edit'])->name('.edit');
             Route::patch('{newsitem}', [NewsController::class, 'update'])->name('.update');
             Route::delete('{newsitem}', [NewsController::class, 'remove'])->name('.delete');
+        });
+
+        // Comments
+        Route::group([
+            'prefix' => 'comments',
+            'as' => '.comments',
+        ], function () {
+            Route::get('', [CommentsController::class, 'index'])->name('.index');
+            Route::get('edit/{comment}', [CommentsController::class, 'edit'])->name('.edit');
+            Route::patch('{comment}', [CommentsController::class, 'update'])->name('.update');
+            Route::delete('{comment}', [CommentsController::class, 'remove'])->name('.delete');
         });
     });
 

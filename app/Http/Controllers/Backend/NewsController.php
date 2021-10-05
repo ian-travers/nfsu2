@@ -51,6 +51,14 @@ class NewsController extends Controller
         ]);
     }
 
+    public function show(News $newsitem)
+    {
+        return view('backend.news.show', [
+            'title' => __('View news item'),
+            'newsitem' => $newsitem->load('comments'),
+        ]);
+    }
+
     public function remove(News $newsitem)
     {
         $newsitem->delete();

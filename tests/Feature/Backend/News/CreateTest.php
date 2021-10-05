@@ -24,6 +24,6 @@ class CreateTest extends TestCase
             'status' => 1,
         ]);
 
-        $this->assertDatabaseCount('News', 1);
+        $this->assertDatabaseCount('news', 1);
     }
 }
