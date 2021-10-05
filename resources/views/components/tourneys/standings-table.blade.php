@@ -30,15 +30,11 @@
             <td class="px-4 py-2">
                 @if($racer->user)
                     <div class="flex items-center">
-                        <div class="flex-shrink-0 h-6 w-6">
-                            @livewire('user.avatar', ['user' => $racer->user, 'size' => 5])
-                        </div>
-                        <div class="ml-3">
-                            <div class="hover:underline ml-2">
-                                <a href="{{ route('public-profile', $racer->user->username) }}">
-                                    {{ $racer->user->username }}
-                                </a>
-                            </div>
+                        @livewire('user.avatar', ['user' => $racer->user, 'size' => 5])
+                        <div class="hover:underline ml-2">
+                            <a href="{{ route('public-profile', $racer->user->username) }}">
+                                {{ $racer->user->username }}
+                            </a>
                         </div>
                     </div>
                 @else

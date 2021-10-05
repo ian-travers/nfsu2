@@ -1,4 +1,4 @@
-<div>
+<div class="inline-flex">
     @if($hasAvatar)
         <img
             class="h-{{ $size }} w-{{ $size }} rounded-full"
