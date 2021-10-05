@@ -7,6 +7,14 @@ use App\Models\Comment;
 
 class CommentsController extends Controller
 {
+    public function index()
+    {
+        return view('backend.comments.index', [
+            'title' => __('Edit comment'),
+            'comments' => Comment::with('author')->paginate(20),
+        ]);
+    }
+
     public function edit(Comment $comment)
     {
         session()->put('url.intended', url()->previous() == url()->current() ? route('adm.comments.index') : url()->previous());

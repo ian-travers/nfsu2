@@ -15,7 +15,7 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach($newsitem->comments as $comment)
+                    @foreach($comments as $comment)
                         <tr>
                             <td class="px-6 py-4">
                                 @livewire('user.avatar', ['user' => $comment->author, 'size' => 6])

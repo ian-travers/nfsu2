@@ -25,7 +25,7 @@
         <div class="text-lg">{{ __('Comments') }}</div>
         @if($newsitem->comments->count())
             <div class="mt-4">
-                @include('backend.news._comments')
+                @include('backend.comments._table', ['comments' => $newsitem->comments])
             </div>
         @else
             <p class="mt-4">
