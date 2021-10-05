@@ -34,14 +34,12 @@
                 @if($racer->user)
                     <div class="flex items-center">
                         @livewire('user.avatar', ['user' => $racer->user, 'size' => 6])
-                        <div class="hover:underline ml-3">
-                            <a href="{{ route('public-profile', $racer->user->username) }}">
-                                {{ $racer->user->username }}
-                            </a>
-                        </div>
+                        <x-link href="{{ route('public-profile', $racer->user->username) }}" class="ml-3">
+                            {{ $racer->user->username }}
+                        </x-link>
                     </div>
                 @else
-                    <span class="text-gray-400">{{ $racer->racer_username }}</span>
+                    <span class="text-gray-400 line-through">{{ $racer->racer_username }}</span>
                 @endif
             </td>
             <td class="text-right px-4 py-2">{{ $racer->count }}</td>
