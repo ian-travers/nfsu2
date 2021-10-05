@@ -11,8 +11,12 @@
             <div class="flex flex-1 space-x-4">
                 <div class="text-4xl">
                     {{ $user->username }}
-                    <span
-                        class="text-sm block">{{ __('Member sings :date', ['date' => $user->created_at->diffForHumans()]) }}</span>
+                    <span class="text-xs block">
+                        {{ Str::ucfirst(__($user->role)) }}
+                    </span>
+                    <span class="text-sm block mt-1">
+                        {{ __('Member sings :date', ['date' => $user->created_at->diffForHumans()]) }}
+                    </span>
                     @if($user->isTeamMember())
                         <p class="mt-8 text-base">{{ __('Team') }}:
                             <a href="{{ route('team-profile', $user->team) }}">
