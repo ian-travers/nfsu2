@@ -49,11 +49,11 @@ class News extends Model
 
     public function getTitleAttribute()
     {
-        return $this->GetNativeAttributeValue('title');
+        return $this->getNativeAttributeValue('title');
     }
 
     public function getBodyAttribute()
     {
-        return $this->GetNativeAttributeValue('body');
+        return $this->getNativeAttributeValue('body');
     }
 }

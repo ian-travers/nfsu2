@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\Quiz\QuestionsController;
 use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\CompetitionsController as ReadCompetitionsController;
 use App\Http\Controllers\DownloadsController;
+use App\Http\Controllers\NewsReadController;
 use App\Http\Controllers\NFSUServerController;
 use App\Http\Controllers\PublicProfileController;
 use App\Http\Controllers\RulesController;
@@ -41,6 +42,14 @@ Route::group(['middleware' => 'language'], function () {
 
     Route::get('rules', [RulesController::class, 'show'])->name('rules');
     Route::post('rules', [RulesController::class, 'check'])->name('rules-check');
+
+    Route::group([
+        'prefix' => 'news',
+        'as' => 'news',
+    ], function () {
+        Route::get('', [NewsReadController::class, 'index'])->name('.index');
+        Route::get('{newsitem:slug}', [NewsReadController::class, 'show'])->name('.view');
+    });
 
     Route::group([
         'prefix' => 'seasons-archive',
