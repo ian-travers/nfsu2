@@ -4,7 +4,7 @@
         @if($news->total())
             <x-news.grid :news="$news"/>
             <div class="mt-6">
-                {{ $news->links() }}
+                {{ $news->links('vendor.pagination.frontend') }}
             </div>
         @else
             {{ __('There is no news yet.') }}
