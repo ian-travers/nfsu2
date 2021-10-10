@@ -12,7 +12,7 @@ class CommentView
 
     public function __construct(Comment $comment, array $children)
     {
-        $this->comment = $comment;
+        $this->comment = $comment->load('author');
         $this->children = $children;
     }
 }

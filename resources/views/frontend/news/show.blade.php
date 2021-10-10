@@ -17,6 +17,14 @@
             <div class="text-lg mt-4 lg:mt-8">
                 {!! $newsitem->body !!}
             </div>
+
+            {{-- comments--}}
+            <div class="mt-8 py-4 border-t border-blue-400">
+                <div class="mt-6">
+                    @livewire('comment.all', ['comments' => $commentViews, 'count' => $newsitem->comments_count,
+                    'commentable' => $newsitem])
+                </div>
+            </div>
         </article>
     </div>
 </x-layouts.front>

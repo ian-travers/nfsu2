@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\News;
 
 class NewsReadController extends Controller
@@ -18,7 +19,8 @@ class NewsReadController extends Controller
     {
         return view('frontend.news.show', [
             'title' => $newsitem->title,
-            'newsitem' => $newsitem,
+            'newsitem' => $newsitem->load(['comments.author'])->loadCount('comments'),
+            'commentViews' => Comment::treeRecursive($newsitem->comments, null),
         ]);
     }
 }
