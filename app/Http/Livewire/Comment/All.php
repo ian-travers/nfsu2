@@ -16,7 +16,6 @@ class All extends Component
     public function updateComments()
     {
         $this->comments = Comment::treeRecursive($this->commentable->comments, null);
-//        $this->comments = [];
         $this->count = $this->commentable->comments()->count();
     }
 
