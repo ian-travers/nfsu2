@@ -1,7 +1,11 @@
 <div id="comments">
     <div class="text-lg mb-6">
-        {{ $count }}
-        {{ __('comments') }}
+        @if(app()->getLocale() == 'en')
+            {{ $count }}
+            {{ __(Str::plural('comments',  )) }}
+        @else
+            Комментариев: {{ $count }}
+        @endif
     </div>
     <div class="mb-6">
         @auth
@@ -13,6 +17,7 @@
         @endauth
     </div>
     @foreach($comments as $commentView)
-        @livewire('comment.view', ['comment' => $commentView->comment, 'children' => $commentView->children], key($commentView->comment->id))
+        @livewire('comment.view', ['comment' => $commentView->comment, 'children' => $commentView->children],
+        key($commentView->comment->id))
     @endforeach
 </div>

@@ -1,4 +1,4 @@
-<div class="comment-item mb-6" data-id="{{ $comment->id }}">
+<div class="comment-item mt-3 mb-6" data-id="{{ $comment->id }}">
     <div class="flex items-start space-x-4">
         @livewire('user.avatar', ['user' => $comment->author, 'size' => 6])
         <div class="flex-1">
@@ -12,7 +12,7 @@
             <div class="mt-2">
                 <button
                     id="show-reply-form"
-                    class="text-gray-300 hover:text-gray-200 hover:underline transition"
+                    class="text-gray-300 hover:text-gray-200 hover:underline transition text-sm uppercase tracking-widest"
                 >
                     {{ __('Reply') }}
                 </button>
@@ -21,14 +21,8 @@
         </div>
     </div>
 
-
-
-{{--    @if(count($children))--}}
-        <span class="text-yellow-500">{{ count($children) }}</span>
-        <div class="ml-4 mt-4">
-            @foreach($children as $child)
-                @livewire('comment.view', ['comment' => $child->comment, 'children' => $child->children], key($child->comment->id))
-            @endforeach
-        </div>
-{{--    @endif--}}
+    @foreach($children as $child)
+        @livewire('comment.view', ['comment' => $child->comment, 'children' => $child->children],
+        key($child->comment->id))
+    @endforeach
 </div>
