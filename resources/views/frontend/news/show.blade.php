@@ -27,4 +27,6 @@
             </div>
         </article>
     </div>
+
+    @include('frontend._commentJs')
 </x-layouts.front>
