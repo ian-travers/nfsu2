@@ -32,7 +32,7 @@
                     </div>
                     <div class="md:w-2/5">
                         <p class="text-lg font-medium mb-1">{{ __('Standings') }}</p>
-                        <x-tourneys.standings-table :tourney="$tourney"/>
+                        <x-tourneys.standings-table :tourney="$tourney" display="backend"/>
                     </div>
                 </div>
             </div>

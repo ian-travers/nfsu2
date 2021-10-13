@@ -1,3 +1,5 @@
+@props(['tourney', 'display' => 'frontend'])
+
 @php /** @var \App\Models\Tourney\TourneyRacer $racer */ @endphp
 <table class="border border-blue-400 divide-y divide-blue-200 w-full">
     <thead>
@@ -31,9 +33,15 @@
                 @if($racer->user)
                     <div class="flex items-center">
                         @livewire('user.avatar', ['user' => $racer->user, 'size' => 5])
-                        <x-link href="{{ route('public-profile', $racer->user->username) }}" class="ml-2">
-                            {{ $racer->user->username }}
-                        </x-link>
+                        @if($display == 'frontend')
+                            <x-link href="{{ route('public-profile', $racer->user->username) }}" class="ml-2">
+                                {{ $racer->user->username }}
+                            </x-link>
+                        @else
+                            <x-link href="{{ route('public-profile', $racer->user->username) }}" class="text-indigo-600 hover:text-indigo-700 ml-2">
+                                {{ $racer->user->username }}
+                            </x-link>
+                        @endif
                     </div>
                 @else
                     <span class="text-gray-400 line-through">{{ $racer->racer_username }}</span>
