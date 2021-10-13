@@ -9,15 +9,21 @@
             <p class="mt-1">
                 {!! $comment->body !!}
             </p>
-            <div class="mt-2">
-                <button
-                    id="show-reply-form"
-                    class="text-gray-300 hover:text-gray-200 hover:underline transition text-sm uppercase tracking-widest"
-                >
-                    {{ __('Reply') }}
-                </button>
-                <div id="reply-block-{{$comment->id}}" class=""></div>
-            </div>
+            @auth
+                <div class="mt-2">
+                    @if($authorized)
+                        @livewire('comment.delete', ['comment' => $comment])
+                    @else
+                        <button
+                            id="show-reply-form"
+                            class="text-gray-300 hover:text-gray-200 hover:underline transition text-sm uppercase tracking-widest"
+                        >
+                            {{ __('Reply') }}
+                        </button>
+                        <div id="reply-block-{{$comment->id}}"></div>
+                    @endif
+                </div>
+            @endauth
         </div>
     </div>
 

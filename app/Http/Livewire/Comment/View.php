@@ -9,6 +9,14 @@ class View extends Component
 {
     public Comment $comment;
     public $children;
+    public $user;
+    public bool $authorized;
+
+    public function mount()
+    {
+        $this->user = auth()->user() ?: null;
+        $this->authorized = $this->comment->author->is($this->user);
+    }
 
     public function reply()
     {

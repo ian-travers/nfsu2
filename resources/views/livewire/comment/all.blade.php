@@ -12,8 +12,8 @@
             @livewire('comment.form', ['user' => auth()->user(), 'commentable' => $commentable])
             @livewire('comment.reply', ['user' => auth()->user(), 'commentable' => $commentable])
         @else
-            <x-link href="{{ route('login') }}">Login</x-link>
-            to discuss this news
+            <x-link href="{{ route('login') }}">{{ __('Log in') }}</x-link>
+            {{ __('to discuss this news') }}
         @endauth
     </div>
     @foreach($comments as $commentView)

@@ -4,6 +4,7 @@ namespace Tests\Unit\Comment\News;
 
 use App\Models\Comment;
 use App\Models\News;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -12,7 +13,7 @@ class DeleteTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function it_updates_the_comment()
+    function it_deletes_the_comment()
     {
         $this->signIn();
 
@@ -27,5 +28,25 @@ class DeleteTest extends TestCase
 
         $this->assertDatabaseMissing('comments', $comment->getAttributes());
         $this->assertDatabaseCount('comments', 0);
+    }
+
+    /** @test */
+    function it_cannot_delete_a_comment_which_has_a_child()
+    {
+        $this->signIn();
+        $this->expectException(QueryException::class);
+
+        /** @var News $commentable */
+        $commentable = News::factory()->create();
+
+        $parentComment = Comment::createComment($commentable, 'parent comment body', auth()->user());
+        // create a child comment
+        Comment::createComment($commentable, 'child comment body', auth()->user(), $parentComment->id);
+
+        $this->assertDatabaseCount('comments', 2);
+
+        Comment::deleteComment($parentComment->id);
+
+        $this->assertDatabaseCount('comments', 2);
     }
 }

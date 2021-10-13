@@ -15,6 +15,8 @@ class CreateCommentsTable extends Migration
             $table->text('body');
             $table->morphs('commentable');
             $table->timestamps();
+
+            $table->foreign('parent_id')->references('id')->on('comments')->restrictOnDelete();
         });
     }
 
