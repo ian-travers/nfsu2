@@ -9,7 +9,6 @@
                 id="body"
                 placeholder="{{ __('Add a public reply...') }}"
             >{{ $body }}</textarea>
-            <p class="text-ms text-gray-400">{{ $parentId ?: 'zero' }}</p>
             @error('body')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
         </div>
     </div>

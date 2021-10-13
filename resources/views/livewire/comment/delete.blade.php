@@ -1,7 +1,8 @@
 <div>
     <button
         wire:click="$set('showDialog', true)"
-        class="text-yellow-300 hover:text-yellow-200 hover:underline transition text-xs uppercase tracking-widest"
+        class="text-red-500 hover:text-red-400 hover:underline transition uppercase tracking-widest"
+        style="font-size: .6rem; line-height: .8rem"
     >
         {{ __('Delete') }}
     </button>
