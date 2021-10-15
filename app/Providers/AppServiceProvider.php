@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Comment;
 use App\Models\Competition\Competition;
 use App\Models\News;
 use App\Models\Tourney\Tourney;
@@ -65,6 +66,7 @@ class AppServiceProvider extends ServiceProvider
             'tourney' => Tourney::class,
             'competition' => Competition::class,
             'news' => News::class,
+            'comment' => Comment::class,
         ]);
     }
 }

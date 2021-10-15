@@ -21,6 +21,10 @@ use Stevebauman\Purify\Facades\Purify;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $author
  * @property-read Model|\Eloquent $commentable
+ * @property-read mixed $is_disliked
+ * @property-read mixed $is_liked
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Like[] $likesAndDislikes
+ * @property-read int|null $likes_and_dislikes_count
  * @method static \Database\Factories\CommentFactory factory(...$parameters)
  * @method static Builder|Comment newModelQuery()
  * @method static Builder|Comment newQuery()
@@ -37,7 +41,7 @@ use Stevebauman\Purify\Facades\Purify;
  */
 class Comment extends Model
 {
-    use HasFactory;
+    use HasFactory, HasLikesDislikes;
 
     public function commentable(): MorphTo
     {
