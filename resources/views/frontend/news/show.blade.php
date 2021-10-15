@@ -14,6 +14,9 @@
             <h1 class="text-3xl mt-1">
                 {{ $newsitem->title }}
             </h1>
+            <div class="my-4">
+                @livewire('like-dislike', ['model' => $newsitem])
+            </div>
             <div class="text-lg mt-4 lg:mt-8">
                 {!! $newsitem->body !!}
             </div>
