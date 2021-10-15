@@ -1,4 +1,4 @@
-<div class="inline-flex text-gray-400">
+<div class="inline-flex text-gray-300">
     <button
         wire:click="toggleLike"
     >

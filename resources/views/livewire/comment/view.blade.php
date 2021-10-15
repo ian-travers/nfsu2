@@ -15,21 +15,26 @@
             <p class="mt-1">
                 {!! $comment->body !!}
             </p>
-            @auth
-                <div class="mt-2">
-                    @if($authorized)
-                        @livewire('comment.delete', ['comment' => $comment])
-                    @else
-                        <button
-                            id="show-reply-form"
-                            class="text-gray-300 hover:text-gray-200 hover:underline transition text-sm uppercase tracking-widest"
-                        >
-                            {{ __('Reply') }}
-                        </button>
-                        <div id="reply-block-{{$comment->id}}"></div>
-                    @endif
-                </div>
-            @endauth
+            <div class="flex items-center space-x-10 mt-2">
+                @livewire('like-dislike', ['model' => $comment])
+                @auth
+                    <div>
+                        @if($authorized)
+                            @livewire('comment.delete', ['comment' => $comment])
+                        @else
+                            <button
+                                id="show-reply-form"
+                                class="text-gray-300 hover:text-gray-200 hover:underline transition text-sm uppercase tracking-widest"
+                            >
+                                {{ __('Reply') }}
+                            </button>
+
+                        @endif
+                    </div>
+
+                @endauth
+            </div>
+            <div id="reply-block-{{$comment->id}}" class="mt-2"></div>
         </div>
     </div>
 
