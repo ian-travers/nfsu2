@@ -19,8 +19,14 @@ use Illuminate\Support\Str;
  * @property int $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @property-read int|null $comments_count
  * @property-read mixed $body
+ * @property-read mixed $is_disliked
+ * @property-read mixed $is_liked
  * @property-read mixed $title
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Like[] $likesAndDislikes
+ * @property-read int|null $likes_and_dislikes_count
  * @method static \Database\Factories\NewsFactory factory(...$parameters)
  * @method static Builder|News newModelQuery()
  * @method static Builder|News newQuery()
@@ -38,7 +44,7 @@ use Illuminate\Support\Str;
  */
 class News extends Model
 {
-    use HasFactory, NativeAttribute, HasComments;
+    use HasFactory, NativeAttribute, HasComments, HasLikesDislikes;
 
     protected static function boot()
     {
