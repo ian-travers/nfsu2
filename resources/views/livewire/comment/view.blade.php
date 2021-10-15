@@ -3,7 +3,13 @@
         @livewire('user.avatar', ['user' => $comment->author, 'size' => 6])
         <div class="flex-1">
             <p>
-                <span class="font-bold">{{ $comment->author->username }}</span>
+                @if($comment->author->trashed())
+                    <span class="font-bold text-gray-400 line-through">{{ $comment->author->username }}</span>
+                @else
+                    <span class="font-bold">
+                        <x-link href="{{ route('public-profile', $comment->author->username) }}">{{ $comment->author->username }}</x-link>
+                    </span>
+                @endif
                 <span>{{ $comment->created_at->diffForHumans() }}</span>
             </p>
             <p class="mt-1">

@@ -46,7 +46,7 @@ class Comment extends Model
 
     public function author()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 
     public static function createComment($commentable, $body, $author, $parent_id = null): self
