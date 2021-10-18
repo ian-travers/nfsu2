@@ -4,13 +4,10 @@ namespace Tests\Feature\Backend\Competition;
 
 use App\Models\User;
 use App\Settings\SeasonSettings;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CreateTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function admin_can_create_a_competition()
     {

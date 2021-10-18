@@ -5,14 +5,11 @@ namespace Tests\Feature\Backend\Settings;
 use App\Http\Livewire\Dashboard\DashboardRacerTest;
 use App\Models\User;
 use App\Settings\RacerTestSettings;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class RacerTestSettingsTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function authenticated_user_can_update_racer_test_settings()
     {

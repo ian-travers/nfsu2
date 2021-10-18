@@ -3,13 +3,10 @@
 namespace Tests\Feature\Backend\User;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class TrashTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function admin_can_trash_user()
     {

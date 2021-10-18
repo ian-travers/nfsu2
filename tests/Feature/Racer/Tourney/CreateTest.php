@@ -5,13 +5,10 @@ namespace Tests\Feature\Racer\Tourney;
 use App\Models\User;
 use App\Settings\SeasonSettings;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CreateTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function racer_can_create_a_tourney()
     {

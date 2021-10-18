@@ -7,14 +7,11 @@ use App\Http\Livewire\TourneyHandle\Start;
 use App\Models\Tourney\Tourney;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class StartTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function racer_cannot_confirm_draw_and_start_completed_tourney()
     {

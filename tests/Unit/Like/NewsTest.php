@@ -4,7 +4,6 @@ namespace Tests\Unit\Like;
 
 use App\Models\Like;
 use App\Models\News;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
@@ -12,8 +11,6 @@ use Tests\TestCase;
  */
 class NewsTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected function setUp(): void
     {
         parent::setUp();

@@ -3,13 +3,10 @@
 namespace Tests\Feature\Backend;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class DashboardTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function admin_can_visit_backend_dashboard()
     {

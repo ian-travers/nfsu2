@@ -3,13 +3,10 @@
 namespace Tests\Feature\News;
 
 use App\Models\News;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class IndexTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function everyone_can_view_news_list()
     {

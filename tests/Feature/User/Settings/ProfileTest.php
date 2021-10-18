@@ -3,14 +3,11 @@
 namespace Tests\Feature\User\Settings;
 
 use App\Http\Livewire\User\Profile;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class ProfileTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function guest_can_not_visit_profile_page()
     {

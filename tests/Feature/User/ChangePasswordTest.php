@@ -4,15 +4,12 @@ namespace Tests\Feature\User;
 
 use App\Http\Livewire\User\ChangePassword;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class ChangePasswordTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function user_can_change_own_password()
     {

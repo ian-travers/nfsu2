@@ -6,14 +6,11 @@ use App\Http\Livewire\User\DeleteAccount;
 use App\Models\Tourney\Tourney;
 use App\Models\Tourney\TourneyRacer;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class DeleteAccountTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function user_can_delete_own_account()
     {

@@ -3,14 +3,11 @@
 namespace Tests\Feature\Auth;
 
 use App\Http\Livewire\Auth\Register;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function it_requires_a_username()
     {

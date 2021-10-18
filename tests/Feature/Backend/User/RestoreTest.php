@@ -3,13 +3,10 @@
 namespace Tests\Feature\Backend\User;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class RestoreTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function admin_can_restore_trashed_user()
     {

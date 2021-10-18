@@ -4,13 +4,10 @@ namespace Tests\Feature\User\Team;
 
 use App\Models\Team;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ManageTeamTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function quest_cannot_visit_manage_team_page()
     {

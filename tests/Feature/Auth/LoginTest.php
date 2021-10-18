@@ -4,14 +4,11 @@ namespace Tests\Feature\Auth;
 
 use App\Http\Livewire\Auth\Login;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function registered_user_may_log_in()
     {

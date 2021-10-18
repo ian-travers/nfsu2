@@ -5,14 +5,11 @@ namespace Tests\Feature\Racer\Tourney;
 use App\Http\Livewire\TourneyHandle\Draw;
 use App\Models\Tourney\Tourney;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class DrawTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function racer_can_draw_own_tourney()
     {

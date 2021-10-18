@@ -4,13 +4,10 @@ namespace Tests\Feature\Backend\Quiz;
 
 use App\Models\Quiz\Question;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class QuestionsTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function admin_can_create_quiz_question()
     {

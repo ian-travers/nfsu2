@@ -6,13 +6,10 @@ use App\Models\Quiz\Question;
 use App\Models\User;
 use App\Settings\RacerTestSettings;
 use Database\Seeders\QuizSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class RacerTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function user_may_visit_the_test_page()
     {

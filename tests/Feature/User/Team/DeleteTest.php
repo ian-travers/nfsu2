@@ -4,13 +4,10 @@ namespace Tests\Feature\User\Team;
 
 use App\Models\Team;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class DeleteTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function captain_may_dismiss_the_team()
     {

@@ -3,13 +3,10 @@
 namespace Tests\Unit;
 
 use App\Models\News;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class NewsTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function it_returns_native_title()
     {

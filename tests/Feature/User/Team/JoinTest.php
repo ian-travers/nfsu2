@@ -4,13 +4,10 @@ namespace Tests\Feature\User\Team;
 
 use App\Models\Team;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class JoinTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function user_without_a_team_can_join_a_team()
     {

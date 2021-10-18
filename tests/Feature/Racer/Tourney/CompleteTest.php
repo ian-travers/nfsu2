@@ -9,14 +9,11 @@ use App\Models\Tourney\TourneyRacer;
 use App\Models\Trophy;
 use App\Models\User;
 use App\Settings\SeasonSettings;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class CompleteTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function racer_can_complete_tourney_which_in_final_status()
     {

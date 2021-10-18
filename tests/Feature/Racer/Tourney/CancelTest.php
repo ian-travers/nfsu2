@@ -5,14 +5,11 @@ namespace Tests\Feature\Racer\Tourney;
 use App\Http\Livewire\TourneyHandle\Cancel;
 use App\Models\Tourney\Tourney;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class CancelTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function racer_can_cancel_a_cancellable_tourney()
     {

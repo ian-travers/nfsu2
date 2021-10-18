@@ -5,14 +5,11 @@ namespace Tests\Feature\Racer;
 use App\Http\Livewire\Tourney\Signup;
 use App\Models\Tourney\Tourney;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class SignupTourneyTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function guest_cannot_signup()
     {

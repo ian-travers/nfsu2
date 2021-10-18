@@ -5,13 +5,10 @@ namespace Tests\Unit\Comment\News;
 use App\Models\Comment;
 use App\Models\News;
 use Illuminate\Database\QueryException;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class DeleteTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function it_deletes_the_comment()
     {

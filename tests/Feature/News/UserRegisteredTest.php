@@ -4,14 +4,11 @@ namespace Tests\Feature\News;
 
 use App\Http\Livewire\Auth\Register;
 use App\Models\News;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class UserRegisteredTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function when_a_user_registered_related_news_item_is_created()
     {

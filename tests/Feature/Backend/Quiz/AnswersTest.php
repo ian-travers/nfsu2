@@ -5,13 +5,10 @@ namespace Tests\Feature\Backend\Quiz;
 use App\Models\Quiz\Answer;
 use App\Models\Quiz\Question;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AnswersTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function admin_can_add_answer_to_existing_question()
     {

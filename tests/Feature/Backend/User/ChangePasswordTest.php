@@ -3,14 +3,11 @@
 namespace Tests\Feature\Backend\User;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class ChangePasswordTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function admin_can_create_a_user()
     {

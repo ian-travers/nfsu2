@@ -5,14 +5,11 @@ namespace Tests\Feature\Racer\Tourney;
 use App\Http\Livewire\TourneyHandle\AnnounceFinal;
 use App\Models\Tourney\Tourney;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class StartFinalRoundTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function racer_can_only_announce_final_round_for_an_active_tourney()
     {

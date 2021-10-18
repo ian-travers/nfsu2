@@ -6,13 +6,10 @@ use App\Models\Tourney\Tourney;
 use App\Models\User;
 use App\Settings\SeasonSettings;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class EditTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function racer_can_edit_own_tourney()
     {

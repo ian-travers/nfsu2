@@ -4,13 +4,10 @@ namespace Tests\Unit\Comment\News;
 
 use App\Models\Comment;
 use App\Models\News;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CreateTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function it_creates_a_comment()
     {

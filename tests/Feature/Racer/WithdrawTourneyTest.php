@@ -6,14 +6,11 @@ use App\Http\Livewire\Tourney\Signup;
 use App\Http\Livewire\Tourney\Withdraw;
 use App\Models\Tourney\Tourney;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class WithdrawTourneyTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function guest_cannot_withdraw()
     {

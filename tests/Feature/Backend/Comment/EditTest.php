@@ -4,13 +4,10 @@ namespace Tests\Feature\Backend\Comment;
 
 use App\Models\Comment;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class EditTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function admin_can_update_a_comment()
     {

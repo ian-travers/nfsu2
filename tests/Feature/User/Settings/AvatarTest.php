@@ -5,7 +5,6 @@ namespace Tests\Feature\User\Settings;
 use App\Http\Livewire\User\DeleteAccount;
 use App\Http\Livewire\User\Profile;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
@@ -13,8 +12,6 @@ use Tests\TestCase;
 
 class AvatarTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function user_can_add_an_avatar()
     {

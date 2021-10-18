@@ -4,13 +4,10 @@ namespace Tests\Unit;
 
 use App\Models\Team;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function it_may_have_an_avatar()
     {

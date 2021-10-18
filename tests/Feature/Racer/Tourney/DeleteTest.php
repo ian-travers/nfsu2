@@ -5,13 +5,10 @@ namespace Tests\Feature\Racer\Tourney;
 use App\Models\Tourney\Tourney;
 use App\Models\User;
 use App\Settings\SeasonSettings;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class DeleteTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function racer_can_delete_own_tourney()
     {

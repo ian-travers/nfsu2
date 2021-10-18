@@ -4,13 +4,10 @@ namespace Tests\Feature\Backend\Competition;
 
 use App\Models\Competition\Competition;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class EditTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     function admin_can_update_a_competition()
     {
