@@ -28,3 +28,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 import 'alpinejs';
+
+import 'sceditor/minified/sceditor.min'
+import 'sceditor/minified/formats/xhtml'

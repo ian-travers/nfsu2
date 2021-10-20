@@ -16,6 +16,7 @@
         "laravel-mix": "^6.0.34",
         "lodash": "^4.17.19",
         "postcss": "^8.3.9",
+        "sceditor": "^3.0.0",
         "tailwindcss": "^2.2.17"
     },
     "dependencies": {

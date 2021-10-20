@@ -1,4 +1,5 @@
 @import 'freakflags.css';
+@import "~sceditor/minified/themes/default.min.css";
 
 @tailwind base;
 @tailwind components;
