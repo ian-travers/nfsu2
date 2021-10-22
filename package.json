@@ -14,6 +14,8 @@
         "autoprefixer": "^10.3.7",
         "axios": "^0.21.4",
         "laravel-mix": "^6.0.34",
+        "less": "^4.1.2",
+        "less-loader": "^10.2.0",
         "lodash": "^4.17.19",
         "postcss": "^8.3.9",
         "sceditor": "^3.0.0",
