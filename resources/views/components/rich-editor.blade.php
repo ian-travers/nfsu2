@@ -1,11 +1,6 @@
-@props(['id' => 'rich-editor', 'mode' => 'small', 'theme' => 'light'])
+@props(['id' => 'rich-editor', 'mode' => 'small'])
 
 @php
-    $themes = [
-        'light' => mix('css/rich-editor/default.css', 'build'),
-        'dark' => mix('css/rich-editor/defaultdark.css', 'build')
-    ];
-
     $toolbar = [
         'small' => 'bold,italic,underline,strike|size,color|emoticon|youtube|image,link,unlink|maximize,source',
         'full' => 'bold,italic,underline,strike|left,center,right,justify|size,color|code,quote|emoticon|youtube|image,link,unlink|maximize,source'
@@ -13,7 +8,7 @@
 @endphp
 
 @push('styles')
-    <link rel="stylesheet" href="{{ $themes[$theme] }}">
+    <link rel="stylesheet" href="{{ mix('css/rich-editor/default.css', 'build') }}">
 @endpush
 
 <textarea id="{{ $id }}" {{ $attributes(['rows' => '10']) }}></textarea>
@@ -27,7 +22,7 @@
                 format: 'xhtml',
                 toolbar: '{{ $toolbar[$mode] }}',
                 emoticonsRoot: 'storage/',
-                style: "{{ $themes[$theme] }}"
+                style: "{{ mix('css/rich-editor/default.css', 'build') }}"
             })
     </script>
 @endpush

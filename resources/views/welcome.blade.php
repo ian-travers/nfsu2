@@ -10,9 +10,7 @@
     <div class="p-8 border border-red-500 w-1/2">
         <x-rich-editor
             class="w-full"
-            id="full-rich"
             mode="full"
-            theme="dark"
         />
     </div>
 </x-layouts.front>
