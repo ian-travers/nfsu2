@@ -45,6 +45,8 @@ use InvalidArgumentException;
  * @property-read mixed $tourney_podiums
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $posts
+ * @property-read int|null $posts_count
  * @property-read \Illuminate\Database\Eloquent\Collection|SeasonRacer[] $racedSeasons
  * @property-read int|null $raced_seasons_count
  * @property-read \Illuminate\Database\Eloquent\Collection|SeasonAward[] $seasonAwards
@@ -100,6 +102,11 @@ class User extends Authenticatable
     ];
 
     protected $with = ['team'];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'author_id');
+    }
 
     public function trophies()
     {

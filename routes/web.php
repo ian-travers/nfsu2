@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\CommentsController;
 use App\Http\Controllers\Backend\CompetitionsController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\NewsController;
+use App\Http\Controllers\Backend\PostsController;
 use App\Http\Controllers\Backend\Quiz\AnswersController;
 use App\Http\Controllers\Backend\Quiz\QuestionsController;
 use App\Http\Controllers\Backend\UsersController;
@@ -282,6 +283,24 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('edit/{newsitem}', [NewsController::class, 'edit'])->name('.edit');
             Route::patch('{newsitem}', [NewsController::class, 'update'])->name('.update');
             Route::delete('{newsitem}', [NewsController::class, 'remove'])->name('.delete');
+        });
+
+        // News
+        Route::group([
+            'prefix' => 'posts',
+            'as' => '.posts',
+        ], function () {
+            Route::get('', [PostsController::class, 'index'])->name('.index');
+            Route::get('create', [PostsController::class, 'create'])->name('.create');
+            Route::post('', [PostsController::class, 'store'])->name('.store');
+            Route::get('{post}', [PostsController::class, 'show'])->name('.view');
+            Route::get('edit/{post}', [PostsController::class, 'edit'])->name('.edit');
+            Route::patch('{post}', [PostsController::class, 'update'])->name('.update');
+            Route::delete('{post}', [PostsController::class, 'remove'])->name('.delete');
+            Route::delete('{post}/force-delete', [PostsController::class, 'forceRemove'])->name('.force-delete');
+            Route::patch('{post}/restore', [PostsController::class, 'restore'])->name('.restore');
+            Route::patch('{post}/publish', [PostsController::class, 'publish'])->name('.publish');
+            Route::patch('{post}/unpublish', [PostsController::class, 'unpublish'])->name('.unpublish');
         });
 
         // Comments
