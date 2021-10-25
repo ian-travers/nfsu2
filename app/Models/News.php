@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 /**
  * App\Models\News
@@ -44,14 +43,7 @@ use Illuminate\Support\Str;
  */
 class News extends Model
 {
-    use HasFactory, NativeAttribute, HasComments, HasLikesDislikes;
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(fn($news) => $news->update(['slug' => Str::slug($news->title_en) . '-' . Str::padLeft($news->id, 8, '0')]));
-    }
+    use HasFactory, NativeAttribute, HasComments, HasLikesDislikes, HasUniqueSlug;
 
     public function getTitleAttribute()
     {

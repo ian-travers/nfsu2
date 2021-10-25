@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
 
 /**
  * App\Models\Post
@@ -49,14 +48,7 @@ use Illuminate\Support\Str;
  */
 class Post extends Model
 {
-    use HasFactory, SoftDeletes;
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(fn($post) => $post->update(['slug' => Str::slug($post->title) . '-' . Str::padLeft($post->id, 8, '0')]));
-    }
+    use HasFactory, SoftDeletes, HasUniqueSlug;
 
     public function author()
     {
