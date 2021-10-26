@@ -75,4 +75,9 @@ class Post extends Model
     {
         return (bool)$this->published_at;
     }
+
+    public function hasImage()
+    {
+        return (bool)$this->image;
+    }
 }

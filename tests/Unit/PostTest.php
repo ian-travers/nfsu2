@@ -46,6 +46,22 @@ class PostTest extends TestCase
         $this->assertFalse($post->published);
     }
 
+    /** @test */
+    function it_detect_when_it_has_an_image()
+    {
+        /** @var Post $post */
+        $post = Post::factory()->make();
+
+        $this->assertFalse($post->hasImage());
+
+        /** @var Post $postWithImage */
+        $postWithImage = Post::factory()->make([
+            'image' => 'cover-image.jpeg',
+        ]);
+
+        $this->assertTrue($postWithImage->hasImage());
+    }
+
     protected function createTestPost(): Post
     {
         return Post::factory()->create([
