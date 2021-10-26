@@ -21,6 +21,12 @@
         {{ __('News') }}
     </x-navs.vertical.nav-item>
     <x-navs.vertical.nav-item
+        href="{{ route('adm.posts.index') }}"
+        :active="$controller == 'PostsController'"
+    >
+        {{ __('Blog posts') }}
+    </x-navs.vertical.nav-item>
+    <x-navs.vertical.nav-item
         href="{{ route('adm.users.index') }}"
         :active="$controller == 'UsersController'"
     >

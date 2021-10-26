@@ -8,6 +8,22 @@ use Carbon\Carbon;
 
 class PostsController extends Controller
 {
+    public function index()
+    {
+        return view('backend.posts.index', [
+            'title' => __('Blog posts'),
+            'posts' => Post::withTrashed()->latest()->paginate(10),
+        ]);
+    }
+
+    public function create()
+    {
+        return view('backend.posts.create', [
+            'title' => __('Create new post'),
+            'post' => new Post(),
+        ]);
+    }
+
     public function store()
     {
         (auth()->user())->posts()->create($this->validateForm());
@@ -18,6 +34,14 @@ class PostsController extends Controller
         ]);
     }
 
+    public function edit(Post $post)
+    {
+        return view('backend.posts.edit', [
+            'title' => __('Edit post'),
+            'post' => $post,
+        ]);
+    }
+
     public function update(Post $post)
     {
         $post->update($this->validateForm());
@@ -25,6 +49,14 @@ class PostsController extends Controller
         return redirect()->route('adm.posts.index')->with('flash', [
             'type' => 'success',
             'message' => __('Post has been updated.'),
+        ]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('backend.posts.show', [
+            'title' => __('View post'),
+            'post' => $post->load('comments'),
         ]);
     }
 
@@ -48,9 +80,9 @@ class PostsController extends Controller
         ]);
     }
 
-    public function forceRemove(Post $post)
+    public function forceRemove(string $post)
     {
-        $post->forceDelete();
+        (Post::withTrashed()->findOrFail($post))->forceDelete();
 
         return redirect()->route('adm.posts.index')->with('flash', [
             'type' => 'success',

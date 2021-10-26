@@ -1,4 +1,4 @@
-@props(['id' => 'rich-editor', 'mode' => 'small'])
+@props(['id' => 'rich-editor', 'mode' => 'full', 'value' => null])
 
 @php
     $toolbar = [
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ mix('css/rich-editor/default.css', 'build') }}">
 @endpush
 
-<textarea id="{{ $id }}" {{ $attributes(['rows' => '10']) }}></textarea>
+<textarea id="{{ $id }}" {{ $attributes(['rows' => '10']) }}>{!! $value !!}</textarea>
 
 @push('scripts')
     <script>

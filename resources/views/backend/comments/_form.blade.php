@@ -17,4 +17,3 @@
         @error('body')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
     </div>
 </x-backend.form-panel>
-

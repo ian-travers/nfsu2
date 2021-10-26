@@ -14,12 +14,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $id
  * @property int $author_id
  * @property string $title
- * @property string $slug
+ * @property string|null $slug
  * @property string $excerpt
  * @property string $body
  * @property string|null $image
  * @property int $views_count
- * @property string|null $published_at
+ * @property \Illuminate\Support\Carbon|null $published_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -48,7 +48,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Post extends Model
 {
-    use HasFactory, SoftDeletes, HasUniqueSlug;
+    use HasFactory, SoftDeletes, HasComments, HasLikesDislikes, HasUniqueSlug;
+
+    protected $dates = ['published_at'];
 
     public function author()
     {

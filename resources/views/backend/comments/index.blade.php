@@ -18,4 +18,3 @@
         </p>
     @endif
 </x-layouts.back>
-

@@ -33,6 +33,4 @@
             </p>
         @endif
     </x-backend.form-panel>
-
 </x-layouts.back>
-

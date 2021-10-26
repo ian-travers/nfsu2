@@ -68,4 +68,3 @@
         @enderror
     </div>
 </x-backend.form-panel>
-

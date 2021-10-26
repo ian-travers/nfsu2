@@ -14,4 +14,3 @@
         </div>
     </form>
 </x-layouts.back>
-

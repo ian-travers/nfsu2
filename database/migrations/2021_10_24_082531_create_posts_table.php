@@ -12,7 +12,7 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->foreignId('author_id')->constrained('users')->cascadeOnDelete();
             $table->string('title');
-            $table->string('slug');
+            $table->string('slug')->unique()->nullable();
             $table->text('excerpt');
             $table->mediumText('body');
             $table->string('image')->nullable();
