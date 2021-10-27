@@ -10,7 +10,6 @@
 @push('styles')
     <link rel="stylesheet" href="{{ mix('css/rich-editor/default.css', 'build') }}">
 @endpush
-
 <textarea id="{{ $id }}" {{ $attributes(['rows' => '10']) }}>{!! $value !!}</textarea>
 
 @push('scripts')
@@ -21,7 +20,7 @@
                 plugins: 'undo',
                 format: 'xhtml',
                 toolbar: '{{ $toolbar[$mode] }}',
-                emoticonsRoot: 'storage/',
+                emoticonsRoot: '/storage/',
                 style: "{{ mix('css/rich-editor/default.css', 'build') }}"
             })
     </script>
