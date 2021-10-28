@@ -44,7 +44,19 @@ class PostsController extends Controller
 
     public function update(Post $post)
     {
-        $post->update($this->validateForm());
+        $attributes = $this->validateForm();
+
+        if (request()->has('image')) {
+            /** @var \Illuminate\Http\UploadedFile $uf */
+            $uf = request('image');
+            $attributes['image'] = $uf->store("blogs/{$post->author->username}", 'public');
+            $post->removeImage();
+        } else {
+            unset($attributes['image']);
+        }
+
+        $post->update($attributes);
+
 
         return redirect()->route('adm.posts.index')->with('flash', [
             'type' => 'success',

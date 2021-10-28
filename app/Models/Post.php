@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * App\Models\Post
@@ -24,7 +25,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\User $author
- * @property-read mixed $published
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @property-read int|null $comments_count
+ * @property-read mixed $is_disliked
+ * @property-read mixed $is_liked
+ * @property-read bool $published
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Like[] $likesAndDislikes
+ * @property-read int|null $likes_and_dislikes_count
  * @method static \Database\Factories\PostFactory factory(...$parameters)
  * @method static Builder|Post newModelQuery()
  * @method static Builder|Post newQuery()
@@ -57,27 +64,41 @@ class Post extends Model
         return $this->belongsTo(User::class)->withTrashed();
     }
 
-    public function publish(Carbon $when = null)
+    public function publish(Carbon $when = null): void
     {
-        $this->update([
-            'published_at' => $when ?? now(),
-        ]);
+        $this->update(['published_at' => $when ?? now()]);
     }
 
-    public function unpublish()
+    public function unpublish(): void
     {
-        $this->update([
-            'published_at' => null,
-        ]);
+        $this->update(['published_at' => null]);
     }
 
-    public function getPublishedAttribute()
+    public function getPublishedAttribute(): bool
     {
         return (bool)$this->published_at;
     }
 
-    public function hasImage()
+    public function hasImage(): bool
     {
         return (bool)$this->image;
+    }
+
+    public function imageFileExists():bool
+    {
+        if (!$this->hasImage()) {
+            return false;
+        }
+
+        return Storage::disk('public')->exists($this->image);
+    }
+
+    public function removeImage(): void
+    {
+        if ($this->imageFileExists()) {
+            Storage::disk('public')->delete($this->image);
+        }
+
+        $this->update(['image' => null]);
     }
 }

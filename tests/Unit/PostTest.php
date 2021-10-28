@@ -3,6 +3,9 @@
 namespace Tests\Unit;
 
 use App\Models\Post;
+use App\Models\User;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class PostTest extends TestCase
@@ -47,7 +50,7 @@ class PostTest extends TestCase
     }
 
     /** @test */
-    function it_detect_when_it_has_an_image()
+    function it_detect_when_it_has_image()
     {
         /** @var Post $post */
         $post = Post::factory()->make();
@@ -60,6 +63,45 @@ class PostTest extends TestCase
         ]);
 
         $this->assertTrue($postWithImage->hasImage());
+    }
+
+    /** @test */
+    function it_detect_when_its_image_file_exists()
+    {
+        /** @var User $author */
+        $author = User::factory()->create();
+
+        /** @var Post $post */
+        $post = Post::factory()->create(['author_id' => $author->id]);
+
+        $this->assertFalse($post->imageFileExists());
+
+        Storage::fake();
+        $uf = UploadedFile::fake()->image('cover.png');
+        $post->update(['image' => $uf->store("blogs/{$author->username}", 'public')]);
+
+        $this->assertTrue($post->imageFileExists());
+    }
+
+    /** @test */
+    function it_deletes_image_file_when_the_image_attribute_sets_to_null()
+    {
+        /** @var User $author */
+        $author = User::factory()->create();
+
+        /** @var Post $post */
+        $post = Post::factory()->create(['author_id' => $author->id]);
+
+        Storage::fake();
+        $uf = UploadedFile::fake()->image('cover.png');
+        $filepath = $uf->store("blogs/{$author->username}", 'public');
+        $post->update(['image' => $filepath]);
+
+        Storage::disk('public')->assertExists($filepath);
+
+        $post->removeImage();
+
+        Storage::disk('public')->assertMissing($filepath);
     }
 
     protected function createTestPost(): Post

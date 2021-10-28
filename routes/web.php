@@ -285,7 +285,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::delete('{newsitem}', [NewsController::class, 'remove'])->name('.delete');
         });
 
-        // News
+        // Posts
         Route::group([
             'prefix' => 'posts',
             'as' => '.posts',

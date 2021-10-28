@@ -5,7 +5,7 @@
             <x-form.primary-button>{{ __('All posts') }}</x-form.primary-button>
         </a>
     </div>
-    <form action="{{ route('adm.posts.update', $post) }}" method="post" class="mt-4">
+    <form action="{{ route('adm.posts.update', $post) }}" method="post" class="mt-4" enctype="multipart/form-data">
         @csrf
         @method('patch')
         @include('backend.posts._form')

@@ -27,6 +27,34 @@
                 @error('excerpt')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
         </div>
+
+
+        <div>
+            <x-form.label value="{{ __('Image') }}"/>
+            <div
+                id="preview"
+                class="image-preview flex justify-center items-center w-full h-40 border-2 border-gray-300"
+            >
+                @if($post->image)
+                    <img class="preview__image max-h-40" src="{{ Storage::url($post->image) }}" alt="Image preview">
+                    <span
+                        class="preview__default-text hidden text-gray-300 text-2xl font-semibold tracking-wider">{{ __('Image preview') }}</span>
+                @else
+                    <img class="preview__image hidden max-h-40" src="" alt="Image preview">
+                    <span
+                        class="preview__default-text text-gray-300 text-2xl font-semibold tracking-wider">{{ __('Image preview') }}</span>
+                @endif
+            </div>
+            <div class="mt-4">
+                <input type="file" class="inputfile" name="image" id="image">
+                <label
+                    for="image"
+                    class="items-center px-4 py-2 bg-blue-500 rounded-md font-semibold text-sm text-white tracking-widest hover:bg-blue-700 focus:bg-blue-700 transition ease-in-out duration-150"
+                >
+                    {{ __('Upload new image') }}
+                </label>
+            </div>
+        </div>
     </div>
 
     <div>
@@ -39,3 +67,31 @@
         @error('body')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
     </div>
 </x-backend.form-panel>
+<script>
+    const inputFile = document.querySelector('#image')
+    const previewContainer = document.querySelector('#preview')
+    const previewImage = previewContainer.querySelector('.preview__image')
+    const previewDefaultText = previewContainer.querySelector('.preview__default-text')
+
+    inputFile.addEventListener('change', function () {
+        const file = this.files[0]
+
+        if (file) {
+            const reader = new FileReader()
+
+            console.log(previewDefaultText)
+            previewDefaultText.style.display = 'none'
+            previewImage.style.display = 'block'
+
+            reader.readAsDataURL(file);
+
+            reader.addEventListener('load', function () {
+                previewImage.setAttribute('src', this.result)
+            })
+
+        } else {
+            previewDefaultText.style.display = null
+            previewImage.style.display = null
+        }
+    })
+</script>
