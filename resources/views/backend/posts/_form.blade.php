@@ -35,7 +35,7 @@
                 id="preview"
                 class="image-preview flex justify-center items-center w-full h-40 border-2 border-gray-300"
             >
-                @if($post->image)
+                @if($post->hasImage())
                     <img class="preview__image max-h-40" src="{{ Storage::url($post->image) }}" alt="Image preview">
                     <span
                         class="preview__default-text hidden text-gray-300 text-2xl font-semibold tracking-wider">{{ __('Image preview') }}</span>
@@ -45,14 +45,17 @@
                         class="preview__default-text text-gray-300 text-2xl font-semibold tracking-wider">{{ __('Image preview') }}</span>
                 @endif
             </div>
-            <div class="mt-4">
+            <div class="flex items-center justify-center space-x-4 mt-4">
                 <input type="file" class="inputfile" name="image" id="image">
                 <label
                     for="image"
-                    class="items-center px-4 py-2 bg-blue-500 rounded-md font-semibold text-sm text-white tracking-widest hover:bg-blue-700 focus:bg-blue-700 transition ease-in-out duration-150"
+                    class="items-center px-4 py-2 bg-blue-500 rounded-md font-semibold text-sm text-white tracking-widest hover:bg-blue-700 focus:bg-blue-700 transition"
                 >
                     {{ __('Upload new image') }}
                 </label>
+                @if($post->hasImage())
+                    @livewire('post.remove-image', ['post' => $post])
+                @endif
             </div>
         </div>
     </div>

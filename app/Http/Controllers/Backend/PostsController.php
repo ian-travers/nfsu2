@@ -122,6 +122,16 @@ class PostsController extends Controller
         ]);
     }
 
+    public function removeImage(Post $post)
+    {
+        $post->removeImage();
+
+        return redirect()->route('adm.posts.edit', $post)->with('flash', [
+            'type' => 'success',
+            'message' => __('Post image has been removed.'),
+        ]);
+    }
+
     protected function validateForm()
     {
         return request()->validate([
