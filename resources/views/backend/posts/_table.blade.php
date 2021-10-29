@@ -24,7 +24,7 @@
                                 @if($post->hasImage())
                                     <div class="flex items-center justify-between">
                                         {{ $post->title }}
-                                        <img src="{{ Storage::url($post->image) }}" alt="Post image" class="w-32">
+                                        <img src="{{ $post->imageUrl() }}" alt="Post image" class="w-32">
                                     </div>
                                 @else
                                     {{ $post->title }}

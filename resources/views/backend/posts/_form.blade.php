@@ -28,7 +28,6 @@
             </div>
         </div>
 
-
         <div>
             <x-form.label value="{{ __('Image') }}"/>
             <div
@@ -36,7 +35,7 @@
                 class="image-preview flex justify-center items-center w-full h-40 border-2 border-gray-300"
             >
                 @if($post->hasImage())
-                    <img class="preview__image max-h-40" src="{{ Storage::url($post->image) }}" alt="Image preview">
+                    <img class="preview__image max-h-40" src="{{ $post->imageUrl() }}" alt="Image preview">
                     <span
                         class="preview__default-text hidden text-gray-300 text-2xl font-semibold tracking-wider">{{ __('Image preview') }}</span>
                 @else
@@ -82,16 +81,13 @@
         if (file) {
             const reader = new FileReader()
 
-            console.log(previewDefaultText)
             previewDefaultText.style.display = 'none'
             previewImage.style.display = 'block'
 
             reader.readAsDataURL(file);
-
             reader.addEventListener('load', function () {
                 previewImage.setAttribute('src', this.result)
             })
-
         } else {
             previewDefaultText.style.display = null
             previewImage.style.display = null

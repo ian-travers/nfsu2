@@ -93,6 +93,13 @@ class Post extends Model
         return Storage::disk('public')->exists($this->image);
     }
 
+    public function imageUrl()
+    {
+        return $this->imageFileExists()
+            ? Storage::url($this->image)
+            : '';
+    }
+
     public function removeImage(): void
     {
         if ($this->imageFileExists()) {
