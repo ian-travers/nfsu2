@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Comment;
 use App\Models\Competition\Competition;
 use App\Models\News;
+use App\Models\Post;
 use App\Models\Tourney\Tourney;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -66,6 +67,7 @@ class AppServiceProvider extends ServiceProvider
             'tourney' => Tourney::class,
             'competition' => Competition::class,
             'news' => News::class,
+            'post' => Post::class,
             'comment' => Comment::class,
         ]);
     }

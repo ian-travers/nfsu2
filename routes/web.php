@@ -15,6 +15,7 @@ use App\Http\Controllers\CompetitionsController as ReadCompetitionsController;
 use App\Http\Controllers\DownloadsController;
 use App\Http\Controllers\NewsReadController;
 use App\Http\Controllers\NFSUServerController;
+use App\Http\Controllers\PostsReadController;
 use App\Http\Controllers\PublicProfileController;
 use App\Http\Controllers\RulesController;
 use App\Http\Controllers\SeasonsArchiveController;
@@ -50,6 +51,14 @@ Route::group(['middleware' => 'language'], function () {
     ], function () {
         Route::get('', [NewsReadController::class, 'index'])->name('.index');
         Route::get('{newsitem:slug}', [NewsReadController::class, 'show'])->name('.view');
+    });
+
+    Route::group([
+        'prefix' => 'blog',
+        'as' => 'blog',
+    ], function () {
+        Route::get('', [PostsReadController::class, 'index'])->name('.index');
+        Route::get('{post:slug}', [PostsReadController::class, 'show'])->name('.view');
     });
 
     Route::group([

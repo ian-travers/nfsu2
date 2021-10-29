@@ -43,7 +43,6 @@
                             {{ __('Information') }}
                         </h3>
                         <ul role="list" class="mt-4 space-y-1">
-                            <li><x-link href="{{ route('news.index') }}">{{ __('News') }}</x-link></li>
                             <li><x-link href="{{ route('page', 'tourneys') }}">{{ __('Tourneys') }}</x-link></li>
                             <li><x-link href="{{ route('page', 'competitions') }}">{{ __('Competitions') }}</x-link></li>
                             <li><x-link href="{{ route('page', 'nfsu-cup') }}">NFSU Cup</x-link></li>
@@ -94,6 +93,8 @@
                             {{ __('Archive') }}
                         </h3>
                         <ul role="list" class="mt-4 space-y-1">
+                            <li><x-link href="{{ route('news.index') }}">{{ __('News') }}</x-link></li>
+                            <li><x-link href="{{ route('blog.index') }}">{{ __('Blog') }}</x-link></li>
                             <li><x-link href="{{ route('seasons-archive.index') }}">{{ __('Seasons') }}</x-link></li>
                             <li><x-link href="{{ route('tourneys.archive') }}">{{ __('Tourneys') }}</x-link></li>
                             <li><x-link href="{{ route('competitions.archive') }}">{{ __('Competitions') }}</x-link></li>

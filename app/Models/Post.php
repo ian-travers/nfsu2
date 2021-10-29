@@ -93,7 +93,7 @@ class Post extends Model
         return Storage::disk('public')->exists($this->image);
     }
 
-    public function imageUrl()
+    public function imageUrl(): string
     {
         return $this->imageFileExists()
             ? Storage::url($this->image)
@@ -107,5 +107,10 @@ class Post extends Model
         }
 
         $this->update(['image' => null]);
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->whereNotNull('published_at');
     }
 }

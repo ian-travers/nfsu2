@@ -23,7 +23,7 @@
                 </h1>
                 <div class="post__author flex items-center space-x-4">
                     @livewire('user.avatar', ['user' => $post->author, 'size' => 8])
-                    <a href="#"
+                    <a href="{{ route('public-profile', $post->author->username) }}"
                        class="text-blue-500 hover:text-blue-700 hover:underline focus:text-blue-700 transition">{{ $post->author->username }}</a>
                 </div>
             </div>
