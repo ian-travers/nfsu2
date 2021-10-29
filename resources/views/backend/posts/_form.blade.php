@@ -2,7 +2,7 @@
 
 <x-backend.form-panel class="px-4 py-8 my-8">
     <div class="grid grid-cols-3 gap-x-4">
-        <div class="col-span-2">
+        <div class="col-span-2 space-y-8">
             <div>
                 <x-form.label for="title" value="{{ __('Title') }}"/>
                 <x-form.input
@@ -32,7 +32,7 @@
             <x-form.label value="{{ __('Image') }}"/>
             <div
                 id="preview"
-                class="image-preview flex justify-center items-center w-full h-40 border-2 border-gray-300"
+                class="image-preview flex justify-center items-center w-full h-44 border-2 border-gray-300"
             >
                 @if($post->hasImage())
                     <img class="preview__image max-h-40" src="{{ $post->imageUrl() }}" alt="Image preview">
@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    <div>
+    <div class="mt-8">
         <x-form.label for="body" value="{{ __('Body') }}"/>
         <x-rich-editor
             class="w-full"
