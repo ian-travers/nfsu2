@@ -3,7 +3,7 @@
 @php /** @var \App\Models\Post $post */ @endphp
 
 <article
-    {{ $attributes(['class' => 'transition-colors duration-500 bg-gray-900 bg-opacity-0 hover:bg-opacity-80 border border-blue-400 border-opacity-0 hover:border-opacity-100 rounded-xl']) }}
+    {{ $attributes(['class' => 'transition-colors duration-500 bg-gray-900 bg-opacity-0 hover:bg-opacity-80 border border-blue-400 border-opacity-25 hover:border-opacity-100 rounded-xl']) }}
 >
     <div class="py-4 px-5">
         <div class="flex flex-col justify-between">
