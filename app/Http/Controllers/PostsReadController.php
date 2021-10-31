@@ -11,7 +11,7 @@ class PostsReadController extends Controller
     {
         return view('frontend.posts.index', [
             'title' => __('Blog'),
-            'posts' => Post::published()->latest()->paginate(3),
+            'posts' => Post::published()->latest('published_at')->paginate(3),
         ]);
     }
 

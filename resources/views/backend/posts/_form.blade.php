@@ -68,6 +68,19 @@
         />
         @error('body')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
     </div>
+
+    <div class="mt-8">
+        <x-form.label for="published-at" value="{{ __('Published at') }}"/>
+        <x-form.input
+            id="published-at"
+            class="block mt-1"
+            type="datetime-local"
+            name="published_at"
+            value="{{ old('published_at', $post->published_at ? $post->published_at->format('Y-m-d\TH:i') : '') }}"
+            autocomplete="published_at"
+        />
+        @error('published_at')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+    </div>
 </x-backend.form-panel>
 <script>
     const inputFile = document.querySelector('#image')

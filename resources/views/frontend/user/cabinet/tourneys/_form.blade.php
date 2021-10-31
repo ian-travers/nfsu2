@@ -38,7 +38,6 @@
             type="datetime-local"
             name="started_at"
             value="{{ old('started_at', $tourney->started_at ? $tourney->started_at->format('Y-m-d\TH:i') : '') }}"
-            autofocus
             autocomplete="started_at"
         />
         @error('started_at')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror

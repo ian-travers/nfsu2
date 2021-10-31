@@ -140,6 +140,7 @@ class PostsController extends Controller
             'excerpt' => 'required',
             'body' => 'required',
             'image' => 'nullable|image',
+            'published_at' => 'nullable|date',
         ]);
     }
 }
