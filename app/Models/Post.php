@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Storage;
  * @property string $excerpt
  * @property string $body
  * @property string|null $image
- * @property int $views_count
  * @property \Illuminate\Support\Carbon|null $published_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -36,6 +35,7 @@ use Illuminate\Support\Facades\Storage;
  * @method static Builder|Post newModelQuery()
  * @method static Builder|Post newQuery()
  * @method static \Illuminate\Database\Query\Builder|Post onlyTrashed()
+ * @method static Builder|Post published()
  * @method static Builder|Post query()
  * @method static Builder|Post whereAuthorId($value)
  * @method static Builder|Post whereBody($value)
@@ -48,7 +48,6 @@ use Illuminate\Support\Facades\Storage;
  * @method static Builder|Post whereSlug($value)
  * @method static Builder|Post whereTitle($value)
  * @method static Builder|Post whereUpdatedAt($value)
- * @method static Builder|Post whereViewsCount($value)
  * @method static \Illuminate\Database\Query\Builder|Post withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Post withoutTrashed()
  * @mixin \Eloquent
