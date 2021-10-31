@@ -19,7 +19,6 @@ class PostFactory extends Factory
             'excerpt' => $this->faker->sentence(),
             'body' => $this->faker->paragraph(),
             'image' => null,
-            'views_count' => 0,
             'published_at' => null,
         ];
     }

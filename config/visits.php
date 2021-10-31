@@ -22,12 +22,7 @@ return [
     | Record visits (total) of each one of these periods in this set (can be empty)
     |
     */
-    'periods' => [
-        'day',
-        'week',
-        'month',
-        'year',
-    ],
+    'periods' => [],
 
     /*
     |--------------------------------------------------------------------------

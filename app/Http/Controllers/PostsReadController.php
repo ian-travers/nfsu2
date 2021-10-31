@@ -17,6 +17,8 @@ class PostsReadController extends Controller
 
     public function show(Post $post)
     {
+        visits($post)->increment();
+
         return view('frontend.posts.show', [
             'title' => $post->title,
             'post' => $post->load(['comments.author'])->loadCount('comments'),
