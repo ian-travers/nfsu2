@@ -9,7 +9,7 @@
             </div>
             <form action="{{ route('cabinet.posts.store') }}" method="post" class="mt-4" enctype="multipart/form-data">
                 @csrf
-                @include('adm.backend.posts._form')
+                @include('backend.posts._form')
 
                 <div class="mt-6">
                     <x-form.primary-button type="submit">{{ __('Create') }}</x-form.primary-button>
