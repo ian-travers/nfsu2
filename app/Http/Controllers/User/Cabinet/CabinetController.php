@@ -9,7 +9,7 @@ class CabinetController extends Controller
 {
     public function index()
     {
-        $user = User::withCount(['tourneys'])->find(auth()->id());
+        $user = User::withCount(['tourneys'])->withCount('posts')->find(auth()->id());
 
         return view('frontend.user.cabinet.index', [
             'title' => __('Cabinet'),

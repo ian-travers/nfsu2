@@ -224,10 +224,14 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('', [CabinetPostsController::class, 'index'])->name('.index');
             Route::get('create', [CabinetPostsController::class, 'create'])->name('.create');
             Route::post('', [CabinetPostsController::class, 'store'])->name('.store');
+            Route::get('{post}', [CabinetPostsController::class, 'show'])->name('.view');
             Route::get('edit/{post}', [CabinetPostsController::class, 'edit'])->name('.edit');
             Route::patch('{post}', [CabinetPostsController::class, 'update'])->name('.update');
             Route::delete('{post}', [CabinetPostsController::class, 'trash'])->name('.delete');
+            Route::patch('{post}/restore', [CabinetPostsController::class, 'restore'])->name('.restore');
             // Handle the post
+            Route::patch('{post}/publish', [CabinetPostsController::class, 'publish'])->name('.publish');
+            Route::patch('{post}/unpublish', [CabinetPostsController::class, 'unpublish'])->name('.unpublish');
         });
     });
 

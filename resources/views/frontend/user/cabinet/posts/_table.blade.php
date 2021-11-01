@@ -10,7 +10,6 @@
                         <x-table.th>{{ __('Title') }}</x-table.th>
                         <x-table.th>{{ __('Excerpt') }}</x-table.th>
                         <x-table.th class="text-center w-10">{{ __('Published') }}</x-table.th>
-                        <x-table.th class="text-center w-10">{{ __('Author') }}</x-table.th>
                         <x-table.th class="text-center w-10">{{ __('Publishing') }}</x-table.th>
                         <th scope="col" class="w-12 px-6 py-3">
                             <span class="sr-only">Actions</span>
@@ -36,13 +35,10 @@
                             <td class="text-center px-6 py-4">
                                 {{ $post->published ? $post->published_at->isoFormat('L') : __('Draft') }}
                             </td>
-                            <td>
-                                {{ $post->author->username }}
-                            </td>
                             <td class="text-center">
                                 @unless($post->trashed())
                                     <form
-                                        action="{{ $post->published ? route('adm.posts.unpublish', $post) : route('adm.posts.publish', $post) }}"
+                                        action="{{ $post->published ? route('cabinet.posts.unpublish', $post) : route('cabinet.posts.publish', $post) }}"
                                         method="post"
                                     >
                                         @csrf
@@ -61,19 +57,19 @@
                             </td>
                             <td class="whitespace-nowrap text-right text-sm font-medium px-6">
                                 <a
-                                    href="{{ route('adm.posts.view', $post) }}"
+                                    href="{{ route('cabinet.posts.view', $post) }}"
                                     class="text-green-400 hover:text-green-600 block"
                                 >
-                                    {{ __('View & Comments') }}
+                                    {{ __('View') }}
                                 </a>
                                 <a
-                                    href="{{ route('adm.posts.edit', $post) }}"
+                                    href="{{ route('cabinet.posts.edit', $post) }}"
                                     class="text-indigo-400 hover:text-indigo-600"
                                 >
                                     {{ __('Edit') }}
                                 </a>
                                 @if($post->trashed())
-                                    <form action="{{ route('adm.posts.restore', $post) }}" method="post">
+                                    <form action="{{ route('cabinet.posts.restore', $post) }}" method="post">
                                         @csrf
                                         @method('patch')
                                         <button
@@ -85,7 +81,7 @@
                                         </button>
                                     </form>
                                 @else
-                                    <form action="{{ route('adm.posts.delete', $post) }}" method="post">
+                                    <form action="{{ route('cabinet.posts.delete', $post) }}" method="post">
                                         @csrf
                                         @method('delete')
                                         <button
@@ -97,17 +93,6 @@
                                         </button>
                                     </form>
                                 @endif
-                                <form action="{{ route('adm.posts.force-delete', $post) }}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button
-                                        type="submit"
-                                        onclick="return confirm()"
-                                        class="text-red-500 hover:text-red-700"
-                                    >
-                                        {{ __('Delete') }}
-                                    </button>
-                                </form>
                             </td>
                         </tr>
                     @endforeach

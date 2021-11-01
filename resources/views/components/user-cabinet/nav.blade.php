@@ -16,6 +16,13 @@
         >
             {{ __('Tourneys') }}
         </x-navs.vertical.nav-item>
+
+        <x-navs.vertical.nav-item
+            href="{{ route('cabinet.posts.index') }}"
+            :active="$controller == 'PostsController'"
+        >
+            {{ __('Posts') }}
+        </x-navs.vertical.nav-item>
     </nav>
 </div>
 
