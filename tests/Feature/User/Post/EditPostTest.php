@@ -20,7 +20,6 @@ class EditPostTest extends TestCase
     /** @test */
     function user_can_edit_a_post()
     {
-        $this->withoutExceptionHandling();
         /** @var User $user */
         $user = User::factory()->create();
 

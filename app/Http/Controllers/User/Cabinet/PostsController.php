@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Cabinet;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use Illuminate\Support\Str;
 
 class PostsController extends Controller
 {
@@ -20,6 +21,7 @@ class PostsController extends Controller
     public function update(Post $post)
     {
         $attributes = $this->validateForm();
+        $attributes['slug'] = Str::slug($attributes['title']) . '-' . Str::padLeft($post->id, 8, '0');
 
         if (request()->has('image')) {
             /** @var \Illuminate\Http\UploadedFile $uf */
