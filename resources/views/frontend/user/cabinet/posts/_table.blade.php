@@ -56,18 +56,6 @@
                                 @endunless
                             </td>
                             <td class="whitespace-nowrap text-right text-sm font-medium px-6">
-                                <a
-                                    href="{{ route('cabinet.posts.view', $post) }}"
-                                    class="text-green-400 hover:text-green-600 block"
-                                >
-                                    {{ __('View') }}
-                                </a>
-                                <a
-                                    href="{{ route('cabinet.posts.edit', $post) }}"
-                                    class="text-indigo-400 hover:text-indigo-600"
-                                >
-                                    {{ __('Edit') }}
-                                </a>
                                 @if($post->trashed())
                                     <form action="{{ route('cabinet.posts.restore', $post) }}" method="post">
                                         @csrf
@@ -81,6 +69,18 @@
                                         </button>
                                     </form>
                                 @else
+                                    <a
+                                        href="{{ route('cabinet.posts.view', $post) }}"
+                                        class="text-green-400 hover:text-green-600 block"
+                                    >
+                                        {{ __('View') }}
+                                    </a>
+                                    <a
+                                        href="{{ route('cabinet.posts.edit', $post) }}"
+                                        class="text-indigo-400 hover:text-indigo-600"
+                                    >
+                                        {{ __('Edit') }}
+                                    </a>
                                     <form action="{{ route('cabinet.posts.delete', $post) }}" method="post">
                                         @csrf
                                         @method('delete')

@@ -42,17 +42,17 @@ class PostsController extends Controller
         ]);
     }
 
-    public function edit(Post $post)
+    public function edit(string $post)
     {
         return view('backend.posts.edit', [
             'title' => __('Edit post'),
-            'post' => $post,
+            'post' => $this->findPost($post),
         ]);
     }
 
-    public function update(Post $post)
+    public function update(string $post)
     {
-        $this->service->edit($post);
+        $this->service->edit($this->findPost($post));
 
         return redirect()->route('adm.posts.index')->with('flash', [
             'type' => 'success',
@@ -60,11 +60,11 @@ class PostsController extends Controller
         ]);
     }
 
-    public function show(Post $post)
+    public function show(string $post)
     {
         return view('backend.posts.show', [
             'title' => __('View post'),
-            'post' => $post->load('comments'),
+            'post' => $this->findPost($post)->load('comments'),
         ]);
     }
 
@@ -90,7 +90,7 @@ class PostsController extends Controller
 
     public function forceRemove(string $post)
     {
-        (Post::withTrashed()->findOrFail($post))->forceDelete();
+        $this->findPost($post)->forceDelete();
 
         return redirect()->route('adm.posts.index')->with('flash', [
             'type' => 'success',
@@ -126,5 +126,10 @@ class PostsController extends Controller
             'type' => 'success',
             'message' => __('Post image has been removed.'),
         ]);
+    }
+
+    protected function findPost(string $post): Post
+    {
+        return Post::withTrashed()->findOrFail($post);
     }
 }
