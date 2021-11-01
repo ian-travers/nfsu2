@@ -11,6 +11,7 @@ class PublishPostTest extends TestCase
     /** @test */
     function admin_can_restore_any_post()
     {
+        $this->withoutExceptionHandling();
         $this->signIn(User::factory()->admin()->create());
 
         $post = Post::factory()->create();

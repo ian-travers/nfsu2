@@ -4,13 +4,20 @@ namespace App\Http\Controllers\User\Cabinet;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
-use Illuminate\Support\Str;
+use App\Services\PostService;
 
 class PostsController extends Controller
 {
+    protected PostService $service;
+
+    public function __construct()
+    {
+        $this->service = new PostService();
+    }
+
     public function store()
     {
-        (auth()->user())->posts()->create($this->validateForm());
+        $this->service->create();
 
         return redirect()->route('cabinet.posts.index')->with('flash', [
             'type' => 'success',
@@ -20,19 +27,7 @@ class PostsController extends Controller
 
     public function update(Post $post)
     {
-        $attributes = $this->validateForm();
-        $attributes['slug'] = Str::slug($attributes['title']) . '-' . Str::padLeft($post->id, 8, '0');
-
-        if (request()->has('image')) {
-            /** @var \Illuminate\Http\UploadedFile $uf */
-            $uf = request('image');
-            $attributes['image'] = $uf->store("blogs/{$post->author->username}", 'public');
-            $post->removeImage();
-        } else {
-            unset($attributes['image']);
-        }
-
-        $post->update($attributes);
+        $this->service->edit($post);
 
         return redirect()->route('cabinet.posts.index')->with('flash', [
             'type' => 'success',
@@ -42,23 +37,11 @@ class PostsController extends Controller
 
     public function trash(Post $post)
     {
-        $post->delete();
+        $this->service->trash($post);
 
         return redirect()->route('cabinet.posts.index')->with('flash', [
             'type' => 'success',
             'message' => __('Post has been trashed.'),
-        ]);
-    }
-
-    protected function validateForm()
-    {
-        return request()->validate([
-            'title' => 'required|string|max:240',
-            'slug' => 'nullable',
-            'excerpt' => 'required',
-            'body' => 'required',
-            'image' => 'nullable|image',
-            'published_at' => 'nullable|date',
         ]);
     }
 }

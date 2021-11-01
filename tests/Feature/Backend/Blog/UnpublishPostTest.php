@@ -9,7 +9,7 @@ use Tests\TestCase;
 class UnpublishPostTest extends TestCase
 {
     /** @test */
-    function admin_can_restore_any_post()
+    function admin_can_unpublish_any_post()
     {
         $this->signIn(User::factory()->admin()->create());
 
