@@ -28,7 +28,7 @@ class GenericAlert extends Component
     {
         session()->flash('flash', [
             'type' => 'warning',
-            'message' => __('You must login the site.'),
+            'message' => __('You must log in the site.'),
         ]);
     }
 }
