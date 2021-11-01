@@ -57,7 +57,6 @@ class PostsController extends Controller
 
         $post->update($attributes);
 
-
         return redirect()->route('adm.posts.index')->with('flash', [
             'type' => 'success',
             'message' => __('Post has been updated.'),

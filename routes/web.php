@@ -27,6 +27,7 @@ use App\Http\Controllers\TourneysController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\Cabinet\CabinetController;
 use App\Http\Controllers\User\Cabinet\HandleTourneyController as CabinetHandleTourneyController;
+use App\Http\Controllers\User\Cabinet\PostsController as CabinetPostsController;
 use App\Http\Controllers\User\Cabinet\TourneysController as CabinetTourneysController;
 use App\Http\Controllers\User\Team\CreateTeamController;
 use App\Http\Controllers\User\Team\EditTeamController;
@@ -193,6 +194,7 @@ Route::group(['middleware' => 'language'], function () {
         'as' => 'cabinet'
     ], function () {
         Route::get('', [CabinetController::class, 'index'])->name('.index');
+        // Cabinet tourneys CRUD
         Route::group([
             'middleware' => ['racer'],
             'prefix' => 'tourneys',
@@ -213,7 +215,19 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('{tourney}', [CabinetHandleTourneyController::class, 'index'])->name('.index');
                 Route::patch('{tourney}/clean-final-heat', [CabinetHandleTourneyController::class, 'clearFinalHeat'])->name('.clean-final-heat');
             });
-
+        });
+        // Cabinet posts CRUD
+        Route::group([
+            'prefix' => 'posts',
+            'as' => '.posts'
+        ], function () {
+            Route::get('', [CabinetPostsController::class, 'index'])->name('.index');
+            Route::get('create', [CabinetPostsController::class, 'create'])->name('.create');
+            Route::post('', [CabinetPostsController::class, 'store'])->name('.store');
+            Route::get('edit/{post}', [CabinetPostsController::class, 'edit'])->name('.edit');
+            Route::patch('{post}', [CabinetPostsController::class, 'update'])->name('.update');
+            Route::delete('{post}', [CabinetPostsController::class, 'trash'])->name('.delete');
+            // Handle the post
         });
     });
 
