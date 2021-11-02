@@ -3,14 +3,13 @@
 namespace App\Http\Livewire\Comment;
 
 use App\Models\Comment;
-use App\Models\User;
 use Livewire\Component;
 
 class Form extends Component
 {
     public $commentable;
     public $parentId = null;
-    public User $user;
+    public $user;
     public $body;
 
     protected $rules = [
