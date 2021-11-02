@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Services\PostService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Gate;
 
 class PostsController extends Controller
 {
@@ -44,6 +45,13 @@ class PostsController extends Controller
 
     public function edit(Post $post)
     {
+        if (Gate::denies('update-post', $post)) {
+            return redirect()->back()->with('flash', [
+                'type' => 'error',
+                'message' => __("Impossible to edit someone else's post."),
+            ]);
+        }
+
         return view('frontend.user.cabinet.posts.edit', [
             'title' => __('Edit post'),
             'post' => $post,
@@ -52,6 +60,13 @@ class PostsController extends Controller
 
     public function update(Post $post)
     {
+        if (Gate::denies('update-post', $post)) {
+            return redirect()->back()->with('flash', [
+                'type' => 'error',
+                'message' => __("Impossible to edit someone else's post."),
+            ]);
+        }
+
         $this->service->edit($post);
 
         return redirect()->route('cabinet.posts.index')->with('flash', [
@@ -62,6 +77,13 @@ class PostsController extends Controller
 
     public function show(Post $post)
     {
+        if (Gate::denies('update-post', $post)) {
+            return redirect()->back()->with('flash', [
+                'type' => 'error',
+                'message' => __("Impossible to view someone else's post here."),
+            ]);
+        }
+
         return view('frontend.user.cabinet.posts.show', [
             'title' => __('View post'),
             'post' => $post,
@@ -70,6 +92,13 @@ class PostsController extends Controller
 
     public function trash(Post $post)
     {
+        if (Gate::denies('update-post', $post)) {
+            return redirect()->back()->with('flash', [
+                'type' => 'error',
+                'message' => __("Impossible to trash someone else's post."),
+            ]);
+        }
+
         $this->service->trash($post);
 
         return redirect()->route('cabinet.posts.index')->with('flash', [

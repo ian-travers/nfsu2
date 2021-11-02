@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Post;
 use App\Models\Tourney\Tourney;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -29,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('admin', fn(User $user) => $user->isAdmin());
         Gate::define('racer', fn(User $user) => $user->isRacer());
-
         Gate::define('update-tourney', fn(User $user, Tourney $tourney) => $user->id == $tourney->supervisor_id);
+        Gate::define('update-post', fn(User $user, Post $post) => $user->id == $post->author_id);
     }
 }

@@ -6,10 +6,10 @@ use App\Models\Post;
 use App\Models\User;
 use Tests\TestCase;
 
-class TrashPostTest extends TestCase
+class ViewPostTest extends TestCase
 {
     /** @test */
-    function user_can_trash_own_post()
+    function user_can_view_own_post_in_the_cabinet()
     {
         /** @var User $user */
         $user = User::factory()->create();
@@ -18,14 +18,12 @@ class TrashPostTest extends TestCase
 
         $post = Post::factory()->create(['author_id' => $user->id]);
 
-        $this->delete("/cabinet/posts/{$post->id}");
-
-        $this->assertEquals(0, Post::count());
-        $this->assertEquals(1, Post::withTrashed()->count());
+        $this->get("/cabinet/posts/{$post->id}")
+            ->assertOk();
     }
 
     /** @test */
-    function user_cannot_trash_another_users_post()
+    function user_cannot_view_another_users_post_in_the_cabinet()
     {
         $post = Post::factory()->create();
 
@@ -34,8 +32,11 @@ class TrashPostTest extends TestCase
 
         $this->signIn($user);
 
-        $this->delete("/cabinet/posts/{$post->id}");
-
-        $this->assertEquals(1, Post::count());
+        $this->get("/cabinet/posts/{$post->id}")
+            ->assertSessionHas('flash', [
+                'type' => 'error',
+                'message' => __("Impossible to view someone else's post here."),
+            ])
+            ->assertRedirect();
     }
 }
