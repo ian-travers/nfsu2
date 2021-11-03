@@ -35,9 +35,9 @@ class PostService
         $post->delete();
     }
 
-    public function restore(string $post): void
+    public function restore(Post $post): void
     {
-        (Post::withTrashed()->findOrFail($post))->restore();
+        $post->restore();
     }
 
     public function publish(Post $post, Carbon $when = null)

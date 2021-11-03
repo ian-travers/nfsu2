@@ -109,6 +109,15 @@ class PostsController extends Controller
 
     public function restore(string $post)
     {
+        $post = Post::withTrashed()->findOrFail($post);
+
+        if (Gate::denies('update-post', $post)) {
+            return redirect()->back()->with('flash', [
+                'type' => 'error',
+                'message' => __("Impossible to restore someone else's post."),
+            ]);
+        }
+
         $this->service->restore($post);
 
         return redirect()->route('cabinet.posts.index')->with('flash', [
@@ -117,8 +126,15 @@ class PostsController extends Controller
         ]);
     }
 
-    public function publish(Post $post, Carbon $when)
+    public function publish(Post $post, Carbon $when = null)
     {
+        if (Gate::denies('update-post', $post)) {
+            return redirect()->back()->with('flash', [
+                'type' => 'error',
+                'message' => __("Impossible to publish someone else's post."),
+            ]);
+        }
+
         $this->service->publish($post, $when);
 
         return redirect()->route('cabinet.posts.index')->with('flash', [
@@ -129,6 +145,13 @@ class PostsController extends Controller
 
     public function unpublish(Post $post)
     {
+        if (Gate::denies('update-post', $post)) {
+            return redirect()->back()->with('flash', [
+                'type' => 'error',
+                'message' => __("Impossible to unpublish someone else's post."),
+            ]);
+        }
+
         $this->service->unpublish($post);
 
         return redirect()->route('cabinet.posts.index')->with('flash', [

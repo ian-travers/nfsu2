@@ -29,4 +29,11 @@ class PostFactory extends Factory
             'published_at' => now()->subHours(),
         ]);
     }
+
+    public function deleted()
+    {
+        return $this->state([
+            'deleted_at' => now(),
+        ]);
+    }
 }

@@ -80,6 +80,8 @@ class PostsController extends Controller
 
     public function restore(string $post)
     {
+        $post = Post::withTrashed()->findOrFail($post);
+
         $this->service->restore($post);
 
         return redirect()->route('adm.posts.index')->with('flash', [
