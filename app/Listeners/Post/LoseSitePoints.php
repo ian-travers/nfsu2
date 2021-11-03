@@ -8,8 +8,6 @@ class LoseSitePoints
 {
     public function handle(PostUnpublished  $event)
     {
-        $author = $event->user;
-
-        $author->loseSitePoints(150);
+        $event->user->loseSitePoints(150);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Comment;
 
+use App\Events\CommentDeleted;
 use Illuminate\Database\QueryException;
 use Livewire\Component;
 
@@ -14,6 +15,7 @@ class Delete extends Component
     {
         try {
             $this->comment->delete();
+            event(new CommentDeleted($this->comment));
 
             session()->flash('flash', [
                 'type' => 'success',

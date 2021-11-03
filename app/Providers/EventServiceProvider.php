@@ -2,11 +2,14 @@
 
 namespace App\Providers;
 
+use App\Events\CommentDeleted;
+use App\Events\CommentLeft;
 use App\Events\CompetitionCompleted;
 use App\Events\PostPublished;
 use App\Events\PostUnpublished;
 use App\Events\SeasonCompleted;
 use App\Events\TourneyCompleted;
+use App\Listeners\Comment;
 use App\Listeners\Competition;
 use App\Listeners\Post;
 use App\Listeners\Season;
@@ -50,6 +53,14 @@ class EventServiceProvider extends ServiceProvider
 
         PostUnpublished::class => [
             Post\LoseSitePoints::class,
+        ],
+
+        CommentLeft::class => [
+            Comment\GainSitePoints::class,
+        ],
+
+        CommentDeleted::class => [
+            Comment\LoseSitePoints::class,
         ],
 
     ];

@@ -8,8 +8,6 @@ class GainSitePoints
 {
     public function handle(PostPublished $event)
     {
-        $author = $event->user;
-
-        $author->gainSitePoints(150);
+        $event->user->gainSitePoints(150);
     }
 }
