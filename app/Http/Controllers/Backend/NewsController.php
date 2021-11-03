@@ -18,7 +18,7 @@ class NewsController extends Controller
     public function create()
     {
         return view('backend.news.create', [
-            'title' => __('Create news sitem'),
+            'title' => __('Create news item'),
             'newsitem' => new News(),
         ]);
     }
