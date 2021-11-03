@@ -225,7 +225,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('create', [CabinetPostsController::class, 'create'])->name('.create');
             Route::post('', [CabinetPostsController::class, 'store'])->name('.store');
             Route::get('{post}', [CabinetPostsController::class, 'show'])->name('.view');
-            Route::get('edit/{post}', [CabinetPostsController::class, 'edit'])->name('.edit');
+            Route::get('{post}/edit', [CabinetPostsController::class, 'edit'])->name('.edit');
             Route::patch('{post}', [CabinetPostsController::class, 'update'])->name('.update');
             Route::delete('{post}', [CabinetPostsController::class, 'trash'])->name('.delete');
             Route::patch('{post}/restore', [CabinetPostsController::class, 'restore'])->name('.restore');
@@ -307,7 +307,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('create', [NewsController::class, 'create'])->name('.create');
             Route::post('', [NewsController::class, 'store'])->name('.store');
             Route::get('{newsitem}', [NewsController::class, 'show'])->name('.view');
-            Route::get('edit/{newsitem}', [NewsController::class, 'edit'])->name('.edit');
+            Route::get('{newsitem}/edit', [NewsController::class, 'edit'])->name('.edit');
             Route::patch('{newsitem}', [NewsController::class, 'update'])->name('.update');
             Route::delete('{newsitem}', [NewsController::class, 'remove'])->name('.delete');
         });
@@ -321,7 +321,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('create', [PostsController::class, 'create'])->name('.create');
             Route::post('', [PostsController::class, 'store'])->name('.store');
             Route::get('{post}', [PostsController::class, 'show'])->name('.view');
-            Route::get('edit/{post}', [PostsController::class, 'edit'])->name('.edit');
+            Route::get('{post}/edit', [PostsController::class, 'edit'])->name('.edit');
             Route::patch('{post}', [PostsController::class, 'update'])->name('.update');
             Route::delete('{post}', [PostsController::class, 'remove'])->name('.delete');
             Route::delete('{post}/force-delete', [PostsController::class, 'forceRemove'])->name('.force-delete');

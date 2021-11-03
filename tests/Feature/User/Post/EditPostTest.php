@@ -23,9 +23,10 @@ class EditPostTest extends TestCase
         /** @var User $user */
         $user = User::factory()->create();
 
-        $this->signIn($user);
-
+        /** @var Post $post */
         $post = Post::factory()->create(['author_id' => $user->id]);
+
+        $this->signIn($user);
 
         $attributes = [
             'title' => 'Updated Title',
@@ -42,6 +43,7 @@ class EditPostTest extends TestCase
     /** @test */
     function user_cannot_view_edit_page_another_users_post_in_the_cabinet()
     {
+        /** @var Post $post */
         $post = Post::factory()->create();
 
         /** @var User $user */
@@ -49,7 +51,7 @@ class EditPostTest extends TestCase
 
         $this->signIn($user);
 
-        $this->get("/cabinet/posts/edit/{$post->id}")
+        $this->get("/cabinet/posts/{$post->id}/edit")
             ->assertSessionHas('flash', [
                 'type' => 'error',
                 'message' => __("Impossible to edit someone else's post."),
@@ -60,6 +62,7 @@ class EditPostTest extends TestCase
     /** @test */
     function user_cannot_edit_another_users_post()
     {
+        /** @var Post $post */
         $post = Post::factory()->create();
 
         /** @var User $user */
