@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\User\Cabinet;
 
+use App\Events\PostPublished;
+use App\Events\PostUnpublished;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Services\PostService;
@@ -100,6 +102,7 @@ class PostsController extends Controller
         }
 
         $this->service->trash($post);
+        event(new PostUnpublished(auth()->user()));
 
         return redirect()->route('cabinet.posts.index')->with('flash', [
             'type' => 'success',
@@ -136,6 +139,7 @@ class PostsController extends Controller
         }
 
         $this->service->publish($post, $when);
+        event(new PostPublished(auth()->user()));
 
         return redirect()->route('cabinet.posts.index')->with('flash', [
             'type' => 'success',
@@ -153,6 +157,7 @@ class PostsController extends Controller
         }
 
         $this->service->unpublish($post);
+        event(new PostUnpublished(auth()->user()));
 
         return redirect()->route('cabinet.posts.index')->with('flash', [
             'type' => 'success',

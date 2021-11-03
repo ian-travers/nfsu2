@@ -32,6 +32,10 @@ class PostService
 
     public function trash(Post $post): void
     {
+        if ($post->published) {
+            $post->unpublish();
+        }
+
         $post->delete();
     }
 

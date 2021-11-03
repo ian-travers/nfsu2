@@ -3,9 +3,12 @@
 namespace App\Providers;
 
 use App\Events\CompetitionCompleted;
+use App\Events\PostPublished;
+use App\Events\PostUnpublished;
 use App\Events\SeasonCompleted;
 use App\Events\TourneyCompleted;
 use App\Listeners\Competition;
+use App\Listeners\Post;
 use App\Listeners\Season;
 use App\Listeners\Tourney;
 use App\Listeners\User\CreateNewsItemWhenRegistered;
@@ -40,6 +43,15 @@ class EventServiceProvider extends ServiceProvider
         SeasonCompleted::class => [
             Season\RewardSeasonWinners::class
         ],
+
+        PostPublished::class => [
+            Post\GainSitePoints::class,
+        ],
+
+        PostUnpublished::class => [
+            Post\LoseSitePoints::class,
+        ],
+
     ];
 
     /**
