@@ -154,7 +154,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function it_may_assign_an_admin()
+    function it_may_sets_admin()
     {
         /** @var User $user */
         $user = User::factory()->create();
@@ -164,6 +164,19 @@ class UserTest extends TestCase
         $user->setAdminRights();
 
         $this->assertTrue($user->isAdmin());
+    }
+
+    /** @test */
+    function it_may_revoke_admin()
+    {
+        /** @var User $user */
+        $user = User::factory()->admin()->create();
+
+        $this->assertTrue($user->isAdmin());
+
+        $user->revokeAdminRights();
+
+        $this->assertFalse($user->isAdmin());
     }
 
     /** @test */

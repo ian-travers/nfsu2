@@ -274,6 +274,11 @@ class User extends Authenticatable
         $this->update(['is_admin' => true]);
     }
 
+    public function revokeAdminRights(): void
+    {
+        $this->update(['is_admin' => false]);
+    }
+
     public function changePassword(string $password): void
     {
         $this->update(['password' => bcrypt($password)]);
