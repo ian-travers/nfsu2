@@ -5,18 +5,17 @@
     {{-- Login form --}}
     <div>
         <div class="relative">
-            <x-form.label for="username" value="{{ __('Username') }}"/>
+            <x-form.label for="email" value="{{ __('Email') }}"/>
             <x-form.input
-                wire:model.lazy="username"
+                wire:model.lazy="email"
                 class="block mt-1 w-full"
-                type="text"
-                name="username"
-                maxlength="15"
-                :value="old('username')"
-                autofocus required autocomplete="username"
+                type="email"
+                name="email"
+                :value="old('email')"
+                autofocus required autocomplete="email"
 
             />
-            @error('username')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+            @error('email')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
         </div>
 
         <div class="mt-4">

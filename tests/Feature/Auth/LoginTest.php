@@ -19,7 +19,7 @@ class LoginTest extends TestCase
 
 
         Livewire::test(Login::class)
-            ->set('username', $user->username)
+            ->set('email', $user->email)
             ->set('password', 'password')
             ->call('submit')
             ->assertDontSee('These credentials do not match our records');
@@ -36,7 +36,7 @@ class LoginTest extends TestCase
         $user = $this->CreateUser();
 
         Livewire::test(Login::class)
-            ->set('username', $user->username)
+            ->set('email', $user->email)
             ->set('password', 'wrong-password')
             ->call('submit')
             ->assertSee('These credentials do not match our records.');

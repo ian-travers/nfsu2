@@ -10,14 +10,14 @@ class Login extends Component
 {
     use WithRecaptcha;
 
-    public string $username = '';
+    public string $email = '';
     public string $password = '';
     public bool $remember = false;
 
     public string $message = '';
 
     protected array $rules = [
-        'username' => 'required|min:3|max:15',
+        'email' => 'required|email:filter',
         'password' => 'required|min:8',
     ];
 
@@ -43,7 +43,7 @@ class Login extends Component
     {
         return view('livewire.auth.login')
             ->layout('components.layouts.front', [
-                'title' => __('Register')
+                'title' => __('Login')
             ]);
     }
 }
