@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Events\LikedOrDisliked;
+use App\Events\UnlikedOrUndisliked;
 use Livewire\Component;
 
 class LikeDislike extends Component
@@ -29,6 +31,8 @@ class LikeDislike extends Component
         if ($this->isLiked) {
             $this->model->unlike();
             $this->likesCount--;
+
+            event(new UnlikedOrUndisliked(auth()->user()));
         } else {
             $this->model->like();
             $this->likesCount++;
@@ -36,6 +40,8 @@ class LikeDislike extends Component
             if ($this->isDisliked) {
                 $this->isDisliked = false;
                 $this->dislikesCount--;
+            } else {
+                event(new LikedOrDisliked(auth()->user()));
             }
         }
 
@@ -51,6 +57,8 @@ class LikeDislike extends Component
         if ($this->isDisliked) {
             $this->model->undislike();
             $this->dislikesCount--;
+
+            event(new UnlikedOrUndisliked(auth()->user()));
         } else {
             $this->model->dislike();
             $this->dislikesCount++;
@@ -58,6 +66,8 @@ class LikeDislike extends Component
             if ($this->isLiked) {
                 $this->isLiked = false;
                 $this->likesCount--;
+            } else {
+                event(new LikedOrDisliked(auth()->user()));
             }
         }
 
