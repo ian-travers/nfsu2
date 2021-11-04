@@ -3,6 +3,7 @@
 namespace App\Listeners\Competition;
 
 use App\Models\User;
+use App\Settings\SitePointsSettings;
 
 class UpdateUsersCountersAndSitePoints
 {
@@ -11,7 +12,7 @@ class UpdateUsersCountersAndSitePoints
         $event->competition->racers->map(function ($racer) {
             if ($user = User::where('username', $racer->username)->first()) {
                 $user->increment('competitions_count');
-                $user->gainSitePoints(10);
+                $user->gainSitePoints(app(SitePointsSettings::class)->competition);
             }
         });
     }

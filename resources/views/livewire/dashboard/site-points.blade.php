@@ -70,6 +70,63 @@
                 @error('tourneyFifthPlus')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
         </div>
+
+
+        <h4 class="text-lg text-center font-medium mt-6">{{ __('Activity') }}</h4>
+        <div class="flex items-center justify-between space-x-2">
+            <div>
+                <x-form.label for="competition" class="text-center">{{ __('Competition') }}</x-form.label>
+                <x-form.input
+                    wire:model.lazy="competition"
+                    id="competition"
+                    class="block mt-1 w-full"
+                    type="number"
+                    name="competition"
+                    :value="old('competition')"
+                    autocomplete="competition"
+                />
+                @error('competition')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+            </div>
+            <div>
+                <x-form.label for="post" class="text-center">{{ __('Post') }}</x-form.label>
+                <x-form.input
+                    wire:model.lazy="post"
+                    id="post"
+                    class="block mt-1 w-full"
+                    type="number"
+                    name="post"
+                    :value="old('post')"
+                    autocomplete="post"
+                />
+                @error('post')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+            </div>
+            <div>
+                <x-form.label for="comment" class="text-center">{{ __('Comment') }}</x-form.label>
+                <x-form.input
+                    wire:model.lazy="comment"
+                    id="comment"
+                    class="block mt-1 w-full"
+                    type="number"
+                    name="comment"
+                    :value="old('comment')"
+                    autocomplete="comment"
+                />
+                @error('comment')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+            </div>
+            <div>
+                <x-form.label for="like_dislike" class="text-center">{{ __('Like | Dislike') }}</x-form.label>
+                <x-form.input
+                    wire:model.lazy="likeDislike"
+                    id="like_dislike"
+                    class="block mt-1 w-full"
+                    type="number"
+                    name="like_dislike"
+                    :value="old('like_dislike')"
+                    autocomplete="like_dislike"
+                />
+                @error('likeDislike')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+            </div>
+        </div>
     </div>
 
 

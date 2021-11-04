@@ -13,6 +13,11 @@ class DashboardSitePoints extends Component
     public string $tourneyFourth = '';
     public string $tourneyFifthPlus = '';
 
+    public string $competition = '';
+    public string $post = '';
+    public string $comment = '';
+    public string $likeDislike = '';
+
     public function mount()
     {
         $this->tourneyFirst = app(SitePointsSettings::class)->tourney_first;
@@ -20,6 +25,11 @@ class DashboardSitePoints extends Component
         $this->tourneyThird = app(SitePointsSettings::class)->tourney_third;
         $this->tourneyFourth = app(SitePointsSettings::class)->tourney_fourth;
         $this->tourneyFifthPlus = app(SitePointsSettings::class)->tourney_fifth_plus;
+
+        $this->competition = app(SitePointsSettings::class)->competition;
+        $this->post = app(SitePointsSettings::class)->post;
+        $this->comment = app(SitePointsSettings::class)->comment;
+        $this->likeDislike = app(SitePointsSettings::class)->like_dislike;
     }
 
     protected function rules()
@@ -30,6 +40,12 @@ class DashboardSitePoints extends Component
             'tourneyThird' => 'required|integer|min:0',
             'tourneyFourth' => 'required|integer|min:0',
             'tourneyFifthPlus' => 'required|integer|min:0',
+
+
+            'competition' => 'required|integer|min:0',
+            'post' => 'required|integer|min:0',
+            'comment' => 'required|integer|min:0',
+            'likeDislike' => 'required|integer|min:0',
         ];
     }
 
@@ -43,6 +59,11 @@ class DashboardSitePoints extends Component
         $settings->tourney_third = (int)$this->tourneyThird;
         $settings->tourney_fourth = (int)$this->tourneyFourth;
         $settings->tourney_fifth_plus = (int)$this->tourneyFifthPlus;
+
+        $settings->competition =(int)$this->competition;
+        $settings->post =(int)$this->post;
+        $settings->comment =(int)$this->comment;
+        $settings->like_dislike =(int)$this->likeDislike;
 
         $settings->save();
 
