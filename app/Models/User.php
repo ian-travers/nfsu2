@@ -34,6 +34,8 @@ use InvalidArgumentException;
  * @property int $second_places
  * @property int $third_places
  * @property int $competitions_count
+ * @property bool $is_browser_notified
+ * @property bool $is_email_notified
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
@@ -71,6 +73,8 @@ use InvalidArgumentException;
  * @method static Builder|User whereFirstPlaces($value)
  * @method static Builder|User whereId($value)
  * @method static Builder|User whereIsAdmin($value)
+ * @method static Builder|User whereIsBrowserNotified($value)
+ * @method static Builder|User whereIsEmailNotified($value)
  * @method static Builder|User whereLocale($value)
  * @method static Builder|User wherePassword($value)
  * @method static Builder|User whereRememberToken($value)
@@ -99,6 +103,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'is_admin' => 'boolean',
+        'is_browser_notified' => 'boolean',
+        'is_email_notified' => 'boolean',
     ];
 
     protected $with = ['team'];
@@ -365,5 +371,43 @@ class User extends Authenticatable
     public static function existsByUsername(string $username): bool
     {
         return self::where('username', $username)->exists();
+    }
+
+    public function browserNotified(): bool
+    {
+        return $this->is_browser_notified;
+    }
+
+    public function unsetBrowserNotified(): self
+    {
+        $this->update(['is_browser_notified' => false]);
+
+        return $this;
+    }
+
+    public function setBrowserNotified(): self
+    {
+        $this->update(['is_browser_notified' => true]);
+
+        return $this;
+    }
+
+    public function emailNotified(): bool
+    {
+        return $this->is_email_notified;
+    }
+
+    public function unsetEmailNotified(): self
+    {
+        $this->update(['is_email_notified' => false]);
+
+        return $this;
+    }
+
+    public function setEmailNotified(): self
+    {
+        $this->update(['is_email_notified' => true]);
+
+        return $this;
     }
 }

@@ -165,4 +165,84 @@ class UserTest extends TestCase
 
         $this->assertTrue($user->isAdmin());
     }
+
+    /** @test */
+    function it_detects_browser_notified()
+    {
+        /** @var User $user */
+        $user = User::factory()->make();
+
+        $this->assertFalse($user->browserNotified());
+
+        /** @var User $user */
+        $user = User::factory()->browserNotified()->make();
+
+        $this->assertTrue($user->browserNotified());
+    }
+
+    /** @test */
+    function it_detects_email_notified()
+    {
+        /** @var User $user */
+        $user = User::factory()->make();
+
+        $this->assertFalse($user->emailNotified());
+
+        /** @var User $user */
+        $user = User::factory()->emailNotified()->make();
+
+        $this->assertTrue($user->emailNotified());
+    }
+
+    /** @test */
+    function it_sets_browser_notified()
+    {
+        /** @var User $user */
+        $user = User::factory()->create();
+
+        $this->assertFalse($user->browserNotified());
+
+        $user->setBrowserNotified();
+
+        $this->assertTrue($user->browserNotified());
+    }
+
+    /** @test */
+    function it_unsets_browser_notified()
+    {
+        /** @var User $user */
+        $user = User::factory()->browserNotified()->create();
+
+        $this->assertTrue($user->browserNotified());
+
+        $user->unsetBrowserNotified();
+
+        $this->assertFalse($user->browserNotified());
+    }
+
+    /** @test */
+    function it_sets_email_notified()
+    {
+        /** @var User $user */
+        $user = User::factory()->create();
+
+        $this->assertFalse($user->emailNotified());
+
+        $user->setEmailNotified();
+
+        $this->assertTrue($user->emailNotified());
+    }
+
+    /** @test */
+    function it_unsets_email_notified()
+    {
+        /** @var User $user */
+        $user = User::factory()->emailNotified()->create();
+
+        $this->assertTrue($user->emailNotified());
+
+        $user->unsetEmailNotified();
+
+        $this->assertFalse($user->emailNotified());
+    }
 }

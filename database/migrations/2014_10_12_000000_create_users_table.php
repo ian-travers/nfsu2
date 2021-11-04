@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('second_places')->default(0);
             $table->unsignedInteger('third_places')->default(0);
             $table->unsignedInteger('competitions_count')->default(0);
+            $table->boolean('is_browser_notified')->default(false);
+            $table->boolean('is_email_notified')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

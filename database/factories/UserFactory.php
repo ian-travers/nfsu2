@@ -19,6 +19,8 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'role' => 'user',
             'is_admin' => false,
+            'is_browser_notified' => false,
+            'is_email_notified' => false,
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
@@ -44,6 +46,20 @@ class UserFactory extends Factory
     {
         return $this->state([
             'role' => $this->model::ROLE_RACER,
+        ]);
+    }
+
+    public function browserNotified()
+    {
+        return $this->state([
+            'is_browser_notified' => true,
+        ]);
+    }
+
+    public function emailNotified()
+    {
+        return $this->state([
+            'is_email_notified' => true,
         ]);
     }
 }
