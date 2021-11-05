@@ -39,6 +39,8 @@ class UsersController extends Controller
             'password' => 'required|min:8|regex:/^\S*$/u',
         ]);
 
+        $attributes['is_browser_notified'] = request()->has('is_browser_notified');
+        $attributes['is_email_notified'] = request()->has('is_email_notified');
         $attributes['password'] = bcrypt($attributes['password']);
 
         User::create($attributes);
@@ -67,6 +69,9 @@ class UsersController extends Controller
             'email' => 'required|email:filter|unique:users,email,' . $user->id,
             'role' => 'required',
         ]);
+
+        $attributes['is_browser_notified'] = request()->has('is_browser_notified');
+        $attributes['is_email_notified'] = request()->has('is_email_notified');
 
         $user->update($attributes);
 

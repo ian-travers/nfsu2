@@ -14,6 +14,7 @@
                         <x-table.th>{{ __('Role') }}</x-table.th>
                         <x-table.th>{{ __('Team captain') }}</x-table.th>
                         <x-table.th>{{ __('Admin') }}</x-table.th>
+                        <x-table.th>{{ __('Notified') }}</x-table.th>
                         <th scope="col" class="relative px-6 py-3">
                             <span class="sr-only">Change Password</span>
                         </th>
@@ -74,6 +75,14 @@
                                     </svg>
                                     @endif
                                 </span>
+                            </td>
+                            <td class="text-center">
+                                @if($user->browserNotified())
+                                    <span class="text-sm block">Browser</span>
+                                @endif
+                                @if($user->emailNotified())
+                                    <span class="text-sm block">Email</span>
+                                @endif
                             </td>
                             <td class="px-6 ">
                                 <x-form.secondary-button

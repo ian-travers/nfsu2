@@ -55,6 +55,30 @@
     @error('role')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
 </div>
 
+<div class="mt-4 space-y-1">
+    <x-form.label value="{{ __('Notifications') }}"/>
+    <div class="flex items-center">
+        <input
+            id="browser-notified"
+            type="checkbox"
+            name="is_browser_notified"
+            {{ $user->is_browser_notified ? 'checked' : '' }}
+        >
+        <x-form.label class="pl-3" for="browser-notified">Browser</x-form.label>
+        @error('is_browser_notified')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+    </div>
+    <div class="flex items-center">
+        <input
+            id="email-notified"
+            type="checkbox"
+            name="is_email_notified"
+            {{ $user->is_email_notified ? 'checked' : '' }}
+        >
+        <x-form.label class="pl-3" for="email-notified">Email</x-form.label>
+        @error('is_email_notified')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+    </div>
+</div>
+
 @unless($user->exists)
     <div class="mt-4">
         <x-form.label for="password" value="{{ __('Password') }}"/>

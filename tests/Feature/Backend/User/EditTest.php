@@ -20,6 +20,7 @@ class EditTest extends TestCase
             'role' => User::ROLE_RACER,
             'country' => 'BY',
             'email' => 'jon@example.com',
+            'is_browser_notified' => 1,
         ];
 
         $this->patch("/adm/users/{$user->id}", $attributes);
