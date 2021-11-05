@@ -1,5 +1,5 @@
 <x-layouts.settings username="{{ $user->username }}" title="{{ $title }}">
-    <div class="overflow-hidden rounded sm:rounded-md text-gray-900">
+    <div class="overflow-hidden rounded sm:rounded-md text-gray-900 mx-4">
         <div class="px-4 py-5 bg-white space-y-4">
             <div class="border border-blue-100 rounded sm:rounded-md">
                 <div class="bg-blue-100 px-4 py-2">
