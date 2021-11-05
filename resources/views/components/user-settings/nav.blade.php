@@ -18,6 +18,13 @@
         </x-navs.vertical.nav-item>
 
         <x-navs.vertical.nav-item
+            href="{{ route('settings.notifications') }}"
+            :active="request()->is('settings/notifications')"
+        >
+            {{ __('Notifications') }}
+        </x-navs.vertical.nav-item>
+
+        <x-navs.vertical.nav-item
             href="{{ route('settings.team.index') }}"
             :active="request()->is('settings/team') || request()->is('settings/team/create') || request()->is('settings/team/join')"
         >

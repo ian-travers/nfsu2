@@ -35,6 +35,7 @@ use App\Http\Controllers\User\Team\JoinTeamController;
 use App\Http\Controllers\User\Team\ManageTeamController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Register;
+use App\Http\Livewire\User\Notifications;
 use App\Http\Livewire\User\Profile;
 use Illuminate\Support\Facades\Route;
 
@@ -155,6 +156,7 @@ Route::group(['middleware' => 'language'], function () {
     ], function () {
         Route::get('profile', Profile::class)->name('.profile');
         Route::get('account', [AccountController::class, 'show'])->name('.account');
+        Route::get('notifications', Notifications::class)->name('.notifications');
 
         Route::group([
             'prefix' => '/team',
