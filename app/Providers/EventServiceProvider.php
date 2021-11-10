@@ -52,6 +52,7 @@ class EventServiceProvider extends ServiceProvider
 
         PostPublished::class => [
             Post\GainSitePoints::class,
+            Post\NotifyUsers::class,
         ],
 
         PostUnpublished::class => [

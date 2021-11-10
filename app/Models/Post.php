@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\PostPublished;
+use App\Events\PostUnpublished;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -63,14 +65,23 @@ class Post extends Model
         return $this->belongsTo(User::class)->withTrashed();
     }
 
+    public function path(): string
+    {
+        return "/blog/{$this->slug}";
+    }
+
     public function publish(Carbon $when = null): void
     {
         $this->update(['published_at' => $when ?? now()]);
+
+        event(new PostPublished($this->author, $this));
     }
 
     public function unpublish(): void
     {
         $this->update(['published_at' => null]);
+
+        event(new PostUnpublished($this->author));
     }
 
     public function getPublishedAttribute(): bool

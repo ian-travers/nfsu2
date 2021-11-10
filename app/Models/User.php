@@ -415,4 +415,12 @@ class User extends Authenticatable
 
         return $this;
     }
+
+    /**
+     * @return \App\Models\User[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public static function allBrowserNotified()
+    {
+        return self::where('is_browser_notified', true)->get();
+    }
 }

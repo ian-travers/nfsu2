@@ -27,7 +27,7 @@ class PostTest extends TestCase
                 'message' => 'Post has been published.',
             ]);
 
-        $this->assertEquals(150, $user->site_points);
+        $this->assertEquals(150, $user->fresh()->site_points);
     }
 
     /** @test */
@@ -49,7 +49,7 @@ class PostTest extends TestCase
                 'message' => 'Post has been unpublished.',
             ]);
 
-        $this->assertEquals(0, $user->site_points);
+        $this->assertEquals(0, $user->fresh()->site_points);
     }
 
     /** @test */
@@ -71,6 +71,6 @@ class PostTest extends TestCase
                 'message' => 'Post has been trashed.',
             ]);
 
-        $this->assertEquals(0, $user->site_points);
+        $this->assertEquals(0, $user->fresh()->site_points);
     }
 }
