@@ -14,13 +14,13 @@ class NewPostNotificationTest extends TestCase
         /** @var User $user */
         $user = User::factory()->browserNotified()->create();
 
-        $this->assertEquals(0, $user->unreadNotifications()->count());
+        $this->assertEquals(0, $user->notifications->count());
 
         /** @var Post $post */
         $post = Post::factory()->create();
         $post->publish();
 
-        $this->assertEquals(1, $user->unreadNotifications()->count());
+        $this->assertEquals(1, $user->fresh()->notifications->count());
         $this->assertDatabaseCount('notifications', 1);
     }
 
@@ -30,7 +30,7 @@ class NewPostNotificationTest extends TestCase
         /** @var User $user */
         $user = User::factory()->browserNotified()->create();
 
-        $this->assertEquals(0, $user->unreadNotifications()->count());
+        $this->assertEquals(0, $user->notifications->count());
 
         /** @var Post $post */
         $post = Post::factory()->create([
@@ -38,8 +38,7 @@ class NewPostNotificationTest extends TestCase
         ]);
         $post->publish();
 
-        $this->assertEquals(1, $user->unreadNotifications()->count());
-        $this->assertEquals(0, $post->author->unreadNotifications()->count());
+        $this->assertEquals(1, $user->fresh()->notifications->count());
         $this->assertDatabaseCount('notifications', 1);
     }
 }
