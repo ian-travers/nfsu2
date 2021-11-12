@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\User\Settings;
 
-use App\Http\Livewire\User\Notifications;
+use App\Http\Livewire\User\NotificationsSettings;
 use App\Models\User;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -19,11 +19,10 @@ class NotificationsTest extends TestCase
     /** @test */
     function authenticated_user_can_visit_notifications_page()
     {
-        $this->withoutExceptionHandling();
         $this->signIn();
 
         $this->get('settings/notifications')
-            ->assertSeeLivewire(Notifications::class);
+            ->assertSeeLivewire(NotificationsSettings::class);
     }
 
     /** @test */
@@ -37,7 +36,7 @@ class NotificationsTest extends TestCase
             'is_email_notified' => false,
         ]);
 
-        Livewire::test(Notifications::class)
+        Livewire::test(NotificationsSettings::class)
             ->set('is_browser_notified', true)
             ->set('is_email_notified', true)
             ->call('submit');

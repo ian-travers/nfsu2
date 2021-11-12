@@ -28,6 +28,7 @@ class PostWasPublished extends Notification
             'author' => $this->post->author->username,
             'action' => 'publish',
             'at' => $this->post->published_at,
+            'title' => $this->post->title,
             'link' => $this->post->path(),
         ];
     }

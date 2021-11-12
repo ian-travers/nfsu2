@@ -5,7 +5,7 @@ namespace App\Http\Livewire\User;
 use App\Models\User;
 use Livewire\Component;
 
-class Notifications extends Component
+class NotificationsSettings extends Component
 {
     public bool $is_browser_notified = false;
     public bool $is_email_notified = false;
@@ -59,7 +59,7 @@ class Notifications extends Component
 
     public function render()
     {
-        return view('livewire.user.notifications')
+        return view('livewire.user.notifications-settings')
             ->layout('components.layouts.settings', [
                 'title' => __('Notifications'),
                 'username' => auth()->user()->username,

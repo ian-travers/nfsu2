@@ -43,11 +43,14 @@
                 {{ __('Season standings') }}
             </div>
             <p class="text-xs font-semibold text-gray-300 tracking-widest uppercase text-center">{{ __('Tourneys') }}</p>
-            <x-navs.mobile-link route="season-standings.tourney-personal">{{ __('Personal standing') }}</x-navs.mobile-link>
-            <x-navs.mobile-link route="season-standings.tourney-countries">{{ __('Countries standing') }}</x-navs.mobile-link>
+            <x-navs.mobile-link
+                route="season-standings.tourney-personal">{{ __('Personal standing') }}</x-navs.mobile-link>
+            <x-navs.mobile-link
+                route="season-standings.tourney-countries">{{ __('Countries standing') }}</x-navs.mobile-link>
             <x-navs.mobile-link route="season-standings.tourney-teams">{{ __('Teams standing') }}</x-navs.mobile-link>
             <p class="text-xs font-semibold text-gray-300 tracking-widest uppercase text-center">{{ __('Competitions') }}</p>
-            <x-navs.mobile-link route="season-standings.competition-personal">{{ __('Personal standing') }}</x-navs.mobile-link>
+            <x-navs.mobile-link
+                route="season-standings.competition-personal">{{ __('Personal standing') }}</x-navs.mobile-link>
 
             <div class="text-sm font-semibold text-gray-400 tracking-widest uppercase text-center">
                 {{ __('Game server') }}
@@ -72,14 +75,14 @@
                     <div class="ml-3">
                         <div class="text-base font-medium leading-none text-white">{{ auth()->user()->username }}</div>
                     </div>
-                    <button
-                        class="ml-auto bg-nfsu-brand flex-shrink-0 p-1 text-gray-400 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                        <span class="sr-only">View notifications</span>
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
-                        </svg>
-                    </button>
+                    <div class="ml-auto">
+                        <x-link href="{{ route('notifications.index') }}">
+                            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                            </svg>
+                        </x-link>
+                    </div>
                 </div>
                 <div class="mt-3 px-2 space-y-1">
                     @if(auth()->user()->isUser())

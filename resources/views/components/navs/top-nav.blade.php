@@ -18,12 +18,16 @@
                 </button>
             </x-slot>
             <p class="text-center font-semibold text-gray-300 pt-2">{{ __('Tourneys') }}</p>
-            <x-dropdown-link href="{{ route('season-standings.tourney-personal') }}">{{ __('Personal standing') }}</x-dropdown-link>
-            <x-dropdown-link href="{{ route('season-standings.tourney-countries') }}">{{ __('Countries standing') }}</x-dropdown-link>
-            <x-dropdown-link href="{{ route('season-standings.tourney-teams') }}">{{ __('Teams standing') }}</x-dropdown-link>
+            <x-dropdown-link
+                href="{{ route('season-standings.tourney-personal') }}">{{ __('Personal standing') }}</x-dropdown-link>
+            <x-dropdown-link
+                href="{{ route('season-standings.tourney-countries') }}">{{ __('Countries standing') }}</x-dropdown-link>
+            <x-dropdown-link
+                href="{{ route('season-standings.tourney-teams') }}">{{ __('Teams standing') }}</x-dropdown-link>
             <div class="border-t border-gray-500"></div>
             <p class="text-center font-semibold text-gray-300 pt-2">{{ __('Competitions') }}</p>
-            <x-dropdown-link href="{{ route('season-standings.competition-personal') }}">{{ __('Personal standing') }}</x-dropdown-link>
+            <x-dropdown-link
+                href="{{ route('season-standings.competition-personal') }}">{{ __('Personal standing') }}</x-dropdown-link>
         </x-dropdown>
 
         <x-dropdown>
@@ -51,6 +55,19 @@
     <div class="flex items-center">
         {{-- Authenticated user menu --}}
         @auth
+            <div class="mx-2">
+                @if(auth()->user()->unreadNotifications()->count())
+                    @livewire('user.notifications-dropdown')
+                @else
+                    <x-link href="{{ route('notifications.index') }}">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                        </svg>
+                    </x-link>
+                @endif
+            </div>
+
             <x-dropdown alignment="right">
                 <x-slot name="trigger">
                     <button
