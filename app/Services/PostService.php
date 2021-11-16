@@ -62,7 +62,7 @@ class PostService
     protected function validateForm(): array
     {
         return request()->validate([
-            'title' => 'required|string|max:240',
+            'title' => 'required|string|max:240|not-regex:/\w{20}/',
             'slug' => 'nullable',
             'excerpt' => 'required',
             'body' => 'required',
