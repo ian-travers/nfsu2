@@ -156,6 +156,7 @@ Route::group(['middleware' => 'language'], function () {
         'as' => 'notifications',
     ], function () {
         Route::get('', [UserNotificationsController::class, 'index'])->name('.index');
+        Route::delete('{notification}', [UserNotificationsController::class, 'remove'])->name('.delete');
     });
 
     // User settings

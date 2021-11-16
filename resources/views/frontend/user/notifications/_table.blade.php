@@ -29,7 +29,17 @@
                                 {{ $notification->read() ? $notification->read_at->isoFormat('ll') : '' }}
                             </td>
                             <td class="whitespace-nowrap text-right text-sm font-medium px-6">
-
+                                <form action="{{ route('notifications.delete', $notification->id) }}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button
+                                        type="submit"
+                                        onclick="return confirm()"
+                                        class="text-red-600 hover:text-red-700"
+                                    >
+                                        {{ __('Delete') }}
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

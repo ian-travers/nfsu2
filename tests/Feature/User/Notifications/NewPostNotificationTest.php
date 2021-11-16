@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Notification;
+namespace Tests\Feature\User\Notifications;
 
 use App\Models\Post;
 use App\Models\User;
