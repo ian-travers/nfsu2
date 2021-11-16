@@ -29,6 +29,17 @@
                                 {{ $notification->read() ? $notification->read_at->isoFormat('ll') : '' }}
                             </td>
                             <td class="whitespace-nowrap text-right text-sm font-medium px-6">
+                                <form action="{{ route('notifications.toggleRead', $notification->id) }}" method="post">
+                                    @csrf
+                                    @method('put')
+                                    <button
+                                        type="submit"
+                                        onclick="return confirm()"
+                                        class="text-indigo-600 hover:text-indigo-700"
+                                    >
+                                        {{ $notification->read() ? __('Mark unread') : __('Mark read') }}
+                                    </button>
+                                </form>
                                 <form action="{{ route('notifications.delete', $notification->id) }}" method="post">
                                     @csrf
                                     @method('delete')

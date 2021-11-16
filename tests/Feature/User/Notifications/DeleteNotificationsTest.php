@@ -11,7 +11,6 @@ class DeleteNotificationsTest extends TestCase
     /** @test */
     function authenticated_user_can_delete_their_notifications()
     {
-        $this->withoutExceptionHandling();
         /** @var User $user */
         $user = User::factory()->browserNotified()->create();
 

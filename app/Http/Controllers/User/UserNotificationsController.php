@@ -23,4 +23,18 @@ class UserNotificationsController extends Controller
             'message' => __('Notification has been deleted.'),
         ]);
     }
+
+    public function toggleRead(string $id)
+    {
+        $notification = auth()->user()->notifications()->findOrFail($id);
+
+        $notification->read()
+            ? $notification->markAsUnread()
+            : $notification->markAsRead();
+
+        return redirect()->route('notifications.index')->with('flash', [
+            'type' => 'success',
+            'message' => __('Notification read status has been updated.'),
+        ]);
+    }
 }
