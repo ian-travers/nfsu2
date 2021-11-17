@@ -6,7 +6,7 @@
                 @include('frontend.user.notifications._table')
 
                 <div class="my-4">
-                    {{ $notifications->links() }}
+                    {{ $notifications->links('components.pagination') }}
                 </div>
             </div>
         @else
