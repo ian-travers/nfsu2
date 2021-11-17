@@ -10,7 +10,7 @@ class UserNotificationsController extends Controller
     {
         return view('frontend.user.notifications.index', [
             'title' => __('Your notifications'),
-            'notifications' => auth()->user()->notifications()->paginate(20),
+            'notifications' => auth()->user()->notifications()->paginate(2),
         ]);
     }
 
@@ -18,7 +18,7 @@ class UserNotificationsController extends Controller
     {
         auth()->user()->notifications()->findOrFail($id)->delete();
 
-        return redirect()->route('notifications.index')->with('flash', [
+        return back()->with('flash', [
             'type' => 'success',
             'message' => __('Notification has been deleted.'),
         ]);
@@ -32,7 +32,7 @@ class UserNotificationsController extends Controller
             ? $notification->markAsUnread()
             : $notification->markAsRead();
 
-        return redirect()->route('notifications.index')->with('flash', [
+        return back()->with('flash', [
             'type' => 'success',
             'message' => __('Notification read status has been updated.'),
         ]);

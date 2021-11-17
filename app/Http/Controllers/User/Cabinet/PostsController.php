@@ -52,6 +52,8 @@ class PostsController extends Controller
             ]);
         }
 
+        session()->put('url.intended', url()->previous() == url()->current() ? route('cabinet.posts.index') : url()->previous());
+
         return view('frontend.user.cabinet.posts.edit', [
             'title' => __('Edit post'),
             'post' => $post,
@@ -69,7 +71,7 @@ class PostsController extends Controller
 
         $this->service->edit($post);
 
-        return redirect()->route('cabinet.posts.index')->with('flash', [
+        return redirect()->intended()->with('flash', [
             'type' => 'success',
             'message' => __('Post has been updated.'),
         ]);
