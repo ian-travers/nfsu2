@@ -16,5 +16,7 @@ class CreateSitePointsSettings extends SettingsMigration
         $this->migrator->add('site-points.post', 150);
         $this->migrator->add('site-points.comment', 10);
         $this->migrator->add('site-points.like_dislike', 1);
+
+        $this->migrator->add('site-points.create_tourney', 50);
     }
 }

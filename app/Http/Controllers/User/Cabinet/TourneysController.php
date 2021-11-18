@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User\Cabinet;
 
+use App\Events\TourneyCreated;
 use App\Http\Controllers\Controller;
 use App\Models\NFSUServer\SpecificGameData;
 use App\Models\Tourney\Tourney;
@@ -68,7 +69,7 @@ class TourneysController extends Controller
             'season_index' => app(SeasonSettings::class)->index,
         ], $attributes);
 
-        Tourney::create($attributes);
+        event(new TourneyCreated($user, Tourney::create($attributes)));
 
         return redirect()->intended()->with('flash', [
             'type' => 'success',

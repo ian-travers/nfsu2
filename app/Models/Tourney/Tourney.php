@@ -91,6 +91,11 @@ class Tourney extends Model
         return $this->morphMany(Trophy::class, 'trophiable');
     }
 
+    public function frontendPath(): string
+    {
+        return "/tourneys/{$this->id}";
+    }
+
     public function isScheduled(): bool
     {
         return $this->status === self::STATUS_SCHEDULED;

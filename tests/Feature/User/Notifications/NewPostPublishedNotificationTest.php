@@ -6,7 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use Tests\TestCase;
 
-class NewPostNotificationTest extends TestCase
+class NewPostPublishedNotificationTest extends TestCase
 {
     /** @test */
     function browser_notified_user_get_it_when_new_post_published()

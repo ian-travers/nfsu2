@@ -18,6 +18,8 @@ class DashboardSitePoints extends Component
     public string $comment = '';
     public string $likeDislike = '';
 
+    public string $create_tourney = '';
+
     public function mount()
     {
         $this->tourneyFirst = app(SitePointsSettings::class)->tourney_first;
@@ -30,6 +32,8 @@ class DashboardSitePoints extends Component
         $this->post = app(SitePointsSettings::class)->post;
         $this->comment = app(SitePointsSettings::class)->comment;
         $this->likeDislike = app(SitePointsSettings::class)->like_dislike;
+
+        $this->create_tourney = app(SitePointsSettings::class)->create_tourney;
     }
 
     protected function rules()
@@ -41,11 +45,12 @@ class DashboardSitePoints extends Component
             'tourneyFourth' => 'required|integer|min:0',
             'tourneyFifthPlus' => 'required|integer|min:0',
 
-
             'competition' => 'required|integer|min:0',
             'post' => 'required|integer|min:0',
             'comment' => 'required|integer|min:0',
             'likeDislike' => 'required|integer|min:0',
+
+            'create_tourney' => 'required|integer|min:0',
         ];
     }
 
@@ -64,6 +69,8 @@ class DashboardSitePoints extends Component
         $settings->post =(int)$this->post;
         $settings->comment =(int)$this->comment;
         $settings->like_dislike =(int)$this->likeDislike;
+
+        $settings->create_tourney =(int)$this->create_tourney;
 
         $settings->save();
 

@@ -71,7 +71,6 @@
             </div>
         </div>
 
-
         <h4 class="text-lg text-center font-medium mt-6">{{ __('Activity') }}</h4>
         <div class="flex items-center justify-between space-x-2">
             <div>
@@ -86,19 +85,6 @@
                     autocomplete="competition"
                 />
                 @error('competition')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
-            </div>
-            <div>
-                <x-form.label for="post" class="text-center">{{ __('Post') }}</x-form.label>
-                <x-form.input
-                    wire:model.lazy="post"
-                    id="post"
-                    class="block mt-1 w-full"
-                    type="number"
-                    name="post"
-                    :value="old('post')"
-                    autocomplete="post"
-                />
-                @error('post')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
             <div>
                 <x-form.label for="comment" class="text-center">{{ __('Comment') }}</x-form.label>
@@ -125,6 +111,36 @@
                     autocomplete="like_dislike"
                 />
                 @error('likeDislike')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+            </div>
+        </div>
+
+        <h4 class="text-lg text-center font-medium mt-6">{{ __('Creation') }}</h4>
+        <div class="flex items-center justify-between space-x-2">
+            <div>
+                <x-form.label for="create_tourney" class="text-center">{{ __('New tourney') }}</x-form.label>
+                <x-form.input
+                    wire:model.lazy="create_tourney"
+                    id="create_tourney"
+                    class="block mt-1 w-full"
+                    type="number"
+                    name="create_tourney"
+                    :value="old('create_tourney')"
+                    autocomplete="create_tourney"
+                />
+                @error('create_tourney')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+            </div>
+            <div>
+                <x-form.label for="post" class="text-center">{{ __('Publish post') }}</x-form.label>
+                <x-form.input
+                    wire:model.lazy="post"
+                    id="post"
+                    class="block mt-1 w-full"
+                    type="number"
+                    name="post"
+                    :value="old('post')"
+                    autocomplete="post"
+                />
+                @error('post')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
         </div>
     </div>

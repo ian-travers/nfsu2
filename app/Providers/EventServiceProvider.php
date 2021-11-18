@@ -10,6 +10,7 @@ use App\Events\PostPublished;
 use App\Events\PostUnpublished;
 use App\Events\SeasonCompleted;
 use App\Events\TourneyCompleted;
+use App\Events\TourneyCreated;
 use App\Events\UnlikedOrUndisliked;
 use App\Listeners\Comment;
 use App\Listeners\Competition;
@@ -31,6 +32,11 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             CreateNewsItemWhenRegistered::class,
+        ],
+
+        TourneyCreated::class => [
+            Tourney\GainSitePoints::class,
+            Tourney\NotifyUsersWhenCreated::class,
         ],
 
         TourneyCompleted::class => [

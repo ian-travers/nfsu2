@@ -139,14 +139,10 @@ Route::group(['middleware' => 'language'], function () {
         'middleware' => 'guest',
         'as' => 'password'
     ], function () {
-        Route::get('forgot-password', [PasswordResetController::class, 'create'])
-            ->name('.request');
-        Route::post('forgot-password', [PasswordResetController::class, 'store'])
-            ->name('.email');
-        Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
-            ->name('.reset');
-        Route::post('reset-password', [NewPasswordController::class, 'store'])
-            ->name('.update');
+        Route::get('forgot-password', [PasswordResetController::class, 'create'])->name('.request');
+        Route::post('forgot-password', [PasswordResetController::class, 'store'])->name('.email');
+        Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])->name('.reset');
+        Route::post('reset-password', [NewPasswordController::class, 'store'])->name('.update');
     });
 
     // User notifications
