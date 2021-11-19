@@ -18,11 +18,21 @@
                 class="w-full text-left text-sm text-blue-200 hover:bg-gray-700 hover:text-blue-100 px-4 py-2 "
                 wire:click="markAsRead('{{ $notification->id }}')"
             >
+                @if($notification->type == 'App\Notifications\PostWasPublished')
                 <span class="font-semibold">{{ $notification->data['author'] }}</span>
                 {{ __($notification->data['action']) }}
                 <br>
                 {{ Str::words($notification->data['title'], 10) }}
                 <br>
+
+                @elseif($notification->type == 'App\Notifications\TourneyWasCreated')
+                    new tour
+                @elseif($notification->type == 'App\Notifications\CompetitionWasCreated')
+                    {{ __('New competition') }}
+                    <span class="block">{{ __('Ends at:') }} {{ $notification->data['ends_at'] }}</span>
+                @else
+                    Unknown notification
+                @endif
                 <span class="block text-xs text-right text-gray-400">{{ $notification->created_at->diffForHumans() }}</span>
             </button>
             @if(!$loop->last)

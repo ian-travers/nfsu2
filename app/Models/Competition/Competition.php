@@ -7,6 +7,7 @@ use App\Models\NFSUServer\BestPerformers;
 use App\Models\NFSUServer\SpecificGameData;
 use App\Models\Trophy;
 use App\Models\User;
+use App\Notifications\CompetitionWasCreated;
 use App\Settings\SeasonSettings;
 use DomainException;
 use Illuminate\Database\Eloquent\Builder;
@@ -58,6 +59,18 @@ class Competition extends Model
     protected $casts = [
         'is_completed' => 'bool',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(fn($model) => $model->notifyAllBrowserNotified($model));
+    }
+
+    public function frontendPath(): string
+    {
+        return "/competitions/{$this->id}";
+    }
 
     public function racers()
     {
@@ -245,5 +258,11 @@ class Competition extends Model
     public function scopePassed(Builder $query): Builder
     {
         return $query->where('is_completed', 1);
+    }
+
+    public function notifyAllBrowserNotified(self $competition): void
+    {
+        User::allBrowserNotified()
+            ->each->notify(new CompetitionWasCreated($competition));
     }
 }

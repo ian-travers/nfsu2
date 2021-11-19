@@ -22,8 +22,27 @@
                                     <span>{{ $notification->data['author'] }}</span>
                                     <span class="text-sm">{{ __('published') }}</span>
                                     <x-link
-                                        href="{{ $notification->data['link'] }}">{{ $notification->data['title'] }}</x-link>
+                                        href="{{ $notification->data['link'] }}"
+                                    >
+                                        {{ $notification->data['title'] }}
+                                    </x-link>
+                                @elseif($notification->type == 'App\Notifications\TourneyWasCreated')
+
+                                @elseif($notification->type == 'App\Notifications\CompetitionWasCreated')
+                                    <span>{{ __('It looks like a competition has begun or is about to start.') }}</span>
+                                    <span>
+                                        {{ __('It ends at:') }}
+                                        {{ $notification->data['ends_at'] }}
+                                    </span>
+                                    <x-link
+                                        href="{{ $notification->data['link'] }}"
+                                    >
+                                        {{ __('View details') }}
+                                    </x-link>
+                                @else
+                                    <span class="text-sm">Unknown notification</span>
                                 @endif
+
                             </td>
                             <td class="text-center px-6 py-4">
                                 {{ $notification->read() ? $notification->read_at->isoFormat('ll') : '' }}
