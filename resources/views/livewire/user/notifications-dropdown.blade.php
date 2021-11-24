@@ -4,7 +4,7 @@
             <div class="relative">
                 <div
                     class="absolute font-semibold text-xs text-gray-800 flex items-center justify-center w-4 h-4 rounded-full bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-300 -right-0.5 -top-1">
-                    {{ $unreadNotifications->count() }}
+                    {{ $unreadNotifications->count() < 10 ? $unreadNotifications->count() : '9+' }}
                 </div>
                 <svg class="h-8 w-8 text-gray-300 hover:text-gray-200 transition" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
@@ -14,29 +14,41 @@
             </div>
         </x-slot>
         @foreach($unreadNotifications as $notification)
-            <button
-                class="w-full text-left text-sm text-blue-200 hover:bg-gray-700 hover:text-blue-100 px-4 py-2 "
-                wire:click="markAsRead('{{ $notification->id }}')"
-            >
-                @if($notification->type == 'App\Notifications\PostWasPublished')
-                <span class="font-semibold">{{ $notification->data['author'] }}</span>
-                {{ __($notification->data['action']) }}
-                <br>
-                {{ Str::words($notification->data['title'], 10) }}
-                <br>
+            @if($loop->index < 9)
+                <button
+                    class="w-full text-left text-sm text-blue-200 hover:bg-gray-700 hover:text-blue-100 px-4 py-2"
+                    wire:click="markAsRead('{{ $notification->id }}')"
+                >
+                    @if($notification->type == 'App\Notifications\PostWasPublished')
+                        <span class="font-semibold">{{ $notification->data['author'] }}</span>
+                        {{ __('published') }}
+                        <br>
+                        {{ Str::words($notification->data['title'], 10) }}
+                        <br>
 
-                @elseif($notification->type == 'App\Notifications\TourneyWasCreated')
-                    new tour
-                @elseif($notification->type == 'App\Notifications\CompetitionWasCreated')
-                    {{ __('New competition') }}
-                    <span class="block">{{ __('Ends at:') }} {{ $notification->data['ends_at'] }}</span>
-                @else
-                    Unknown notification
+                    @elseif($notification->type == 'App\Notifications\TourneyWasCreated')
+                        {{ __('New tourney') }}
+                        <span class="text-sm font-semibold block">{{ $notification->data['at'] }}</span>
+                    @elseif($notification->type == 'App\Notifications\CompetitionWasCreated')
+                        {{ __('New competition') }}
+                        <span class="block">{{ __('Ends at:') }} {{ $notification->data['ends_at'] }}</span>
+                    @else
+                        Unknown notification
+                    @endif
+                    <span
+                        class="block text-xs text-right text-gray-400 mt-2">{{ $notification->created_at->diffForHumans() }}</span>
+                </button>
+                @if(!$loop->last)
+                    <div class="border-t border-gray-500"></div>
                 @endif
-                <span class="block text-xs text-right text-gray-400">{{ $notification->created_at->diffForHumans() }}</span>
-            </button>
-            @if(!$loop->last)
-                <div class="border-t border-gray-500"></div>
+            @else
+                <a
+                    href="{{ route('notifications.index') }}"
+                    class="block w-full font-semibold text-center text-sm text-blue-200 hover:bg-gray-700 hover:text-blue-100 px-4 py-2"
+                >
+                    {{ __('All notifications') }}
+                </a>
+                @break
             @endif
         @endforeach
     </x-dropdown>

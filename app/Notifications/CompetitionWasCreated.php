@@ -26,7 +26,7 @@ class CompetitionWasCreated extends Notification
     public function toArray($notifiable)
     {
         return [
-            'ends_at' => $this->competition->ended_at,
+            'ends_at' => $this->competition->ended_at->isoFormat('l'),
 //            'link' => $this->competition->frontendPath(),
             'link' => 'competitions',
         ];

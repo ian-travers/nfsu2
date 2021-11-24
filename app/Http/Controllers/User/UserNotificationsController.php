@@ -10,7 +10,7 @@ class UserNotificationsController extends Controller
     {
         return view('frontend.user.notifications.index', [
             'title' => __('Your notifications'),
-            'notifications' => auth()->user()->notifications()->paginate(2),
+            'notifications' => auth()->user()->notifications()->paginate(20),
         ]);
     }
 
