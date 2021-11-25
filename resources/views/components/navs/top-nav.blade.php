@@ -68,7 +68,7 @@
                 @endif
             </div>
 
-            <x-dropdown alignment="right">
+            <x-dropdown alignment="right" width="narrower">
                 <x-slot name="trigger">
                     <button
                         class="bg-gray-800 rounded-full flex items-center focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"

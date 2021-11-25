@@ -1,10 +1,16 @@
-@props(['alignment' => 'left'])
+@props(['alignment' => 'left', 'width' => 'default'])
 
 @php
     $alignmentClasses = [
         'left' => '',
         'right' => '-right-1',
-    ]
+    ];
+
+    $widthClasses = [
+        'narrower' => 'w-36',
+        'default' => 'w-48',
+        'wider' => 'w-60'
+    ];
 @endphp
 
 <div
@@ -25,7 +31,7 @@
         x-transition:leave="transition ease-in duration-150 transform"
         x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-95"
-        class="{{ $alignmentClasses[$alignment] }} mt-2 absolute w-48 z-10 rounded-md border border-gray-700 py-1 bg-nfsu-color ring-1 ring-white ring-opacity-20"
+        class="{{ $alignmentClasses[$alignment] }} mt-2 absolute {{ $widthClasses[$width] }} z-10 rounded-md border border-gray-700 py-1 bg-nfsu-color ring-1 ring-white ring-opacity-20"
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="user-menu"

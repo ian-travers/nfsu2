@@ -1,5 +1,5 @@
 <div>
-    <x-dropdown alignment="right">
+    <x-dropdown alignment="right" width="wider">
         <x-slot name="trigger">
             <div class="relative">
                 <div
