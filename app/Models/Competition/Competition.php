@@ -3,6 +3,7 @@
 namespace App\Models\Competition;
 
 use App\Events\CompetitionCompleted;
+use App\Models\News;
 use App\Models\NFSUServer\BestPerformers;
 use App\Models\NFSUServer\SpecificGameData;
 use App\Models\Trophy;
@@ -64,7 +65,19 @@ class Competition extends Model
     {
         parent::boot();
 
-        static::created(fn($model) => $model->notifyAllBrowserNotified($model));
+        static::created(function($model) {
+            $model->notifyAllBrowserNotified($model);
+
+            $attributes = [
+                'title_en' => "New competition is available",
+                'title_ru' => "Доступно новое состязание",
+                'body_en' => "A new active competition has appeared, according to preliminary information it will be held from {$model->started_at->locale('en_US')->isoFormat('l')} to {$model->ended_at->locale('en_US')->isoFormat('l')}. The position of the players and the tracks can be found on the \"Competition\" page.",
+                'body_ru' => "Появилось новое активное состязание, по предварительной информации оно будет проходить с {$model->started_at->locale('ru_RU')->isoFormat('l')} по {$model->ended_at->locale('ru_RU')->isoFormat('l')}. Положение игроков и трассы можно найти на странице \"Состязание\" .",
+                'status' => 1,
+            ];
+
+            News::create($attributes);
+        });
     }
 
     public function frontendPath(): string
