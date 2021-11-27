@@ -102,9 +102,9 @@ class Competition extends Model
         throw_if(app(SeasonSettings::class)->suspend, new DomainException(__('Season is suspended.')));
         throw_if($this->isCompleted(), new DomainException(__('Competition is already completed.')));
 
-        $this->update(['is_completed' => true]);
-
         event(new CompetitionCompleted($this));
+
+        $this->update(['is_completed' => true]);
     }
 
     public function tracksCount(): int
