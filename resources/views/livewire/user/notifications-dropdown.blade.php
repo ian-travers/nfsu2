@@ -3,7 +3,7 @@
         <x-slot name="trigger">
             <div class="relative">
                 <div
-                    class="absolute font-semibold text-xs text-gray-800 flex items-center justify-center w-4 h-4 rounded-full bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-300 -right-0.5 -top-1">
+                    class="absolute font-semibold text-xs text-gray-800 flex items-center justify-center w-4 h-4 rounded-full bg-clip-padding border-2 border-yellow-300 bg-yellow-400 -right-0.5 -top-1">
                     {{ $unreadNotifications->count() < 10 ? $unreadNotifications->count() : '9+' }}
                 </div>
                 <svg class="h-8 w-8 text-gray-300 hover:text-gray-200 transition" fill="none" viewBox="0 0 24 24"
