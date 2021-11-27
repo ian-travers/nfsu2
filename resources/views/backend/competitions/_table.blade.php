@@ -23,6 +23,16 @@
                     @foreach($competitions as $competition)
                         <tr>
                             <td class="px-6 py-1">
+                                @if($competition->isCompleted())
+                                    <div class="flex justify-between items-baseline">
+                                        <p class="text-sm">
+                                            {{ \App\Models\NFSUServer\SpecificGameData::getTrackName($competition->track1_id) }}
+                                        </p>
+                                        <p class="text-xs text-gray-500">
+                                            {{ __('Completed') }}
+                                        </p>
+                                    </div>
+                                @endif
                                 <p class="text-sm">
                                     {{ \App\Models\NFSUServer\SpecificGameData::getTrackName($competition->track1_id) }}
                                 </p>
@@ -51,8 +61,10 @@
                             <td class="text-center">
                                 @unless($competition->isCompleted())
                                     @if($competition->isStarted())
-                                        <svg class="mx-auto h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        <svg class="mx-auto h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                             stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                  d="M5 13l4 4L19 7"/>
                                         </svg>
                                     @endif
                                 @endunless
@@ -63,23 +75,25 @@
                                 @endif
                             </td>
                             <td class="whitespace-nowrap text-right text-sm font-medium px-6">
-                                <a
-                                    href="{{ route('adm.competitions.edit', $competition) }}"
-                                    class="text-indigo-600 hover:text-indigo-900"
-                                >
-                                    {{ __('Edit') }}
-                                </a>
-                                <form action="{{ route('adm.competitions.delete', $competition) }}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button
-                                        type="submit"
-                                        onclick="return confirm()"
-                                        class="text-yellow-600 hover:text-yellow-900"
+                                @unless($competition->isCompleted())
+                                    <a
+                                        href="{{ route('adm.competitions.edit', $competition) }}"
+                                        class="text-indigo-600 hover:text-indigo-900"
                                     >
-                                        {{ __('Delete') }}
-                                    </button>
-                                </form>
+                                        {{ __('Edit') }}
+                                    </a>
+                                    <form action="{{ route('adm.competitions.delete', $competition) }}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button
+                                            type="submit"
+                                            onclick="return confirm()"
+                                            class="text-yellow-600 hover:text-yellow-900"
+                                        >
+                                            {{ __('Delete') }}
+                                        </button>
+                                    </form>
+                                @endunless
                             </td>
                         </tr>
                     @endforeach
