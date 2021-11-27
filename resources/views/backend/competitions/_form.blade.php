@@ -69,7 +69,6 @@
                 id="started_at"
                 class="block mt-1 w-full"
                 type="date"
-                min="{{ now()->format('Y-m-d') }}"
                 name="started_at"
                 value="{{ old('started_at', $competition->started_at->format('Y-m-d')) }}"
             />
@@ -82,8 +81,6 @@
                 id="ended_at"
                 class="block mt-1 w-full"
                 type="date"
-                min="{{ now()->addDay()->format('Y-m-d') }}"
-                max="{{ now()->addMonth()->format('Y-m-d') }}"
                 name="ended_at"
                 value="{{ old('ended_at', $competition->ended_at->format('Y-m-d')) }}"
             />
