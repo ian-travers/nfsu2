@@ -52,6 +52,7 @@ class EventServiceProvider extends ServiceProvider
             Competition\UpdateUsersCountersAndSitePoints::class,
             Competition\RewardCompetitionWinners::class,
             Competition\UpdateSeasonStatistics::class,
+            Competition\CreateNewsItemWhenCompleted::class,
         ],
 
         SeasonCompleted::class => [
