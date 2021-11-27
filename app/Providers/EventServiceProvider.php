@@ -37,6 +37,7 @@ class EventServiceProvider extends ServiceProvider
         TourneyCreated::class => [
             Tourney\GainSitePoints::class,
             Tourney\NotifyUsersWhenCreated::class,
+            Tourney\CreateNewsItemWhenCreated::class,
         ],
 
         TourneyCompleted::class => [
