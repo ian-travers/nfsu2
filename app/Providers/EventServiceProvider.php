@@ -44,6 +44,7 @@ class EventServiceProvider extends ServiceProvider
             Tourney\UpdateUsersTourneyCountersAndSitePoints::class,
             Tourney\RewardTourneyWinners::class,
             Tourney\UpdateSeasonPlayers::class,
+            Tourney\CreateNewsItemWhenCompleted::class,
         ],
 
         CompetitionCompleted::class => [

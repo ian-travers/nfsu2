@@ -378,9 +378,9 @@ class Tourney extends Model
         throw_unless($this->isFinal(), new DomainException(__("You can only complete the with final status.")));
         throw_unless($this->supervisor_id == auth()->id(), new DomainException(__("Unable to complete someone's else tourney.")));
 
-        event(new TourneyCompleted($this));
+        $this->update(['status' => self::STATUS_COMPLETED]);
 
-        return $this->update(['status' => self::STATUS_COMPLETED]);
+        event(new TourneyCompleted($this));
     }
 
     public function cancel()
