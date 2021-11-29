@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\BecomeRacer;
 use App\Models\Tourney\SeasonAward;
 use App\Models\Tourney\SeasonRacer;
 use App\Models\Tourney\Tourney;
@@ -287,6 +288,8 @@ class User extends Authenticatable
     public static function setRacer(self $user)
     {
         $user->update(['role' => self::ROLE_RACER]);
+
+        event(new BecomeRacer($user));
     }
 
     public function tourneys()

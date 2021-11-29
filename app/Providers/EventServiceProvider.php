@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\BecomeRacer;
 use App\Events\CommentDeleted;
 use App\Events\CommentLeft;
 use App\Events\CompetitionCompleted;
@@ -18,7 +19,7 @@ use App\Listeners\Like;
 use App\Listeners\Post;
 use App\Listeners\Season;
 use App\Listeners\Tourney;
-use App\Listeners\User\CreateNewsItemWhenRegistered;
+use App\Listeners\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -31,7 +32,11 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         Registered::class => [
-            CreateNewsItemWhenRegistered::class,
+            User\CreateNewsItemWhenRegistered::class,
+        ],
+
+        BecomeRacer::class => [
+            User\CreateNewsItemWhenBecameRacer::class,
         ],
 
         TourneyCreated::class => [
