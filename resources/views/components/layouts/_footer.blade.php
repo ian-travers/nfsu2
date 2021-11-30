@@ -55,24 +55,8 @@
                         </h3>
                         <ul role="list" class="mt-4 space-y-1">
                             <li><x-link href="{{ route('rules') }}">{{ __('Rules') }}</x-link></li>
-
-                            <li>
-                                <a href="#" class="text-base text-gray-500 hover:text-gray-900">
-                                    Documentation
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="text-base text-gray-500 hover:text-gray-900">
-                                    Guides
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="text-base text-gray-500 hover:text-gray-900">
-                                    API Status
-                                </a>
-                            </li>
+                            <li><x-link href="{{ route('gameplay') }}">{{ __('Gameplay') }}</x-link></li>
+                            <li><x-link href="{{ route('faq') }}">FAQ</x-link></li>
                         </ul>
                     </div>
                 </div>

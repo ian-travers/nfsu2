@@ -355,6 +355,9 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('#', fn() => view('welcome'))->name('#');
 
     // Static pages. Should be at the bottom
+    Route::view('gameplay', 'gameplay')->name('gameplay');
+    Route::view('faq', 'faq')->name('faq');
+
     Route::get('downloads/{filename}', DownloadsController::class)
         ->name('downloads')
         ->where('filename', 'nfsu|nfsu-client|nfsu-save|nfsu-save-patcher');
