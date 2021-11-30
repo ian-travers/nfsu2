@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Database\Factories\NewsFactory factory(...$parameters)
  * @method static Builder|News newModelQuery()
  * @method static Builder|News newQuery()
+ * @method static Builder|News published()
  * @method static Builder|News query()
  * @method static Builder|News whereBodyEn($value)
  * @method static Builder|News whereBodyRu($value)
@@ -53,5 +54,10 @@ class News extends Model
     public function getBodyAttribute()
     {
         return $this->getNativeAttributeValue('body');
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('status', 1);
     }
 }

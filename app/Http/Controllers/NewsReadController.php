@@ -11,7 +11,7 @@ class NewsReadController extends Controller
     {
         return view('frontend.news.index', [
             'title' => __('News'),
-            'news' => News::latest()->paginate(4),
+            'news' => News::published()->latest()->paginate(4),
         ]);
     }
 
