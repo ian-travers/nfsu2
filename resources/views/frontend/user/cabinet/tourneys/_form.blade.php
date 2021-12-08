@@ -50,10 +50,10 @@
             name="signup_time"
             class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-md"
         >
-            <option value="15">15</option>
-            <option value="30">30</option>
-            <option value="45">45</option>
-            <option value="60">60</option>
+            <option value="15" {{ $tourney->signup_time == 15 ? 'selected' : '' }}>15</option>
+            <option value="30" {{ $tourney->signup_time == 30 ? 'selected' : '' }}>30</option>
+            <option value="45" {{ $tourney->signup_time == 45 ? 'selected' : '' }}>45</option>
+            <option value="60" {{ $tourney->signup_time == 60 ? 'selected' : '' }}>60</option>
         </select>
         @error('signup_time')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
     </div>
