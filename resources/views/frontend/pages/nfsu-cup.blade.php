@@ -26,8 +26,49 @@
             </p>
         </div>
 
-        <div class="text-center text-xl">
-            4 плашки: Участников ХХ - Гонщиков ХХ - Стран ХХ - Команд ХХ
+        <div class="mt-10 pb-12 sm:pb-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <dl class="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-4 sm:gap-6 spa">
+                        <div
+                            class="flex flex-col p-6 text-center bg-gray-800 bg-opacity-50 rounded-xl border border-blue-400 transform hover:scale-105 duration-300">
+                            <dt class="order-2 mt-2 text-lg leading-6 font-medium">
+                                {{ __('Racers') }}
+                            </dt>
+                            <dd class="order-1 text-5xl font-extrabold text-green-400">
+                                {{ \App\Models\User::racer()->count() }}
+                            </dd>
+                        </div>
+                        <div
+                            class="flex flex-col p-6 text-center bg-gray-800 bg-opacity-50 rounded-xl border border-blue-400 transform hover:scale-105 duration-300">
+                            <dt class="order-2 mt-2 text-lg leading-6 font-medium">
+                                {{ __('Tourneys') }}
+                            </dt>
+                            <dd class="order-1 text-5xl font-extrabold text-green-400">
+                                {{ \App\Models\Tourney\Tourney::count() }}
+                            </dd>
+                        </div>
+                        <div
+                            class="flex flex-col p-6 text-center bg-gray-800 bg-opacity-50 rounded-xl border border-blue-400 transform hover:scale-105 duration-300">
+                            <dt class="order-2 mt-2 text-lg leading-6 font-medium">
+                                {{ __('Teams') }}
+                            </dt>
+                            <dd class="order-1 text-5xl font-extrabold text-green-400">
+                                {{ \App\Models\Team::count() }}
+                            </dd>
+                        </div>
+                        <div
+                            class="flex flex-col p-6 text-center bg-gray-800 bg-opacity-50 rounded-xl border border-blue-400 transform hover:scale-105 duration-300">
+                            <dt class="order-2 mt-2 text-lg leading-6 font-medium">
+                                {{ __('Countries') }}
+                            </dt>
+                            <dd class="order-1 text-5xl font-extrabold text-green-400">
+                                {{ \App\Models\User::distinct()->count('country') }}
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
         </div>
     </div>
 </x-layouts.front>

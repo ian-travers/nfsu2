@@ -426,4 +426,9 @@ class User extends Authenticatable
     {
         return self::where('is_browser_notified', true)->get();
     }
+
+    public function scopeRacer($query)
+    {
+        return $query->where('role', self::ROLE_RACER);
+    }
 }
