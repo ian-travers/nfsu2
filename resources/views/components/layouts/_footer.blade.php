@@ -57,6 +57,7 @@
                             <li><x-link href="{{ route('rules') }}">{{ __('Rules') }}</x-link></li>
                             <li><x-link href="{{ route('gameplay') }}">{{ __('Gameplay') }}</x-link></li>
                             <li><x-link href="{{ route('faq') }}">FAQ</x-link></li>
+                            <li><x-link href="{{ route('players-list') }}">{{ __('Players list') }}</x-link></li>
                         </ul>
                     </div>
                 </div>

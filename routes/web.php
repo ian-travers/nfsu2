@@ -108,6 +108,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('racer', [RacerController::class, 'check'])->name('.racer.check');
     });
 
+    Route::get('players', [PublicProfileController::class, 'index'])->name('players-list');
     Route::get('players/{user:username}', [PublicProfileController::class, 'show'])->name('public-profile');
     Route::get('teams/{team:clan}', [TeamsController::class, 'show'])->name('team-profile');
 

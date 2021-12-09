@@ -6,6 +6,14 @@ use App\Models\User;
 
 class PublicProfileController extends Controller
 {
+    public function index()
+    {
+        return  view('frontend.players-list', [
+            'players' =>  User::orderByDesc('site_points')->paginate(36),
+            'title' => __('Players list'),
+        ]);
+    }
+
     public function show(User $user)
     {
         return view('frontend.public-profile', [
