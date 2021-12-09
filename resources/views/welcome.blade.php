@@ -10,12 +10,7 @@
                         @else
                             <div class="flex flex-col justify-center px-4">
                                 <p class="text-3xl lg:text-5xl mb-8">Let's play NFS Underground</p>
-                                <p class="text-xl lg:text-2xl">
-                                    The simple way to get online racing. You can play here with your friends and
-                                    other people.</p>
-                                <p class="text-xl lg:text-2xl mt-2">
-                                    Hey! And if a tourney is scheduled, don't forget to take part in it.
-                                </p>
+                                <p class="text-xl lg:text-2xl">The simple way to get online racing. You can play here with your friends and other people.</p>
                             </div>
                         @endauth
                     </div>

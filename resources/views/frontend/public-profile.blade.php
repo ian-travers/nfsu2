@@ -110,15 +110,8 @@
             </div>
         @endif
 
-        <div class="flex items-center space-x-4 mt-8">
-            <h3 class="text-2xl">{{ __('Achievements') }}</h3>
-            <div class="flex-1">
-                Achievements icons
-            </div>
-        </div>
-
         <div class="mt-8">
-            <h3 class="text-2xl">{{ __('Site points') }}: {{ $user->site_points }}</h3>
+            <p class="text-2xl">{{ __('Site points') }}: {{ $user->site_points }}</p>
         </div>
     </div>
 </x-layouts.front>
