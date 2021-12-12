@@ -19,7 +19,7 @@ class DialogueTest extends TestCase
 
         $this->signIn($user);
 
-        Dialogue::getOrCreateWith($companion->username);
+        Dialogue::findWith($companion->username, true);
 
         $this->assertDatabaseCount('dialogues',1);
         $this->assertDatabaseHas('dialogues', [

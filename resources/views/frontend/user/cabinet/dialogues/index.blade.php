@@ -13,7 +13,7 @@
                     <div
                         class="grid grid-cols-2 gap-2 md:grid md:grid-cols-3 md:gap-3 lg:grid lg:grid-cols-4 lg:gap-4 xl:grid xl:grid-cols-6 xl:gap-4">
                         @foreach($dialogues as $dialogue)
-                            <a href="{{ route('cabinet.dialogues.show', $dialogue) }}">
+                            <a href="{{ $dialogue->frontendPath() }}">
                                 <div class="flex items-center border rounded-xl px-4 py-2">
                                     @livewire('user.avatar', ['user' => $dialogue->partner(), 'size' => 8])
                                     <p class="ml-4">{{ $dialogue->partnerUsername }}</p>

@@ -15,17 +15,24 @@ class DialoguesController extends Controller
         ]);
     }
 
-    public function show(Dialogue $dialogue)
+    public function show(string $username)
     {
-        return view('frontend.user.cabinet.dialogues.show', [
-            'dialogue' => $dialogue,
-            'title' => __('Dialog with :partner', ['partner' => $dialogue->partner()->username]),
-        ]);
+        $dialogue = Dialogue::findWith($username);
+
+        return $dialogue
+            ? view('frontend.user.cabinet.dialogues.show', [
+                'dialogue' => $dialogue,
+                'title' => __('Dialog with :partner', ['partner' => $dialogue->partner()->username]),
+            ])
+            : back()->with('flash', [
+                'type' => 'warning',
+                'message' => __('You have no dialogue with :username.', ['username' => $username]),
+            ]);
     }
 
     public function store()
     {
-        $dialogue = Dialogue::getOrCreateWith(request('username'));
+        $dialogue = Dialogue::findWith(request('username'), true);
 
         $dialogue->addMessage(request('body'));
     }

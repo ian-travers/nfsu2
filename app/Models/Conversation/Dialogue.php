@@ -62,6 +62,11 @@ class Dialogue extends Model
         return $this->partner()->username;
     }
 
+    public function frontendPath(): string
+    {
+        return url("cabinet/dialogues/{$this->partnerUsername}");
+    }
+
     public function you()
     {
         return $this->initiator->is(auth()->user())
@@ -81,10 +86,10 @@ class Dialogue extends Model
             'body' => $body,
         ]);
 
-        return  $this;
+        return $this;
     }
 
-    public static function getOrCreateWith(string $username): self
+    public static function findWith(string $username, bool $createNew = false): ?self
     {
         throw_if(is_null($companion = User::whereUsername($username)->first()), new DomainException(__("Invalid username for conversation.")));
 
@@ -96,7 +101,13 @@ class Dialogue extends Model
                 ->where(['initiator_id' => $companionId, 'companion_id' => $initiatorId])
             )->first();
 
-        return $dialog ?? self::create(['initiator_id' => $initiatorId, 'companion_id' => $companionId]);
+        if ($dialog) {
+            return $dialog;
+        }
+
+        return $createNew
+            ? self::create(['initiator_id' => $initiatorId, 'companion_id' => $companionId])
+            : null;
     }
 
     public static function allByUser(User $user = null): Builder
