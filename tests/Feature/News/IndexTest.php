@@ -10,10 +10,12 @@ class IndexTest extends TestCase
     /** @test */
     function everyone_can_view_news_list()
     {
-        /** @var \App\Models\News $newsitem */
-        $newsitem = News::factory()->create();
+        News::factory()->create([
+            'title_en' => 'A title of the fake',
+            'status' => 1, // it means published
+        ]);
 
         // Set language explicitly because guest has no locale in the test
-        $this->get('/news?lang=en')->assertSee($newsitem->title);
+        $this->get('/news?lang=en')->assertSee('A title of the fake');
     }
 }
