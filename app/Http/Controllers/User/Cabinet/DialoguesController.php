@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Cabinet;
 
 use App\Http\Controllers\Controller;
 use App\Models\Conversation\Dialogue;
+use App\Models\Conversation\Message;
 
 class DialoguesController extends Controller
 {
@@ -28,6 +29,27 @@ class DialoguesController extends Controller
                 'type' => 'warning',
                 'message' => __('You have no dialogue with :username.', ['username' => $username]),
             ]);
+    }
+
+    public function addMessage(string $username)
+    {
+        request()->validate([
+            'body' => 'required|max:240',
+        ]);
+
+        $dialogue = Dialogue::findWith($username);
+
+        Message::create([
+            'dialogue_id' => $dialogue->id,
+            'user_id' => auth()->id(),
+            'body' => request('body'),
+            'read_at' => now(),
+        ]);
+
+        return back()->with('flash', [
+            'type' => 'success',
+            'message' => __('Sent.'),
+        ]);
     }
 
     public function store()
