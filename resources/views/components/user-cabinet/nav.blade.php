@@ -23,6 +23,12 @@
         >
             {{ __('Posts') }}
         </x-navs.vertical.nav-item>
+        <x-navs.vertical.nav-item
+            href="{{ route('cabinet.dialogues.index') }}"
+            :active="$controller == 'DialoguesController'"
+        >
+            {{ __('Dialogues') }}
+        </x-navs.vertical.nav-item>
     </nav>
 </div>
 

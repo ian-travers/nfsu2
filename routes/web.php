@@ -26,6 +26,7 @@ use App\Http\Controllers\Tests\RacerController;
 use App\Http\Controllers\TourneysController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\Cabinet\CabinetController;
+use App\Http\Controllers\User\Cabinet\DialoguesController;
 use App\Http\Controllers\User\Cabinet\HandleTourneyController as CabinetHandleTourneyController;
 use App\Http\Controllers\User\Cabinet\PostsController as CabinetPostsController;
 use App\Http\Controllers\User\Cabinet\TourneysController as CabinetTourneysController;
@@ -242,6 +243,16 @@ Route::group(['middleware' => 'language'], function () {
             // Handle the post
             Route::patch('{post}/publish', [CabinetPostsController::class, 'publish'])->name('.publish');
             Route::patch('{post}/unpublish', [CabinetPostsController::class, 'unpublish'])->name('.unpublish');
+        });
+
+        // Cabinet messages CRUD
+        Route::group([
+            'prefix' => 'dialogues',
+            'as' => '.dialogues'
+        ], function () {
+            Route::get('', [DialoguesController::class, 'index'])->name('.index');
+            Route::get('{dialogue}', [DialoguesController::class, 'show'])->name('.show');
+            Route::post('{username}', [DialoguesController::class, 'store'])->name('.store');
         });
     });
 

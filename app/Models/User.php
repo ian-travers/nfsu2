@@ -64,6 +64,7 @@ use InvalidArgumentException;
  * @method static Builder|User newQuery()
  * @method static \Illuminate\Database\Query\Builder|User onlyTrashed()
  * @method static Builder|User query()
+ * @method static Builder|User racer()
  * @method static Builder|User whereAvatar($value)
  * @method static Builder|User whereCompetitionsCount($value)
  * @method static Builder|User whereCountry($value)
