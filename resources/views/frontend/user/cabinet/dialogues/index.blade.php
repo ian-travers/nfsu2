@@ -3,7 +3,7 @@
         <div class="bg-white px-4 py-5">
             <div class="flex items-center justify-between">
                 <h1 class="text-2xl font-semibold tracking-wide">{{ __('Your private dialogues') }}</h1>
-                <a href="">
+                <a href="{{ route('players-list') }}">
                     <x-form.primary-button>{{ __('Create') }}</x-form.primary-button>
                 </a>
             </div>

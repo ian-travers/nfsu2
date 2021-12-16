@@ -31,7 +31,6 @@ class DialoguesController extends Controller
             $dialogue->markAsRead();
         }
 
-
         return view('frontend.user.cabinet.dialogues.show', [
             'dialogue' => $dialogue,
             'title' => __('Dialog with :partner', ['partner' => $dialogue->partner()->username]),
@@ -63,6 +62,9 @@ class DialoguesController extends Controller
     {
         $dialogue = Dialogue::findWith(request('username'), true);
 
-        $dialogue->addMessage(request('body'));
+        return view('frontend.user.cabinet.dialogues.show', [
+            'dialogue' => $dialogue,
+            'title' => __('Dialog with :partner', ['partner' => $dialogue->partner()->username]),
+        ]);
     }
 }
