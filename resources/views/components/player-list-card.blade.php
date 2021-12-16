@@ -9,7 +9,7 @@
         <div class="flex-1">
             <div>
                 <x-link href="{{ route('public-profile', $player) }}">
-                    <span class="text-xl">{{ $player->username }}</span>
+                    <span class="text-lg md:text-base xl:text-xl">{{ $player->username }}</span>
                 </x-link>
                 <span class="text-xs block">{{ __($player->role) }}</span>
                 <div class="flex items-center justify-between mt-3">

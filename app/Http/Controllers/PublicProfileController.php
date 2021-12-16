@@ -9,7 +9,7 @@ class PublicProfileController extends Controller
     public function index()
     {
         return  view('frontend.players-list', [
-            'players' =>  User::orderByDesc('site_points')->paginate(36),
+            'players' =>  User::orderByDesc('site_points')->paginate(30),
             'title' => __('Players list'),
         ]);
     }
