@@ -15,7 +15,7 @@
                             {{ $user->username }}
                         </span>
                         @auth
-                            @unless(auth()->user()->is($player))
+                            @unless(auth()->user()->is($user))
                                 <div class="inline-flex w-10 h-10 ml-2">
                                     <form action="{{ route('cabinet.dialogues.store', $user->username) }}">
                                         @csrf

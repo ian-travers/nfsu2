@@ -26,7 +26,7 @@
                             >{{ old('body') }}</textarea>
                             @error('body')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
                         </div>
-                        <div class="text-right mt-2">
+                        <div class="text-right mt-4">
                             <x-form.primary-button type="submit">{{ __('Send') }}</x-form.primary-button>
                         </div>
                     </form>

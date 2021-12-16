@@ -81,7 +81,7 @@
                 @endif
             </div>
 
-            <x-dropdown alignment="right" width="narrower">
+            <x-dropdown alignment="right">
                 <x-slot name="trigger">
                     <button
                         class="bg-gray-800 rounded-full flex items-center focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
@@ -94,6 +94,14 @@
 
                     </button>
                 </x-slot>
+                <p class="text-center text-xs text-blue-400">{{ __('Signed as') }}</p>
+                <x-dropdown-link
+                    href="{{ route('public-profile', auth()->user()) }}"
+                    class="text-center italic font-bold tracking-wider"
+                >
+                    {{ auth()->user()->username }}
+                </x-dropdown-link>
+                <div class="border-t border-gray-500"></div>
                 @if(auth()->user()->isUser())
                     <x-dropdown-link href="{{ route('tests.racer.show') }}">{{ __('Racer test') }}</x-dropdown-link>
                 @endif
