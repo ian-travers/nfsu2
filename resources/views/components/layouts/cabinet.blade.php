@@ -4,7 +4,7 @@
             <div class="w-full sm:w-56 lg:w-72 px-4 py-1">
                 <x-user-cabinet.nav></x-user-cabinet.nav>
             </div>
-            <div class="flex-1 py-1">
+            <div class="flex-1 px-4 py-1">
                 {{ $slot }}
             </div>
         </div>
