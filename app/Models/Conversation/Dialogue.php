@@ -7,6 +7,7 @@ use DomainException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * App\Models\Conversation\Dialogue
@@ -83,6 +84,7 @@ class Dialogue extends Model
     {
         $this->messages()->create([
             'user_id' => $user ? $user->id : auth()->id(),
+            'receiver_id' => $this->partner()->id,
             'body' => $body,
         ]);
 
@@ -91,7 +93,7 @@ class Dialogue extends Model
 
     public static function findWith(string $username, bool $createNew = false): ?self
     {
-        throw_if(is_null($companion = User::whereUsername($username)->first()), new DomainException(__("Invalid username for conversation.")));
+        throw_if(is_null($companion = User::whereUsername($username)->without('team')->first()), new DomainException(__("Invalid username for conversation.")));
 
         $initiatorId = auth()->id();
         $companionId = $companion->id;
@@ -118,5 +120,18 @@ class Dialogue extends Model
 
         return self::where('initiator_id', $user->id)
             ->orWhere('companion_id', $user->id);
+    }
+
+    public function hasUnread(): bool
+    {
+        return $this->messages()->where('user_id', $this->partner()->id)->whereNull('read_at')->exists();
+    }
+
+    public function markAsRead(): void
+    {
+        DB::table('messages')
+            ->where('dialogue_id', $this->id)
+            ->whereNull('read_at')
+            ->update(['read_at' => now()]);
     }
 }

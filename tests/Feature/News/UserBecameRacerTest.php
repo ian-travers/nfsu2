@@ -30,6 +30,6 @@ class UserBecameRacerTest extends TestCase
         $this->post('/tests/racer', $form);
 
         $this->assertDatabaseCount('news', 1);
-        $this->assertDatabaseHas('news', ['title_en' => "jonny has been passed racer's test"]);
+        $this->assertDatabaseHas('news', ['title_en' => "jonny has been passed racer test"]);
     }
 }

@@ -20,15 +20,22 @@ class DialoguesController extends Controller
     {
         $dialogue = Dialogue::findWith($username);
 
-        return $dialogue
-            ? view('frontend.user.cabinet.dialogues.show', [
-                'dialogue' => $dialogue,
-                'title' => __('Dialog with :partner', ['partner' => $dialogue->partner()->username]),
-            ])
-            : back()->with('flash', [
+        if (is_null($dialogue)) {
+            return back()->with('flash', [
                 'type' => 'warning',
                 'message' => __('You have no dialogue with :username.', ['username' => $username]),
             ]);
+        }
+
+        if ($dialogue->hasUnread()) {
+            $dialogue->markAsRead();
+        }
+
+
+        return view('frontend.user.cabinet.dialogues.show', [
+            'dialogue' => $dialogue,
+            'title' => __('Dialog with :partner', ['partner' => $dialogue->partner()->username]),
+        ]);
     }
 
     public function addMessage(string $username)
@@ -42,8 +49,8 @@ class DialoguesController extends Controller
         Message::create([
             'dialogue_id' => $dialogue->id,
             'user_id' => auth()->id(),
+            'receiver_id' => $dialogue->partner()->id,
             'body' => request('body'),
-            'read_at' => now(),
         ]);
 
         return back()->with('flash', [

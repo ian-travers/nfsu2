@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $dialogue_id
  * @property int $user_id
+ * @property int $receiver_id
  * @property string $body
  * @property string|null $read_at
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -27,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|Message whereDialogueId($value)
  * @method static Builder|Message whereId($value)
  * @method static Builder|Message whereReadAt($value)
+ * @method static Builder|Message whereReceiverId($value)
  * @method static Builder|Message whereUpdatedAt($value)
  * @method static Builder|Message whereUserId($value)
  * @mixin \Eloquent

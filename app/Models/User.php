@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Events\BecomeRacer;
+use App\Models\Conversation\Message;
 use App\Models\Tourney\SeasonAward;
 use App\Models\Tourney\SeasonRacer;
 use App\Models\Tourney\Tourney;
@@ -46,6 +47,8 @@ use InvalidArgumentException;
  * @property string $locale
  * @property-read mixed $competition_podiums
  * @property-read mixed $tourney_podiums
+ * @property-read \Illuminate\Database\Eloquent\Collection|Message[] $messages
+ * @property-read int|null $messages_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $posts
@@ -379,7 +382,7 @@ class User extends Authenticatable
 
     public static function existsByUsername(string $username): bool
     {
-        return self::where('username', $username)->exists();
+        return self::where('username', $username)->without('team')->exists();
     }
 
     public function browserNotified(): bool
@@ -431,5 +434,17 @@ class User extends Authenticatable
     public function scopeRacer($query)
     {
         return $query->where('role', self::ROLE_RACER);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function hasUnreadMessages(): bool
+    {
+        return Message::where('receiver_id', auth()->id())
+            ->whereNull('read_at')
+            ->exists();
     }
 }

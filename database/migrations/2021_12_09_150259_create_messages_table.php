@@ -12,6 +12,7 @@ class CreateMessagesTable extends Migration
             $table->id();
             $table->foreignId('dialogue_id')->constrained('dialogues')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->unsignedBigInteger('receiver_id')->index();
             $table->string('body', 240);
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
