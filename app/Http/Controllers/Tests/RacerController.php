@@ -43,7 +43,9 @@ class RacerController extends Controller
             ]);
         }
 
-        User::setRacer(auth()->user());
+        if (auth()->user()->isUser()) {
+            User::setRacer(auth()->user());
+        }
 
         return back()->with('flash', [
             'type' => 'success',

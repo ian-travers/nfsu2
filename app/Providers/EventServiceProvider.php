@@ -37,6 +37,7 @@ class EventServiceProvider extends ServiceProvider
 
         BecomeRacer::class => [
             User\CreateNewsItemWhenBecameRacer::class,
+            User\GainSitePoints::class,
         ],
 
         TourneyCreated::class => [
