@@ -67,4 +67,16 @@ class DialoguesController extends Controller
             'title' => __('Dialog with :partner', ['partner' => $dialogue->partner()->username]),
         ]);
     }
+
+    public function block(string $username)
+    {
+        $dialogue = Dialogue::findWith($username);
+
+        $dialogue->block();
+
+        return back()->with('flash', [
+            'type' => 'success',
+            'message' => __('Your dialogue with :username has been blocked.', ['username' => $username]),
+        ]);
+    }
 }

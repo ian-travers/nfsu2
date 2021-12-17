@@ -188,4 +188,32 @@ class DialogueTest extends TestCase
 
         $this->assertFalse($dialogue->hasUnread());
     }
+
+    /** @test */
+    function it_may_be_blocked()
+    {
+        /** @var Dialogue $dialogue */
+        $dialogue = Dialogue::factory()->create();
+
+        $this->assertFalse($dialogue->isBlocked());
+
+        $dialogue->block();
+
+        $this->assertTrue($dialogue->isBlocked());
+    }
+
+    /** @test */
+    function it_may_be_unblocked()
+    {
+        /** @var Dialogue $dialogue */
+        $dialogue = Dialogue::factory()->create([
+            'blocked' => true,
+        ]);
+
+        $this->assertTrue($dialogue->isBlocked());
+
+        $dialogue->unblock();
+
+        $this->assertFalse($dialogue->isBlocked());
+    }
 }

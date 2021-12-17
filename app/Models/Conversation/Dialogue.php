@@ -91,6 +91,21 @@ class Dialogue extends Model
         return $this;
     }
 
+    public function isBlocked(): bool
+    {
+        return (bool)$this->blocked;
+    }
+
+    public function block(): void
+    {
+        $this->update(['blocked' => true]);
+    }
+
+    public function unblock(): void
+    {
+        $this->update(['blocked' => false]);
+    }
+
     public static function findWith(string $username, bool $createNew = false): ?self
     {
         throw_if(is_null($companion = User::whereUsername($username)->without('team')->first()), new DomainException(__("Invalid username for conversation.")));

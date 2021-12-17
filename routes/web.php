@@ -252,6 +252,7 @@ Route::group(['middleware' => 'language'], function () {
         ], function () {
             Route::get('', [DialoguesController::class, 'index'])->name('.index');
             Route::post('{username}', [DialoguesController::class, 'store'])->name('.store');
+            Route::patch('{username}/block', [DialoguesController::class, 'block'])->name('.block');
             Route::get('{dialogue}', [DialoguesController::class, 'show'])->name('.show');
             Route::put('{dialogue}', [DialoguesController::class, 'addMessage'])->name('.add-message');
         });
