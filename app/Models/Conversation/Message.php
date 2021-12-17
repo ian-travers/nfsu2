@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Conversation\Dialogue $dialogue
  * @property-read User $user
+ * @method static \Database\Factories\Conversation\MessageFactory factory(...$parameters)
  * @method static Builder|Message newModelQuery()
  * @method static Builder|Message newQuery()
  * @method static Builder|Message query()

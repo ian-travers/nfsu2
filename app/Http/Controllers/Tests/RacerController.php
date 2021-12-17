@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Quiz\Question;
 use App\Models\User;
 use App\Settings\RacerTestSettings;
+use DomainException;
 
 class RacerController extends Controller
 {
@@ -43,8 +44,13 @@ class RacerController extends Controller
             ]);
         }
 
-        if (auth()->user()->isUser()) {
+        try {
             User::setRacer(auth()->user());
+        } catch (DomainException $e) {
+            return back()->with('flash', [
+                'type' => 'warning',
+                'message' => $e->getMessage(),
+            ]);
         }
 
         return back()->with('flash', [

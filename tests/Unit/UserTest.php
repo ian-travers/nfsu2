@@ -2,8 +2,11 @@
 
 namespace Tests\Unit;
 
+use App\Models\Conversation\Message;
 use App\Models\Team;
 use App\Models\User;
+use DomainException;
+use InvalidArgumentException;
 use Tests\TestCase;
 
 class UserTest extends TestCase
@@ -126,7 +129,7 @@ class UserTest extends TestCase
             'role' => User::ROLE_USER,
         ]);
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $user->changeRole('fake_role');
     }
@@ -139,7 +142,7 @@ class UserTest extends TestCase
             'role' => User::ROLE_RACER,
         ]);
 
-        $this->expectException(\DomainException::class);
+        $this->expectException(DomainException::class);
 
         $user->changeRole(User::ROLE_RACER);
     }
@@ -257,5 +260,20 @@ class UserTest extends TestCase
         $user->unsetEmailNotified();
 
         $this->assertFalse($user->emailNotified());
+    }
+
+    /** @test */
+    function it_check_for_unread_messages()
+    {
+        /** @var User $user */
+        $user = User::factory()->emailNotified()->create();
+
+        $message = Message::factory()->create([
+            'receiver_id' => $user->id,
+        ]);
+
+        $this->signIn($user);
+
+        $this->assertTrue($user->hasUnreadMessages());
     }
 }

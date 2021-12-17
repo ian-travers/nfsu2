@@ -291,6 +291,8 @@ class User extends Authenticatable
 
     public static function setRacer(self $user)
     {
+        throw_if($user->isRacer(), new DomainException(__('You are already a racer.')));
+
         $user->update(['role' => self::ROLE_RACER]);
 
         event(new BecomeRacer($user));

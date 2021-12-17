@@ -13,7 +13,6 @@ class RacerTest extends TestCase
     /** @test */
     function user_may_visit_the_test_page()
     {
-        $this->withoutExceptionHandling();
         $this->signIn();
 
         $this->get('/tests/racer')
@@ -30,7 +29,6 @@ class RacerTest extends TestCase
     /** @test */
     function passing_the_test_gives_the_racer_role()
     {
-        $this->withoutExceptionHandling();
         $this->seed(QuizSeeder::class);
 
         /** @var \App\Models\User $user */
