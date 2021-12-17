@@ -11,7 +11,6 @@ class BlockDialogueTest extends TestCase
     /** @test */
     function authenticated_user_can_block_the_dialogue()
     {
-        $this->withoutExceptionHandling();
         $this->signIn(User::factory()->create());
 
         /** @var Dialogue $dialogue */
