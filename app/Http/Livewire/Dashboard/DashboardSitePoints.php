@@ -18,7 +18,8 @@ class DashboardSitePoints extends Component
     public string $comment = '';
     public string $likeDislike = '';
 
-    public string $create_tourney = '';
+    public string $createTourney = '';
+    public string $passRacerTest = '';
 
     public function mount()
     {
@@ -33,7 +34,8 @@ class DashboardSitePoints extends Component
         $this->comment = app(SitePointsSettings::class)->comment;
         $this->likeDislike = app(SitePointsSettings::class)->like_dislike;
 
-        $this->create_tourney = app(SitePointsSettings::class)->create_tourney;
+        $this->createTourney = app(SitePointsSettings::class)->create_tourney;
+        $this->passRacerTest = app(SitePointsSettings::class)->pass_racer_test;
     }
 
     protected function rules()
@@ -50,7 +52,8 @@ class DashboardSitePoints extends Component
             'comment' => 'required|integer|min:0',
             'likeDislike' => 'required|integer|min:0',
 
-            'create_tourney' => 'required|integer|min:0',
+            'createTourney' => 'required|integer|min:0',
+            'passRacerTest' => 'required|integer|min:0',
         ];
     }
 
@@ -70,7 +73,8 @@ class DashboardSitePoints extends Component
         $settings->comment =(int)$this->comment;
         $settings->like_dislike =(int)$this->likeDislike;
 
-        $settings->create_tourney =(int)$this->create_tourney;
+        $settings->create_tourney =(int)$this->createTourney;
+        $settings->pass_racer_test =(int)$this->passRacerTest;
 
         $settings->save();
 

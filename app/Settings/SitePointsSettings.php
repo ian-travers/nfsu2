@@ -17,7 +17,8 @@ class SitePointsSettings extends Settings
     public int $comment; // 10 sp.
     public int $like_dislike; // 1 sp.
 
-    public int $create_tourney; // 50 sp.
+    public int $create_tourney; // 100 sp.
+    public int $pass_racer_test; // 25 sp.
 
     public static function group(): string
     {

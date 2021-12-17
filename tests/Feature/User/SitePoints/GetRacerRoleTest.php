@@ -29,7 +29,7 @@ class GetRacerRoleTest extends TestCase
 
         $this->post('/tests/racer', $form);
 
-        $this->assertEquals(50, $user->site_points);
+        $this->assertEquals(25, $user->site_points);
     }
 
     /** @test */
@@ -51,10 +51,10 @@ class GetRacerRoleTest extends TestCase
 
         $this->post('/tests/racer', $form);
 
-        $this->assertEquals(50, $user->site_points);
+        $this->assertEquals(25, $user->site_points);
 
         $this->post('/tests/racer', $form);
 
-        $this->assertEquals(50, $user->site_points);
+        $this->assertEquals(25, $user->site_points);
     }
 }

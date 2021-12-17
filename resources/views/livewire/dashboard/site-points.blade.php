@@ -2,7 +2,7 @@
     <h3 class="text-xl">{{ __('Site points system') }}</h3>
     <div class="border rounded-lg pt-2 pb-4 px-4 mt-4">
         <h4 class="text-lg text-center font-medium">{{ __('Tourney place') }}</h4>
-        <div class="flex items-center justify-between space-x-2">
+        <div class="flex items-center justify-center space-x-2">
             <div>
                 <x-form.label for="tourney_first" class="text-center">{{ __('1st') }}</x-form.label>
                 <x-form.input
@@ -72,7 +72,7 @@
         </div>
 
         <h4 class="text-lg text-center font-medium mt-6">{{ __('Activity') }}</h4>
-        <div class="flex items-center justify-between space-x-2">
+        <div class="flex items-center justify-center space-x-2">
             <div>
                 <x-form.label for="competition" class="text-center">{{ __('Competition') }}</x-form.label>
                 <x-form.input
@@ -112,14 +112,27 @@
                 />
                 @error('likeDislike')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
+            <div>
+                <x-form.label for="pass_racer_test" class="text-center">{{ __('Become  a racer') }}</x-form.label>
+                <x-form.input
+                    wire:model.lazy="passRacerTest"
+                    id="pass_racer_test"
+                    class="block mt-1 w-full"
+                    type="number"
+                    name="pass_racer_test"
+                    :value="old('pass_racer_test')"
+                    autocomplete="pass_racer_test"
+                />
+                @error('passRacerTest')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+            </div>
         </div>
 
         <h4 class="text-lg text-center font-medium mt-6">{{ __('Creation') }}</h4>
-        <div class="flex items-center justify-between space-x-2">
+        <div class="flex items-center justify-center space-x-2">
             <div>
                 <x-form.label for="create_tourney" class="text-center">{{ __('New tourney') }}</x-form.label>
                 <x-form.input
-                    wire:model.lazy="create_tourney"
+                    wire:model.lazy="createTourney"
                     id="create_tourney"
                     class="block mt-1 w-full"
                     type="number"
@@ -127,7 +140,7 @@
                     :value="old('create_tourney')"
                     autocomplete="create_tourney"
                 />
-                @error('create_tourney')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+                @error('createTourney')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
             <div>
                 <x-form.label for="post" class="text-center">{{ __('Publish post') }}</x-form.label>

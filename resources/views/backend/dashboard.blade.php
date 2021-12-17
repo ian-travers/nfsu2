@@ -5,7 +5,9 @@
     <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-4">
         @livewire('dashboard.dashboard-season')
         @livewire('dashboard.dashboard-racer-test')
-        @livewire('dashboard.dashboard-site-points')
         @livewire('dashboard.dashboard-scoring')
+        <div class="lg:col-span-2 xl:col-span-3">
+            @livewire('dashboard.dashboard-site-points')
+        </div>
     </div>
 </x-layouts.back>
