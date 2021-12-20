@@ -19,8 +19,8 @@
 <x-layouts._footer/>
 
 <script>
-    window._locale = '{{ app()->getLocale() }}';
-    window._translations = {!! cache('translations') !!};
+    window._locale = '{{ app()->getLocale() }}'
+    window._translations = {!! cache('translations') !!}
 </script>
 @livewireScripts
 <script src="{{ mix('js/app.js', 'build') }}"></script>

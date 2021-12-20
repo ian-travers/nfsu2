@@ -80,7 +80,7 @@
                                                     @csrf
                                                     <x-form.primary-button
                                                         type="submit"
-                                                        onclick="return confirm(__('You can no longer manage the team! Confirm transferring?'))"
+                                                        onclick="return confirm(_t('You can no longer manage the team! Confirm transferring?'))"
                                                         :disabled="$racer->isTeamCaptain()"
                                                     >
                                                         {{ __('Make captain') }}

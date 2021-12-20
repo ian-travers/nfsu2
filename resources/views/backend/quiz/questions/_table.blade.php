@@ -46,7 +46,7 @@
                                     @method('delete')
                                     <button
                                         type="submit"
-                                        onclick="return confirm(__('This quiz question will be deleted! Proceed?'))"
+                                        onclick="return confirm(_t('This quiz question will be deleted! Proceed?'))"
                                         class="text-yellow-600 hover:text-yellow-900"
                                     >
                                         {{ __('Delete') }}

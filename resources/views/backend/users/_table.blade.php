@@ -102,7 +102,7 @@
                                         @method('put')
                                         <button
                                             type="submit"
-                                            onclick="return confirm(__('This user will be able to login the site! Proceed?'))"
+                                            onclick="return confirm(_t('This user will be able to login the site! Proceed?'))"
                                             class="text-green-600 hover:text-green-900"
                                         >
                                             {{ __('Restore') }}
@@ -113,7 +113,7 @@
                                         @method('put')
                                         <button
                                             type="submit"
-                                            onclick="return confirm(__('This user will be deleted. His username will become available for registration. Proceed?'))"
+                                            onclick="return confirm(_t('This user will be deleted. His username will become available for registration. Proceed?'))"
                                             class="text-red-600 hover:text-red-900"> {{ __('Delete') }}</button>
                                     </form>
                                 @else
@@ -128,7 +128,7 @@
                                         @method('put')
                                         <button
                                             type="submit"
-                                            onclick="return confirm(__('This user will not be able to login the site! Proceed?'))"
+                                            onclick="return confirm(_t('This user will not be able to login the site! Proceed?'))"
                                             class="text-yellow-600 hover:text-yellow-900"
                                         >
                                             {{ __('Trash') }}

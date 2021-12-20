@@ -14,7 +14,6 @@ class TranslationServiceProvider extends ServiceProvider
 
             foreach (config('language.allowed') as $locale) { // supported locales
                 $translations[$locale] = [
-//                    'php' => $this->phpTranslations($locale),
                     'json' => $this->jsonTranslations($locale),
                 ];
             }
@@ -23,25 +22,10 @@ class TranslationServiceProvider extends ServiceProvider
         });
     }
 
-//    private function phpTranslations($locale)
-//    {
-//        $path = resource_path("lang/$locale");
-//
-//        return collect(File::allFiles($path))->flatMap(function ($file) use ($locale) {
-//            $key = ($translation = $file->getBasename('.php'));
-//
-//            return [$key => trans($translation, [], $locale)];
-//        });
-//    }
-
     private function jsonTranslations($locale)
     {
-        $path = resource_path("lang/$locale.json");
+        $path = resource_path("lang/js/$locale.json");
 
-        if (is_string($path) && is_readable($path)) {
-            return json_decode(file_get_contents($path), true);
-        }
-
-        return [];
+        return is_string($path) && is_readable($path) ? json_decode(file_get_contents($path), true) : [];
     }
 }

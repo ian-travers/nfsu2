@@ -12,7 +12,7 @@
                 @method('delete')
                 <x-form.danger-button
                     type="submit"
-                    onclick="return confirm(__('This quiz question will be deleted! Proceed?'))"
+                    onclick="return confirm(_t('This quiz question will be deleted! Proceed?'))"
                 >
                     {{ __('Delete') }}
                 </x-form.danger-button>

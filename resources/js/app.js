@@ -1,6 +1,6 @@
 require('./bootstrap');
 
-window.__ = function __(key, replace) {
+window._t = function _t(key, replace) {
     /**
      * Translate the given key.
      */
