@@ -47,6 +47,7 @@
                                     rows="2"
                                     class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-md"
                                     name="body"
+                                    autofocus
                                 >{{ old('body') }}</textarea>
                                 @error('body')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
                             </div>

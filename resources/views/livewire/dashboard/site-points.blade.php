@@ -113,7 +113,7 @@
                 @error('likeDislike')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
             <div>
-                <x-form.label for="pass_racer_test" class="text-center">{{ __('Become  a racer') }}</x-form.label>
+                <x-form.label for="pass_racer_test" class="text-center">{{ __('Become a racer') }}</x-form.label>
                 <x-form.input
                     wire:model.lazy="passRacerTest"
                     id="pass_racer_test"
