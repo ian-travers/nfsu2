@@ -3,7 +3,20 @@
     <div class="flex-grow w-full max-w-screen-2xl text-blue-400 mx-auto xl:px-8 lg:flex">
         <div class="flex-1 min-w-0 xl:flex">
             @auth
-                You are logged in
+                <div class="flex-1 my-8 px-4">
+                    @if(count($actions))
+                        @foreach($actions as $action)
+                            <p class="text-green-500 mt-4">
+                                {{ $action->subject_type }}
+                                {{ $action->subject_id }}
+                                {{ $action->sevent }}
+                                {{ $action->description }}
+                            </p>
+                        @endforeach
+                    @else
+                        {{ __('You have not been active for the last four weeks.') }}
+                    @endif
+                </div>
             @else
                 <div class="xl:flex-shrink-0 xl:w-2/3">
                     <div class="xl:h-96 px-4 py-6 xl:px-0">

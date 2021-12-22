@@ -143,4 +143,23 @@ class CompleteTest extends TestCase
 
         $this->assertDatabaseCount('season_racers', 3);
     }
+
+    /** @test */
+    function each_competition_racer_get_activity_log_record()
+    {
+        /** @var Competition $competition */
+        $competition = Competition::factory()->create();
+
+        $this->signIn(User::factory()->admin()->create());
+
+        User::factory()->create(['username' => 'Muxomor']);     // 100 + 0 pts
+        User::factory()->create(['username' => 'Stas']);        // 91 + 91 pts
+        User::factory()->create(['username' => 'samurai']);     // 0 + 100 pts
+
+        Livewire::test(Complete::class)
+            ->set('competition', $competition)
+            ->call('handle');
+
+        $this->assertDatabaseCount('activity_log', 3);
+    }
 }

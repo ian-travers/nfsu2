@@ -46,4 +46,29 @@ class DeleteTest extends TestCase
 
         $this->assertDatabaseCount('comments', 2);
     }
+
+    /** @test */
+    function it_logs_activity_when_deleted()
+    {
+        $this->signIn();
+
+        /** @var News $commentable */
+        $commentable = News::factory()->create();
+
+        $comment = Comment::createComment($commentable, 'comment body', auth()->user());
+
+        $this->assertDatabaseCount('activity_log', 1);
+
+        $comment->delete();
+
+        $this->assertDatabaseCount('activity_log', 2);
+        $this->assertDatabaseHas('activity_log', [
+            'subject_type' => 'comment',
+            'subject_id' => $comment->id,
+            'causer_type' => 'App\Models\User',
+            'causer_id' => auth()->id(),
+            'event' => 'deleted',
+            'description' => 'deleted',
+        ]);
+    }
 }

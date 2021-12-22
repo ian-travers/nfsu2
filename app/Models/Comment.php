@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Stevebauman\Purify\Facades\Purify;
 
 /**
@@ -41,7 +43,14 @@ use Stevebauman\Purify\Facades\Purify;
  */
 class Comment extends Model
 {
-    use HasFactory, HasLikesDislikes;
+    use HasFactory, HasLikesDislikes, LogsActivity;
+
+    protected static array $recordEvents = ['created', 'deleted'];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults();
+    }
 
     public function commentable(): MorphTo
     {

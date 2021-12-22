@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * App\Models\Like
@@ -32,7 +34,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Like extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+
+    protected static array $recordEvents = ['created', 'updated', 'deleted'];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults();
+    }
 
     const LIKE = 'like';
     const DISLIKE = 'dislike';

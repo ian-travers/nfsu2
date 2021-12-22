@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * App\Models\Post
@@ -56,7 +58,14 @@ use Illuminate\Support\Facades\Storage;
  */
 class Post extends Model
 {
-    use HasFactory, SoftDeletes, HasComments, HasLikesDislikes, HasUniqueSlug;
+    use HasFactory, SoftDeletes, HasComments, HasLikesDislikes, HasUniqueSlug, LogsActivity;
+
+    protected static array $recordEvents = ['created', 'deleted'];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults();
+    }
 
     protected $dates = ['published_at'];
 

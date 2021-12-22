@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * App\Models\Tourney\Tourney
@@ -58,7 +60,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Tourney extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+
+    protected static array $recordEvents = ['created', 'updated', 'deleted'];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults();
+    }
 
     public const STATUS_SCHEDULED = 'scheduled';
     public const STATUS_DRAW = 'draw';

@@ -104,6 +104,25 @@ class PostTest extends TestCase
         Storage::disk('public')->assertMissing($filepath);
     }
 
+    /** @test */
+    function it_logs_activity_when_created()
+    {
+        Post::factory()->create();
+
+        $this->assertDatabaseCount('activity_log', 1);
+    }
+
+    /** @test */
+    function it_logs_activity_when_deleted()
+    {
+        /** @var Post $post */
+        $post = Post::factory()->create();
+
+        $post->delete();
+
+        $this->assertDatabaseCount('activity_log', 2);
+    }
+
     protected function createTestPost(): Post
     {
         return Post::factory()->create([
