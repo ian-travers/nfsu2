@@ -10,9 +10,13 @@ class WelcomeController extends Controller
     {
         $lastNews = News::published()->latest()->take(3)->get();
 
+        $actions = auth()->guest() ? [] : auth()->user()->actions()->latest()->where('created_at', '>', now()->subWeeks(4))->get();
+
+//        return $actions;
+
         return view('welcome', [
             'news' => $lastNews,
-            'actions' => auth()->guest() ? [] : auth()->user()->actions()->latest()->where('created_at', '>', now()->subWeeks(4))->get(),
+            'actions' => $actions
         ]);
     }
 }

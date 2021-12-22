@@ -6,8 +6,6 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * App\Models\Tourney\TourneyRacer
@@ -35,15 +33,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class TourneyRacer extends Model
 {
-    use HasFactory, DetectPlace, LogsActivity;
-
-    protected static array $recordEvents = ['created'];
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->setDescriptionForEvent(fn() => __('You took part in the tourney'));
-    }
+    use HasFactory, DetectPlace;
 
     protected $with = ['tourney', 'user'];
 

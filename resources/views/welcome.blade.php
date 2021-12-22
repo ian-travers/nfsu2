@@ -4,17 +4,20 @@
         <div class="flex-1 min-w-0 xl:flex">
             @auth
                 <div class="flex-1 my-8 px-4">
+                    <p class="text-xl">
+                        {{ __('Your activity in the last four weeks.') }}
+                    </p>
                     @if(count($actions))
                         @foreach($actions as $action)
-                            <p class="text-green-500 mt-4">
-                                {{ $action->subject_type }}
-                                {{ $action->subject_id }}
-                                {{ $action->sevent }}
-                                {{ $action->description }}
+                            <p class="mt-4">
+                                <x-action-item :action="$action"/>
                             </p>
                         @endforeach
                     @else
-                        {{ __('You have not been active for the last four weeks.') }}
+                        <p class="mt-6">
+                            {{ __('You have not been active for the last four weeks.') }}
+                        </p>
+
                     @endif
                 </div>
             @else

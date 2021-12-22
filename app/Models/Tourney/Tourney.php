@@ -62,11 +62,16 @@ class Tourney extends Model
 {
     use HasFactory, LogsActivity;
 
-    protected static array $recordEvents = ['created', 'updated', 'deleted'];
+    protected static array $recordEvents = ['created', 'deleted'];
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults();
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn($event) => match ($event) {
+                'created' => __("You created a tourney: ':name'.", ['name' => $this->name]),
+                'deleted' => __('You deleted the tourney.'),
+                default => __('You did something with tourney.'),
+            });
     }
 
     public const STATUS_SCHEDULED = 'scheduled';

@@ -11,7 +11,7 @@ class UpdateUsersTourneyCountersAndSitePoints
     {
         $racers = $event->tourney->racers;
 
-        $racers->map(function ($racer) {
+        $racers->map(function ($racer) use($event) {
             if ($racer->pts) {
                 $racer->user->incrementTourneysFinishedCount();
                 if ($racer->place == 1) {
@@ -28,6 +28,11 @@ class UpdateUsersTourneyCountersAndSitePoints
                 } else {
                     $racer->user->gainSitePoints(app(SitePointsSettings::class)->tourney_fifth_plus);
                 }
+
+                activity()
+                    ->causedBy($racer->user)
+                    ->performedOn($event->tourney)
+                    ->log(__("You took part in the tourney: ':name'.", ['name' => $event->tourney->name]));
             }
         });
     }

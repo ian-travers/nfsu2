@@ -40,7 +40,13 @@ class Like extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults();
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn($event) => match ($event) {
+                'created' => __('You liked or disliked something.'),
+                'updated' => __('You changed like to disliked or vice versa.'),
+                'deleted' => __('You unliked to undisliked something.'),
+                default => __('You did something with like or dislike.'),
+            });
     }
 
     const LIKE = 'like';

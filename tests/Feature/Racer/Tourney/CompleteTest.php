@@ -148,6 +148,23 @@ class CompleteTest extends TestCase
         $this->assertDatabaseCount('season_racers', 2);
     }
 
+    /** @test */
+    function each_tourney_racer_logs_activity_when_the_tourney_is_completed()
+    {
+        /** @var User $supervisor */
+        $supervisor = User::factory()->racer()->create();
+
+        $tourney =$this->prepareTourney($supervisor, [24, 20, 0]);
+
+        $this->signIn($supervisor);
+
+        Livewire::test(Complete::class)
+            ->set('tourney', $tourney)
+            ->call('handle');
+
+        $this->assertDatabaseCount('activity_log', 3); // 1 create tourney + 2 took part
+    }
+
     protected function prepareTourney(User $supervisor, array $racersPts): Tourney
     {
         /** @var Tourney $tourney */

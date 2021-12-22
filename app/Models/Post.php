@@ -64,7 +64,10 @@ class Post extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults();
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn($event) => $event == 'created'
+                ? __("You created post: ':title'.", ['title' => $this->title])
+                : __('You deleted the post.'));
     }
 
     protected $dates = ['published_at'];
@@ -103,7 +106,7 @@ class Post extends Model
         return (bool)$this->image;
     }
 
-    public function imageFileExists():bool
+    public function imageFileExists(): bool
     {
         if (!$this->hasImage()) {
             return false;

@@ -49,7 +49,11 @@ class Comment extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults();
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn($event) => $event == 'created'
+                ?
+                __("You left comment: ':body'.", ['body' => $this->body])
+                : __('You deleted the comment.'));
     }
 
     public function commentable(): MorphTo

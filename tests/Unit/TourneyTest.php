@@ -26,18 +26,6 @@ class TourneyTest extends TestCase
     }
 
     /** @test */
-    function it_logs_activity_when_updated()
-    {
-        /** @var Tourney $tourney */
-        $tourney = Tourney::factory()->create();
-
-        $tourney->update(['name' => 'New name']);
-
-        $this->assertDatabaseCount('activity_log', 2);
-        $this->assertDatabaseHas('activity_log', ['event' => 'updated']);
-    }
-
-    /** @test */
     function it_logs_activity_when_deleted()
     {
         /** @var Tourney $tourney */

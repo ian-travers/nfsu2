@@ -68,7 +68,6 @@ class DeleteTest extends TestCase
             'causer_type' => 'App\Models\User',
             'causer_id' => auth()->id(),
             'event' => 'deleted',
-            'description' => 'deleted',
         ]);
     }
 }

@@ -53,6 +53,10 @@ class RacerController extends Controller
             ]);
         }
 
+        activity()
+            ->causedBy(auth()->user())
+            ->log(__('You passed the racer test.'));
+
         return back()->with('flash', [
             'type' => 'success',
             'message' => __('Test passed! You got the racer promotion and will be able to signup for tourneys'),
