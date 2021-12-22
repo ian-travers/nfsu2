@@ -39,7 +39,9 @@
     </div>
 
     @foreach($children as $child)
-        @livewire('comment.view', ['comment' => $child->comment, 'children' => $child->children],
-        key($child->comment->id))
+        <div class="ml-4">
+            @livewire('comment.view', ['comment' => $child->comment, 'children' => $child->children],
+            key($child->comment->id))
+        </div>
     @endforeach
 </div>
