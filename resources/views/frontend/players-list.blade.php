@@ -5,7 +5,7 @@
         <div
             class="sm:grid sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-4 xl:grid-cols-5 xl:gap-4">
             @foreach($players as $player)
-                <x-player-list-card :player="$player"></x-player-list-card>
+                <x-player-list-card :player="$player"/>
             @endforeach
         </div>
         <div class="mt-6">
