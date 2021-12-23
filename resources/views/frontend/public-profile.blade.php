@@ -135,7 +135,7 @@
         @endif
 
         <div class="mt-8">
-            <p class="text-2xl">{{ __('Site points') }}: {{ $user->site_points }}</p>
+            <p class="text-2xl">{{ __('Site points (SP)') }}: {{ $user->site_points }}</p>
         </div>
     </div>
 </x-layouts.front>

@@ -21,7 +21,6 @@ return [
     // If your function name contains $ escape it using \$ .
     'functions'=> [
         '__',
-        '_t',
         '@lang',
     ],
 
