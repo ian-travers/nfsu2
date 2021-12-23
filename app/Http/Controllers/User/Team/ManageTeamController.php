@@ -31,6 +31,10 @@ class ManageTeamController extends Controller
             ]);
         }
 
+        activity()
+            ->causedBy(auth()->user())
+            ->log(__("You kicked ':username' off the team.", ['username' => $user->username]));
+
         return redirect()->route('settings.team.index')->with('flash', [
             'type' => 'success',
             'message' => __('Player has been removed from the team.'),
@@ -49,6 +53,10 @@ class ManageTeamController extends Controller
                 'message' => $e->getMessage(),
             ]);
         }
+
+        activity()
+            ->causedBy(auth()->user())
+            ->log(__("You transferred the captainship of the team to':username'.", ['username' => $user->username]));
 
         return redirect()->route('settings.team.index')->with('flash', [
             'type' => 'success',
@@ -70,6 +78,9 @@ class ManageTeamController extends Controller
             ]);
         }
 
+        activity()
+            ->causedBy(auth()->user())
+            ->log(__('You dismissed the team.'));
 
         return redirect()->route('settings.team.index')->with('flash', [
             'type' => 'success',
