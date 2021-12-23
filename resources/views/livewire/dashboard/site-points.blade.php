@@ -125,10 +125,36 @@
                 />
                 @error('passRacerTest')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
             </div>
+            <div>
+                <x-form.label for="join_team" class="text-center">{{ __('Join the team') }}</x-form.label>
+                <x-form.input
+                    wire:model.lazy="joinTeam"
+                    id="join_team"
+                    class="block mt-1 w-full"
+                    type="number"
+                    name="join_team"
+                    :value="old('join_team')"
+                    autocomplete="join_team"
+                />
+                @error('joinTeam')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+            </div>
         </div>
 
         <h4 class="text-lg text-center font-medium mt-6">{{ __('Creation') }}</h4>
         <div class="flex items-center justify-center space-x-2">
+            <div>
+                <x-form.label for="create_team" class="text-center">{{ __('Create a team') }}</x-form.label>
+                <x-form.input
+                    wire:model.lazy="createTeam"
+                    id="create_team"
+                    class="block mt-1 w-full"
+                    type="number"
+                    name="create_team"
+                    :value="old('create_team')"
+                    autocomplete="create_team"
+                />
+                @error('createTeam')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+            </div>
             <div>
                 <x-form.label for="create_tourney" class="text-center">{{ __('New tourney') }}</x-form.label>
                 <x-form.input

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Settings\SitePointsSettings;
 use DomainException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -58,6 +59,8 @@ class Team extends Model
         throw_unless($user->team_id == $this->id, new DomainException(__('It is impossible to delete a member of another team.')));
 
         $user->update(['team_id' => null]);
+
+        $user->loseSitePoints(app(SitePointsSettings::class)->join_team);
     }
 
     /**
@@ -70,6 +73,9 @@ class Team extends Model
         throw_unless($user->team_id == $this->id, new DomainException(__('It is impossible to transfer captainship to a member of another team.')));
 
         $this->update(['captain_id' => $user->id]);
+
+        $user->gainSitePoints(app(SitePointsSettings::class)->create_team);
+        auth()->user()->loseSitePoints(app(SitePointsSettings::class)->create_team);
     }
 
     /**
@@ -81,8 +87,12 @@ class Team extends Model
 
         $this->racers->map(function ($racer) {
             $racer->update(['team_id' => null]);
+
+            $racer->loseSitePoints(app(SitePointsSettings::class)->join_team);
         });
 
         $this->delete();
+
+        auth()->user()->loseSitePoints(app(SitePointsSettings::class)->create_team);
     }
 }

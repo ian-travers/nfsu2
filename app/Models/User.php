@@ -10,6 +10,7 @@ use App\Models\Tourney\Tourney;
 use App\Models\Tourney\TourneyRacer;
 use App\ReadRepositories\SeasonHelper;
 use App\Settings\SeasonSettings;
+use App\Settings\SitePointsSettings;
 use DomainException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -199,6 +200,8 @@ class User extends Authenticatable
         activity()
             ->causedBy($this)
             ->log(__("You created the team: ':name'.", ['name' => "{$team->name} - {$team->clan}"]));
+
+        $this->gainSitePoints(app(SitePointsSettings::class)->create_team);
     }
 
     public function joinTeam(Team $team): void
@@ -208,6 +211,8 @@ class User extends Authenticatable
         activity()
             ->causedBy($this)
             ->log(__("You joined the team: ':name'.", ['name' => "{$team->name} - {$team->clan}"]));
+
+        $this->gainSitePoints(app(SitePointsSettings::class)->join_team);
     }
 
     public function leaveTeam(): void
@@ -217,6 +222,8 @@ class User extends Authenticatable
         activity()
             ->causedBy($this)
             ->log(__("You left the team."));
+
+        $this->loseSitePoints(app(SitePointsSettings::class)->join_team_team);
     }
 
     public function isTeamMember(): bool

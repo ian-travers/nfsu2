@@ -20,6 +20,9 @@ class SitePointsSettings extends Settings
     public int $create_tourney; // 100 sp.
     public int $pass_racer_test; // 25 sp.
 
+    public int $create_team; // 50 sp.
+    public int $join_team; // 5 sp.
+
     public static function group(): string
     {
         return 'site-points';

@@ -21,6 +21,9 @@ class DashboardSitePoints extends Component
     public string $createTourney = '';
     public string $passRacerTest = '';
 
+    public string $createTeam = '';
+    public string $joinTeam = '';
+
     public function mount()
     {
         $this->tourneyFirst = app(SitePointsSettings::class)->tourney_first;
@@ -36,6 +39,9 @@ class DashboardSitePoints extends Component
 
         $this->createTourney = app(SitePointsSettings::class)->create_tourney;
         $this->passRacerTest = app(SitePointsSettings::class)->pass_racer_test;
+
+        $this->createTeam = app(SitePointsSettings::class)->create_team;
+        $this->joinTeam = app(SitePointsSettings::class)->join_team;
     }
 
     protected function rules()
@@ -54,6 +60,9 @@ class DashboardSitePoints extends Component
 
             'createTourney' => 'required|integer|min:0',
             'passRacerTest' => 'required|integer|min:0',
+
+            'createTeam' => 'required|integer|min:0',
+            'joinTeam' => 'required|integer|min:0',
         ];
     }
 
@@ -68,13 +77,16 @@ class DashboardSitePoints extends Component
         $settings->tourney_fourth = (int)$this->tourneyFourth;
         $settings->tourney_fifth_plus = (int)$this->tourneyFifthPlus;
 
-        $settings->competition =(int)$this->competition;
-        $settings->post =(int)$this->post;
-        $settings->comment =(int)$this->comment;
-        $settings->like_dislike =(int)$this->likeDislike;
+        $settings->competition = (int)$this->competition;
+        $settings->post = (int)$this->post;
+        $settings->comment = (int)$this->comment;
+        $settings->like_dislike = (int)$this->likeDislike;
 
-        $settings->create_tourney =(int)$this->createTourney;
-        $settings->pass_racer_test =(int)$this->passRacerTest;
+        $settings->create_tourney = (int)$this->createTourney;
+        $settings->pass_racer_test = (int)$this->passRacerTest;
+
+        $settings->create_team = (int)$this->createTeam;
+        $settings->join_team = (int)$this->joinTeam;
 
         $settings->save();
 
