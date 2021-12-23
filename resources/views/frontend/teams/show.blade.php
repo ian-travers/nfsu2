@@ -18,8 +18,12 @@
                 </p>
                 <p class="mt-4">
                     {{ __('Captain') }}:
-                    <a href="{{ route('public-profile', $team->captain) }}"
-                       class="text-2xl hover:underline">{{ $team->captain->username }}</a>
+                    <x-link
+                        href="{{ route('public-profile', $team->captain) }}"
+                        class="text-2xl"
+                    >
+                        {{ $team->captain->username }}
+                    </x-link>
                 </p>
             </div>
             <div class="mt-8 lg:mt-0">
@@ -35,12 +39,10 @@
                                     <div class="flex-shrink-0">
                                         @livewire('user.avatar', ['user' => $user, 'size' => 6])
                                     </div>
-                                    <div class="ml-2">
-                                        <div class="hover:underline ml-2">
-                                            <a href="{{ route('public-profile', $user->username) }}">
-                                                {{ $user->username }}
-                                            </a>
-                                        </div>
+                                    <div class="ml-4">
+                                        <x-link href="{{ route('public-profile', $user->username) }}">
+                                            {{ $user->username }}
+                                        </x-link>
                                     </div>
                                 </div>
                             </td>
