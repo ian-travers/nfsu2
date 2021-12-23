@@ -195,16 +195,28 @@ class User extends Authenticatable
         $team = Team::create($data);
 
         $this->joinTeam($team);
+
+        activity()
+            ->causedBy($this)
+            ->log(__("You created the team: ':name'.", ['name' => "{$team->name} - {$team->clan}"]));
     }
 
     public function joinTeam(Team $team): void
     {
         $this->update(['team_id' => $team->id]);
+
+        activity()
+            ->causedBy($this)
+            ->log(__("You joined the team: ':name'.", ['name' => "{$team->name} - {$team->clan}"]));
     }
 
     public function leaveTeam(): void
     {
         $this->update(['team_id' => null]);
+
+        activity()
+            ->causedBy($this)
+            ->log(__("You left the team."));
     }
 
     public function isTeamMember(): bool
