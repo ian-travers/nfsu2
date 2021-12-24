@@ -15,7 +15,7 @@
                     @method('delete')
                     <x-form.danger-button
                         type="submit"
-                        onclick="return confirm()"
+                        onclick="return confirm(_t('Confirm deleting?'))"
                     >
                         {{ __('Delete') }}
                     </x-form.danger-button>

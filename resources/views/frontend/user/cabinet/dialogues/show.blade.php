@@ -17,7 +17,7 @@
                         @method('patch')
                         <x-form.danger-button
                             type="submit"
-                            onclick="return confirm()"
+                            onclick="return confirm('Confirm dialog blocking?')"
                         >
                             {{ __('Block') }}
                         </x-form.danger-button>

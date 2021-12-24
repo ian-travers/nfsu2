@@ -4,5 +4,12 @@
     "This user will not be able to login the site! Proceed?": "Этот пользователь не сможет входить на сайт! Продолжить?",
     "This quiz answer will be deleted! Proceed?": "Этот ответ будет удален! Продолжить?",
     "This quiz question will be deleted! Proceed?": "Этот вопрос будет удален! Продолжить?",
-    "You can no longer manage the team! Confirm transferring?": "Ты больше не сможешь управлять командой! Подтвержаешь передачу капитанства?"
+    "You can no longer manage the team! Confirm transferring?": "Ты больше не сможешь управлять командой! Подтвержаешь передачу капитанства?",
+    "Confirm deleting?": "Подтверждаешь удаление?",
+    "Confirm restoring?": "Подтверждаешь восстановление?",
+    "Confirm image removing?": "Подтверждаешь удаление изображения?",
+    "Confirm dialog blocking?": "Подтверждаешь блокировку диалога?",
+    "Confirm publish status toggling?": "Подтверждаешь переключение статуса публикации?",
+    "Confirm read status toggling?": "Подтверждаешь переключение статуса прочтения?",
+    "Confirm final round cleaning?": "Подтверждаешь очистку финального раунда?"
 }

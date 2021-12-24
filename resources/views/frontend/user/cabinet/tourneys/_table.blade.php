@@ -55,7 +55,7 @@
                                     @method('delete')
                                     <button
                                         type="submit"
-                                        onclick="return confirm()"
+                                        onclick="return confirm(_t('Confirm deleting?'))"
                                         class="text-red-600 hover:text-red-700"
                                     >
                                         {{ __('Delete') }}

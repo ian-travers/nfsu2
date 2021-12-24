@@ -46,7 +46,7 @@
 
                                         <button
                                             type="submit"
-                                            onclick="return confirm()"
+                                            onclick="return confirm(_t('Confirm publish status toggling?'))"
                                             class="items-center px-4 py-2 rounded-md font-semibold text-sm text-white tracking-widest transition {{ $post->published ? 'bg-yellow-600 hover:bg-yellow-700 focus:bg-yellow-700' : 'bg-blue-500 hover:bg-blue-700 focus:bg-blue-700' }}"
                                             class=""
                                         >
@@ -62,7 +62,7 @@
                                         @method('patch')
                                         <button
                                             type="submit"
-                                            onclick="return confirm()"
+                                            onclick="return confirm(_t('Confirm restoring?'))"
                                             class="text-blue-500 hover:text-blue-700"
                                         >
                                             {{ __('Restore') }}
@@ -86,7 +86,7 @@
                                         @method('delete')
                                         <button
                                             type="submit"
-                                            onclick="return confirm()"
+                                            onclick="return confirm(_t('Confirm deleting?'))"
                                             class="text-yellow-500 hover:text-yellow-700"
                                         >
                                             {{ __('Trash') }}

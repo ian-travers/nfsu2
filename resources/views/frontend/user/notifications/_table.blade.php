@@ -53,7 +53,7 @@
                                     @method('put')
                                     <button
                                         type="submit"
-                                        onclick="return confirm()"
+                                        onclick="return confirm(_t('Confirm read status toggling?'))"
                                         class="text-indigo-600 hover:text-indigo-700"
                                     >
                                         {{ $notification->read() ? __('Mark unread') : __('Mark read') }}
@@ -64,7 +64,7 @@
                                     @method('delete')
                                     <button
                                         type="submit"
-                                        onclick="return confirm()"
+                                        onclick="return confirm(_('Confirm deleting?'))"
                                         class="text-red-600 hover:text-red-700"
                                     >
                                         {{ __('Delete') }}
