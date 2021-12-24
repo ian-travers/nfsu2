@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\NFSUServer\SpecificGameData;
 use App\Models\Tourney\Tourney;
 use App\Settings\SeasonSettings;
+use App\Settings\SitePointsSettings;
 use Illuminate\Support\Facades\Gate;
 
 class TourneysController extends Controller
@@ -176,6 +177,8 @@ class TourneysController extends Controller
         }
 
         $tourney->delete();
+
+        auth()->user()->loseSitePoints(app(SitePointsSettings::class)->create_tourney);
 
         return redirect()->route('cabinet.tourneys.index')->with('flash', [
             'type' => 'success',
