@@ -4,19 +4,28 @@ namespace App\Services;
 
 use App\Models\Post;
 use Carbon\Carbon;
-use Illuminate\Support\Str;
 
 class PostService
 {
     public function create(): void
     {
-        (auth()->user())->posts()->create($this->validateForm());
+        $attributes = $this->validateForm();
+
+        if (request()->has('image')) {
+            /** @var \Illuminate\Http\UploadedFile $uf */
+            $uf = request('image');
+            $attributes['image'] = $uf->store("blogs/{auth()->user()->username}", 'public');
+        } else {
+            unset($attributes['image']);
+        }
+
+        (auth()->user())->posts()->create($attributes);
+
     }
 
     public function edit(Post $post): void
     {
         $attributes = $this->validateForm();
-        $attributes['slug'] = Str::slug($attributes['title']) . '-' . Str::padLeft($post->id, 8, '0');
 
         if (request()->has('image')) {
             /** @var \Illuminate\Http\UploadedFile $uf */
