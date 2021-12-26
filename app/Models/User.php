@@ -223,7 +223,7 @@ class User extends Authenticatable
             ->causedBy($this)
             ->log(__("You left the team."));
 
-        $this->loseSitePoints(app(SitePointsSettings::class)->join_team_team);
+        $this->loseSitePoints(app(SitePointsSettings::class)->join_team);
     }
 
     public function isTeamMember(): bool
