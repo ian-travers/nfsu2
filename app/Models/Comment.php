@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\CommentLeft;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -68,11 +69,15 @@ class Comment extends Model
 
     public static function createComment($commentable, $body, $author, $parent_id = null): self
     {
-        return $commentable->comments()->create([
+        $comment = $commentable->comments()->create([
             'body' => Purify::clean($body),
             'user_id' => $author->id,
             'parent_id' => $parent_id ? (int)$parent_id : null,
         ]);
+
+        event(new CommentLeft($comment));
+
+        return $comment;
     }
 
     public static function updateComment($id, $data)

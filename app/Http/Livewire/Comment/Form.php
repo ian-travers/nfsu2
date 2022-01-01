@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Comment;
 
-use App\Events\CommentLeft;
 use App\Models\Comment;
 use Livewire\Component;
 
@@ -27,7 +26,7 @@ class Form extends Component
     {
         $this->validate();
 
-        event(new CommentLeft(Comment::createComment($this->commentable, $this->body, $this->user, $this->parentId)));
+        Comment::createComment($this->commentable, $this->body, $this->user, $this->parentId);
 
         $this->body = '';
 
