@@ -1,13 +1,13 @@
 <div class="inline-flex">
     @if($hasAvatar)
         <img
-            class="h-{{ $size }} w-{{ $size }} rounded-full"
+            class="h-{{ $size }} w-{{ $size }} rounded-full border border-gray-400"
             src="{{ $avatarPath }}"
             alt="avatar"
         >
     @else
         <svg
-            class="w-{{ $size }} h-{{ $size }}"
+            class="w-{{ $size }} h-{{ $size }} rounded-full border border-gray-400"
             viewBox="0 0 32 32"
         >
             <circle style="fill:#5294E2" cx="16" cy="16" r="14"/>
