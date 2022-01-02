@@ -33,6 +33,16 @@
                 <p class="mt-4">
                     {{ __('You have no dialogues yet.') }}
                 </p>
+                <p class="mt-4">
+                    {{ __('You may start a dialogue with another player on his profile page or select on the') }}
+                    <a
+                        href="{{ route('players-list') }}"
+                        class="text-indigo-400 hover:text-indigo-600"
+                    >
+                        {{ __('Players list') }}
+                    </a>
+                    .
+                </p>
             @endif
         </div>
     </div>

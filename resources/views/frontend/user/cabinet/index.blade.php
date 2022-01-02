@@ -5,7 +5,7 @@
         <div class="bg-white px-4 py-5">
             <div class="mb-6">
                 <h1 class="text-2xl font-semibold tracking-wide">{{ __('Your cabinet') }}</h1>
-                <p>
+                <p class="mt-4">
                     <span>{{ __('Here you can manage your household.') }}</span>
                     @if($user->isRacer())
                         <span>{{ __('Since you are a racer you may create a tourney.') }}</span>
