@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Events\BecomeRacer;
+use App\Models\Conversation\Dialogue;
 use App\Models\Conversation\Message;
 use App\Models\Tourney\SeasonAward;
 use App\Models\Tourney\SeasonRacer;
@@ -456,6 +457,11 @@ class User extends Authenticatable
     public function scopeRacer($query)
     {
         return $query->where('role', self::ROLE_RACER);
+    }
+
+    public function dialoguesCount(): int
+    {
+        return Dialogue::allByUser()->count();
     }
 
     public function messages()
