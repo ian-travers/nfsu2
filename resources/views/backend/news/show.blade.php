@@ -14,10 +14,10 @@
                 {{ $newsitem->title_ru }}
             </div>
             <div>
-                {{ $newsitem->body_en }}
+                {!! $newsitem->body_en !!}
             </div>
             <div>
-                {{ $newsitem->body_ru }}
+                {!! $newsitem->body_ru !!}
             </div>
         </div>
     </x-backend.form-panel>

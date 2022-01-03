@@ -20,11 +20,11 @@
                         <tr>
                             <td class="px-6 py-1">
                                 {{ $newsitem->title_en }}
-                                <span class="block text-sm pt-1">{{ Str::words($newsitem->body_en, 20) }}</span>
+                                <span class="block text-sm pt-1">{!! Str::words($newsitem->body_en, 20) !!}</span>
                             </td>
                             <td class="px-6 py-1">
                                 {{ $newsitem->title_ru }}
-                                <span class="block text-sm pt-1">{{ Str::words($newsitem->body_ru, 20) }}</span>
+                                <span class="block text-sm pt-1">{!! Str::words($newsitem->body_ru, 20) !!}</span>
                             </td>
                             <td class="text-center px-6 py-4">
                                 {{ $newsitem->status }}

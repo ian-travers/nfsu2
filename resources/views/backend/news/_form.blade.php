@@ -31,24 +31,24 @@
 
         <div>
             <x-form.label for="body_en" value="{{ __('Body En') }}"/>
-            <textarea
+            <x-rich-editor
                 id="body_en"
-                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-md"
+                class="w-full"
                 name="body_en"
-                rows="5"
-            >{{ old('body_en', $newsitem->body_en) }}</textarea>
+                value="{!! old('body_en', $newsitem->body_en) !!}"
+            />
             @error('body_en')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
         </div>
 
         <div>
             <x-form.label for="body_ru" value="{{ __('Body Ru') }}"/>
-            <textarea
+            <x-rich-editor
                 id="body_ru"
-                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md shadow-md"
+                class="w-full"
                 name="body_ru"
-                rows="5"
-            >{{ old('body_ru', $newsitem->body_ru) }}</textarea>
-            @error('body_ru')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror
+                value="{!! old('body_ru', $newsitem->body_ru) !!}"
+            />
+{{--            @error('body_ru')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror--}}
         </div>
     </div>
     <div class="mt-6">
