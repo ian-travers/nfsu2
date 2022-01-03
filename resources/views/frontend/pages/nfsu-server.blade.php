@@ -20,7 +20,7 @@
                 {{ __('It was almost 100% successful.') }}
             </p>
             <p class="text-base">
-                {{ __('To connect to this server you need to use the NFSU client and address "www.nfsu-cup.com" or "31.131.19.86".') }}
+                {{ __('To connect to this server you need to use the NFSU client and address "www.nfsu-cup.com" or ":ip".', ['ip' => config('nfsu-server.ip')]) }}
             </p>
         </div>
     </div>
