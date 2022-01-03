@@ -13,16 +13,8 @@
                     <span class="px-2 py-1 rounded text-gray-50 bg-blue-500">{{ $serverInfo->playersInRaces() }}</span>
                 </div>
                 <div>
-                   <span class="mr-5">{{ __('TJ guard') }} {!!
-                    $serverInfo->isBanCheaters()
-                        ? '<span class="ml-1 px-2 py-1 rounded text-gray-50 bg-red-600">' . __('On') . '</span>'
-                        : '<span class="ml-1 px-2 py-1 rounded text-gray-50 bg-green-600">' . __('Off') . '</span>'
-                !!}</span>
-                    {{ __('Rooms guard') }} {!!
-                    $serverInfo->isBanNewRooms()
-                        ? '<span class="ml-1 px-2 py-1 rounded text-gray-50 bg-red-600">' . __('On') . '</span>'
-                        : '<span class="ml-1 px-2 py-1 rounded text-gray-50 bg-green-600">' . __('Off') . '</span>'
-                 !!}
+                   <span class="rounded text-gray-50 {{ $serverInfo->isBanCheaters() ? 'bg-red-600' : 'bg-green-600' }} ml-1 px-2 py-1 mr-5">Tj Cheat</span>
+                    <span class="ml-1 px-2 py-1 rounded text-gray-50 {{ $serverInfo->isBanNewRooms() ? 'bg-red-600' : 'bg-green-600' }}">Rooms</span>
                 </div>
 
             </div>
