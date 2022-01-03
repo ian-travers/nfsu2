@@ -21,6 +21,7 @@ class EditTest extends TestCase
             'body_en' => 'First news content goes here',
             'body_ru' => 'Текст первой новости',
             'status' => 1,
+            'created_at' => now()->addDay(),
         ];
 
         $this->patch("/adm/news/{$news->id}", $attributes);

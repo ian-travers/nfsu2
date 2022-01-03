@@ -51,20 +51,37 @@
 {{--            @error('body_ru')<p class="text-red-500 mt-1 text-xs">{{ $message }}</p>@enderror--}}
         </div>
     </div>
-    <div class="mt-6">
-        <x-form.label for="status" value="{{ __('Status') }}"/>
-        <x-form.input
-            id="status"
-            class="block mt-1 w-full"
-            type="text"
-            name="status"
-            value="{{ old('status', $newsitem->status) }}"
-        />
+    <div class="flex justify-between items-baseline space-x-4 mt-6">
+        <div class="w-full">
+            <x-form.label for="status" value="{{ __('Status') }}"/>
+            <x-form.input
+                id="status"
+                class="block mt-1 w-full"
+                type="text"
+                name="status"
+                value="{{ old('status', $newsitem->status) }}"
+            />
 
-        @error('status')
+            @error('status')
             <p class="text-red-500 mt-1 text-xs">{{ $message }}</p>
-        @else
-            <p class="text-gray-500 mt-1 text-xs">{{ __('1 - published | 0 - unpublished') }}</p>
-        @enderror
+            @else
+                <p class="text-gray-500 mt-1 text-xs">{{ __('1 - published | 0 - unpublished') }}</p>
+            @enderror
+        </div>
+        <div class="w-full">
+            <x-form.label for="created_at" value="{{ __('Date') }}"/>
+            <x-form.input
+                id="created_at"
+                class="block mt-1 w-full"
+                type="text"
+                name="created_at"
+                value="{{ old('created_at', $newsitem->created_at ?? now()) }}"
+            />
+            @error('created_at')
+            <p class="text-red-500 mt-1 text-xs">{{ $message }}</p>
+            @else
+                <p class="text-gray-500 mt-1 text-xs">{{ __('Edit created_at to the future to raise the news up.') }}</p>
+            @enderror
+        </div>
     </div>
 </x-backend.form-panel>

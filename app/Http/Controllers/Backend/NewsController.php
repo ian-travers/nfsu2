@@ -78,6 +78,7 @@ class NewsController extends Controller
             'body_en' => 'required|string',
             'body_ru' => 'required|string',
             'status' => 'required',
+            'created_at' => 'required|date',
         ]);
     }
 }
