@@ -67,11 +67,7 @@ return [
         |
         */
 
-<<<<<<< HEAD
-        'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,b,strong,i,em,a[href|title],ul,ol,li,p[style],br,span,img[width|height|alt|src],x-link',
-=======
-        'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,b,strong,i,em,a[href|title],ul,ol,li,p[style],br,span,img[width|height|alt|src],x-link[href|class]',
->>>>>>> d243d5c470c094c8251b4df474e5d86b3de21a92
+        'HTML.Allowed' => 'h1,h2,h3,h4,h5,h6,b,strong,i,em,a[href|title],ul,ol,li,p[style],br,span,img[width|height|alt|src]',
 
         /*
         |--------------------------------------------------------------------------
