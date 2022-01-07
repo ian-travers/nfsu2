@@ -67,7 +67,7 @@
                     </div>
                     @if($news->count())
                         @foreach($news as $newsitem)
-                            <article class="py-3 px-4">
+                            <article class="py-6 px-4">
                                 <div class="flex flex-col justify-between">
                                     <header>
                                         <x-link href="{{ route('news.view', $newsitem) }}">
@@ -78,7 +78,7 @@
                                     </span>
                                     </header>
                                     <div class="text-sm mt-3">
-                                        {!! Str::words($newsitem->body, 10) !!}
+                                        {!! Str::words($newsitem->body, 16) !!}
                                     </div>
                                 </div>
                             </article>
