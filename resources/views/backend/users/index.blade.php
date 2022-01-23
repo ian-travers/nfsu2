@@ -8,6 +8,10 @@
 
     <div class="mt-4">
         @include('backend.users._table')
+
+        <div class="my-4">
+            {{ $users->links() }}
+        </div>
     </div>
 
     <!--Modal change password -->

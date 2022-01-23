@@ -12,7 +12,7 @@ class UsersController extends Controller
     {
         return view('backend.users.index', [
             'title' => __('Users'),
-            'users' => User::withTrashed()->paginate(15),
+            'users' => User::withTrashed()->paginate(20),
         ]);
     }
 
