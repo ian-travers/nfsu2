@@ -47,7 +47,7 @@
         </x-dropdown>
 
         @can('admin')
-            <x-navs.link route="adm.dashboard">{{ __('Manage Site') }}</x-navs.link>
+            <x-navs.link route="adm.competitions.index">{{ __('Manage Site') }}</x-navs.link>
         @endcan
     </div> {{-- End of the left part --}}
 

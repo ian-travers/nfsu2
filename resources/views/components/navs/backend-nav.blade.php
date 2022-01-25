@@ -3,12 +3,6 @@
         {{ __('Dashboard') }}
     </div>
     <x-navs.vertical.nav-item
-        href="{{ route('adm.dashboard') }}"
-        :active="$controller == 'DashboardController'"
-    >
-        {{ __('Application settings') }}
-    </x-navs.vertical.nav-item>
-    <x-navs.vertical.nav-item
         href="{{ route('adm.competitions.index') }}"
         :active="$controller == 'CompetitionsController'"
     >
@@ -46,5 +40,12 @@
             {{ __('Comments') }}
             <p class="absolute rounded-md text-xs text-gray-50 bg-yellow-500 transform -rotate-12 -top-1 -right-8 px-1 py-0.5">raw</p>
         </div>
+    </x-navs.vertical.nav-item>
+    <div class="border-t border-gray-300 mt-4 h-4">&nbsp;</div>
+    <x-navs.vertical.nav-item
+        href="{{ route('adm.dashboard') }}"
+        :active="$controller == 'DashboardController'"
+    >
+        {{ __('Application settings') }}
     </x-navs.vertical.nav-item>
 </nav>

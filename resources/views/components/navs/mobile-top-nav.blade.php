@@ -62,7 +62,7 @@
 
         @can('admin')
             <div class="border-t border-gray-700 px-2 py-3">
-                <x-navs.mobile-link route="adm.dashboard">{{ __('Manage Site') }}</x-navs.mobile-link>
+                <x-navs.mobile-link route="adm.competitions.index">{{ __('Manage Site') }}</x-navs.mobile-link>
             </div>
         @endcan
 
