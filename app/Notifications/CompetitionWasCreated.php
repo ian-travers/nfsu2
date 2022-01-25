@@ -27,7 +27,6 @@ class CompetitionWasCreated extends Notification
     {
         return [
             'ends_at' => $this->competition->ended_at->isoFormat('l'),
-//            'link' => $this->competition->frontendPath(),
             'link' => 'competitions',
         ];
     }
@@ -37,6 +36,5 @@ class CompetitionWasCreated extends Notification
         return $trackId
             ? SpecificGameData::getTrackName($trackId)
             : '';
-
     }
 }

@@ -9,6 +9,7 @@ use App\Models\NFSUServer\SpecificGameData;
 use App\Models\Trophy;
 use App\Models\User;
 use App\Notifications\CompetitionWasCreated;
+use App\Notifications\CompetitionWasCreatedEmail;
 use App\Settings\SeasonSettings;
 use DomainException;
 use Illuminate\Database\Eloquent\Builder;
@@ -66,7 +67,7 @@ class Competition extends Model
         parent::boot();
 
         static::created(function($model) {
-            $model->notifyAllBrowserNotified($model);
+            $model->notifyAllUsers($model);
 
             $attributes = [
                 'title_en' => "New competition is available",
@@ -273,9 +274,12 @@ class Competition extends Model
         return $query->where('is_completed', 1);
     }
 
-    public function notifyAllBrowserNotified(self $competition): void
+    public function notifyAllUsers(self $competition): void
     {
         User::allBrowserNotified()
             ->each->notify(new CompetitionWasCreated($competition));
+
+        User::allEmailNotified()
+            ->each->notify(new CompetitionWasCreatedEmail($competition));
     }
 }

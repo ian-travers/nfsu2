@@ -454,6 +454,14 @@ class User extends Authenticatable
         return self::where('is_browser_notified', true)->get();
     }
 
+    /**
+     * @return \App\Models\User[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public static function allEmailNotified()
+    {
+        return self::where('is_email_notified', true)->get();
+    }
+
     public function scopeRacer($query)
     {
         return $query->where('role', self::ROLE_RACER);
