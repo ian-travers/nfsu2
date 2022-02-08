@@ -2,9 +2,9 @@
 
 <div
     class="w-full transition-colors duration-500 bg-gray-900 bg-opacity-0 hover:bg-opacity-80 border border-blue-400 border-opacity-25 hover:border-opacity-100 rounded-xl px-4 py-2">
-    <div class="flex space-x-4">
-        <div class="flex-shrink-0">
-            @livewire('user.avatar', ['user' => $player, 'size' => 20])
+    <div class="flex items-center space-x-4">
+        <div class="flex flex-shrink-0">
+            @livewire('user.avatar', ['user' => $player, 'size' => 16])
         </div>
         <div class="flex-1">
             <div>
