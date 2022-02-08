@@ -6,6 +6,10 @@ trait NativeAttribute
 {
     public function getNativeAttributeValue(string $attribute)
     {
-        return $this->{$attribute . '_' . app()->getLocale()};
+        $locale = empty(app()->getLocale())
+            ? 'en'
+            : app()->getLocale();
+
+        return $this->{$attribute . '_' . $locale};
     }
 }

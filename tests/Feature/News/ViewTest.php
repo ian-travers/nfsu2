@@ -13,8 +13,7 @@ class ViewTest extends TestCase
         /** @var \App\Models\News $newsitem */
         $newsitem = News::factory()->create();
 
-        // Set language explicitly because guest has no locale in the test
-        $this->get("/news/{$newsitem->slug}?lang=en")
+        $this->get("/news/{$newsitem->slug}")
             ->assertSee($newsitem->title)
             ->assertSee($newsitem->body);
     }
