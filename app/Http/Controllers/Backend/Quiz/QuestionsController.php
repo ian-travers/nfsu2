@@ -25,6 +25,8 @@ class QuestionsController extends Controller
 
     public function create()
     {
+        session()->put('url.intended', url()->previous() == url()->current() ? route('adm.quiz.question.index') : url()->previous());
+
         return view('backend.quiz.questions.create', [
             'title' => __('Create quiz question'),
             'question' => new Question(),
@@ -35,7 +37,7 @@ class QuestionsController extends Controller
     {
         Question::create($this->validateRequest());
 
-        return redirect()->route('adm.quiz.question.index')->with('flash', [
+        return redirect()->intended()->with('flash', [
             'type' => 'success',
             'message' => 'Question has been created.'
         ]);
@@ -43,6 +45,8 @@ class QuestionsController extends Controller
 
     public function edit(Question $question)
     {
+        session()->put('url.intended', url()->previous() == url()->current() ? route('adm.quiz.question.index') : url()->previous());
+
         return view('.backend.quiz.questions.edit', [
             'title' => 'Edit quiz question',
             'question' => $question,
@@ -53,7 +57,7 @@ class QuestionsController extends Controller
     {
         $question->update($this->validateRequest());
 
-        return redirect()->route('adm.quiz.question.index')->with('flash', [
+        return redirect()->intended()->with('flash', [
             'type' => 'success',
             'message' => __('Quiz question has been updated.'),
         ]);
@@ -63,7 +67,7 @@ class QuestionsController extends Controller
     {
         $question->delete();
 
-        return redirect()->route('adm.quiz.question.index')->with('flash', [
+        return redirect()->back()->with('flash', [
             'type' => 'success',
             'message' => __('Quiz question has been deleted.'),
         ]);

@@ -19,6 +19,8 @@ class CompetitionsController extends Controller
 
     public function create()
     {
+        session()->put('url.intended', url()->previous() == url()->current() ? route('adm.competitions.index') : url()->previous());
+
         if ($this->checkSuspending()) {
             return redirect()->route('adm.competitions.index')->with('flash', [
                 'type' => 'warning',
@@ -45,7 +47,7 @@ class CompetitionsController extends Controller
             'season_index' => app(SeasonSettings::class)->index,
         ], $this->validateForm()));
 
-        return redirect()->route('adm.competitions.index')->with('flash', [
+        return redirect()->intended()->with('flash', [
             'type' => 'success',
             'message' => __('Competition has been created.'),
         ]);
@@ -59,6 +61,8 @@ class CompetitionsController extends Controller
                 'message' => __('Season is suspended.'),
             ]);
         }
+
+        session()->put('url.intended', url()->previous() == url()->current() ? route('adm.competitions.index') : url()->previous());
 
         return view('backend.competitions.edit', [
             'title' => __('Edit competition'),
@@ -74,7 +78,7 @@ class CompetitionsController extends Controller
     {
         $competition->update($this->validateForm());
 
-        return redirect()->route('adm.competitions.index')->with('flash', [
+        return redirect()->intended()->with('flash', [
             'type' => 'success',
             'message' => __('Competition has been updated.'),
         ]);

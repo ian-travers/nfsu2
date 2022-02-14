@@ -26,6 +26,8 @@ class PostsController extends Controller
 
     public function create()
     {
+        session()->put('url.intended', url()->previous() == url()->current() ? route('adm.posts.index') : url()->previous());
+
         return view('backend.posts.create', [
             'title' => __('Create new post'),
             'post' => new Post(),
@@ -36,7 +38,7 @@ class PostsController extends Controller
     {
         $this->service->create();
 
-        return redirect()->route('adm.posts.index')->with('flash', [
+        return redirect()->intended()->with('flash', [
             'type' => 'success',
             'message' => __('Post has been created.'),
         ]);
@@ -44,6 +46,8 @@ class PostsController extends Controller
 
     public function edit(string $post)
     {
+        session()->put('url.intended', url()->previous() == url()->current() ? route('adm.posts.index') : url()->previous());
+
         return view('backend.posts.edit', [
             'title' => __('Edit post'),
             'post' => $this->findPost($post),
@@ -54,7 +58,7 @@ class PostsController extends Controller
     {
         $this->service->edit($this->findPost($post));
 
-        return redirect()->route('adm.posts.index')->with('flash', [
+        return redirect()->intended()->with('flash', [
             'type' => 'success',
             'message' => __('Post has been updated.'),
         ]);
@@ -72,7 +76,7 @@ class PostsController extends Controller
     {
         $this->service->trash($post);
 
-        return redirect()->route('adm.posts.index')->with('flash', [
+        return redirect()->back()->with('flash', [
             'type' => 'success',
             'message' => __('Post has been trashed.'),
         ]);
@@ -84,7 +88,7 @@ class PostsController extends Controller
 
         $this->service->restore($post);
 
-        return redirect()->route('adm.posts.index')->with('flash', [
+        return redirect()->back()->with('flash', [
             'type' => 'success',
             'message' => __('Post has been restored.'),
         ]);
@@ -94,7 +98,7 @@ class PostsController extends Controller
     {
         $this->findPost($post)->forceDelete();
 
-        return redirect()->route('adm.posts.index')->with('flash', [
+        return redirect()->back()->with('flash', [
             'type' => 'success',
             'message' => __('Post has been deleted.'),
         ]);
@@ -104,7 +108,7 @@ class PostsController extends Controller
     {
         $this->service->publish($post, $when);
 
-        return redirect()->route('adm.posts.index')->with('flash', [
+        return redirect()->back()->with('flash', [
             'type' => 'success',
             'message' => __('Post has been published.'),
         ]);
@@ -114,7 +118,7 @@ class PostsController extends Controller
     {
         $this->service->unpublish($post);
 
-        return redirect()->route('adm.posts.index')->with('flash', [
+        return redirect()->back()->with('flash', [
             'type' => 'success',
             'message' => __('Post has been unpublished.'),
         ]);

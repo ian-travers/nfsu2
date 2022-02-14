@@ -21,6 +21,8 @@ class UsersController extends Controller
      */
     public function create()
     {
+        session()->put('url.intended', url()->previous() == url()->current() ? route('adm.users.index') : url()->previous());
+
         return view('backend.users.create', [
             'title' => __('Create user'),
             'user' => new User(),
@@ -45,7 +47,7 @@ class UsersController extends Controller
 
         User::create($attributes);
 
-        return redirect()->route('adm.users.index')->with('flash', [
+        return redirect()->intended()->with('flash', [
             'type' => 'success',
             'message' => 'User has been created.',
         ]);
@@ -53,6 +55,8 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
+        session()->put('url.intended', url()->previous() == url()->current() ? route('adm.users.index') : url()->previous());
+
         return view('backend.users.edit', [
             'title' => __('Edit user'),
             'user' => $user,
@@ -75,7 +79,7 @@ class UsersController extends Controller
 
         $user->update($attributes);
 
-        return redirect()->route('adm.users.index')->with('flash', [
+        return redirect()->intended()->with('flash', [
             'type' => 'success',
             'message' => __('User has been updated.'),
         ]);
@@ -100,7 +104,7 @@ class UsersController extends Controller
         $user->removeAvatarFile();
         $user->delete();
 
-        return redirect()->route('adm.users.index')->with('flash', [
+        return redirect()->back()->with('flash', [
             'type' => 'success',
             'message' => __('User has been trashed.'),
         ]);
@@ -119,7 +123,7 @@ class UsersController extends Controller
 
         $user->restore();
 
-        return redirect()->route('adm.users.index')->with('flash', [
+        return redirect()->back()->with('flash', [
             'type' => 'success',
             'message' => __('User has been restored.'),
         ]);
@@ -138,7 +142,7 @@ class UsersController extends Controller
 
         $user->forceDelete();
 
-        return redirect()->route('adm.users.index')->with('flash', [
+        return redirect()->back()->with('flash', [
             'type' => 'success',
             'message' => __('User has been removed.'),
         ]);

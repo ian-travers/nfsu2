@@ -17,6 +17,8 @@ class NewsController extends Controller
 
     public function create()
     {
+        session()->put('url.intended', url()->previous() == url()->current() ? route('adm.news.index') : url()->previous());
+
         return view('backend.news.create', [
             'title' => __('Create news item'),
             'newsitem' => new News(),
@@ -27,7 +29,7 @@ class NewsController extends Controller
     {
         News::create($this->validateForm());
 
-        return redirect()->route('adm.news.index')->with('flash', [
+        return redirect()->intended()->with('flash', [
             'type' => 'success',
             'message' => __('News has been created.'),
         ]);
@@ -35,6 +37,8 @@ class NewsController extends Controller
 
     public function edit(News $newsitem)
     {
+        session()->put('url.intended', url()->previous() == url()->current() ? route('adm.news.index') : url()->previous());
+
         return view('backend.news.edit', [
             'title' => __('Edit news item'),
             'newsitem' => $newsitem,
@@ -45,7 +49,7 @@ class NewsController extends Controller
     {
         $newsitem->update($this->validateForm());
 
-        return redirect()->route('adm.news.index')->with('flash', [
+        return redirect()->intended()->with('flash', [
             'type' => 'success',
             'message' => __('News has been updated.'),
         ]);
