@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Backend\CommentsController;
 use App\Http\Controllers\Backend\CompetitionsController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\DialoguesController;
 use App\Http\Controllers\Backend\NewsController;
 use App\Http\Controllers\Backend\PostsController;
 use App\Http\Controllers\Backend\Quiz\AnswersController;
@@ -26,7 +27,7 @@ use App\Http\Controllers\Tests\RacerController;
 use App\Http\Controllers\TourneysController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\Cabinet\CabinetController;
-use App\Http\Controllers\User\Cabinet\DialoguesController;
+use App\Http\Controllers\User\Cabinet\DialoguesController as CabinetDialoguesController;
 use App\Http\Controllers\User\Cabinet\HandleTourneyController as CabinetHandleTourneyController;
 use App\Http\Controllers\User\Cabinet\PostsController as CabinetPostsController;
 use App\Http\Controllers\User\Cabinet\TourneysController as CabinetTourneysController;
@@ -250,11 +251,11 @@ Route::group(['middleware' => 'language'], function () {
             'prefix' => 'dialogues',
             'as' => '.dialogues'
         ], function () {
-            Route::get('', [DialoguesController::class, 'index'])->name('.index');
-            Route::post('{username}', [DialoguesController::class, 'store'])->name('.store');
-            Route::patch('{username}/block', [DialoguesController::class, 'block'])->name('.block');
-            Route::get('{dialogue}', [DialoguesController::class, 'show'])->name('.show');
-            Route::put('{dialogue}', [DialoguesController::class, 'addMessage'])->name('.add-message');
+            Route::get('', [CabinetDialoguesController::class, 'index'])->name('.index');
+            Route::post('{username}', [CabinetDialoguesController::class, 'store'])->name('.store');
+            Route::patch('{username}/block', [CabinetDialoguesController::class, 'block'])->name('.block');
+            Route::get('{dialogue}', [CabinetDialoguesController::class, 'show'])->name('.show');
+            Route::put('{dialogue}', [CabinetDialoguesController::class, 'addMessage'])->name('.add-message');
         });
     });
 
@@ -362,6 +363,15 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('edit/{comment}', [CommentsController::class, 'edit'])->name('.edit');
             Route::patch('{comment}', [CommentsController::class, 'update'])->name('.update');
             Route::delete('{comment}', [CommentsController::class, 'remove'])->name('.delete');
+        });
+
+        // Dialogues
+        Route::group([
+            'prefix' => 'dialogues',
+            'as' => '.dialogues',
+        ], function () {
+            Route::get('', [DialoguesController::class, 'index'])->name('.index');
+            Route::get('{dialogue}', [DIaloguesController::class, 'show'])->name('.show');
         });
     });
 

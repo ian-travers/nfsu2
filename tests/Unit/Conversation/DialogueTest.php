@@ -123,7 +123,7 @@ class DialogueTest extends TestCase
     }
 
     /** @test */
-    function it_has_correct_path()
+    function it_has_frontend_path()
     {
         /** @var User $initiator */
         $initiator = User::factory()->create();
@@ -139,6 +139,23 @@ class DialogueTest extends TestCase
         $this->signIn($initiator);
 
         $this->assertEquals(url("/cabinet/dialogues/{$companion->username}"), $dialogue->frontendPath());
+    }
+
+    /** @test */
+    function it_has_backend_path()
+    {
+        /** @var User $initiator */
+        $initiator = User::factory()->create();
+        /** @var User $companion */
+        $companion = User::factory()->create();
+
+        /** @var Dialogue $dialogue */
+        $dialogue = Dialogue::factory()->create([
+            'initiator_id' => $initiator->id,
+            'companion_id' => $companion->id,
+        ]);
+
+        $this->assertEquals(url("/adm/dialogues/{$dialogue->id}"), $dialogue->backendPath());
     }
 
     /** @test */

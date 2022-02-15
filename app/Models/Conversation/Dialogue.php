@@ -68,6 +68,11 @@ class Dialogue extends Model
         return url("cabinet/dialogues/{$this->partnerUsername}");
     }
 
+    public function backendPath(): string
+    {
+        return url("adm/dialogues/{$this->id}");
+    }
+
     public function you()
     {
         return $this->initiator->is(auth()->user())

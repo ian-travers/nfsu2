@@ -33,6 +33,12 @@
         {{ __('Quiz') }}
     </x-navs.vertical.nav-item>
     <x-navs.vertical.nav-item
+        href="{{ route('adm.dialogues.index') }}"
+        :active="$controller == 'DialoguesController'"
+    >
+        {{ __('Dialogues') }}
+    </x-navs.vertical.nav-item>
+    <x-navs.vertical.nav-item
         href="{{ route('adm.comments.index') }}"
         :active="$controller == 'CommentsController'"
     >
